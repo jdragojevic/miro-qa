@@ -28,7 +28,7 @@ class Miro_Suite(unittest.TestCase):
          
 
 
-    def stest_7(self):
+    def test_7(self):
         """http://litmus.pculture.org/show_test.cgi?id=7 add feed.
 
         1. Open Ryan is Hungry
@@ -37,10 +37,11 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
         """
         try:
+            print "open ff"
             switchApp(mirolib.open_ff())
             feed_url = "http://ryanishungry.com/subscribe/"
             feed = "feed_ryan_is_hungry"
-            type("l", KEY_CMD)
+            type("l", mirolib.cmd_ctrl())
             type(feed_url + "\n")
             wait(testvars.one_click_badge)
             click(testvars.one_click_badge)
@@ -48,11 +49,11 @@ class Miro_Suite(unittest.TestCase):
             switchApp(mirolib.open_miro())
             self.assertTrue(exists(feed))
             click(feed)
-        finally:
+        finally: 
             mirolib.delete_feed(self,feed)
 
 
-    def test_29(self):
+    def stest_29(self):
         """http://litmus.pculture.org/show_test.cgi?id=29 add site from miro site.
 
         1. Open Awesome website
@@ -72,8 +73,7 @@ class Miro_Suite(unittest.TestCase):
             click("site_awesome.png")
             click("subscribe_to_revver.png")
             click("site_revver.png")
-            self.assertTrue(exists("revver.logo.png")
-            
+            self.assertTrue(exists("revver.logo.png"))
         finally:
             mirolib.delete_feed(self,"site_revver.png")
             mirolib.delete_feed(self,"site_awesome.png") 

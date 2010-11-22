@@ -31,6 +31,8 @@ def get_os_name():
     """
     if "MAC" in str(Env.getOS()):
         return "osx"
+    elif "WINDOWS" in str(Env.getOS()):
+        return "win"
     else:
         print ("I don't know how to handle platform '%s'", Env.getOS())
 

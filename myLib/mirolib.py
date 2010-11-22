@@ -18,8 +18,20 @@ def open_miro():
     """
     if config.get_os_name() == "osx":
         return "/Applications/Miro.app"
+    elif config.get_os_name() == "win":
+        return "C:\Program Files\Participatory Culture Foundation\Miro\Miro.exe"
     else:
-        print "no clue"
+        print config.get_os_name()
+    
+def cmd_ctrl():
+    if config.get_os_name() == "osx":
+        return "Key_CMD"
+    elif config.get_os_name() == "win":
+        return "Key_CTRL"
+    else:
+        print config.get_os_name()
+        return "Key_CTRL"
+
 
 def open_ff():
     """Returns the launch path for the application.
@@ -28,6 +40,8 @@ def open_ff():
     """
     if config.get_os_name() == "osx":
         return "/Applications/Firefox.app"
+    elif config.get_os_name() == "win":
+        return "C:\Program Files\Mozilla Firefox\Firefox.exe"
     else:
         print "no clue"
 
