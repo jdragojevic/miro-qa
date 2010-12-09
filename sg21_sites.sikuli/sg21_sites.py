@@ -27,32 +27,6 @@ class Miro_Suite(unittest.TestCase):
         switchApp(mirolib.open_miro())
          
 
-
-    def test_7(self):
-        """http://litmus.pculture.org/show_test.cgi?id=7 add feed.
-
-        1. Open Ryan is Hungry
-        2. click one-click link
-        3. Verify feed added
-        4. Cleanup
-        """
-        try:
-            print "open ff"
-            switchApp(mirolib.open_ff())
-            feed_url = "http://ryanishungry.com/subscribe/"
-            feed = "feed_ryan_is_hungry.png"
-            type("l", mirolib.cmd_ctrl())
-            type(feed_url + "\n")
-            wait(testvars.one_click_badge)
-            click(testvars.one_click_badge)
-            mirolib.close_one_click_confirm(self)
-            switchApp(mirolib.open_miro())
-            self.assertTrue(exists(feed))
-            click(feed)
-        finally: 
-            mirolib.delete_feed(self,feed)
-
-
     def test_29(self):
         """http://litmus.pculture.org/show_test.cgi?id=29 add site from miro site.
 
@@ -62,23 +36,21 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
         """
         try:
-            site_url = "http://pculture.org/feeds_test/subscription-test-guide.html"
+            site_url = "http://www.youtube.com/watch?v=fgg2tpUVbXQ&feature=channel"
             switchApp(mirolib.open_miro())
             click("menu_sidebar.png")
             click("menu_add_website.png")
             wait("enter_the_url.png")
             type(site_url+"\n")
             
-            self.assertTrue(exists("site_awesome.png"))
-            click("site_awesome.png")
-            click("subscribe_to_revver.png")
-            click("site_revver.png")
-            self.assertTrue(exists("revver.logo.png"))
+            self.assertTrue(exists("site_youtube.png"))
+            click(getLastMatch())
+            self.assertTrue(exists("download_this_video.png"))
+            click(getLastMatch())
+            if exists("message_already_external_dl",5):
+                print "item already downloaded"
         finally:
-            mirolib.delete_feed(self,"site_revver.png")
-            mirolib.delete_feed(self,"site_awesome.png") 
-        
-            
+            mirolib.delete_feed(self,"site_youtube.png")
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)
     
