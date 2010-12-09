@@ -34,16 +34,26 @@ import config
 
 ##Sidebar
 side_imgs = os.path.join(config.miro_images(),"Sidebar")
-other_tab = os.path.join(side_imgs,"icon-other.png")
-##miro_guide_tab = miro_guide_tab.png"
-##        "miro_guide_tab_selected":"miro_guide_tab_selected.png" , \
-##        "new_video_folder":"new_video_folder.png" ,\
-##        "new_video_folder_selected":"new_video_folder_selected.png" ,\
-##         }
-##
-##Sites = {"miro_guide_search":"miro_guide_search.png" ,\
-##         "miro_guide_home":"mg_home.png", \
-##        }
+guide_icon = os.path.join(side_imgs,"icon-guide_large.png")
+search_icon = os.path.join(side_imgs,"icon-search_large.png")
+video_icon = os.path.join(side_imgs,"icon-video_large.png")
+audio_icon = os.path.join(side_imgs,"icon-audio_large.png")
+other_icon = os.path.join(side_imgs,"icon-other_large.png")
+conversions_icon = os.path.join(side_imgs,"icon-conversions_large.png")
+downloading_icon = os.path.join(side_imgs,"icon-downloading.png")
+playlist_icon = os.path.join(side_imgs,"icon-playlist_large.png")
+
+##Preferences panel
+pref_imgs = os.path.join(config.miro_images(),"Prefs")
+pref_general = os.path.join(pref_imgs,"pref-tab-general.png")
+pref_feeds = os.path.join(pref_imgs,"pref-tab-feeds.png")
+pref_downloads = os.path.join(pref_imgs,"pref-tab-downloads.png")
+pref_folders = os.path.join(pref_imgs,"pref-tab-folders.png")
+pref_diskspace = os.path.join(pref_imgs,"pref-tab-disk-space.png")
+pref_playback = os.path.join(pref_imgs,"pref-tab-playback.png")
+pref_convesions = os.path.join(pref_imgs,"pref-tab-conversions.png")
+
+
 
 
 #Misc

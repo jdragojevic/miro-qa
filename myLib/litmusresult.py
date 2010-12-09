@@ -45,7 +45,7 @@ def set_litmus_os(test_os):
 
 def set_buildid():
     buildid = time.strftime("%Y%m%d", time.gmtime()) + "99"
-    #buildid = "2010110900" #set custom build id here.
+    buildid = "2010112900" #set custom build id here.
     return buildid
 
 
@@ -54,10 +54,10 @@ HEADER = """<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
    <testresults
    username="pcf.subwriter@gmail.com"
    authtoken="autotester"
-   product="MiroVideoConverter"
+   product="Miro"
    platform="%(opsys)s"
    opsys="%(platform)s"  
-   branch="MVC"
+   branch="git-Master"
    buildid="%(buildid)s"
    locale="en-US"
    >
@@ -114,7 +114,7 @@ def send_result(fn):
                                 })
     headers = {"Content-type": "application/x-www-form-urlencoded",
                "Accept": "text/plain"}
-    conn = httplib.HTTPConnection("litmus2.pculture.org")
+    conn = httplib.HTTPConnection("litmus.pculture.org")
 
     print "sending test result..."
     conn.request("POST", "/process_test.cgi", params, headers)
