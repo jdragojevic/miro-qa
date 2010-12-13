@@ -27,12 +27,13 @@ class Miro_Suite(unittest.TestCase):
         switchApp(mirolib.open_miro())
          
 
-    def test_29(self):
-        """http://litmus.pculture.org/show_test.cgi?id=29 add site from miro site.
 
-        1. Open Awesome website
-        2. click one-click subscribe link for revver
-        3. Verify site added
+    def test_182(self):
+        """http://litmus.pculture.org/show_test.cgi?id=182 dl from youtube site.
+
+        1. Open youtube url as site
+        2. download button
+        3. verify download started
         4. Cleanup
         """
         try:

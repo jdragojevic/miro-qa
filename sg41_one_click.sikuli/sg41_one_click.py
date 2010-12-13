@@ -41,7 +41,7 @@ class Miro_Suite(unittest.TestCase):
             switchApp(mirolib.open_ff())
             feed_url = "http://ryanishungry.com/subscribe/"
             feed = "feed_ryan_is_hungry.png"
-            type("l", mirolib.cmd_ctrl())
+            mirolib.shortcut("l")
             type(feed_url + "\n")
             wait(testvars.one_click_badge)
             click(testvars.one_click_badge)

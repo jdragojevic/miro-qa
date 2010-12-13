@@ -5,8 +5,8 @@ import sys
 
 sys.path.append(os.path.join(os.getcwd(),'myLib'))
 
-##import litmusresult
-##                 
+import litmusresult
+                 
 ###Run all the subgroups:
 ##for subgroup in glob.glob(os.path.join(os.getcwd(), '*.sikuli')):
 ##    print subgroup
@@ -16,4 +16,4 @@ sys.path.append(os.path.join(os.getcwd(),'myLib'))
 
 
 #To run just one test:
-os.system("cd ../; java -d32 -Dpython.path=Lib/ -jar sikuli-script.jar Miro/sg41_one_click.sikuli")
+os.system("cd ../; java -d32 -Dpython.path=Lib/ -jar sikuli-script.jar Miro/sg72_conversions.sikuli")
