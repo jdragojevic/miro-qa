@@ -5,14 +5,12 @@ import unittest
 import StringIO
 import time
 
-mycwd = os.path.join(os.getcwd(),"Miro")
+mycwd = os.path.join(os.getenv("SIKULI_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import config
 import mirolib
 import testvars
 import litmusresult
-
-
 
 setBundlePath(config.get_img_path())
 
@@ -24,11 +22,11 @@ class Miro_Suite(unittest.TestCase):
     def setUp(self):
         self.verificationErrors = []
         setAutoWaitTimeout(60)
-        switchApp(mirolib.open_miro())
+        myApp = App("Miro")
          
 
 
-    def test_7(self):
+    def stest_7(self):
         """http://litmus.pculture.org/show_test.cgi?id=7 add feed.
 
         1. Open Ryan is Hungry
@@ -36,6 +34,8 @@ class Miro_Suite(unittest.TestCase):
         3. Verify feed added
         4. Cleanup
         """
+        miroApp = App("Miro")
+        
         try:
             print "open ff"
             switchApp(mirolib.open_ff())
@@ -46,7 +46,9 @@ class Miro_Suite(unittest.TestCase):
             wait(testvars.one_click_badge)
             click(testvars.one_click_badge)
             mirolib.close_one_click_confirm(self)
-            switchApp(mirolib.open_miro())
+            #Start Miro and set regions
+            viewRegions = mirolib.launch()
+            
             self.assertTrue(exists(feed))
             click(feed)
         finally: 
@@ -63,20 +65,27 @@ class Miro_Suite(unittest.TestCase):
         """
         try:
             site_url = "http://pculture.org/feeds_test/subscription-test-guide.html"
-            switchApp(mirolib.open_miro())
-            click("menu_sidebar.png")
-            click("menu_add_website.png")
-            wait("enter_the_url.png")
-            type(site_url+"\n")
+            #first_time miro launch
+            miroRegions = mirolib.launch_miro()
+            SidebarRegion = miroRegions[0]
+            MainRegion = miroRegions[1]
+            SidebarRegion.highlight(2)
+            MainRegion.highlight(2)
             
-            self.assertTrue(exists("site_awesome.png"))
-            click("site_awesome.png")
-            click("subscribe_to_revver.png")
-            click("site_revver.png")
-            self.assertTrue(exists("revver.logo.png"))
+##            click("Sidebar")
+##            click("Add Website")
+##            wait(2)
+##            type(site_url+"\n")
+##            
+##            self.assertTrue(exists("site_awesome.png"))
+##            click("site_awesome.png")
+##            click("subscribe_to_revver.png")
+##            click("Revver Video")
+##            self.assertTrue(exists("Revver Video"))
         finally:
-            mirolib.delete_feed(self,"site_revver.png")
-            mirolib.delete_feed(self,"site_awesome.png") 
+            pass
+##            mirolib.delete_feed(self,"site_revver.png")
+##            mirolib.delete_feed(self,"site_awesome.png") 
         
             
     def tearDown(self):

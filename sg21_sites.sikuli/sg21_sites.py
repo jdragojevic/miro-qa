@@ -41,7 +41,7 @@ class Miro_Suite(unittest.TestCase):
             switchApp(mirolib.open_miro())
             click("menu_sidebar.png")
             click("menu_add_website.png")
-            wait("enter_the_url.png")
+            wait("Enter the URL")
             type(site_url+"\n")
             
             self.assertTrue(exists("site_youtube.png"))
