@@ -12,8 +12,8 @@ def get_img_path():
     """Set up the path to the os specific image directory and for setBundlePath().
 
     """
-    mycwd = os.path.join(os.getcwd(),"Miro")
-    img_path = os.path.join(mycwd,"Images_"+get_os_name())
+    twd = os.path.join(os.getenv("SIKULI_TEST_HOME"),"Miro")
+    img_path = os.path.join(twd,"Images_"+get_os_name())
     return img_path
 
 
@@ -22,8 +22,8 @@ def miro_images():
 
 
     """
-    mycwd = os.path.join(os.getcwd(),"Miro")
-    img_path = os.path.join(mycwd,"Images")
+    twd = os.path.join(os.getenv("SIKULI_TEST_HOME"),"Miro")
+    img_path = os.path.join(twd,"Images")
     return img_path
 
 def get_os_name():
@@ -33,6 +33,8 @@ def get_os_name():
         return "osx"
     elif "WINDOWS" in str(Env.getOS()):
         return "win"
+    elif "LINUX" in str(Env.getOS()):
+        return "lin"
     else:
         print ("I don't know how to handle platform '%s'", Env.getOS())
 

@@ -19,8 +19,42 @@ def open_miro():
         return "/Applications/Miro.app"
     elif config.get_os_name() == "win":
         return "C:\Program Files\Participatory Culture Foundation\Miro\Miro.exe"
+    elif config.get_os_name() == "lin":
+        return "~/builds/miro*/linux/run.sh"
     else:
         print config.get_os_name()
+
+def launch_miro():
+    regions = []
+    App.open(open_miro())
+    if exists("miro_guide_tab.png"):
+        click(getLastMatch())
+    wait("Feedback.png")
+    sidex = getLastMatch().getX()
+    find("MiroGuide_selected.png")
+    topx =  getLastMatch().getX()
+    topy = getLastMatch().getY()
+
+    find("BottomCorner.png")
+    botx =  getLastMatch().getX()
+    boty = getLastMatch().getY()
+    print str(boty) +" :boty"
+
+    find("VolumeBar.png")
+    vbarx =  getLastMatch().getX()
+    vbary = getLastMatch().getY()
+    vbarw = getLastMatch().getW()
+
+    sidebar_width = int(sidex-topx)
+    app_height = int(vbary-topy)
+
+    SidebarRegion = Region(topx,topy,sidebar_width,app_height)
+    regions.append(SidebarRegion)
+    mainwidth = int((vbarx-sidex)+vbarw)
+    MainViewRegion = Region(sidex,topy,mainwidth,app_height)
+    regions.append(MainViewRegion)
+
+    return regions
 
 def shortcut(key,shift=False):
     """Keyboard press of the correct shortcut key
@@ -34,6 +68,8 @@ def shortcut(key,shift=False):
             type(key,KEY_CMD)
         elif config.get_os_name() == "win":
             type(key,KEY_CTRL)
+        elif config.get_os_name() == "lin":
+            type(key,KEY_CTRL)
         else:
             print config.get_os_name()
             type(key,KEY_CTRL)
@@ -41,6 +77,8 @@ def shortcut(key,shift=False):
         if config.get_os_name() == "osx":
             type(key,KEY_CMD+KEY_SHIFT)
         elif config.get_os_name() == "win":
+            type(key,KEY_CTRL+KEY_SHIFT)
+        elif config.get_os_name() == "lin":
             type(key,KEY_CTRL+KEY_SHIFT)
         else:
             print config.get_os_name()
