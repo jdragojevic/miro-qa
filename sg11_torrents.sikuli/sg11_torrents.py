@@ -41,11 +41,10 @@ class Miro_Suite(unittest.TestCase):
         try:
             print "open ff"
             switchApp(mirolib.open_ff())
-            feed_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
-            item = "item_title_Paz.png"
+            item_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
             mirolib.shortcut("l")
-            type(feed_url + "\n")
-            wait(myvars.one_click_badge)
+            type(item_url + "\n")
+            wait(testvars.one_click_badge)
             
             switchApp(mirolib.open_miro())
             self.assertTrue(exists(feed))

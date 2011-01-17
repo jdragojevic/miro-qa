@@ -23,6 +23,9 @@ class Miro_Suite(unittest.TestCase):
         self.verificationErrors = []
         setAutoWaitTimeout(60)
         myApp = App("Miro")
+        miroRegions = mirolib.launch_miro()
+        SidebarRegion = miroRegions[0] #Sidebar Region
+        MainviewRegion = miroRegions[1] #Mainview Region
          
 
 
@@ -35,6 +38,8 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
         """
         miroApp = App("Miro")
+        s = self.SidebarRegion
+        m = self.MainviewRegion
         
         try:
             print "open ff"
@@ -47,7 +52,9 @@ class Miro_Suite(unittest.TestCase):
             click(testvars.one_click_badge)
             mirolib.close_one_click_confirm(self)
             #Start Miro and set regions
-            viewRegions = mirolib.launch()
+            miroRegions = mirolib.launch_miro()
+            s = miroRegions[0] #Sidebar Region
+            m = miroRegions[1] #Mainview Region
             
             self.assertTrue(exists(feed))
             click(feed)
@@ -67,25 +74,23 @@ class Miro_Suite(unittest.TestCase):
             site_url = "http://pculture.org/feeds_test/subscription-test-guide.html"
             #first_time miro launch
             miroRegions = mirolib.launch_miro()
-            SidebarRegion = miroRegions[0]
-            MainRegion = miroRegions[1]
-            SidebarRegion.highlight(2)
-            MainRegion.highlight(2)
+            s = miroRegions[0] #Sidebar Region
+            m = miroRegions[1] #Mainview Region
+
             
-##            click("Sidebar")
-##            click("Add Website")
-##            wait(2)
-##            type(site_url+"\n")
-##            
-##            self.assertTrue(exists("site_awesome.png"))
-##            click("site_awesome.png")
-##            click("subscribe_to_revver.png")
-##            click("Revver Video")
-##            self.assertTrue(exists("Revver Video"))
+            click("Sidebar")
+            click("Add Website")
+            wait(2)
+            type(site_url+"\n")
+            
+            self.assertTrue(s.exists("Awesome"))
+            click(getLastMatch())
+            m.click("subscribe_to_revver.png")
+            s.click("Revver Video")
+            self.assertTrue(m.exists("Revver Video"))
         finally:
-            pass
-##            mirolib.delete_feed(self,"site_revver.png")
-##            mirolib.delete_feed(self,"site_awesome.png") 
+            mirolib.delete_feed(self,"Revver",m,s)
+            mirolib.delete_feed(self,"Awesome",m,s) 
         
             
     def tearDown(self):

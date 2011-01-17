@@ -147,33 +147,39 @@ def close_one_click_confirm(self):
     if exists("sys_open_alert.png",10):
         click("sys_ok_button.png")
 
-def remove_confirm(self,action="remove_feed"):
+def remove_confirm(self,m,action="remove_feed"):
     """If the remove feed dialog is displayed, remove or cancel.
 
     action = (remove_feed, remove_item or cancel)
+    m = Mainview region from testcase
     need to add remove_library option
     """
     time.sleep(5)
-    if exists("button_remove_pulse.png",5):
+    if m.exists("button_remove_pulse.png",5):
         print "confirm dialog"
         if action == "remove_feed":
             print "clicking remove button"
-            click("button_remove_pulse.png")
+            m.click("button_remove_pulse.png")
         elif action == "delete_item":
             print "clicking delete button"
-            click("button_delete_file.png")
+            m.click("button_delete_file.png")
         elif action == "cancel":
-            click("button_cancel.png")
+            m.click("button_cancel.png")
         print "verifying dialog closed"
     self.assertFalse(exists("are_you_sure_dialog.png"),4)
 
-def delete_feed(self,feed):
-    click_sidebar_tab(self,"other")
-    while exists(feed,10):
-        click(feed)
+def delete_feed(self,feed,m,s):
+    """Delete the video feed from the sidebar.
+    feed = the feed name exact text that is displayed in the sidebar.
+    m = Mainview Region, calculate in the testcase on launch.
+    s = Sideview Region, calculated in the testcase on launch.
+
+    """
+    while s.exists(feed,10):
+        s.click(feed)
         type(Key.DELETE)
-        remove_confirm(self,"remove")
-        self.assertFalse(exists(feed),5)
+        remove_confirm(self,m,"remove")
+        self.assertFalse(s.exists(feed),5)
     else:
         print "feed: " +feed+ " not present"
 
