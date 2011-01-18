@@ -27,7 +27,7 @@ def open_miro():
 def launch_miro():
     regions = []
     App.open(open_miro())
-    if exists("miro_guide_tab.png"):
+    if exists("miro_guide_tab.png",10):
         click(getLastMatch())
     wait("Feedback.png")
     sidex = getLastMatch().getX()
@@ -38,7 +38,6 @@ def launch_miro():
     find("BottomCorner.png")
     botx =  getLastMatch().getX()
     boty = getLastMatch().getY()
-    print str(boty) +" :boty"
 
     find("VolumeBar.png")
     vbarx =  getLastMatch().getX()
@@ -49,10 +48,19 @@ def launch_miro():
     app_height = int(vbary-topy)
 
     SidebarRegion = Region(topx,topy,sidebar_width,app_height)
+    SidebarRegion.setAutoWaitTimeout(60)
     regions.append(SidebarRegion)
     mainwidth = int((vbarx-sidex)+vbarw)
     MainViewRegion = Region(sidex,topy,mainwidth,app_height)
+    MainViewRegion.setAutoWaitTimeout(60)
     regions.append(MainViewRegion)
+    TopHalfRegion = Region(0,0,mainwidth,app_height/2)
+    TopHalfRegion.setAutoWaitTimeout(60)
+    regions.append(TopHalfRegion)
+    TopLeftRegion = Region(0,0,mainwidth/2,app_height/2)
+    TopLeftRegion.setAutoWaitTimeout(60)
+    regions.append(TopLeftRegion)
+    
 
     return regions
 
@@ -144,7 +152,7 @@ def close_one_click_confirm(self):
 
 
     """
-    if exists("sys_open_alert.png",10):
+    if exists("sys_open_alert.png",30):
         click("sys_ok_button.png")
 
 def remove_confirm(self,m,action="remove_feed"):
@@ -159,7 +167,7 @@ def remove_confirm(self,m,action="remove_feed"):
         print "confirm dialog"
         if action == "remove_feed":
             print "clicking remove button"
-            m.click("button_remove_pulse.png")
+            type("\n")
         elif action == "delete_item":
             print "clicking delete button"
             m.click("button_delete_file.png")
@@ -179,6 +187,7 @@ def delete_feed(self,feed,m,s):
         s.click(feed)
         type(Key.DELETE)
         remove_confirm(self,m,"remove")
+        s.click("Video")
         self.assertFalse(s.exists(feed),5)
     else:
         print "feed: " +feed+ " not present"

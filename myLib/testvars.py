@@ -60,3 +60,5 @@ pref_convesions = os.path.join(pref_imgs,"pref-tab-conversions.png")
 
 misc_imgs = os.path.join(config.miro_images(),"Misc")
 one_click_badge = os.path.join(misc_imgs,"patrace1.png")
+revver_logo = os.path.join(misc_imgs,"revver_logo.png")
+ffhome = os.path.join(misc_imgs,"ff_home.png")
