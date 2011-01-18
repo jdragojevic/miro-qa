@@ -53,7 +53,11 @@ pref_diskspace = os.path.join(pref_imgs,"pref-tab-disk-space.png")
 pref_playback = os.path.join(pref_imgs,"pref-tab-playback.png")
 pref_convesions = os.path.join(pref_imgs,"pref-tab-conversions.png")
 
+#MiroGuide
 
+mg = os.path.join(config.miro_images(),"MiroGuide")
+guide_add_feed = os.path.join(mg,"add_feed.png")
+guide_search = os.path.join(mg,"guide_search.png")
 
 
 #Misc
