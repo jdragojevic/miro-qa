@@ -7,6 +7,7 @@ import urllib
 import time
 import platform
 
+
 def set_test_id(test_id):
     tid = test_id.split()
     s = str(tid[0]).strip(">,<,[,]")

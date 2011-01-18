@@ -5,7 +5,7 @@ import time
 from sikuli.Sikuli import *
 
 
-testlitmus = False
+testlitmus = True
 
 
 def get_img_path():
