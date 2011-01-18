@@ -192,19 +192,20 @@ def delete_feed(self,feed,m,s):
     else:
         print "feed: " +feed+ " not present"
 
-def delete_items(self,title,item_type):
+def delete_items(self,m,s,title,item_type):
     """Remove video audio music other items from the library.
 
     """
-    click_sidebar_tab(self,item_type)
-    while exists("itemtitle_"+title+".png",10):
-        click(getLastMatch())
+    click_sidebar_tab(self,m,s,item_type)
+    tab_search(self,m,s,title)
+    while m.exists(title,10):
+        click(m.getLastMatch())
         type(Key.DELETE)
         remove_confirm(self,"delete_item")
-    self.assertFalse(exists("itemtitle_"+title+".png",10))
+    self.assertFalse(m.exists(title,10))
 
 
-def click_sidebar_tab(self,tab):
+def click_sidebar_tab(self,m,s,tab):
     """Click any default tab in the sidebar.
 
     assumes the tab image file is an os-speicific image, and then verifies
@@ -212,16 +213,15 @@ def click_sidebar_tab(self,tab):
 
     """
     try:
-        setAutoWaitTimeout(5)
         tab_icon = os.path.join(testvars.side_imgs,"icon-"+tab+"_large.png")
         print "going to tab: "+str(tab)
-        if exists(Pattern(tab_icon).similar(0.91)):
+        if s.exists(Pattern(tab_icon).similar(0.91),5):
             print "on tab: "+ str(tab)
         else:
             sidebar_tab = "tab_"+str(tab)+".png"
-            self.assertTrue(exists(sidebar_tab))
-            click(getLastMatch())
-            self.assertTrue(exists(tab_icon))
+            self.assertTrue(exists(s.sidebar_tab))
+            click(s.getLastMatch())
+            self.assertTrue(m.exists(tab_icon))
     finally:
         setAutoWaitTimeout(60)
 
@@ -229,38 +229,38 @@ def click_sidebar_tab(self,tab):
 ## Menu related stuff ##
 
 
-def open_preferences(self,lang='en'):
+def open_preferences(self,tl,lang='en'):
     """OS specific handling for Preferences menu, since it differs on osx and windows.
 
     """
         
     if config.get_os_name() == "osx":
-        click("menu_miro.png")
+        tl.click("Miro")
     elif config.get_os_name() == "win":
-        clic("menu_file.png")
+        tl.click("File")
     else:
         print config.get_os_name()
     self.assertTrue(exists("menu_preferences.png"))
     if lang == 'en':
-        click("menu_preferences.png")
+        tl.click("Preferences")
     else:
-        click(lang+"_menu_preferences.png")
+        tl.click(lang)
     self.assertTrue(exists(testvars.pref_general))
 
-def tab_search(self,title,confirm_present=False):
+def tab_search(self,m,s,title,confirm_present=False):
     """enter text in the search box.
 
     """
     print "searching within tab"
-    if exists("tabsearch_inactive.png"):
-        click(getLastMatch())
-    elif exists("tabsearch_clear.png",5):
-        click(getLastMatch())
+    if m.exists("tabsearch_inactive.png",5):
+        click(m.getLastMatch())
+    elif m.exists("tabsearch_clear.png",5):
+        click(m.getLastMatch())
     type(title.upper())
     if confirm_present == True:
-        self.assertTrue(exists("itemtitle_"+title+".png")) 
+        self.assertTrue(m.exists(title)) 
     
-def confirm_download_started(self,title,confirm_present=False):
+def confirm_download_started(self,m,s,title,confirm_present=False):
     """Verifies file download started.
 
     Handles and already download(ed / ing) messages
@@ -271,14 +271,14 @@ def confirm_download_started(self,title,confirm_present=False):
         downloaded = "downloaded"      
         
     else:
-        click_sidebar_tab(self,"downloading")
+        s.click("Downloading")
         downloaded = "in_progress"
-        tab_search(self,title,confirm_present)
+        tab_search(self,m,s,title,confirm_present)
         
     return downloaded
 
 
-def wait_download_complete(self,title,torrent=False):
+def wait_download_complete(self,m,s,title,torrent=False):
     """Wait for a download to complete before continuing test.
 
     provide title - to verify item present itemtitle_'title'.png
@@ -286,7 +286,7 @@ def wait_download_complete(self,title,torrent=False):
     """
     if not confirm_download_started(self,title,confirm_present=True) == "downloaded":
         if torrent == False:
-            while exists("itemtitle_"+title+".png",5):
+            while m.exists(title,5):
                 time.sleep(5)
         elif torrent == True:
     #break out if stop seeding button found for torrent
@@ -297,16 +297,17 @@ def wait_download_complete(self,title,torrent=False):
     
 
     
-def wait_conversions_complete(self,conv):
-    """Wait for a download to complete before continuing test.
+def wait_conversions_complete(self,m,s,title,conv):
+    """Waits for a conversion to complete.
 
-    provide title - to verify item present itemtitle_'title'.png
+    Catches the status and copies the log to a more identifyable name.
+    Then it clears out the finished conversions.
 
     """
-    while exists("button_clear.png"):
-        if exists("conversion_failed.png"):
+    while m.exists(title):
+        if m.exists("Open log"):
             try:
-                click(getLastMatch())
+                click(m.getLastMatch())
                 #save the error log to a file
                 if config.get_os_name() == "osx":
                     time.sleep(10)
@@ -315,12 +316,18 @@ def wait_conversions_complete(self,conv):
                     type(os.getcwd+"\n")
                     type(self.id()+"conv_"+conv+".log"+ "\n")
                 else:
-                    print config.get_os_name()
-                    type("handle the error logs")
+                    click("File")
+                    click("Save as")
+                    type(self.id()+"conv_"+conv+".log"+ "\n")
+                    click("Save")
             finally:
-                self.verificationErrors.append("error in conversion: "+str(conv))
+                self.verificationErrors.append("error in conversion see log. "+str(title)+": "+str(conv))
+            sstatus = "fail"
+        else:
+            sstatus = "pass"
+            
         #fix - it's possible that I am clicking the wrong button
-        click("button_clear.png")
+        m.click("Clear Finished")
 
 
             

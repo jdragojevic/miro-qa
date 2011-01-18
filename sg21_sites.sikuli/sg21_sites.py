@@ -23,9 +23,7 @@ class Miro_Suite(unittest.TestCase):
     """
     def setUp(self):
         self.verificationErrors = []
-        setAutoWaitTimeout(60)
-        switchApp(mirolib.open_miro())
-         
+                
 
 
     def test_182(self):
@@ -38,20 +36,27 @@ class Miro_Suite(unittest.TestCase):
         """
         try:
             site_url = "http://www.youtube.com/watch?v=fgg2tpUVbXQ&feature=channel"
-            switchApp(mirolib.open_miro())
-            click("menu_sidebar.png")
-            click("menu_add_website.png")
-            wait("Enter the URL")
-            type(site_url+"\n")
+            miroApp = App("Miro")
+            setAutoWaitTimeout(60)
+            miroRegions = mirolib.launch_miro()
+            s = miroRegions[0] #Sidebar Region
+            m = miroRegions[1] #Mainview Region
+            t = miroRegions[2] #top half screen
+            tl = miroRegions[3] #top left quarter
             
-            self.assertTrue(exists("site_youtube.png"))
-            click(getLastMatch())
-            self.assertTrue(exists("download_this_video.png"))
-            click(getLastMatch())
-            if exists("message_already_external_dl",5):
-                print "item already downloaded"
+            tl.click("Sidebar")
+            tl.click("Website")
+            time.sleep(4)
+            type(site_url+"\n")
+            s.find("YouTube")
+            self.assertTrue(s.exists("YouTube"))
+            s.click("YouTube")
+            m.find("download_this_video.png")
+            self.assertTrue(m.exists("download_this_video.png"))
+            click("download_this_video")
+            mslib.confirm_download_started(self,m,s,"YouTube")
         finally:
-            mirolib.delete_feed(self,"site_youtube.png")
+            mirolib.delete_feed(self,"YouTube",m,s)
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)
     

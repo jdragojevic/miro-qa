@@ -40,14 +40,21 @@ class Miro_Suite(unittest.TestCase):
         5. Restart Miro
         
         """
-        switchApp(mirolib.open_miro())
+                miroApp = App("Miro")
+        ffApp = App("Firefox")
+        setAutoWaitTimeout(60)
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
         try:
             #1. open preferences
-            mirolib.open_preferences(self)
+            mirolib.open_preferences(self,tl)
             click(testvars.pref_general)
             #2. change language to croatian (hr)
-            self.assertTrue(exists("pref_language_pulldown.png"))
-            click(getLastMatch())
+            click("System default")
+            
             self.assertTrue(exists("pref_lang_hr.png"))
             click(getLastMatch())
             mirolib.shortcut("w")

@@ -38,22 +38,29 @@ class Miro_Suite(unittest.TestCase):
 
         Test assumes that browser is configured to automatically open .torrent files with Miro
         """
+        miroRegions = mirolib.launch_miro()
+        setAutoWaitTimeout(30)
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
         try:
-            print "open ff"
-            switchApp(mirolib.open_ff())
             item_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
-            mirolib.shortcut("l")
-            type(item_url + "\n")
-            wait(testvars.one_click_badge)
-            
-            switchApp(mirolib.open_miro())
-            self.assertTrue(exists(feed))
-            click(feed)
-        finally: 
-            mirolib.delete_feed(self,feed)
-
+            tl.click("File")
+            tl.click("Download")
+            time.sleep(4)
+            type(item_url)
+            status = mslib.confirm_download_started(self,m,s,"Young Broke"):
+            if status == "downloaded":
+                mslib.delete_items(self,m,s,"Young Broke","video")
+            elif status == "in_progress":
+                mslib.delete_items(self,m,s,"Young Broke","downloading")
+            else:
+                self.fail("Can not confirm download started")
+        finally:
+            pass
         
-            
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)
     
