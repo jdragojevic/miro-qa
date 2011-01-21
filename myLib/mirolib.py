@@ -176,7 +176,7 @@ def remove_confirm(self,m,action="remove_feed"):
         print "verifying dialog closed"
     self.assertFalse(exists("are_you_sure_dialog.png"),4)
 
-def delete_feed(self,feed,m,s):
+def delete_feed(self,m,s,feed):
     """Delete the video feed from the sidebar.
     feed = the feed name exact text that is displayed in the sidebar.
     m = Mainview Region, calculate in the testcase on launch.

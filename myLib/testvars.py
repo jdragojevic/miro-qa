@@ -59,6 +59,13 @@ mg = os.path.join(config.miro_images(),"MiroGuide")
 guide_add_feed = os.path.join(mg,"add_feed.png")
 guide_search = os.path.join(mg,"guide_search.png")
 
+#Search
+search_imgs = os.path.join(config.miro_images(),"Search")
+blip_icon = os.path.join(search_imgs,"search_icon_bliptv.png")
+youtube_icon = os.path.join(search_imgs,"search_icon_youtube.png")
+youtube_user_icon = os.path.join(search_imgs,"search_icon_youtubeuser.png")
+all_icon = os.path.join(search_imgs,"search_icon_all.png")
+
 
 #Misc
 
