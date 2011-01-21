@@ -39,8 +39,6 @@ class Miro_Suite(unittest.TestCase):
         Test assumes that browser is configured to automatically open .torrent files with Miro
         """
         miroRegions = mirolib.launch_miro()
-        setAutoWaitTimeout(30)
-        miroRegions = mirolib.launch_miro()
         s = miroRegions[0] #Sidebar Region
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen

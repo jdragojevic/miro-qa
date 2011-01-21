@@ -40,7 +40,7 @@ class Miro_Suite(unittest.TestCase):
         5. Restart Miro
         
         """
-                miroApp = App("Miro")
+        miroApp = App("Miro")
         ffApp = App("Firefox")
         setAutoWaitTimeout(60)
         miroRegions = mirolib.launch_miro()
