@@ -9,7 +9,7 @@ mycwd = os.path.join(os.getcwd(),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import config
 import mirolib
-import myvars
+import testvars
 import litmusresult
 
 
@@ -50,8 +50,8 @@ class Miro_Suite(unittest.TestCase):
             tl.click("File")
             tl.click("Download")
             time.sleep(4)
-            type(item_url)
-            status = mslib.confirm_download_started(self,m,s,"Young Broke"):
+            type(item_url+"\n")
+            status = mslib.confirm_download_started(self,m,s,"Young Broke")
             if status == "downloaded":
                 mslib.delete_items(self,m,s,"Young Broke","video")
             elif status == "in_progress":

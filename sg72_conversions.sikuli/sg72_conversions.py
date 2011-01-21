@@ -91,7 +91,7 @@ class Miro_Suite(unittest.TestCase):
                 tl.click(x)
                 time.sleep(4)
             mirolib.click_sidebar_tab(self,m,s,"conversions")
-            mirolib.wait_conversions_complete(self,m,s,title,str(x)))
+            mirolib.wait_conversions_complete(self,m,s,title,str(x))
             # 5. Verify playback
             mirolib.click_sidebar_tab(self,"video")
             aplaybackList = ("Droid", "Galaxy", "G2", "iPad", "iPhone", "MP4", "Ogg Theora", "Playstation")
