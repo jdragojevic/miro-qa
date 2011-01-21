@@ -110,7 +110,7 @@ class Miro_Suite(unittest.TestCase):
         
 # Post the output directly to Litmus
 if config.testlitmus == True:
-	suite_list = unittest.getTestCaseNames(Miro_Suite,'test')
+    suite_list = unittest.getTestCaseNames(Miro_Suite,'test')
     suite = unittest.TestSuite()
     for x in suite_list:
         suite.addTest(Miro_Suite(x))
