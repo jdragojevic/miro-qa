@@ -44,18 +44,12 @@ class Miro_Suite(unittest.TestCase):
             m.click(testvars.guide_search)
             type("StupidVideos \n")
             m.find(testvars.guide_add_feed)
-            click(m.getLastMatch())
- #           s.find("StupidVideos")
-            self.assertTrue(s.exists("StupidVideos"))
+            click(m.getLastMatch())            self.assertTrue(s.exists("StupidVideos"))
                         
         finally:
-            print "cleanup"
             #4. cleanup
-#            mirolib.delete_feed(self,"StupidVideos",m,s) 
+            mirolib.delete_feed(self,m,s,"StupidVideos") 
 
-            
-        
-            
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)
     

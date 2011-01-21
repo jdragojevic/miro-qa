@@ -60,7 +60,7 @@ class Miro_Suite(unittest.TestCase):
             self.assertTrue(s.exists("Ryan is Hungry"))
             s.click("Ryan is Hungry")
         finally:
-            mirolib.delete_feed(self,"Ryan is Hungry",m,s)
+            mirolib.delete_feed(self,m,s,"Ryan is Hungry")
             ffApp.close()
             
 
@@ -97,11 +97,9 @@ class Miro_Suite(unittest.TestCase):
             time.sleep(4)
             m.find(testvars.revver_logo)
             self.assertTrue(m.exists(testvars.revver_logo))
-        finally:
-            pass
-                            
-##            mirolib.delete_feed(self,"Revver",m,s)
-##            mirolib.delete_feed(self,"Awesome",m,s) 
+        finally:                            
+            mirolib.delete_feed(self,m,s,"Revver")
+            mirolib.delete_feed(self,m,s,"Awesome") 
         
             
     def tearDown(self):

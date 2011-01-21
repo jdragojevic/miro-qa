@@ -56,7 +56,7 @@ class Miro_Suite(unittest.TestCase):
             click("download_this_video")
             mslib.confirm_download_started(self,m,s,"YouTube")
         finally:
-            mirolib.delete_feed(self,"YouTube",m,s)
+            mirolib.delete_feed(self,m,s"YouTube")
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)
     
