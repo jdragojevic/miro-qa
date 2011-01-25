@@ -69,34 +69,34 @@ class Miro_Suite(unittest.TestCase):
         3. Click back and verify the search is remembered.
         4. Cleanup
         """
-        try:
-            miroApp = App("Miro")
-            setAutoWaitTimeout(60)
-            miroRegions = mirolib.launch_miro()
-            s = miroRegions[0] #Sidebar Region
-            m = miroRegions[1] #Mainview Region
-            t = miroRegions[2] #top half screen
-            tl = miroRegions[3] #top left quarter
+        miroApp = App("Miro")
+        setAutoWaitTimeout(60)
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
 
-            searches = {"Blip": "lizards", "YouTube": "cosmicomics"}
-            for engine, term in searches.iteritems():
-                mirolib.click_sidebar_tab(self,m,s,"search")
-                mirolib.search_tab_search(self,m,s,term)
-                #specify the search engine
-                st = m.find("tabsearch_clear.png")
-                st1= capture(st.getX()-80, st.getY(), 80, 80,)
-                st1.highlight(10)
-                st1.find(term.upper())
-                st2 = capture(st.getX()-10, st.getY(), 5, 8,)
-                click(t2)
-                st1.click(engine)
-                type("\n") #enter the search
-                t.exists("Save Search")
-                t.click("Save Search")
-                self.assertTrue(s.exists(term))
-                s.click(term)
-                #FIXME verify feed has items
-        finally:
+        searches = {"Blip": "lizards", "YouTube": "cosmicomics"}
+        for engine, term in searches.iteritems():
+            mirolib.click_sidebar_tab(self,m,s,"search")
+            mirolib.search_tab_search(self,m,s,term)
+            #specify the search engine
+            st = m.find("tabsearch_clear.png")
+            st.highlight(5)
+            st1 = capture(st.getX()-80, st.getY(), 80, 80,)
+            st1.highlight(10)
+            st1.find(term.upper())
+            st2 = capture(st.getX()-10, st.getY(), 5, 8,)
+            st2.highlight()
+            click(t2)
+            st1.click(engine)
+            type("\n") #enter the search
+            t.exists("Save Search")
+            t.click("Save Search")
+            self.assertTrue(s.exists(term))
+            s.click(term)
+            #FIXME verify feed has items
             #cleanup
             for x in searches.keys():
                 mirolib.delete_feed(self,m,s,x)
