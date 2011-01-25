@@ -83,7 +83,7 @@ class Miro_Suite(unittest.TestCase):
                 mirolib.click_sidebar_tab(self,m,s,"search")
                 mirolib.search_tab_search(self,m,s,term)
                 #specify the search engine
-                cls = m.find("tabsearch_clear.png")
+                t = m.find("tabsearch_clear.png")
                 t1= capture(t.getX()-80, t.getY(), 80, 80,)
                 t1.highlight(10)
                 t1.find(term.upper())
