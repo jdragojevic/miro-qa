@@ -293,11 +293,24 @@ def tab_search(self,m,s,title,confirm_present=False):
         click(m.getLastMatch())
     elif m.exists("tabsearch_clear.png",5):
         click(m.getLastMatch())
+    
     type(title.upper())
     if confirm_present == True:
         self.assertTrue(m.exists(title),15)
     	present=True
     	return present
+
+def search_tab_search(self,m,s,term):
+    """enter text in the search box.
+
+    """
+    print "starting a search tab search"
+    if m.exists("tabsearch_inactive.png",5):
+        click(m.getLastMatch())
+    elif m.exists("tabsearch_clear.png",5):
+        click(m.getLastMatch())
+    type(term.upper())
+ 
     
 def confirm_download_started(self,m,s,title):
     """Verifies file download started.
