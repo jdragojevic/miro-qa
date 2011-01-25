@@ -81,12 +81,15 @@ class Miro_Suite(unittest.TestCase):
             searches = {"Blip": "lizards", "YouTube": "cosmicomics"}
             for engine, term in searches.iteritems():
                 mirolib.click_sidebar_tab(self,m,s,"search")
-                mirolib.tab_search(self,m,s,term)
+                mirolib.search_tab_search(self,m,s,term)
                 #specify the search engine
-                t = m.find(term) 
-                t1= capture(t.getX()-10, t.getY(), 5, 8,)
-                click(t1)
-                t.click(engine)
+                cls = m.find("tabsearch_clear.png")
+                t1= capture(t.getX()-80, t.getY(), 80, 80,)
+                t1.highlight(10)
+                t1.find(term.upper())
+                t2 = capture(t.getX()-10, t.getY(), 5, 8,)
+                click(t2)
+                t1.click(engine)
                 type("\n") #enter the search
                 t.exists("Save Search")
                 t.click("Save Search")
