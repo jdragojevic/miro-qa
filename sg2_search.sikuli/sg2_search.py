@@ -85,12 +85,12 @@ class Miro_Suite(unittest.TestCase):
             m.find("tabsearch_clear.png")
             rx = m.getLastMatch().getX
             ty = m.getLastMatch().getY
-            RtCornerRegion = Region(int(rx-80),ty,80,80)
+            RtCornerRegion = Region(int(rx-80),int(ty),100,400)
             RtCornerRegion.highlight(10)
             RtCornerRegion.find(term.upper())
             rx = RtCornerRegion.getLastMatch().getX
             ry = RtCornerRegion.getLastMatch().getY
-            click(int(rx-5),ry,5,8)
+            click(int(rx-5),int(ty),5,8)
             RtCornerRegion.click(engine)
             type("\n") #enter the search
             t.exists("Save Search")
