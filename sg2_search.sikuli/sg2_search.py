@@ -84,10 +84,10 @@ class Miro_Suite(unittest.TestCase):
             #specify the search engine
             st = m.find("tabsearch_clear.png")
             st.highlight(5)
-            st1 = capture(st.getX()-80, st.getY(), 80, 80,)
+            st1 = capture(st.getX()-80, st.getY(), 80, 80)
             st1.highlight(10)
             st1.find(term.upper())
-            st2 = capture(st.getX()-10, st.getY(), 5, 8,)
+            st2 = capture(st.getX()-10, st.getY(), 5, 8)
             st2.highlight()
             click(t2)
             st1.click(engine)
