@@ -54,7 +54,7 @@ def launch_miro():
     MainViewRegion = Region(sidex,topy,mainwidth,app_height)
     MainViewRegion.setAutoWaitTimeout(60)
     regions.append(MainViewRegion)
-    TopHalfRegion = Region(0,0,mainwidth,app_height/2)
+    TopHalfRegion = Region(0,0,mainwidth+sidebar_width,app_height/2)
     TopHalfRegion.setAutoWaitTimeout(60)
     regions.append(TopHalfRegion)
     TopLeftRegion = Region(0,0,mainwidth/2,app_height/2)
@@ -155,7 +155,7 @@ def close_one_click_confirm(self):
     if exists("sys_open_alert.png",30):
         click("sys_ok_button.png")
 
-def remove_confirm(self,m,action="remove_feed"):
+def remove_confirm(self,m,action="remove"):
     """If the remove feed dialog is displayed, remove or cancel.
 
     action = (remove_feed, remove_item or cancel)
@@ -163,18 +163,53 @@ def remove_confirm(self,m,action="remove_feed"):
     need to add remove_library option
     """
     time.sleep(5)
-    if m.exists("button_remove_pulse.png",5):
+    if m.exists(Pattern("button_remove_pulse.png"),5):
         print "confirm dialog"
-        if action == "remove_feed":
+        if action == "remove":
             print "clicking remove button"
             type("\n")
         elif action == "delete_item":
             print "clicking delete button"
-            m.click("button_delete_file.png")
+            m.click("Delete File")
         elif action == "cancel":
-            m.click("button_cancel.png")
+            m.click("Cancel")
         print "verifying dialog closed"
     self.assertFalse(exists("are_you_sure_dialog.png"),4)
+    
+def get_website_region(m,s):
+    "takes the main and sidebar regions to create a region for the websites section"
+    s.find("WEBSITES")
+    topx =  s.getLastMatch().getX()
+    topy =  s.getLastMatch().getY()
+    width = s.getW()
+    s.find("VIDEO FEEDS")
+    boty =  s.getLastMatch().getY()
+    height = boty-topy
+    print height
+    WebsitesRegion = Region(topx,topy, width, height)
+    WebsitesRegion.setAutoWaitTimeout(20)
+    return WebsitesRegion
+    
+	
+    
+def delete_site(self,m,s,site):
+    """Delete the video feed from the sidebar.
+    feed = the feed name exact text that is displayed in the sidebar.
+    m = Mainview Region, calculate in the testcase on launch.
+    s = Sideview Region, calculated in the testcase on launch.
+
+    """
+    if s.exists("miro_guide_tab.png",1):
+        click(s.getLastMatch())
+    w = get_website_region(m,s)
+    while w.exists(site,10):
+        w.click(site)
+        type(Key.DELETE)
+        remove_confirm(self,m,"remove")
+        click_sidebar_tab(self,m,s,"Video")
+        self.assertFalse(w.exists(site),5)
+    else:
+        print "feed: " +site+ " not present"
 
 def delete_feed(self,m,s,feed):
     """Delete the video feed from the sidebar.
@@ -183,11 +218,13 @@ def delete_feed(self,m,s,feed):
     s = Sideview Region, calculated in the testcase on launch.
 
     """
+    if s.exists("miro_guide_tab.png",1):
+        click(s.getLastMatch())
     while s.exists(feed,10):
         s.click(feed)
         type(Key.DELETE)
         remove_confirm(self,m,"remove")
-        s.click("Video")
+        click_sidebar_tab(self,m,s,"Video")
         self.assertFalse(s.exists(feed),5)
     else:
         print "feed: " +feed+ " not present"
@@ -201,7 +238,7 @@ def delete_items(self,m,s,title,item_type):
     while m.exists(title,10):
         click(m.getLastMatch())
         type(Key.DELETE)
-        remove_confirm(self,"delete_item")
+        remove_confirm(self,m,"delete_item")
     self.assertFalse(m.exists(title,10))
 
 
@@ -212,18 +249,18 @@ def click_sidebar_tab(self,m,s,tab):
     the tab is selected by verifying the miro large icon in the main view
 
     """
-    try:
-        tab_icon = os.path.join(testvars.side_imgs,"icon-"+tab+"_large.png")
-        print "going to tab: "+str(tab)
-        if s.exists(Pattern(tab_icon).similar(0.91),5):
-            print "on tab: "+ str(tab)
-        else:
-            sidebar_tab = "tab_"+str(tab)+".png"
-            self.assertTrue(exists(s.sidebar_tab))
-            click(s.getLastMatch())
-            self.assertTrue(m.exists(tab_icon))
-    finally:
-        setAutoWaitTimeout(60)
+    if s.exists("miro_guide_tab.png",4):
+        s.click("miro_guide_tab.png")
+    for x in testvars.TAB_LARGE_ICONS.keys():
+        if tab.lower() in x:
+            tab_icon = testvars.TAB_LARGE_ICONS[x]        
+    print "going to tab: "+str(tab)
+    print tab_icon
+    if m.exists(Pattern(tab_icon).similar(0.91),5):
+        print "on tab: "+ str(tab)
+    else:
+        s.click(tab)
+        self.assertTrue(m.exists(tab_icon))
 
 
 ## Menu related stuff ##
@@ -258,23 +295,33 @@ def tab_search(self,m,s,title,confirm_present=False):
         click(m.getLastMatch())
     type(title.upper())
     if confirm_present == True:
-        self.assertTrue(m.exists(title)) 
+        self.assertTrue(m.exists(title),15)
+    	present=True
+    	return present
     
-def confirm_download_started(self,m,s,title,confirm_present=False):
+def confirm_download_started(self,m,s,title):
     """Verifies file download started.
 
     Handles and already download(ed / ing) messages
     """
-    if exists("message_already_external_dl.png",15):
+    print "in function confirm dl started"
+    time.sleep(2)
+    if m.exists("message_already_downloaded.png",1):
+        downloaded = "downloaded"
+        print "item already downloaded"
+        type(Key.ENTER)            
+    elif m.exists("message_already_external_dl.png",1):
+        downloaded = "in_progress"
         print "item already downloaded"
         type(Key.ENTER)
-        downloaded = "downloaded"      
-        
     else:
         s.click("Downloading")
-        downloaded = "in_progress"
-        tab_search(self,m,s,title,confirm_present)
-        
+        m.click("button_pause_all.png")
+        if tab_search(self,m,s,title,confirm_present=True) == True:
+        	downloaded = "in_progress"
+        else:
+        	downloaded = "item not located"
+        m.click("button_resume_all.png")
     return downloaded
 
 

@@ -33,15 +33,27 @@ import config
 
 
 ##Sidebar
+
+
 side_imgs = os.path.join(config.miro_images(),"Sidebar")
-guide_icon = os.path.join(side_imgs,"icon-guide_large.png")
-search_icon = os.path.join(side_imgs,"icon-search_large.png")
-video_icon = os.path.join(side_imgs,"icon-video_large.png")
-audio_icon = os.path.join(side_imgs,"icon-audio_large.png")
-other_icon = os.path.join(side_imgs,"icon-other_large.png")
-conversions_icon = os.path.join(side_imgs,"icon-conversions_large.png")
-downloading_icon = os.path.join(side_imgs,"icon-downloading.png")
-playlist_icon = os.path.join(side_imgs,"icon-playlist_large.png")
+TAB_LARGE_ICONS = {"guide_icon": os.path.join(side_imgs,"icon-guide_large.png"),
+                 "search_icon": os.path.join(side_imgs,"icon-search_large.png"),
+                 "video_icon": os.path.join(side_imgs,"icon-video_large.png"),
+                 "music_icon": os.path.join(side_imgs,"icon-audio_large.png"),
+                 "other_icon": os.path.join(side_imgs,"icon-other_large.png"),
+                 "conversions_icon": os.path.join(side_imgs,"icon-conversions_large.png"),
+                 "downloading_icon": os.path.join(side_imgs,"icon-downloading_large.png"),
+                 "playlist_icon": os.path.join(side_imgs,"icon-playlist_large.png"),
+                 }
+                 
+# guide_icon = os.path.join(side_imgs,"icon-guide_large.png")
+# search_icon = os.path.join(side_imgs,"icon-search_large.png")
+# video_icon = os.path.join(side_imgs,"icon-video_large.png")
+# music_icon = os.path.join(side_imgs,"icon-audio_large.png")
+# other_icon = os.path.join(side_imgs,"icon-other_large.png")
+# conversions_icon = os.path.join(side_imgs,"icon-conversions_large.png")
+# downloading_icon = os.path.join(side_imgs,"icon-downloading.png")
+# playlist_icon = os.path.join(side_imgs,"icon-playlist_large.png")
 
 ##Preferences panel
 pref_imgs = os.path.join(config.miro_images(),"Prefs")

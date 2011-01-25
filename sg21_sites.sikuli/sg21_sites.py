@@ -34,29 +34,28 @@ class Miro_Suite(unittest.TestCase):
         3. verify download started
         4. Cleanup
         """
-        try:
-            site_url = "http://www.youtube.com/watch?v=fgg2tpUVbXQ&feature=channel"
-            miroApp = App("Miro")
-            setAutoWaitTimeout(60)
-            miroRegions = mirolib.launch_miro()
-            s = miroRegions[0] #Sidebar Region
-            m = miroRegions[1] #Mainview Region
-            t = miroRegions[2] #top half screen
-            tl = miroRegions[3] #top left quarter
-            
-            tl.click("Sidebar")
-            tl.click("Website")
-            time.sleep(4)
-            type(site_url+"\n")
-            s.find("YouTube")
-            self.assertTrue(s.exists("YouTube"))
-            s.click("YouTube")
-            m.find("download_this_video.png")
-            self.assertTrue(m.exists("download_this_video.png"))
-            click("download_this_video")
-            mslib.confirm_download_started(self,m,s,"YouTube")
-        finally:
-            mirolib.delete_feed(self,m,s"YouTube")
+        site_url = "http://www.youtube.com/watch?v=fgg2tpUVbXQ&feature=channel"
+        miroApp = App("Miro")
+        setAutoWaitTimeout(60)
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
+        
+        tl.click("Sidebar")
+        tl.click("Website")
+        time.sleep(4)
+        type(site_url+"\n")
+        s.find("YouTube")
+        self.assertTrue(s.exists("YouTube"))
+        s.click("YouTube")
+        m.find("download_this_video.png")
+        self.assertTrue(t.exists("download_this_video.png"))
+        t.click("download_this_video.png")
+        mirolib.confirm_download_started(self,m,s,"Hubble")
+        mirolib.delete_site(self,m,s,"YouTube")
+        
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)
     
