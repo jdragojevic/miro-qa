@@ -82,15 +82,16 @@ class Miro_Suite(unittest.TestCase):
             mirolib.click_sidebar_tab(self,m,s,"search")
             mirolib.search_tab_search(self,m,s,term)
             #specify the search engine
-            st = m.find("tabsearch_clear.png")
-            st.highlight(5)
-            st1 = capture(st.getX()-80, st.getY(), 80, 80)
-            st1.highlight(10)
-            st1.find(term.upper())
-            st2 = capture(st.getX()-10, st.getY(), 5, 8)
-            st2.highlight()
-            click(t2)
-            st1.click(engine)
+            m.find("tabsearch_clear.png")
+            rx = m.getLastMatch().getX
+            ty = m.getLastMatch().getY
+            RtCornerRegion = Region(rx-80,ty,80,80)
+            RtCornerRegion.highlight(10)
+            RtCornerRegion.find(term.upper())
+            rx = RtCornerRegion.getLastMatch().getX
+            ry = RtCornerRegion.getLastMatch().getY
+            click(rx-5,ry,5,8)
+            RtCornerRegion.click(engine)
             type("\n") #enter the search
             t.exists("Save Search")
             t.click("Save Search")
