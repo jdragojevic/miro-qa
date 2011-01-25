@@ -376,8 +376,20 @@ def wait_conversions_complete(self,m,s,title,conv):
         #fix - it's possible that I am clicking the wrong button
         m.click("Clear Finished")
 
+def add_website(self,s,m,site_url,site):
+    tl.click("Sidebar")
+    tl.click("Website")
+    time.sleep(4)
+    type(site_url+"\n")
+    s.find(site)
+    self.assertTrue(s.exists(site))
+    
 
-            
+def verify_audio_playback(self,m,s):
+    self.assertTrue(exists("playback_bar_audio.png"))
+    self.assertTrue(m.exists("item_currently_playing.png"))
+    mirolib.shortcut("d")
+    waitVanish("playback_bar_audio.png")
     
 
     

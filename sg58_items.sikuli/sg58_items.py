@@ -27,15 +27,14 @@ class Miro_Suite(unittest.TestCase):
          
 
 
-    def test_419(self):
-        """http://litmus.pculture.org/show_test.cgi?id=419 add feed.
+    def test_361(self):
+        """http://litmus.pculture.org/show_test.cgi?id=361 edit item audio to video.
 
-        1. youtorrent dl link
-        2. open with miro
-        3. Verify download started and metadata
-        4. Cleanup
+        1. add 3-blip-videos feed
+        2. download the Joo Joo
+        3. Edit item from Video to Audio
+        4. Verify item played as audio item
 
-        Test assumes that browser is configured to automatically open .torrent files with Miro
         """
         miroRegions = mirolib.launch_miro()
         s = miroRegions[0] #Sidebar Region
@@ -43,23 +42,33 @@ class Miro_Suite(unittest.TestCase):
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
         
-        item_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
-        item_title = "Fameless"
-        tl.click("File")
-        tl.click("Download")
+        feed_url = "http://pculture.org/feeds_test/3blipvideos.xml"
+        item_title = "Joo Joo"
+        #add feed and download joo joo item
+        t.click("Sidebar")
+        t.click("Add Feed")
         time.sleep(4)
-        type(item_url+"\n")
-        print ("confirm download started")
-        status = mirolib.confirm_download_started(self,m,s,item_title)
-        print status
-        if status == "downloaded":
-            mirolib.delete_items(self,m,s,item_title,"video")
-        elif status == "in_progress":
-            mirolib.delete_items(self,m,s,item_title,"downloading")
-        else:
-            self.fail("Can not confirm download started")
-
- 
+        type(feed_url+"\n")
+        time.sleep(4)
+        s.click("3-blip-videos")
+        mirolib.tab_search(self,m,s,item_title)
+        m.click("download_badge")
+        mirolib.wait_download_complete(self,m,s,item_title)
+        #find item in video tab and edit to audio
+        mirolib.click_sidebar_tab(self,m,s,"Video")
+        mirolib.tab_search(self,m,item_title,confirm_present=True)
+        m.click(item_title)
+        t.click("File")
+        t.click("Edit")
+        m.click("Audio")
+        m.click("Apply")
+        #locate item in audio tab and verify playback
+        mirolib.click_sidebar_tab(self,m,s,"Music")
+        mirolib.tab_search(self,m,item_title,confirm_present=True)
+        m.doubleClick(item_title)
+        mirolib.verify_audio_playback(self,m,s)
+        #cleanup
+        mirolib.delete_feed(self,m,s,"3-blip-videos")
  
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)

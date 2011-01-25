@@ -77,10 +77,7 @@ class Miro_Suite(unittest.TestCase):
                 mirolib.tab_search(self,m,s,"Converted to "+str(x),False)
                 self.assertTrue(m.exists("item_play_unplayed.png"))
                 click(m.getLastMatch())
-                self.assertTrue(exists("playback_bar_audio.png"))
-                self.assertTrue(m.exists("item_currently_playing.png"))
-                mirolib.shortcut("d")
-                waitVanish("playback_bar_audio.png")
+                mirolib.verify_audio_playback(self,m,s)
                                 
             
             # 4. Convert items to video formats

@@ -35,6 +35,7 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
         """
         site_url = "http://www.youtube.com/watch?v=fgg2tpUVbXQ&feature=channel"
+        site = "YouTube"
         miroApp = App("Miro")
         setAutoWaitTimeout(60)
         miroRegions = mirolib.launch_miro()
@@ -42,19 +43,14 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        
-        tl.click("Sidebar")
-        tl.click("Website")
-        time.sleep(4)
-        type(site_url+"\n")
-        s.find("YouTube")
-        self.assertTrue(s.exists("YouTube"))
-        s.click("YouTube")
+
+        mirolib.add_website(self,m,s,site_url,site)
+        s.click(site)
         m.find("download_this_video.png")
         self.assertTrue(t.exists("download_this_video.png"))
         t.click("download_this_video.png")
         mirolib.confirm_download_started(self,m,s,"Hubble")
-        mirolib.delete_site(self,m,s,"YouTube")
+        mirolib.delete_site(self,m,s,site)
         
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)
