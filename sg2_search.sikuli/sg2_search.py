@@ -43,13 +43,17 @@ class Miro_Suite(unittest.TestCase):
             t = miroRegions[2] #top half screen
             tl = miroRegions[3] #top left quarter
 
-            searches = {testvars.blip_icon: 'lizards', testvars.youtube_icon: 'cosmicomics'}
-            for engine, term in searches.iteritems():
+            SEARCHES = {"Blip": 'lizards', "YouTube": 'cosmicomics'}
+            for engine, term in SEARCHES.iteritems():
                 mirolib.click_sidebar_tab(self,m,s,"search")
                 mirolib.tab_search(self,m,s,term)
+                #specify the search engine
+                t = m.find(term) 
+                t1= capture(t.getX()-10, t.getY(), 5, 8,)
+                click(t1)
                 t.click(engine)
                 type("\n") #enter the search
-                t.exists("Save Search")
+                t.exists("Save as a feed")
                 mirolib.click_sidebar_tab(self,m,s,"video")
                 mirolib.click_sidebar_tab(self,m,s,"search")
                 self.assertTrue(t.exists(term))
@@ -74,10 +78,14 @@ class Miro_Suite(unittest.TestCase):
             t = miroRegions[2] #top half screen
             tl = miroRegions[3] #top left quarter
 
-            searches = {testvars.blip_icon: 'lizards', testvars.youtube_icon: 'cosmicomics'}
+            searches = {"Blip": "lizards", "YouTube": "cosmicomics"}
             for engine, term in searches.iteritems():
                 mirolib.click_sidebar_tab(self,m,s,"search")
                 mirolib.tab_search(self,m,s,term)
+                #specify the search engine
+                t = m.find(term) 
+                t1= capture(t.getX()-10, t.getY(), 5, 8,)
+                click(t1)
                 t.click(engine)
                 type("\n") #enter the search
                 t.exists("Save Search")
