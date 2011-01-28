@@ -34,31 +34,23 @@ class Miro_Suite(unittest.TestCase):
         3. Click back and verify the search is remembered.
         4. Cleanup
         """
-        try:
-            miroApp = App("Miro")
-            setAutoWaitTimeout(60)
-            miroRegions = mirolib.launch_miro()
-            s = miroRegions[0] #Sidebar Region
-            m = miroRegions[1] #Mainview Region
-            t = miroRegions[2] #top half screen
-            tl = miroRegions[3] #top left quarter
+       
+        setAutoWaitTimeout(60)
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
+        mtb = miroRegions[4] #main title bar
 
-            SEARCHES = {"Blip": 'lizards', "YouTube": 'cosmicomics'}
-            for engine, term in SEARCHES.iteritems():
-                mirolib.click_sidebar_tab(self,m,s,"search")
-                mirolib.tab_search(self,m,s,term)
-                #specify the search engine
-                t = m.find(term) 
-                t1= capture(t.getX()-10, t.getY(), 5, 8,)
-                click(t1)
-                t.click(engine)
-                type("\n") #enter the search
-                t.exists("Save as a feed")
-                mirolib.click_sidebar_tab(self,m,s,"video")
-                mirolib.click_sidebar_tab(self,m,s,"search")
-                self.assertTrue(t.exists(term))
-        finally:
-            pass
+        SEARCHES = {"Blip": 'lizards', "YouTube": 'cosmicomics'}
+        for engine, term in SEARCHES.iteritems():
+            mirolib.click_sidebar_tab(self,m,s,"search")
+            mirolib.search_tab_search(self,mtb,term,engine)
+            mirolib.click_sidebar_tab(self,m,s,"video")
+            mirolib.click_sidebar_tab(self,m,s,"search")
+            self.assertTrue(mtb.exists(term.upper()))
+
 
         
     def test_322(self):
@@ -69,32 +61,19 @@ class Miro_Suite(unittest.TestCase):
         3. Click back and verify the search is remembered.
         4. Cleanup
         """
-        miroApp = App("Miro")
         setAutoWaitTimeout(60)
         miroRegions = mirolib.launch_miro()
         s = miroRegions[0] #Sidebar Region
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
+        mtb = miroRegions[4] #main title bar
 
         searches = {"Blip": "lizards", "YouTube": "cosmicomics"}
         for engine, term in searches.iteritems():
-            mirolib.click_sidebar_tab(self,m,s,"search")
-            mirolib.search_tab_search(self,m,s,term)
-            #specify the search engine
-            m.find("tabsearch_clear.png")
-            rx = m.getLastMatch().getX
-            ty = m.getLastMatch().getY
-            RtCornerRegion = Region(int(rx-80),int(ty),100,400)
-            RtCornerRegion.highlight(10)
-            RtCornerRegion.find(term.upper())
-            rx = RtCornerRegion.getLastMatch().getX
-            ry = RtCornerRegion.getLastMatch().getY
-            click(int(rx-5),int(ty),5,8)
-            RtCornerRegion.click(engine)
-            type("\n") #enter the search
-            t.exists("Save Search")
-            t.click("Save Search")
+            mirolib.search_tab_search(self,mtb,term,engine)
+            t.exists("button_save_asa_feed.png")
+            t.click("button_save_asa_feed.png")
             self.assertTrue(s.exists(term))
             s.click(term)
             #FIXME verify feed has items

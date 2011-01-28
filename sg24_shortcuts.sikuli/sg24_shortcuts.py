@@ -82,6 +82,7 @@ class Miro_Suite(unittest.TestCase):
             s.click("Testlist")
             m.wait(testvars.TAB_LARGE_ICONS["playlist_icon"])
             type(Key.DELETE)
+            mslib.remove_confirm(self,m,action="remove")
             self.assertFalse(s.exists("Testlist",5))
         except:
             self.verificationErrors.append("delete playlist failed")
@@ -94,6 +95,7 @@ class Miro_Suite(unittest.TestCase):
             s.click("Playlit-Folder")
             m.wait(testvars.TAB_LARGE_ICONS["playlist_icon"])
             type(Key.DELETE)
+            mslib.remove_confirm(self,m,action="remove")
             self.assertFalse(s.exists("Playlist-Folder",5))
         except:
             self.verificationErrors.append("delete playlist folder failed")
