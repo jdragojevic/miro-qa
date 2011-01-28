@@ -18,22 +18,40 @@ def open_miro():
     if config.get_os_name() == "osx":
         return "/Applications/Miro.app"
     elif config.get_os_name() == "win":
-        return "C:\Program Files\Participatory Culture Foundation\Miro\Miro.exe"
+        return "C:\\Program Files\\Participatory Culture Foundation\\Miro\\Miro.exe"
     elif config.get_os_name() == "lin":
         return "~/builds/miro*/linux/run.sh"
     else:
         print config.get_os_name()
 
 def launch_miro():
+    """Open the Miro Application, the sets the region coords for searching.
+    
+    Uses the Miro Guides, Feedback, Bottom Corner, and VolumeBar to find coordinates.
+    Returns the:
+        
+    SidebarRegion (s) - miro sidebar 
+    MainViewRegion(m) - miro mainview
+    TopHalfRegion (t) - top 1/2 of whole screen
+    TopLeftRegion (tl) - top left of whole screen
+    MainTitleBarRegion (mtb) - miro mainview title bar region
+    
+    """
     regions = []
     App.open(open_miro())
     if exists("miro_guide_tab.png",10):
         click(getLastMatch())
-    wait("Feedback.png")
-    sidex = getLastMatch().getX()
+
     find("MiroGuide_selected.png")
-    topx =  getLastMatch().getX()
-    topy = getLastMatch().getY()
+    topx =  int(getLastMatch().getX())-10
+    topy = int(getLastMatch().getY())-10
+    
+    if not exists("Feedback.png",5):
+        print ("network either off or slow, no feeback icon")
+        sidex = int(getLastMatch().getX())+300
+    else:
+        wait("Feedback.png")
+        sidex = getLastMatch().getX()
 
     find("BottomCorner.png")
     botx =  getLastMatch().getX()
@@ -46,22 +64,29 @@ def launch_miro():
 
     sidebar_width = int(sidex-topx)
     app_height = int(vbary-topy)
-
+    
+    #Sidebar Region
     SidebarRegion = Region(topx,topy,sidebar_width,app_height)
     SidebarRegion.setAutoWaitTimeout(60)
     regions.append(SidebarRegion)
+    #Mainview Region
     mainwidth = int((vbarx-sidex)+vbarw)
     MainViewRegion = Region(sidex,topy,mainwidth,app_height)
     MainViewRegion.setAutoWaitTimeout(60)
     regions.append(MainViewRegion)
+    #Top Half of screen, width of Miro app Region
     TopHalfRegion = Region(0,0,mainwidth+sidebar_width,app_height/2)
     TopHalfRegion.setAutoWaitTimeout(60)
     regions.append(TopHalfRegion)
+    #Top Left Half of screen, 1/2 width of Miro app from left side
     TopLeftRegion = Region(0,0,mainwidth/2,app_height/2)
     TopLeftRegion.setAutoWaitTimeout(60)
     regions.append(TopLeftRegion)
+    #Main Title bar section of the main view
+    MainTitleBarRegion = Region(sidex,topy,mainwidth,115)
+    MainTitleBarRegion.setAutoWaitTimeout(30)
+    regions.append(MainTitleBarRegion)
     
-
     return regions
 
 def shortcut(key,shift=False):
@@ -94,15 +119,20 @@ def shortcut(key,shift=False):
 
     
 
-def quit_miro(self):
+def quit_miro(self,m):
+    if exists("miro_guide_tab.png",10):
+        click(getLastMatch())
     shortcut("q")
     while exists("dialog_confirm_quit.png",10):
         click("dialog_quit.png")
     #giving it 15 seconds to shut down
-    self.assertFalse(exists("tab_search.png",15))
+    self.assertFalse(m.exists(testvars.guide_search,15))
     
     
 def cmd_ctrl():
+    """Based on the operating systems, returns the correct key modifier for shortcuts.
+    
+    """
     if config.get_os_name() == "osx":
         return "CMD"
     elif config.get_os_name() == "win":
@@ -120,7 +150,7 @@ def open_ff():
     if config.get_os_name() == "osx":
         return "/Applications/Firefox.app"
     elif config.get_os_name() == "win":
-        return "C:\Program Files\Mozilla Firefox\Firefox.exe"
+        return "C:\\Program Files\\Mozilla Firefox\\Firefox.exe"
     else:
         print "no clue"
 
@@ -163,7 +193,7 @@ def remove_confirm(self,m,action="remove"):
     need to add remove_library option
     """
     time.sleep(5)
-    if m.exists(Pattern("button_remove_pulse.png"),5):
+    if m.exists(Pattern("are_you_sure_dialog.png"),5):
         print "confirm dialog"
         if action == "remove":
             print "clicking remove button"
@@ -173,11 +203,19 @@ def remove_confirm(self,m,action="remove"):
             m.click("Delete File")
         elif action == "cancel":
             m.click("Cancel")
+        elif action == "keep":
+            m.click("Keep")
+            type("\n")
+        else:
+            print "not sure what to do in this dialog"
         print "verifying dialog closed"
     self.assertFalse(exists("are_you_sure_dialog.png"),4)
+    time.sleep(5)
     
 def get_website_region(m,s):
-    "takes the main and sidebar regions to create a region for the websites section"
+    """takes the main and sidebar regions to create a region for the websites section.
+    
+    """
     s.find("WEBSITES")
     topx =  s.getLastMatch().getX()
     topy =  s.getLastMatch().getY()
@@ -185,7 +223,6 @@ def get_website_region(m,s):
     s.find("VIDEO FEEDS")
     boty =  s.getLastMatch().getY()
     height = boty-topy
-    print height
     WebsitesRegion = Region(topx,topy, width, height)
     WebsitesRegion.setAutoWaitTimeout(20)
     return WebsitesRegion
@@ -211,6 +248,22 @@ def delete_site(self,m,s,site):
     else:
         print "feed: " +site+ " not present"
 
+def add_feed(self,t,s,mtb,url,feed):
+    """Add a feed to miro, click on it in the sidebar.
+    
+    Verify the feed is added by clicking on the feed and verify the feed name is present
+    in the main title bar.
+    """
+    t.click("Sidebar")
+    t.click("Add Feed")
+    time.sleep(2)
+    type(url + "\n")
+    time.sleep(3)
+    self.assertTrue(s.exists(feed))
+    s.click(feed)
+    
+
+
 def delete_feed(self,m,s,feed):
     """Delete the video feed from the sidebar.
     feed = the feed name exact text that is displayed in the sidebar.
@@ -220,14 +273,13 @@ def delete_feed(self,m,s,feed):
     """
     if s.exists("miro_guide_tab.png",1):
         click(s.getLastMatch())
+    
     while s.exists(feed,10):
         s.click(feed)
         type(Key.DELETE)
         remove_confirm(self,m,"remove")
         click_sidebar_tab(self,m,s,"Video")
         self.assertFalse(s.exists(feed),5)
-    else:
-        print "feed: " +feed+ " not present"
 
 def delete_items(self,m,s,title,item_type):
     """Remove video audio music other items from the library.
@@ -249,17 +301,20 @@ def click_sidebar_tab(self,m,s,tab):
     the tab is selected by verifying the miro large icon in the main view
 
     """
-    if s.exists("miro_guide_tab.png",4):
-        s.click("miro_guide_tab.png")
+    if s.exists("Miro Guide",0):
+        s.click("Miro Guide")
     for x in testvars.TAB_LARGE_ICONS.keys():
         if tab.lower() in x:
             tab_icon = testvars.TAB_LARGE_ICONS[x]        
     print "going to tab: "+str(tab)
-    print tab_icon
     if m.exists(Pattern(tab_icon).similar(0.91),5):
         print "on tab: "+ str(tab)
     else:
-        s.click(tab)
+        if tab.lower() == "video":
+            t = Region(s.find("Video Search").below())
+            t.click(tab.capitalize())
+        else:
+            s.click(tab.capitalize())
         self.assertTrue(m.exists(tab_icon))
 
 
@@ -296,20 +351,35 @@ def tab_search(self,m,s,title,confirm_present=False):
     
     type(title.upper())
     if confirm_present == True:
-        self.assertTrue(m.exists(title),15)
-    	present=True
-    	return present
+        self.assertTrue(m.exists(title))
+        present=True
+        return present
 
-def search_tab_search(self,m,s,term):
-    """enter text in the search box.
+def search_tab_search(self,mtb,term,engine):
+    """perform a search in the search tab.
+
+    Requires: search term (term), search engine(engine) and MainViewTopRegion (mtb)
 
     """
     print "starting a search tab search"
-    if m.exists("tabsearch_inactive.png",5):
-        click(m.getLastMatch())
-    elif m.exists("tabsearch_clear.png",5):
-        click(m.getLastMatch())
+    # Find the search box and type in the search text
+    if mtb.exists("tabsearch_inactive.png",5):
+        click(mtb.getLastMatch())
+    elif mtb.exists("tabsearch_clear.png",5):
+        click(mtb.getLastMatch())
     type(term.upper())
+    # Use the search text to create a region for specifying the search engine
+    l = mtb.find(term.upper())
+    l1= Region(int(l.getX()-20), l.getY(), 8, 8,)
+    click(l1)
+    l2 = Region(int(l.getX()-15), l.getY(), 200, 300,)
+    if engine == "YouTube":
+        l3 = Region(l2.find("YouTube User").above())
+        l3.click(engine)
+    else:
+        l2.click(engine)
+    type("\n") #enter the search
+    self.assertTrue(mtb.exists("button_save_asa_feed.png"))
  
     
 def confirm_download_started(self,m,s,title):
@@ -350,10 +420,32 @@ def wait_download_complete(self,m,s,title,torrent=False):
                 time.sleep(5)
         elif torrent == True:
     #break out if stop seeding button found for torrent
-            while not exists("item_stop_seeding.png"):
+            while not m.exists("item_stop_seeding.png"):
                 time.sleep(5)
+                
+def cancel_all_downloads(self,m,s,mtb):
+    """Cancel all in progress downloads.
     
-    click_sidebar_tab(self,"other")
+    If the tab exists, cancel all dls and seeding.
+    Click off downloads tab and confirm tab disappears.
+    
+    """
+    if s.exists("Downloading",5):
+        click_sidebar_tab(self,m,s,"downloading")
+        mtb.click("Cancel All")
+        seedlist = m.findAll("Seeding")
+        if len(seedlist > 0):
+            for x in seedlist:
+                click(x)
+    click_sidebar_tab(self,m,s,"video")
+    self.assertFalse(s.exists("Downloading"))
+    
+                
+def wait_for_item_in_tab(self,m,s,tab,item):
+    click_sidebar_tab(self,m,s,tab)
+    while not m.exists(item):
+    	time.sleep(5)
+    
     
 
     
@@ -404,7 +496,26 @@ def verify_audio_playback(self,m,s):
     mirolib.shortcut("d")
     waitVanish("playback_bar_audio.png")
     
-
+def handle_crash_dialog(self,db=True):
+    """Look for the crash dialog message and submit report.
     
+    """
+    crashes = False
+    while exists(Pattern("internal_error.png"),15):
+        crashes = True
+#        tmpr = Region(getLastMatch().around(500))
+        if db == True:
+            click("Include")
+        type("Auto test crashed:" +str(self.id().split(".")[2]))
+        click("button_submit_crash_report.png")
+        time.sleep(5)
+    	
+    if crashes == True:
+        print "miro crashed"
+        shortcut("q")
+        time.sleep(10)
+    
+    
+        
 
     
