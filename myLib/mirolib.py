@@ -42,9 +42,6 @@ def launch_miro():
     if exists("miro_guide_tab.png",10):
         click(getLastMatch())
 
-    find("MiroGuide_selected.png")
-    topx =  int(getLastMatch().getX())-10
-    topy = int(getLastMatch().getY())-10
     
     if not exists("Feedback.png",5):
         print ("network either off or slow, no feeback icon")
@@ -53,6 +50,10 @@ def launch_miro():
         wait("Feedback.png")
         sidex = getLastMatch().getX()
 
+    find("Videos")
+    topx =  int(getLastMatch().getX())-10
+    topy = int(getLastMatch().getY())-10
+    
     find("BottomCorner.png")
     botx =  getLastMatch().getX()
     boty = getLastMatch().getY()
@@ -311,11 +312,7 @@ def click_sidebar_tab(self,m,s,tab):
         print "on tab: "+ str(tab)
     else:
         if tab.lower() == "video":
-            t = Region(s.find("Video Search").below())
-            t.click(tab.capitalize())
-        else:
-            s.click(tab.capitalize())
-        self.assertTrue(m.exists(tab_icon))
+            s.click("Videos")
 
 
 ## Menu related stuff ##

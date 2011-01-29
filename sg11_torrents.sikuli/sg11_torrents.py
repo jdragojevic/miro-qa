@@ -18,7 +18,7 @@ setBundlePath(config.get_img_path())
 
 
 class Miro_Suite(unittest.TestCase):
-    """Subgroup 41 - one-click subscribe tests.
+    """Subgroup 11 - Torrent tests.
 
     """
     def setUp(self):
@@ -28,14 +28,13 @@ class Miro_Suite(unittest.TestCase):
 
 
     def test_419(self):
-        """http://litmus.pculture.org/show_test.cgi?id=419 add feed.
+        """http://litmus.pculture.org/show_test.cgi?id=419 external torrent dl.
 
-        1. youtorrent dl link
-        2. open with miro
+        1. clearbits torrent dl
+        2. open with File Download menu
         3. Verify download started and metadata
         4. Cleanup
 
-        Test assumes that browser is configured to automatically open .torrent files with Miro
         """
         miroRegions = mirolib.launch_miro()
         s = miroRegions[0] #Sidebar Region
@@ -53,7 +52,7 @@ class Miro_Suite(unittest.TestCase):
         status = mirolib.confirm_download_started(self,m,s,item_title)
         print status
         if status == "downloaded":
-            mirolib.delete_items(self,m,s,item_title,"video")
+            mirolib.delete_items(self,m,s,item_title,"videos")
         elif status == "in_progress":
             mirolib.delete_items(self,m,s,item_title,"downloading")
         else:
