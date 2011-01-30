@@ -48,8 +48,9 @@ class Miro_Suite(unittest.TestCase):
         item_title = "Joo Joo"
         #add feed and download joo joo item
         mirolib.add_feed(self,t,s,mtb,url,feed)
+        s.click(feed)
         mirolib.tab_search(self,m,s,item_title)
-        m.click("download_badge")
+        m.click("Download")
         mirolib.wait_download_complete(self,m,s,item_title)
         #find item in video tab and edit to audio
         mirolib.click_sidebar_tab(self,m,s,"Video")
@@ -65,7 +66,7 @@ class Miro_Suite(unittest.TestCase):
         m.doubleClick(item_title)
         mirolib.verify_audio_playback(self,m,s)
         #cleanup
-        mirolib.delete_feed(self,m,s,"3-blip-videos")
+        mirolib.delete_feed(self,m,s,"blip")
  
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)

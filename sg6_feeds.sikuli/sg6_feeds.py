@@ -147,18 +147,18 @@ class Miro_Suite(unittest.TestCase):
     	badges = m.findAll("Download")
     	for x in badges:\
             m.click(x)
-    	mirolib.wait_for_item_in_tab(self,m,s,"video","Flip")
-    	mirolib.wait_for_item_in_tab(self,m,s,"video","Dinosaur")
+    	mirolib.wait_for_item_in_tab(self,m,s,"videos","Flip")
+    	mirolib.wait_for_item_in_tab(self,m,s,"videos","Dinosaur")
     	s.click("feed")
     	type(Key.DELETE)
     	mirolib.remove_confirm(self,m,action="keep")
     	self.assertFalse(s.exists(feed))
-    	mirolib.click_sidebar_tab(self,m,s,"video")
+    	mirolib.click_sidebar_tab(self,m,s,"videos")
     	mirolib.tab_search(self,m,s,"Flip",confirm_present=True)
     	mirolib.tab_search(self,m,s,"Dinosaur",confirm_present=True)
     	#4. cleanup
-    	mirolib.delete_items(self,m,s,"Flip","video")
-    	mirolib.delete_items(self,m,s,"Dinosaur","video")
+    	mirolib.delete_items(self,m,s,"Flip","videos")
+    	mirolib.delete_items(self,m,s,"Dinosaur","videos")
 
     def test_338(self):
         """http://litmus.pculture.org/show_test.cgi?id=338 delete feed with dl items.
@@ -179,7 +179,7 @@ class Miro_Suite(unittest.TestCase):
         mtb = miroRegions[4] #main title bar
 
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
-        feed = "3-blip-videos"
+        feed = "3 blip videos"
 
         #1. Add the feed and start dl
         mirolib.cancel_all_downloads(self,m,s,mtb)
@@ -187,9 +187,7 @@ class Miro_Suite(unittest.TestCase):
         mirolib.add_feed(self,m,s,url,feed)
         tmpr = Region(mtb.below(30))
         self.assertTrue(tmpr.exists("3 Items"))
-        badges = m.findAll("Download")
-        for x in badges:
-            click(x)
+        mirolib.download_all_items(self,m)
         mirolib.confirm_download_started(self,m,s,"Joo Joo")
         mirolib.delete_feed(self,m,s,"my feed")
         self.assertFalse(s.exists("Downloading",5))
@@ -242,7 +240,7 @@ class Miro_Suite(unittest.TestCase):
         #3. Delete then cancel.  Verify still exists Static List
         m.click("Delete")
         mirolib.remove_confirm(self,m,"cancel")
-        mirolib.click_sidebar_tab(self,m,s,"video")
+        mirolib.click_sidebar_tab(self,m,s,"videos")
         self.assertTrue(s.exists("Static List",5))
         #4. Cleanup
         feedlist.append("Static")
