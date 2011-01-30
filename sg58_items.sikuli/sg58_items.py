@@ -44,7 +44,7 @@ class Miro_Suite(unittest.TestCase):
         mtb = miroRegions[4] #mainview title bar
         
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
-        feed = "blip-videos"
+        feed = "blip"
         item_title = "Joo Joo"
         #add feed and download joo joo item
         mirolib.add_feed(self,t,s,mtb,url,feed)
