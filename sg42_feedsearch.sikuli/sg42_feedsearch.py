@@ -60,6 +60,204 @@ class Miro_Suite(unittest.TestCase):
         #4. cleanup
         mirolib.delete_feed(self,m,s,"for 'GIMP'")
         mirolib.delete_feed(self,m,s,"Static List")
+
+    def test_214(self):
+        """http://litmus.pculture.org/show_test.cgi?id=214 Feed search, search with spaces
+
+        1. Add 3 blip videos feed
+        2. Perform a search with spaces
+        3. Verify Search saved
+        4. Cleanup
+
+        """
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
+        mtb = miroRegions[4] #main title bar
+        
+        url = "http://pculture.org/feeds_test/3blipvideos.xml"
+        feed = "3 blip"
+        term = "strange creature"
+        title = "Joo Joo"
+        
+        #1. add feed
+        mirolib.add_feed(self,t,s,mtb,url,feed)
+        #2. search
+        mirolib.tab_search(self,m,s,term)
+        mtb.click("button_save_search.png")
+        #3. verify search saved
+        self.assertTrue(s.exists("for 'STRANGE'"))
+        click(s.getLastMatch())
+        mirolib.tab_search(self,m,s,title,confirm_present=True)
+        #4. cleanup
+        mirolib.delete_feed(self,m,s,"for 'STRANGE'")
+        mirolib.delete_feed(self,m,s,"blip")
+
+    def test_213(self):
+        """http://litmus.pculture.org/show_test.cgi?id=213 Feed search, delete key.
+
+        1. Add 2-stupid-videos feed
+        2. Perform a search
+        3. Type in search box the delete key 
+        4. Cleanup
+
+        """
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
+        mtb = miroRegions[4] #main title bar
+        
+        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+        feed = "2 stupid"
+        term = "dinosaur"
+        title = "Flip Face"
+        
+        #1. add feed
+        mirolib.add_feed(self,t,s,mtb,url,feed)
+        #2. search
+        mirolib.download_all_items(self,m)
+        mirolib.wait_for_item_in_tab(self,m,s,"videos","Flip")
+        mirolib.wait_for_item_in_tab(self,m,s,"videos","Dinosaur")
+        mirolib.tab_search(self,m,s,term)
+        self.assertFalse(m.exists("Flip"))
+        mtb.click(term)
+        for x in range(0,8):
+            type(Key.LEFT)
+        
+        for x in range(0,8):
+            type(Key.DELETE)
+
+        self.assertTrue(m.exists("Flip"))
+        #4. cleanup
+        mirolib.delete_feed(self,m,s,"stupid")
+
+    def test_78(self):
+        """http://litmus.pculture.org/show_test.cgi?id=78 Menu New Search Feed.
+
+        1. Add list of guide feeds (Static List)
+        2. From Sidebar -> New Search feed, create saved search channel
+        3. Verify Search saved
+        4. Cleanup
+
+        """
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
+        mtb = miroRegions[4] #main title bar
+        
+        url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
+        feed = "Static List"
+        term = "touring"
+        title = "Travelling Two"
+        
+        #1. add feed
+        mirolib.add_feed(self,t,s,mtb,url,feed)
+        #2. search
+        new_search_feed(self,m,t,term,"Feed",feed)
+                        
+        #3. verify search saved
+        self.assertTrue(s.exists("Static List for 'touring'"))
+        click(s.getLastMatch())
+        mirolib.tab_search(self,m,s,title,confirm_present=True)
+        #4. cleanup
+        mirolib.delete_feed(self,m,s,"for 'touring'")
+        mirolib.delete_feed(self,m,s,"Static List")
+
+    def test_23(self):
+        """http://litmus.pculture.org/show_test.cgi?id=23 remember search.
+
+        1. Add 2-stupid-videos feed
+        2. Perform a search
+        3. Type in search box the delete key 
+        4. Cleanup
+
+        """
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
+        mtb = miroRegions[4] #main title bar
+        
+        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+        feed = "2 stupid"
+        term = "House"
+        title = "Dinosaur"
+        
+        #1. add feed
+        mirolib.add_feed(self,t,s,mtb,url,feed)
+        #2. search
+        mirolib.tab_search(self,m,s,term)
+        self.assertTrue(m.exists(title))
+        self.assertFalse(m.exists("Flip"))
+        mirolib.click_sidebar_tab(self,m,s,"Videos")
+        s.click(feed)
+        self.assertTrue(mtb.exists(term.upper()))
+        self.assertTrue(m.exists(title))
+        self.assertFalse(m.exists("Flip"))
+        #4. cleanup
+        mirolib.delete_feed(self,m,s,"stupid")
+
+
+    def test_24(self):
+        """http://litmus.pculture.org/show_test.cgi?id=24 remember search.
+
+        1. Add 2-stupid-videos feed
+        2. Perform a search
+        3. Type in search box the delete key 
+        4. Cleanup
+
+        """
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
+        mtb = miroRegions[4] #main title bar
+        
+        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+        feed = "2 stupid"
+        term = "House"
+        title = "Dinosaur"
+        
+        #1. add feed
+        mirolib.add_feed(self,t,s,mtb,url,feed)
+        #2. search
+        mirolib.tab_search(self,m,s,term)
+        self.assertTrue(m.exists(title))
+        mslib.download_all_items(self,m)
+
+        url2 = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
+        feed2 = "Static List"
+        mirolib.add_feed(self,t,s,mtb,url2,feed2)
+        mirolib.tab_search(self,m,s,"Brooklyn")
+        mirolib.wait_for_item_in_tab(self,m,s,"Videos",title)
+        m.click(title)
+        t.click("Playback")
+        t.click("Play")
+        self.assertTrue(exists("playback_controls.png"))
+        mirolib.shortcut("d")
+
+        s.click(feed2)
+        self.assertTrue(mtb.exists("BROOKLYN"))
+        mirolib.tab_search(self,m,s,"filmweek")
+        mtb.click("Save Search")
+
+        self.assertTrue(s.exists("for 'FILMWEEK'"))
+        s.click("for 'FILMWEEK'")
+        self.assertTrue(m.exists("FilmWeek"))
+
+        #4. cleanup
+        mirolib.delete_feed(self,m,s,"stupid")
+        mirolib.delete_feed(self,m,s,"for 'FILMWEEK'")
+        mirolib.delete_feed(self,m,s,"Static List")
+
  
     def tearDown(self):
         mirolib.handle_crash_dialog(self)

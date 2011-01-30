@@ -68,24 +68,24 @@ def launch_miro():
     
     #Sidebar Region
     SidebarRegion = Region(topx,topy,sidebar_width,app_height)
-    SidebarRegion.setAutoWaitTimeout(60)
+    SidebarRegion.setAutoWaitTimeout(30)
     regions.append(SidebarRegion)
     #Mainview Region
     mainwidth = int((vbarx-sidex)+vbarw)
     MainViewRegion = Region(sidex,topy,mainwidth,app_height)
-    MainViewRegion.setAutoWaitTimeout(60)
+    MainViewRegion.setAutoWaitTimeout(10)
     regions.append(MainViewRegion)
     #Top Half of screen, width of Miro app Region
     TopHalfRegion = Region(0,0,mainwidth+sidebar_width,app_height/2)
-    TopHalfRegion.setAutoWaitTimeout(60)
+    TopHalfRegion.setAutoWaitTimeout(10)
     regions.append(TopHalfRegion)
     #Top Left Half of screen, 1/2 width of Miro app from left side
     TopLeftRegion = Region(0,0,mainwidth/2,app_height/2)
-    TopLeftRegion.setAutoWaitTimeout(60)
+    TopLeftRegion.setAutoWaitTimeout(10)
     regions.append(TopLeftRegion)
     #Main Title bar section of the main view
     MainTitleBarRegion = Region(sidex,topy,mainwidth,115)
-    MainTitleBarRegion.setAutoWaitTimeout(30)
+    MainTitleBarRegion.setAutoWaitTimeout(10)
     regions.append(MainTitleBarRegion)
     
     return regions
@@ -279,7 +279,7 @@ def delete_feed(self,m,s,feed):
         s.click(feed)
         type(Key.DELETE)
         remove_confirm(self,m,"remove")
-        click_sidebar_tab(self,m,s,"Video")
+        click_sidebar_tab(self,m,s,"Videos")
         self.assertFalse(s.exists(feed),5)
 
 def delete_items(self,m,s,title,item_type):
@@ -310,9 +310,11 @@ def click_sidebar_tab(self,m,s,tab):
     print "going to tab: "+str(tab)
     if m.exists(Pattern(tab_icon).similar(0.91),5):
         print "on tab: "+ str(tab)
-    else:
+    elif:
         if tab.lower() == "video":
             s.click("Videos")
+    else:
+        s.click(tab)
 
 
 ## Menu related stuff ##
@@ -378,7 +380,14 @@ def search_tab_search(self,mtb,term,engine):
     type("\n") #enter the search
     self.assertTrue(mtb.exists("button_save_asa_feed.png"))
  
-    
+
+def download_all_items(self,m):
+    badges = m.findAll("Download")
+    for x in badges:
+        m.click(x)
+
+
+  
 def confirm_download_started(self,m,s,title):
     """Verifies file download started.
 
@@ -485,6 +494,21 @@ def add_website(self,s,m,site_url,site):
     type(site_url+"\n")
     s.find(site)
     self.assertTrue(s.exists(site))
+
+def new_search_feed(self,m,t,term,radio,source):
+    t.click("Sidebar")
+    t.click("New Search")
+    type(term)
+    m.find(radio)
+    f = Region(m.getLastMatch().left(300))
+    click(m.getLastMatch())
+    click(f)
+    if radio == url:
+        type(source)
+    else:     
+        f1 = f.below()
+        f1.click(source)
+    m.click("Create Feed")
     
 
 def verify_audio_playback(self,m,s):
