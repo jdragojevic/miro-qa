@@ -58,7 +58,7 @@ class Miro_Suite(unittest.TestCase):
         click(s.getLastMatch())
         mirolib.tab_search(self,m,s,title,confirm_present=True)
         #4. cleanup
-        mirolib.delete_feed(self,m,s,"GIMP")
+        mirolib.delete_feed(self,m,s,"for 'GIMP'")
         mirolib.delete_feed(self,m,s,"Static List")
  
     def tearDown(self):
