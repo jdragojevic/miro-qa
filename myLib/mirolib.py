@@ -73,19 +73,19 @@ def launch_miro():
     #Mainview Region
     mainwidth = int((vbarx-sidex)+vbarw)
     MainViewRegion = Region(sidex,topy,mainwidth,app_height)
-    MainViewRegion.setAutoWaitTimeout(10)
+    MainViewRegion.setAutoWaitTimeout(30)
     regions.append(MainViewRegion)
     #Top Half of screen, width of Miro app Region
     TopHalfRegion = Region(0,0,mainwidth+sidebar_width,app_height/2)
-    TopHalfRegion.setAutoWaitTimeout(10)
+    TopHalfRegion.setAutoWaitTimeout(30)
     regions.append(TopHalfRegion)
     #Top Left Half of screen, 1/2 width of Miro app from left side
     TopLeftRegion = Region(0,0,mainwidth/2,app_height/2)
-    TopLeftRegion.setAutoWaitTimeout(10)
+    TopLeftRegion.setAutoWaitTimeout(30)
     regions.append(TopLeftRegion)
     #Main Title bar section of the main view
     MainTitleBarRegion = Region(sidex,topy,mainwidth,115)
-    MainTitleBarRegion.setAutoWaitTimeout(10)
+    MainTitleBarRegion.setAutoWaitTimeout(30)
     regions.append(MainTitleBarRegion)
     
     return regions
@@ -194,11 +194,11 @@ def remove_confirm(self,m,action="remove"):
     need to add remove_library option
     """
     time.sleep(5)
-    if m.exists(Pattern("are_you_sure_dialog.png"),5):
+    if m.exists(Pattern("dialog_are_you_sure.png"),5):
         print "confirm dialog"
         if action == "remove":
             print "clicking remove button"
-            type("\n")
+            type(Key.ENTER)
         elif action == "delete_item":
             print "clicking delete button"
             m.click("Delete File")
@@ -206,12 +206,10 @@ def remove_confirm(self,m,action="remove"):
             m.click("Cancel")
         elif action == "keep":
             m.click("Keep")
-            type("\n")
+            type(Key.ENTER)
         else:
             print "not sure what to do in this dialog"
-        print "verifying dialog closed"
-    self.assertFalse(exists("are_you_sure_dialog.png"),4)
-    time.sleep(5)
+    self.assertTrue(m.waitVanish(Pattern("dialog_are_you_sure.png"),10))
     
 def get_website_region(m,s):
     """takes the main and sidebar regions to create a region for the websites section.
@@ -305,14 +303,15 @@ def click_sidebar_tab(self,m,s,tab):
     if s.exists("Miro Guide",0):
         s.click("Miro Guide")
     for x in testvars.TAB_LARGE_ICONS.keys():
+        if tab.lower() == "videos":
+            tab = "video"
         if tab.lower() in x:
             tab_icon = testvars.TAB_LARGE_ICONS[x]        
     print "going to tab: "+str(tab)
     if m.exists(Pattern(tab_icon).similar(0.91),5):
         print "on tab: "+ str(tab)
-    elif:
-        if tab.lower() == "video":
-            s.click("Videos")
+    elif tab.lower() == "video":
+        s.click("Videos")
     else:
         s.click(tab)
 

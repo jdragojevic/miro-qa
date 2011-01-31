@@ -58,7 +58,7 @@ class Miro_Suite(unittest.TestCase):
         click(s.getLastMatch())
         mirolib.tab_search(self,m,s,title,confirm_present=True)
         #4. cleanup
-        mirolib.delete_feed(self,m,s,"for 'GIMP'")
+        mirolib.delete_feed(self,m,s,"GIMP")
         mirolib.delete_feed(self,m,s,"Static List")
 
     def test_214(self):
@@ -88,11 +88,11 @@ class Miro_Suite(unittest.TestCase):
         mirolib.tab_search(self,m,s,term)
         mtb.click("button_save_search.png")
         #3. verify search saved
-        self.assertTrue(s.exists("for 'STRANGE'"))
+        self.assertTrue(s.exists("STRANGE"))
         click(s.getLastMatch())
         mirolib.tab_search(self,m,s,title,confirm_present=True)
         #4. cleanup
-        mirolib.delete_feed(self,m,s,"for 'STRANGE'")
+        mirolib.delete_feed(self,m,s,"STRANGE")
         mirolib.delete_feed(self,m,s,"blip")
 
     def test_213(self):
@@ -159,14 +159,14 @@ class Miro_Suite(unittest.TestCase):
         #1. add feed
         mirolib.add_feed(self,t,s,mtb,url,feed)
         #2. search
-        new_search_feed(self,m,t,term,"Feed",feed)
+        mirolib.new_search_feed(self,m,t,term,"Feed",feed)
                         
         #3. verify search saved
         self.assertTrue(s.exists("Static List for 'touring'"))
         click(s.getLastMatch())
         mirolib.tab_search(self,m,s,title,confirm_present=True)
         #4. cleanup
-        mirolib.delete_feed(self,m,s,"for 'touring'")
+        mirolib.delete_feed(self,m,s,"touring")
         mirolib.delete_feed(self,m,s,"Static List")
 
     def test_23(self):
@@ -231,7 +231,7 @@ class Miro_Suite(unittest.TestCase):
         #2. search
         mirolib.tab_search(self,m,s,term)
         self.assertTrue(m.exists(title))
-        mslib.download_all_items(self,m)
+        mirolib.download_all_items(self,m)
 
         url2 = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed2 = "Static List"
@@ -249,13 +249,13 @@ class Miro_Suite(unittest.TestCase):
         mirolib.tab_search(self,m,s,"filmweek")
         mtb.click("Save Search")
 
-        self.assertTrue(s.exists("for 'FILMWEEK'"))
+        self.assertTrue(s.exists("FILMWEEK"))
         s.click("for 'FILMWEEK'")
         self.assertTrue(m.exists("FilmWeek"))
 
         #4. cleanup
         mirolib.delete_feed(self,m,s,"stupid")
-        mirolib.delete_feed(self,m,s,"for 'FILMWEEK'")
+        mirolib.delete_feed(self,m,s,"FILMWEEK")
         mirolib.delete_feed(self,m,s,"Static List")
 
  

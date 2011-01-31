@@ -42,6 +42,7 @@ class Miro_Suite(unittest.TestCase):
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
         mtb = miroRegions[4] #main title bar
+        
 
         SEARCHES = {"Blip": 'lizards', "YouTube": 'cosmicomics'}
         for engine, term in SEARCHES.iteritems():
@@ -71,17 +72,19 @@ class Miro_Suite(unittest.TestCase):
 
         searches = {"Blip": "lizards", "YouTube": "cosmicomics"}
         for engine, term in searches.iteritems():
-            mirolib.search_tab_search(self,mtb,term,engine)
-            t.exists("button_save_asa_feed.png")
-            t.click("button_save_asa_feed.png")
-            self.assertTrue(s.exists(term))
-            s.click(term)
-            #FIXME verify feed has items
-            #cleanup
-            for x in searches.keys():
-                mirolib.delete_feed(self,m,s,x)
+        	mirolib.click_sidebar_tab(self,m,s,"search")
+                mirolib.search_tab_search(self,mtb,term,engine)
+                mtb.highlight(5)
+                mtb.click("button_save_asa_feed.png")
+                self.assertTrue(s.exists(term.upper()))
+                click(s.getLastMatch())
+                #FIXME verify feed has items
+        #cleanup
+        for x in searches.keys():
+            mirolib.delete_feed(self,m,s,x)
         
     def tearDown(self):
+        mirolib.handle_crash_dialog(self)
         self.assertEqual([], self.verificationErrors)
     
 # Post the output directly to Litmus
