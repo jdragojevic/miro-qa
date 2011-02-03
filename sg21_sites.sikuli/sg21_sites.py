@@ -36,7 +36,6 @@ class Miro_Suite(unittest.TestCase):
         """
         site_url = "http://www.youtube.com/watch?v=fgg2tpUVbXQ&feature=channel"
         site = "YouTube"
-        miroApp = App("Miro")
         setAutoWaitTimeout(60)
         miroRegions = mirolib.launch_miro()
         s = miroRegions[0] #Sidebar Region
@@ -44,7 +43,7 @@ class Miro_Suite(unittest.TestCase):
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
 
-        mirolib.add_website(self,m,s,site_url,site)
+        mirolib.add_website(self,s,tl,site_url,site)
         s.click(site)
         m.find("download_this_video.png")
         self.assertTrue(t.exists("download_this_video.png"))
@@ -53,6 +52,7 @@ class Miro_Suite(unittest.TestCase):
         mirolib.delete_site(self,m,s,site)
         
     def tearDown(self):
+        mirolib.handle_crash_dialog(self)
         self.assertEqual([], self.verificationErrors)
     
 # Post the output directly to Litmus

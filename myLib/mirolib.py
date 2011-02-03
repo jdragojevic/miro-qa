@@ -486,7 +486,21 @@ def wait_conversions_complete(self,m,s,title,conv):
         #fix - it's possible that I am clicking the wrong button
         m.click("Clear Finished")
 
-def add_website(self,s,m,site_url,site):
+
+def expand_sidebar_section(self,s,section):
+    s.find(section)
+    a = Region(s.getLastMatch().left(35))
+    a1 = Region(a.nearby(25))
+    if a1.exists(Pattern("arrow_opened.png").exact()):
+        print("section expanded")
+    elif a1.exists("arrow_closed.png"):
+        click(a1.getLastMatch())
+    else:
+        self.fail("expander not found")
+
+
+def add_website(self,s,tl,site_url,site):
+    expand_sidebar_section(self,s,"Sources")
     tl.click("Sidebar")
     tl.click("Website")
     time.sleep(4)
