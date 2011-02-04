@@ -120,14 +120,13 @@ def shortcut(key,shift=False):
 
     
 
-def quit_miro(self,m):
-    if exists("miro_guide_tab.png",10):
-        click(getLastMatch())
+def quit_miro(self,m,s):
+    click_sidebar_tab(self,m,s,"Videos")
     shortcut("q")
-    while exists("dialog_confirm_quit.png",10):
-        click("dialog_quit.png")
+    while m.exists("dialog_confirm_quit.png",10):
+        m.click("dialog_quit.png")
     #giving it 15 seconds to shut down
-    self.assertFalse(m.exists(testvars.guide_search,15))
+    self.assertFalse(s.exists("Music"))
     
     
 def cmd_ctrl():
@@ -215,11 +214,11 @@ def get_website_region(m,s):
     """takes the main and sidebar regions to create a region for the websites section.
     
     """
-    s.find("WEBSITES")
+    s.click("Sources")
     topx =  s.getLastMatch().getX()
     topy =  s.getLastMatch().getY()
     width = s.getW()
-    s.find("VIDEO FEEDS")
+    s.find("Podcasts")
     boty =  s.getLastMatch().getY()
     height = boty-topy
     WebsitesRegion = Region(topx,topy, width, height)
@@ -300,20 +299,18 @@ def click_sidebar_tab(self,m,s,tab):
     the tab is selected by verifying the miro large icon in the main view
 
     """
-    if s.exists("Miro Guide",0):
-        s.click("Miro Guide")
+    if s.exists("Sources",0):
+        s.click("Sources")
     for x in testvars.TAB_LARGE_ICONS.keys():
         if tab.lower() == "videos":
             tab = "video"
         if tab.lower() in x:
             tab_icon = testvars.TAB_LARGE_ICONS[x]        
     print "going to tab: "+str(tab)
-    if m.exists(Pattern(tab_icon).similar(0.91),5):
-        print "on tab: "+ str(tab)
-    elif tab.lower() == "video":
+    if tab.lower() == "video":
         s.click("Videos")
     else:
-        s.click(tab)
+        s.click(tab.capitalize())
 
 
 ## Menu related stuff ##
