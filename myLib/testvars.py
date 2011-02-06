@@ -26,14 +26,16 @@ TAB_LARGE_ICONS = {"guide_icon": os.path.join(side_imgs,"icon-guide_large.png"),
 
 ##Preferences panel
 pref_imgs = os.path.join(config.miro_images(),"Prefs")
-pref_general = os.path.join(pref_imgs,"pref-tab-general.png")
-pref_feeds = os.path.join(pref_imgs,"pref-tab-feeds.png")
-pref_downloads = os.path.join(pref_imgs,"pref-tab-downloads.png")
-pref_folders = os.path.join(pref_imgs,"pref-tab-folders.png")
-pref_diskspace = os.path.join(pref_imgs,"pref-tab-disk-space.png")
-pref_playback = os.path.join(pref_imgs,"pref-tab-playback.png")
-pref_conversions = os.path.join(pref_imgs,"pref-tab-conversions.png")
-
+PREF_PANEL = {"general" : os.path.join(pref_imgs,"pref-tab-general.png"),
+              "feeds" : os.path.join(pref_imgs,"pref-tab-feeds.png"),
+              "downloads" : os.path.join(pref_imgs,"pref-tab-downloads.png"),
+              "folders" : os.path.join(pref_imgs,"pref-tab-folders.png"),
+              "diskspace" : os.path.join(pref_imgs,"pref-tab-disk-space.png"),
+              "playback" : os.path.join(pref_imgs,"pref-tab-playback.png"),
+              "conversions" : os.path.join(pref_imgs,"pref-tab-conversions.png"),
+              "sharing" : os.path.join(pref_imgs,"pref-tab-sharing.png"),
+              "extensions" : os.path.join(pref_imgs,"pref-tab-extensions.png"),
+              }
 #MiroGuide
 
 mg = os.path.join(config.miro_images(),"MiroGuide")

@@ -334,6 +334,22 @@ def open_preferences(self,tl,lang='en'):
         tl.click(lang)
     self.assertTrue(exists(testvars.pref_general))
 
+def click_pref_tab(self,tab):
+    for x in testvars.PREF_PANEL.keys():
+        if tab.lower() in x:
+            pref_icon = testvars.PREF_PANEL[x]        
+    print "going to tab: "+str(tab)
+    s.click(pref_icon)    
+
+def set_autodownload_pref(self,tl,m,setting):
+    """Set the global autodownload prefernce setting.
+
+    Setting can be "Off, New, or All"
+    """
+    open_preferences(self,tl)
+    click_pref_tab(self,tab)
+    
+
 def tab_search(self,m,s,title,confirm_present=False):
     """enter text in the search box.
 

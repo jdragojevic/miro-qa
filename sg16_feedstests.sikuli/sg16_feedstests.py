@@ -107,7 +107,77 @@ class Miro_Suite(unittest.TestCase):
                     self.verificationErrors.append("relative link not opened in browser")
         #cleanup
         mirolib.delete_feed(self,m,s,feed)
+ 
+    def test_60(self):
+        """http://litmus.pculture.org/show_test.cgi?id=60  Feed with no enclosures.
+
+        1. Feed 3
+        2. Verify Metadata
+        3. Cleanup
+
+        """
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
+        mtb = miroRegions[4] #main title bar
         
+        #1. add feed
+        url = "http://pculture.org/feeds_test/no-enclosures"
+        feed = "Yahoo Media TEST"
+        term = "first test video"
+        title = "Video 1"
+        
+        #1. add feed
+        mirolib.add_feed(self,t,s,mtb,url,feed)
+        s.click(feed)
+        mirolib.download_all_items(self,m)
+        #2. search
+        
+        #3. verify item metadata
+        self.assertTrue(m.exists(title))
+        self.assertTrue(m.exists("This is the first test video"))
+        self.assertTrue(m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
+        self.assertTrue(m.exists("842 B"))
+
+        mirolib.tab_search(self,m,s,"Video 2",confirm_present=False)
+        self.assertFalse(m.exists("Video 2",1))
+        #cleanup
+        mirolib.delete_feed(self,m,s,feed)
+
+    def test_73(self):
+        """http://litmus.pculture.org/show_test.cgi?id=73 Feed with Yahoo and RSS enclosures.
+
+        1. Feed 3
+        2. Verify Metadata
+        3. Cleanup
+
+        """
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
+        mtb = miroRegions[4] #main title bar
+        
+        url = "http://pculture.org/feeds_test/feed3.rss"
+        feed = "RSS 2.0 and Yahoo"
+        term = "first test video"
+        title = "Video 1"
+        
+        #1. add feed
+        mirolib.add_feed(self,t,s,mtb,url,feed)
+        #2. search
+        mirolib.tab_search(self,m,s,term)
+        
+        #3. verify item metadata
+        self.assertTrue(m.exists(title))
+        self.assertTrue(m.exists("This is the first test video"))
+        self.assertTrue(m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
+        self.assertTrue(m.exists("842 B"))
+        #cleanup
+        mirolib.delete_feed(self,m,s,feed)        
  
     def tearDown(self):
         mirolib.handle_crash_dialog(self)
