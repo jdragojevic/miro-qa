@@ -177,7 +177,37 @@ class Miro_Suite(unittest.TestCase):
         self.assertTrue(m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
         self.assertTrue(m.exists("842 B"))
         #cleanup
-        mirolib.delete_feed(self,m,s,feed)        
+        mirolib.delete_feed(self,m,s,feed)
+
+    def test_69(self):
+        """http://litmus.pculture.org/show_test.cgi?id=69 Add rss feed via browser.
+
+        1. Add feed The AV Club via the browser (assumes the browser is set to automatically add the feed).
+        2. Verify the feed is added
+        3. Cleanup
+
+        """
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
+        mtb = miroRegions[4] #main title bar
+        
+        feed = "The AV Club"
+        print "open ff"
+        App.open(mirolib.open_ff())
+        find(testvars.ffhome)
+        ffApp.focus()
+        url = "http://feeds.feedburner.com/theavclub/AVClubPresents?format=xml"
+        mirolib.shortcut("l")
+        time.sleep(2)
+        type(feed_url + "\n")
+
+        #3. verify item metadata
+        self.assertTrue(s.exists(feed))
+        #cleanup
+        mirolib.delete_feed(self,m,s,feed) 
  
     def tearDown(self):
         mirolib.handle_crash_dialog(self)
