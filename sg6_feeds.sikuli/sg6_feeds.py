@@ -53,7 +53,7 @@ class Miro_Suite(unittest.TestCase):
         t.click("File")
         t.click("Copy")
         t.click("File")
-        t.click("Add Feed")
+        t.click("Add Podcast")
         m.find("stupidvideos.com")
         type("\n")
         time.sleep(5)

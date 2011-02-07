@@ -253,7 +253,7 @@ def add_feed(self,t,s,mtb,url,feed):
     in the main title bar.
     """
     t.click("Sidebar")
-    t.click("Add Feed")
+    t.click("Add Podcast")
     time.sleep(2)
     type(url + "\n")
     time.sleep(3)
