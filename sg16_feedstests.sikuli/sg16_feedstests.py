@@ -70,43 +70,45 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
-        
-        #1. add feed
-        url = "http://pculture.org/feeds_test/feed1.rss"
-        feed = "Yahoo Media TEST"
-        term = "third test video"
-        title = "Video 3"
-        
-        #1. add feed
-        mirolib.add_feed(self,t,s,mtb,url,feed)
-        #2. search
-        mirolib.tab_search(self,m,s,term)
-        
-        #3. verify item metadata
-        self.assertTrue(m.exists(title))
-        self.assertTrue(m.exists("This is the third test video"))
-        self.assertTrue(m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
-        self.assertTrue(m.exists("842 B"))
+        try:
+            miroRegions = mirolib.launch_miro()
+            s = miroRegions[0] #Sidebar Region
+            m = miroRegions[1] #Mainview Region
+            t = miroRegions[2] #top half screen
+            tl = miroRegions[3] #top left quarter
+            mtb = miroRegions[4] #main title bar
+            
+            #1. add feed
+            url = "http://pculture.org/feeds_test/feed1.rss"
+            feed = "Yahoo Media TEST"
+            term = "third test video"
+            title = "Video 3"
+            
+            #1. add feed
+            mirolib.add_feed(self,t,s,mtb,url,feed)
+            #2. search
+            mirolib.tab_search(self,m,s,term)
+            
+            #3. verify item metadata
+            self.assertTrue(m.exists(title))
+            self.assertTrue(m.exists("This is the third test video"))
+            self.assertTrue(m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
+            self.assertTrue(m.exists("842 B"))
 
-        #verify the links
-        LINKS = {"absolute link": "http://www.google.com", "relative link": "appcast.xml","another relative": "index.php" }
-        for link, linkurl in LINKS.iteritems():
-            if m.exists(link):
-                click(m.getLastMatch())
-                App.open("Firefox")
-                mirolib.shortcut("l")
-                try:
-                    self.assertEqual(Env.getClipboard(),link)
-                except:
-                    self.verificationErrors.append("relative link not opened in browser")
+            #verify the links
+            LINKS = {"absolute link": "http://www.google.com", "relative link": "appcast.xml","another relative": "index.php" }
+            for link, linkurl in LINKS.iteritems():
+                if m.exists(link):
+                    click(m.getLastMatch())
+                    App.open("Firefox")
+                    mirolib.shortcut("l")
+                    try:
+                        self.assertEqual(Env.getClipboard(),link)
+                    except:
+                        self.verificationErrors.append("relative link not opened in browser")
         #cleanup
-        mirolib.delete_feed(self,m,s,feed)
+        finally:
+            mirolib.delete_feed(self,m,s,feed)
  
     def test_60(self):
         """http://litmus.pculture.org/show_test.cgi?id=60  Feed with no enclosures.
@@ -122,16 +124,19 @@ class Miro_Suite(unittest.TestCase):
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
         mtb = miroRegions[4] #main title bar
+        m.highlight(3)
+        mtb.highlight(3)
+        s.highlight(3)
+        
         
         #1. add feed
-        url = "http://pculture.org/feeds_test/no-enclosures"
+        url = "http://pculture.org/feeds_test/no-enclosures.rss"
         feed = "Yahoo Media TEST"
         term = "first test video"
         title = "Video 1"
         
         #1. add feed
         mirolib.add_feed(self,t,s,mtb,url,feed)
-        s.click(feed)
         mirolib.download_all_items(self,m)
         #2. search
         
@@ -198,11 +203,11 @@ class Miro_Suite(unittest.TestCase):
         print "open ff"
         App.open(mirolib.open_ff())
         find(testvars.ffhome)
-        ffApp.focus()
+        App.focus("Firefox")
         url = "http://feeds.feedburner.com/theavclub/AVClubPresents?format=xml"
         mirolib.shortcut("l")
         time.sleep(2)
-        type(feed_url + "\n")
+        type(url + "\n")
 
         #3. verify item metadata
         self.assertTrue(s.exists(feed))
