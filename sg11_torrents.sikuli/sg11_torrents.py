@@ -5,8 +5,8 @@ import unittest
 import StringIO
 import time
 
-mycwd = os.path.join(os.getcwd(),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
+sys.path.append(os.path.join(os.getcwd(),'myLib'))
+
 import config
 import mirolib
 import testvars
@@ -43,7 +43,7 @@ class Miro_Suite(unittest.TestCase):
         tl = miroRegions[3] #top left quarter
         
         item_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
-        item_title = "Fameless"
+        item_title = "Fameess"
         tl.click("File")
         tl.click("Download")
         time.sleep(4)

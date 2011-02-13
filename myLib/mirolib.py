@@ -41,26 +41,21 @@ def launch_miro():
     App.open(open_miro())
     if exists("miro_guide_tab.png",10):
         click(getLastMatch())
-
-    
     if not exists("Feedback.png",5):
         print ("network either off or slow, no feeback icon")
+        find("Videos")
         sidex = int(getLastMatch().getX())+300
     else:
         wait("Feedback.png")
         sidex = getLastMatch().getX()
 
     find("Videos")
-    topx =  int(getLastMatch().getX())-10
-    topy = int(getLastMatch().getY())-10
+    topx =  int(getLastMatch().getX())-20
+    topy = int(getLastMatch().getY())-20
     
     find("BottomCorner.png")
-    botx =  getLastMatch().getX()
-    boty = getLastMatch().getY()
-
-    find("VolumeBar.png")
-    vbarx =  getLastMatch().getX()
-    vbary = getLastMatch().getY()
+    vbarx =  int(getLastMatch().getX())+30
+    vbary = int(getLastMatch().getY())+30
     vbarw = getLastMatch().getW()
 
     sidebar_width = int(sidex-topx)
@@ -186,15 +181,16 @@ def close_one_click_confirm(self):
         click("sys_ok_button.png")
 
 def remove_confirm(self,m,action="remove"):
-    """If the remove feed dialog is displayed, remove or cancel.
+    """If the remove confirmation is displayed, remove or cancel.
 
     action = (remove_feed, remove_item or cancel)
     m = Mainview region from testcase
     need to add remove_library option
     """
     time.sleep(5)
-    if m.exists(Pattern("dialog_are_you_sure.png"),5):
+    if m.exists(Pattern("dialog_are_you_sure.png"),5) or m.exists(Pattern("dialog_one_of_these.png",5)):
         print "confirm dialog"
+        time.sleep(3)
         if action == "remove":
             print "clicking remove button"
             type(Key.ENTER)
@@ -224,6 +220,20 @@ def get_website_region(m,s):
     WebsitesRegion = Region(topx,topy, width, height)
     WebsitesRegion.setAutoWaitTimeout(20)
     return WebsitesRegion
+
+def get_podcasts_region(s):
+    s.find("Podcasts")
+    topx =  s.getLastMatch().getX()
+    topy =  s.getLastMatch().getY()
+    s.find("Playlists")
+    boty =  s.getLastMatch().getY()
+    height = boty-topy
+    width = s.getW()
+    PodcastsRegion = Region(topx,topy, width, height)
+    PodcastsRegion.setAutoWaitTimeout(20)
+    return PodcastsRegion
+    
+    
     
 	
     
@@ -256,9 +266,12 @@ def add_feed(self,t,s,mtb,url,feed):
     t.click("Add Podcast")
     time.sleep(2)
     type(url + "\n")
-    time.sleep(3)
-    self.assertTrue(s.exists(feed))
-    s.click(feed)
+    time.sleep(5)
+    expand_sidebar_section(self,s,"Podcasts")
+    time.sleep(2)
+    p = get_podcasts_region(s)
+    self.assertTrue(p.exists(feed))
+    click(p.getLastMatch())
     
 
 
@@ -504,12 +517,12 @@ def expand_sidebar_section(self,s,section):
     s.find(section)
     a = Region(s.getLastMatch().left(35))
     a1 = Region(a.nearby(25))
-    if a1.exists(Pattern("arrow_opened.png").exact()):
+    if a1.exists(Pattern("arrow_opened.png").similar(0.95)):
         print("section expanded")
-    elif a1.exists("arrow_closed.png"):
+    elif a1.exists(Pattern("arrow_closed.png").similar(0.95)):
         click(a1.getLastMatch())
     else:
-        self.fail("expander not found")
+        print "expander not found"
 
 
 def add_website(self,s,tl,site_url,site):
