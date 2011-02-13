@@ -43,7 +43,7 @@ class Miro_Suite(unittest.TestCase):
         tl = miroRegions[3] #top left quarter
         
         item_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
-        item_title = "Fameess"
+        item_title = "Fameless"
         tl.click("File")
         tl.click("Download")
         time.sleep(4)

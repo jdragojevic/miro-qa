@@ -188,7 +188,8 @@ def remove_confirm(self,m,action="remove"):
     need to add remove_library option
     """
     time.sleep(5)
-    if m.exists(Pattern("dialog_are_you_sure.png"),5) or m.exists(Pattern("dialog_one_of_these.png",5)):
+    if m.exists(Pattern("dialog_are_you_sure.png"),5) or \
+       m.exists(Pattern("dialog_one_of_these.png"),5):
         print "confirm dialog"
         time.sleep(3)
         if action == "remove":
@@ -196,7 +197,7 @@ def remove_confirm(self,m,action="remove"):
             type(Key.ENTER)
         elif action == "delete_item":
             print "clicking delete button"
-            m.click("Delete File")
+            m.click("button_delete_file.png")
         elif action == "cancel":
             m.click("Cancel")
         elif action == "keep":
