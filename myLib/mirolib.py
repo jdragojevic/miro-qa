@@ -39,7 +39,7 @@ def launch_miro():
     """
     regions = []
     App.open(open_miro())
-    if exists("miro_guide_tab.png",10):
+    if exists("Miro Guide"):
         click(getLastMatch())
     if not exists("Feedback.png",5):
         print ("network either off or slow, no feeback icon")
@@ -283,15 +283,18 @@ def delete_feed(self,m,s,feed):
     s = Sideview Region, calculated in the testcase on launch.
 
     """
-    if s.exists("miro_guide_tab.png",1):
+    if s.exists("Videos",1):
         click(s.getLastMatch())
+    expand_sidebar_section(self,s,"Podcasts")
+    time.sleep(2)
+    p = get_podcasts_region(s)
     
-    while s.exists(feed,10):
-        s.click(feed)
+    while p.exists(feed,1):
+        p.click(feed)
         type(Key.DELETE)
         remove_confirm(self,m,"remove")
         click_sidebar_tab(self,m,s,"Videos")
-        self.assertFalse(s.exists(feed),5)
+        self.assertFalse(p.exists(feed),5)
 
 def delete_items(self,m,s,title,item_type):
     """Remove video audio music other items from the library.
@@ -549,7 +552,11 @@ def new_search_feed(self,m,t,term,radio,source):
         f1 = f.below()
         f1.click(source)
     m.click("Create Feed")
-    
+
+def verify_normalview_metadata(self,mtb,metadata):
+    i = mtb.below(300)
+    for k,v in metadata.iteritems():
+        self.assertTrue(i.exists(v,3))   
 
 def verify_audio_playback(self,m,s):
     self.assertTrue(exists("playback_bar_audio.png"))

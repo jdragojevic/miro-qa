@@ -5,8 +5,10 @@ import unittest
 import StringIO
 import time
 
-mycwd = os.path.join(os.getcwd(),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
+
+sys.path.append(os.path.join(os.getcwd(),'myLib'))
+
+
 import config
 import mirolib
 import testvars
@@ -44,24 +46,25 @@ class Miro_Suite(unittest.TestCase):
         mtb = miroRegions[4] #main title bar
         
         url = "http://pculture.org/feeds_test/feed1.rss"
-        feed = "Yahoo Media TEST"
+        feed = "Yahoo"
         term = "first test video"
-        title = "Video 1"
+        title = "Video"
+
+        metadata = {"title":"Video",
+                    "description":"This",
+                    "icon":testvars.tv_icon,
+                    "size":"842 B"}
+        
         
         #1. add feed
         mirolib.add_feed(self,t,s,mtb,url,feed)
         #2. search
         mirolib.tab_search(self,m,s,term)
-        
         #3. verify item metadata
-        self.assertTrue(m.exists(title))
-        self.assertTrue(m.exists("This is the first test video"))
-        self.assertTrue(m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
-        self.assertTrue(m.exists("842 B"))
         #4. cleanup
         mirolib.delete_feed(self,m,s,feed)
 
-    def test_75(self):
+    def stest_75(self):
         """http://litmus.pculture.org/show_test.cgi?id=75 Absolute and relative links.
 
         1. Feed 1
@@ -80,7 +83,7 @@ class Miro_Suite(unittest.TestCase):
             
             #1. add feed
             url = "http://pculture.org/feeds_test/feed1.rss"
-            feed = "Yahoo Media TEST"
+            feed = "Yahoo"
             term = "third test video"
             title = "Video 3"
             
@@ -110,7 +113,7 @@ class Miro_Suite(unittest.TestCase):
         finally:
             mirolib.delete_feed(self,m,s,feed)
  
-    def test_60(self):
+    def stest_60(self):
         """http://litmus.pculture.org/show_test.cgi?id=60  Feed with no enclosures.
 
         1. Feed 3
@@ -131,7 +134,7 @@ class Miro_Suite(unittest.TestCase):
         
         #1. add feed
         url = "http://pculture.org/feeds_test/no-enclosures.rss"
-        feed = "Yahoo Media TEST"
+        feed = "Yahoo"
         term = "first test video"
         title = "Video 1"
         
@@ -151,7 +154,7 @@ class Miro_Suite(unittest.TestCase):
         #cleanup
         mirolib.delete_feed(self,m,s,feed)
 
-    def test_73(self):
+    def stest_73(self):
         """http://litmus.pculture.org/show_test.cgi?id=73 Feed with Yahoo and RSS enclosures.
 
         1. Feed 3
@@ -184,7 +187,7 @@ class Miro_Suite(unittest.TestCase):
         #cleanup
         mirolib.delete_feed(self,m,s,feed)
 
-    def test_69(self):
+    def stest_69(self):
         """http://litmus.pculture.org/show_test.cgi?id=69 Add rss feed via browser.
 
         1. Add feed The AV Club via the browser (assumes the browser is set to automatically add the feed).
