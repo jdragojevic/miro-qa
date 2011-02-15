@@ -44,15 +44,15 @@ def launch_miro():
         click(getLastMatch())
     if not exists("Feedback.png",5):
         print ("network either off or slow, no feeback icon")
-        find("Videos")
+        find("Music")
         sidex = int(getLastMatch().getX())+300
     else:
         wait("Feedback.png")
         sidex = getLastMatch().getX()
 
-    find("Videos")
+    find("Music")
     topx =  int(getLastMatch().getX())-20
-    topy = int(getLastMatch().getY())-20
+    topy = int(getLastMatch().getY())-70
     
     find("BottomCorner.png")
     vbarx =  int(getLastMatch().getX())+30
