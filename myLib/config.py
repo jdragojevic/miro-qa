@@ -12,8 +12,7 @@ def get_img_path():
     """Set up the path to the os specific image directory and for setBundlePath().
 
     """
-    twd = os.path.join(os.getenv("SIKULI_TEST_HOME"),"Miro")
-    img_path = os.path.join(twd,"Images_"+get_os_name())
+    img_path = os.path.join(os.getenv("SIKULI_TEST_HOME"),"Images_"+get_os_name())
     return img_path
 
 
@@ -22,8 +21,7 @@ def miro_images():
 
 
     """
-    twd = os.path.join(os.getenv("SIKULI_TEST_HOME"),"Miro")
-    img_path = os.path.join(twd,"Images")
+    img_path = os.path.join(os.getenv("SIKULI_TEST_HOME"),"Images")
     return img_path
 
 def get_os_name():
