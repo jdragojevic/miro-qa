@@ -12,6 +12,7 @@ def get_img_path():
     """Set up the path to the os specific image directory and for setBundlePath().
 
     """
+    img_dir = "Images_"+get_os_name()
     img_path = os.path.join(os.getenv("SIKULI_TEST_HOME"),"Images_"+get_os_name())
     return img_path
 
