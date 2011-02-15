@@ -20,7 +20,8 @@ def open_miro():
     elif config.get_os_name() == "win":
         return "C:\\Program Files\\Participatory Culture Foundation\\Miro\\Miro.exe"
     elif config.get_os_name() == "lin":
-        return "~/builds/miro*/linux/run.sh"
+        print "trying to run on linxu - good luck"
+        return "~/builds/miro/linux/run.sh"
     else:
         print config.get_os_name()
 
