@@ -12,10 +12,10 @@ import litmusresult
 ###Run all the subgroups:
 
 if sys.platform.startswith("darwin"):
-    if os.getenv("SIKULI_TEST_HOME") == None:
-        raw_input("Must set SIKULI_TEST_HOME env to current dir, press key to exit")
+    if os.getenv("PCF_TEST_HOME") == None:
+        raw_input("Must set PCF_TEST_HOME env to current dir, press key to exit")
 else:
-    os.putenv("SIKULI_TEST_HOME",os.getcwd())
+    os.putenv("PCF_TEST_HOME",os.getcwd())
 
 
 if os.getenv("SIKULI_HOME") == None:

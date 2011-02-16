@@ -5,7 +5,7 @@ import unittest
 import StringIO
 import time
 
-mycwd = os.path.join(os.getenv("SIKULI_TEST_HOME"),"Miro")
+mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import config
 import mirolib
