@@ -3,4 +3,5 @@
 #ignore class files
 *.class
 #ignore the test data
+Images_old/*
 TestInput/*
