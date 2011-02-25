@@ -26,16 +26,20 @@ TAB_LARGE_ICONS = {"guide_icon": os.path.join(side_imgs,"icon-guide_large.png"),
 
 ##Preferences panel
 pref_imgs = os.path.join(config.miro_images(),"Prefs")
-PREF_PANEL = {"general" : os.path.join(pref_imgs,"pref-tab-general.png"),
-              "feeds" : os.path.join(pref_imgs,"pref-tab-feeds.png"),
-              "downloads" : os.path.join(pref_imgs,"pref-tab-downloads.png"),
-              "folders" : os.path.join(pref_imgs,"pref-tab-folders.png"),
-              "diskspace" : os.path.join(pref_imgs,"pref-tab-disk-space.png"),
-              "playback" : os.path.join(pref_imgs,"pref-tab-playback.png"),
-              "conversions" : os.path.join(pref_imgs,"pref-tab-conversions.png"),
-              "sharing" : os.path.join(pref_imgs,"pref-tab-sharing.png"),
-              "extensions" : os.path.join(pref_imgs,"pref-tab-extensions.png"),
+PREF_PANEL = {
+    "error": os.path.join(pref_imgs,"pref_panel_error.png"),
+    "conversions" : os.path.join(pref_imgs,"pref_tab_conversions.png"),
+    "diskspace" : os.path.join(pref_imgs,"pref_tab_disk_space.png"),
+    "downloads" : os.path.join(pref_imgs,"pref_tab_downloads.png"),
+    "extensions" : os.path.join(pref_imgs,"pref_tab_extensions.png"),
+    "feeds" : os.path.join(pref_imgs,"pref_tab_feeds.png"),
+    "folders" : os.path.join(pref_imgs,"pref_tab_folders.png"),
+    "general" : os.path.join(pref_imgs,"pref_tab_general.png"),
+    "playback" : os.path.join(pref_imgs,"pref_tab_playback.png"),
+    "sharing" : os.path.join(pref_imgs,"pref_tab_sharing.png"),
+    "stores" : os.path.join(pref_imgs,"pref_tab_stores.png"),      
               }
+
 #MiroGuide
 
 mg = os.path.join(config.miro_images(),"MiroGuide")

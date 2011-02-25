@@ -24,6 +24,8 @@ def open_miro():
         return "~/builds/miro/linux/run.sh"
     else:
         print config.get_os_name()
+    wait("Miro",60)
+    click(getLastMatch())
 
 def launch_miro():
     """Open the Miro Application, the sets the region coords for searching.
@@ -40,19 +42,20 @@ def launch_miro():
     """
     regions = []
     App.open(open_miro())
+    wait("Miro",45)
     if exists("Miro Guide"):
         click(getLastMatch())
     if not exists("Feedback.png",5):
         print ("network either off or slow, no feeback icon")
-        find("Music")
-        sidex = int(getLastMatch().getX())+300
+        find("Videos")
+        sidex = int(getLastMatch().getX())+200
     else:
         wait("Feedback.png")
         sidex = getLastMatch().getX()
 
-    find("Music")
-    topx =  int(getLastMatch().getX())-20
-    topy = int(getLastMatch().getY())-70
+    find("Videos")
+    topx =  int(getLastMatch().getX())-55
+    topy = int(getLastMatch().getY())-15
     
     find("BottomCorner.png")
     vbarx =  int(getLastMatch().getX())+30
@@ -66,6 +69,7 @@ def launch_miro():
     SidebarRegion = Region(topx,topy,sidebar_width,app_height)
     SidebarRegion.setAutoWaitTimeout(30)
     regions.append(SidebarRegion)
+    SidebarRegion.highlight(3)
     #Mainview Region
     mainwidth = int((vbarx-sidex)+vbarw)
     MainViewRegion = Region(sidex,topy,mainwidth,app_height)
@@ -80,9 +84,10 @@ def launch_miro():
     TopLeftRegion.setAutoWaitTimeout(30)
     regions.append(TopLeftRegion)
     #Main Title bar section of the main view
-    MainTitleBarRegion = Region(sidex,topy,mainwidth,115)
+    MainTitleBarRegion = Region(sidex,topy,mainwidth,150)
     MainTitleBarRegion.setAutoWaitTimeout(30)
     regions.append(MainTitleBarRegion)
+    MainTitleBarRegion.highlight(3)
     
     return regions
 
@@ -119,10 +124,9 @@ def shortcut(key,shift=False):
 def quit_miro(self,m,s):
     click_sidebar_tab(self,m,s,"Videos")
     shortcut("q")
-    while m.exists("dialog_confirm_quit.png",10):
+    while m.exists("dialog_confirm_quit.png",5):
         m.click("dialog_quit.png")
-    #giving it 15 seconds to shut down
-    self.assertFalse(s.exists("Music"))
+    self.assertFalse(s.exists("Music",5))
     
     
 def cmd_ctrl():
@@ -332,41 +336,7 @@ def click_sidebar_tab(self,m,s,tab):
 
 
 ## Menu related stuff ##
-
-
-def open_preferences(self,tl,lang='en'):
-    """OS specific handling for Preferences menu, since it differs on osx and windows.
-
-    """
-        
-    if config.get_os_name() == "osx":
-        tl.click("Miro")
-    elif config.get_os_name() == "win":
-        tl.click("File")
-    else:
-        print config.get_os_name()
-    self.assertTrue(exists("menu_preferences.png"))
-    if lang == 'en':
-        tl.click("Preferences")
-    else:
-        tl.click(lang)
-    self.assertTrue(exists(testvars.pref_general))
-
-def click_pref_tab(self,tab):
-    for x in testvars.PREF_PANEL.keys():
-        if tab.lower() in x:
-            pref_icon = testvars.PREF_PANEL[x]        
-    print "going to tab: "+str(tab)
-    s.click(pref_icon)    
-
-def set_autodownload_pref(self,tl,m,setting):
-    """Set the global autodownload prefernce setting.
-
-    Setting can be "Off, New, or All"
-    """
-    open_preferences(self,tl)
-    click_pref_tab(self,tab)
-    
+   
 
 def tab_search(self,m,s,title,confirm_present=False):
     """enter text in the search box.

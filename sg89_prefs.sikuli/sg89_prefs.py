@@ -6,15 +6,14 @@ import StringIO
 import time
 
 
-mycwd = os.path.join(os.getcwd(),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
+sys.path.append(os.path.join(os.getcwd(),'myLib'))
 import config
 import mirolib
-import menus
+import prefs
 import testvars
 import litmusresult
 
-
+setBundlePath(config.get_img_path())
 
 
 
@@ -25,8 +24,8 @@ class Miro_Suite(unittest.TestCase):
     """
     def setUp(self):
         self.verificationErrors = []
-        setAutoWaitTimeout(60)
-        setBundlePath(config.get_img_path())
+        setAutoWaitTimeout(3)
+        
         
          
 
@@ -40,37 +39,39 @@ class Miro_Suite(unittest.TestCase):
         5. Restart Miro
         
         """
-        miroApp = App("Miro")
-        ffApp = App("Firefox")
-        setAutoWaitTimeout(60)
         miroRegions = mirolib.launch_miro()
         s = miroRegions[0] #Sidebar Region
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
+
+
         try:
             #1. open preferences
-            mirolib.open_preferences(self,tl)
-            click(testvars.pref_general)
+            p = prefs.open_prefs(self)
+            prefs.open_tab(self,p,"general")
             #2. change language to croatian (hr)
-            click("System default")
+            p.click("System default")
             
-            self.assertTrue(exists("pref_lang_hr.png"))
-            click(getLastMatch())
+            self.assertTrue(p.exists("pref_lang_hr.png"))
+            click(p.getLastMatch())
             mirolib.shortcut("w")
             #3. Restart Miro
-            mirolib.quit_miro(self)
-            switchApp(mirolib.open_miro())           
+            mirolib.quit_miro(self,m,s)
+            switchApp(mirolib.open_miro())
+            wait("Miro",45)
+            click(getLastMatch())
             #4. Verify Changes and reset
-            mirolib.open_preferences(self,'hr')
-            self.assertTrue(exists("pref_language_pulldown.png"))
-            click(getLastMatch())
-            self.assertTrue(exists("pref_lang_def.png"))
-            click(getLastMatch())
+            p = prefs.open_prefs(self,'hr','Datoteka','Postavke')       
+            self.assertTrue(p.exists("pref_language_pulldown.png"))
+            click(p.getLastMatch())
+            self.assertTrue(p.exists("pref_lang_def.png"))
+            click(p.getLastMatch())
             mirolib.shortcut("w")
             #5. Restart Miro
-            mirolib.quit_miro(self)
-            switchApp(mirolib.open_miro())            
+            mirolib.quit_miro(self,m,s)
+            switchApp(mirolib.open_miro())
+            
             
         finally:
             pass
