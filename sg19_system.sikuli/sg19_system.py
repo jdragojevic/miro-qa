@@ -18,7 +18,7 @@ setBundlePath(config.get_img_path())
 
 
 class Miro_Suite(unittest.TestCase):
-    """Subgroup 2 - one-click subscribe tests.
+    """Subgroup 19 - system tests.
 
     """
     def setUp(self):
@@ -26,13 +26,12 @@ class Miro_Suite(unittest.TestCase):
                 
 
 
-    def test_82(self):
-        """http://litmus.pculture.org/show_test.cgi?id=82 remember last search.
+    def test_55(self):
+        """http://litmus.pculture.org/show_test.cgi?id=55 Test Crash Reporter with DB.
 
-        1. Perform a search
-        2. Click off the tab
-        3. Click back and verify the search is remembered.
-        4. Cleanup
+        1. Perform a search of crash inducing text
+        2. Submit crash dialog with db
+        3. Quit Miro
         """
        
         setAutoWaitTimeout(60)
@@ -42,26 +41,22 @@ class Miro_Suite(unittest.TestCase):
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
         mtb = miroRegions[4] #main title bar
-        
 
-        SEARCHES = {"Blip": 'lizards', "YouTube": 'cosmicomics'}
-        for engine, term in SEARCHES.iteritems():
-            mirolib.click_sidebar_tab(self,m,s,"search")
-            mirolib.search_tab_search(self,mtb,term,engine)
-            mirolib.click_sidebar_tab(self,m,s,"video")
-            mirolib.click_sidebar_tab(self,m,s,"search")
-            self.assertTrue(mtb.exists(term.upper()))
+        term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
+        mirolib.click_sidebar_tab(self,m,s,"search")
+        mirolib.tab_search(self,m,s,term)
+        time.sleep(2)
+        type("\n")
+        mirolib.handle_crash_dialog(self)
+            
+    def test_54(self):
+        """http://litmus.pculture.org/show_test.cgi?id=54 Test Crash Reporter no DB.
 
-
-        
-    def test_322(self):
-        """http://litmus.pculture.org/show_test.cgi?id=82 remember last search.
-
-        1. Perform a search
-        2. Click off the tab
-        3. Click back and verify the search is remembered.
-        4. Cleanup
+        1. Perform a search of crash inducing text
+        2. Submit crash dialog
+        3. Quit Miro
         """
+        print self.id()
         setAutoWaitTimeout(60)
         miroRegions = mirolib.launch_miro()
         s = miroRegions[0] #Sidebar Region
@@ -70,21 +65,14 @@ class Miro_Suite(unittest.TestCase):
         tl = miroRegions[3] #top left quarter
         mtb = miroRegions[4] #main title bar
 
-        searches = {"Blip": "lizards", "YouTube": "cosmicomics"}
-        for engine, term in searches.iteritems():
-        	mirolib.click_sidebar_tab(self,m,s,"search")
-                mirolib.search_tab_search(self,mtb,term,engine)
-                mtb.highlight(5)
-                mtb.click("button_save_asa_feed.png")
-                self.assertTrue(s.exists(term.upper()))
-                click(s.getLastMatch())
-                #FIXME verify feed has items
-        #cleanup
-        for x in searches.keys():
-            mirolib.delete_feed(self,m,s,x)
+        term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
+        mirolib.click_sidebar_tab(self,m,s,"search")
+        mirolib.tab_search(self,m,s,term)
+        time.sleep(2)
+        type("\n")
+        mirolib.handle_crash_dialog(self,db=False) 
         
     def tearDown(self):
-        mirolib.handle_crash_dialog(self)
         self.assertEqual([], self.verificationErrors)
     
 # Post the output directly to Litmus
