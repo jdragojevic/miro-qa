@@ -42,9 +42,14 @@ def launch_miro():
     """
     regions = []
     App.open(open_miro())
-    wait("Miro",45)
-    if exists("Miro Guide"):
+    wait("Sidebar",45)
+
+    
+    if exists(testvars.SIDEBAR_ICONS["guide_icon"],5):
         click(getLastMatch())
+    else:
+        if exists("icon-guide_active.png"):
+            print "on guide tab"
     if not exists("Feedback.png",5):
         print ("network either off or slow, no feeback icon")
         find("Videos")
@@ -323,11 +328,11 @@ def click_sidebar_tab(self,m,s,tab):
     """
     if s.exists("Sources",0):
         s.click("Sources")
-    for x in testvars.TAB_LARGE_ICONS.keys():
+    for x in testvars.SIDEBAR_ICONS.keys():
         if tab.lower() == "videos":
             tab = "video"
         if tab.lower() in x:
-            tab_icon = testvars.TAB_LARGE_ICONS[x]        
+            tab_icon = testvars.SIDEBAR_ICONS[x]        
     print "going to tab: "+str(tab)
     if tab.lower() == "video":
         s.click("Videos")

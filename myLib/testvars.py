@@ -14,14 +14,15 @@ timeout = 30
 
 ##Sidebar
 side_imgs = os.path.join(config.miro_images(),"Sidebar")
-TAB_LARGE_ICONS = {"guide_icon": os.path.join(side_imgs,"icon-guide_large.png"),
-                 "search_icon": os.path.join(side_imgs,"icon-search_large.png"),
-                 "video_icon": os.path.join(side_imgs,"icon-video_large.png"),
-                 "music_icon": os.path.join(side_imgs,"icon-audio_large.png"),
-                 "other_icon": os.path.join(side_imgs,"icon-other_large.png"),
-                 "conversions_icon": os.path.join(side_imgs,"icon-conversions_large.png"),
-                 "downloading_icon": os.path.join(side_imgs,"icon-downloading_large.png"),
-                 "playlist_icon": os.path.join(side_imgs,"icon-playlist_large.png"),
+SIDEBAR_ICONS = {"guide_icon": os.path.join(side_imgs,"icon-guide.png"),
+                 "guide_icon_active": os.path.join(side_imgs,"icon-guide_active.png"),
+                 "search_icon": os.path.join(side_imgs,"icon-search.png"),
+                 "video_icon": os.path.join(side_imgs,"icon-video.png"),
+                 "music_icon": os.path.join(side_imgs,"icon-music.png"),
+                 "other_icon": os.path.join(side_imgs,"icon-other.png"),
+                 "conversions_icon": os.path.join(side_imgs,"icon-converting.png"),
+                 "downloading_icon": os.path.join(side_imgs,"icon-downloading.png"),
+                 "playlist_icon": os.path.join(side_imgs,"icon-playlist.png"),
                  }
 
 ##Preferences panel
