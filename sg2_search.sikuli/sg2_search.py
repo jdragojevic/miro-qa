@@ -42,14 +42,13 @@ class Miro_Suite(unittest.TestCase):
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
         mtb = miroRegions[4] #main title bar
-        
 
         SEARCHES = {"Blip": 'lizards', "YouTube": 'cosmicomics'}
         for engine, term in SEARCHES.iteritems():
-            mirolib.click_sidebar_tab(self,m,s,"search")
+            mirolib.click_sidebar_tab(self,m,s,"Search")
             mirolib.search_tab_search(self,mtb,term,engine)
-            mirolib.click_sidebar_tab(self,m,s,"video")
-            mirolib.click_sidebar_tab(self,m,s,"search")
+            mirolib.click_sidebar_tab(self,m,s,"Videos")
+            mirolib.click_sidebar_tab(self,m,s,"Search")
             self.assertTrue(mtb.exists(term.upper()))
 
 
