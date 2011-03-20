@@ -1,3 +1,5 @@
+
+
 #mirolib.py
 
 import os
@@ -20,8 +22,8 @@ def open_miro():
     elif config.get_os_name() == "win":
         return "C:\\Program Files\\Participatory Culture Foundation\\Miro\\Miro.exe"
     elif config.get_os_name() == "lin":
-        print "trying to run on linxu - good luck"
-        return "~/builds/miro/linux/run.sh"
+        print "trying to run on linux - make sure MIRONIGHTLYDIR is set"
+        return "linux"
     else:
         print config.get_os_name()
     wait("Miro",60)
@@ -41,7 +43,10 @@ def launch_miro():
     
     """
     regions = []
-    App.open(open_miro())
+    if open_miro() == "linux":
+        config.start_miro_on_linux()
+    else:
+        App.open(open_miro())
     wait("Sidebar",45)
 
     

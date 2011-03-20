@@ -2,7 +2,9 @@
 
 import os
 import time
+import subprocess
 from sikuli.Sikuli import *
+
 
 
 testlitmus = False
@@ -40,3 +42,10 @@ def get_os_name():
         print ("I don't know how to handle platform '%s'", Env.getOS())
 
    
+def start_miro_on_linux():
+    mydir = os.getenv("MIRONIGHTLYDIR")
+    subprocess.Popen(r'./run.sh', cwd=mydir)
+
+    
+    
+    
