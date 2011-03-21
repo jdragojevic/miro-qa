@@ -46,6 +46,7 @@ PREF_PANEL = {
 mg = os.path.join(config.miro_images(),"MiroGuide")
 guide_add_feed = os.path.join(mg,"add_feed.png")
 guide_search = os.path.join(mg,"guide_search.png")
+feedback = os.path.join(mg,"feedback.png")
 
 #Search
 search_imgs = os.path.join(config.miro_images(),"Search")

@@ -55,17 +55,17 @@ def launch_miro():
     else:
         if exists("icon-guide_active.png"):
             print "on guide tab"
-    if not exists("Feedback.png",5):
+    if not exists(testvars.feedback,5):
         print ("network either off or slow, no feeback icon")
         find("Videos")
         sidex = int(getLastMatch().getX())+200
     else:
-        wait("Feedback.png")
+        wait(testvars.feedback)
         sidex = getLastMatch().getX()
 
-    find("Videos")
+    find("Music")
     topx =  int(getLastMatch().getX())-55
-    topy = int(getLastMatch().getY())-15
+    topy = int(getLastMatch().getY())-90
     
     find("BottomCorner.png")
     vbarx =  int(getLastMatch().getX())+30
@@ -388,7 +388,7 @@ def search_tab_search(self,mtb,term,engine):
     else:
         l2.click(engine)
     type("\n") #enter the search
-    self.assertTrue(mtb.exists("button_save_asa_feed.png"))
+    self.assertTrue(mtb.exists("button_save_as_podcast.png"))
  
 
 def download_all_items(self,m):
