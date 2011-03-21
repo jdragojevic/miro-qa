@@ -50,7 +50,7 @@ def launch_miro():
     wait("Sidebar",45)
 
     
-    if exists(testvars.SIDEBAR_ICONS["guide_icon"],5):
+    if exists("Miro",5):
         click(getLastMatch())
     else:
         if exists("icon-guide_active.png"):
@@ -79,7 +79,6 @@ def launch_miro():
     SidebarRegion = Region(topx,topy,sidebar_width,app_height)
     SidebarRegion.setAutoWaitTimeout(30)
     regions.append(SidebarRegion)
-    SidebarRegion.highlight(3)
     #Mainview Region
     mainwidth = int((vbarx-sidex)+vbarw)
     MainViewRegion = Region(sidex,topy,mainwidth,app_height)
@@ -97,7 +96,6 @@ def launch_miro():
     MainTitleBarRegion = Region(sidex,topy,mainwidth,150)
     MainTitleBarRegion.setAutoWaitTimeout(30)
     regions.append(MainTitleBarRegion)
-    MainTitleBarRegion.highlight(3)
     
     return regions
 
@@ -374,8 +372,10 @@ def search_tab_search(self,mtb,term,engine):
     # Find the search box and type in the search text
     if mtb.exists("tabsearch_inactive.png",5):
         click(mtb.getLastMatch())
-    elif mtb.exists("tabsearch_clear.png",5):
+    elif mtb.exists("tabsearch_clear.png",5): # this should always be found on gtk
+        print "found the broom"
         click(mtb.getLastMatch())
+        click(mtb.getLastMatch().left(10))
     type(term.upper())
     # Use the search text to create a region for specifying the search engine
     l = mtb.find(term.upper())
