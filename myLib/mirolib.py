@@ -203,6 +203,8 @@ def remove_confirm(self,m,action="remove"):
     time.sleep(5)
     if m.exists(Pattern("dialog_are_you_sure.png"),5) or \
        m.exists(Pattern("dialog_one_of_these.png"),5):
+
+        m.click(getLastMatch())
         print "confirm dialog"
         time.sleep(3)
         if action == "remove":
@@ -236,7 +238,7 @@ def get_website_region(m,s):
     return WebsitesRegion
 
 def get_podcasts_region(s):
-    s.find("Podcasts")
+    s.click("Podcasts")
     topx =  s.getLastMatch().getX()
     topy =  s.getLastMatch().getY()
     s.find("Playlists")
@@ -281,8 +283,6 @@ def add_feed(self,t,s,mtb,url,feed):
     time.sleep(2)
     type(url + "\n")
     time.sleep(5)
-    expand_sidebar_section(self,s,"Podcasts")
-    time.sleep(2)
     p = get_podcasts_region(s)
     self.assertTrue(p.exists(feed))
     click(p.getLastMatch())
@@ -298,15 +298,14 @@ def delete_feed(self,m,s,feed):
     """
     if s.exists("Videos",1):
         click(s.getLastMatch())
-    expand_sidebar_section(self,s,"Podcasts")
-    time.sleep(2)
+    
     p = get_podcasts_region(s)
     
     while p.exists(feed,1):
         p.click(feed)
         type(Key.DELETE)
         remove_confirm(self,m,"remove")
-        click_sidebar_tab(self,m,s,"Videos")
+        p = get_podcasts_region(s)
         self.assertFalse(p.exists(feed),5)
 
 def delete_items(self,m,s,title,item_type):
