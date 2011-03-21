@@ -204,7 +204,7 @@ def remove_confirm(self,m,action="remove"):
     if m.exists(Pattern("dialog_are_you_sure.png"),5) or \
        m.exists(Pattern("dialog_one_of_these.png"),5):
 
-        m.click(getLastMatch())
+        click(m.getLastMatch())
         print "confirm dialog"
         time.sleep(3)
         if action == "remove":

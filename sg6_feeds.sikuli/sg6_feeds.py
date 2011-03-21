@@ -46,25 +46,32 @@ class Miro_Suite(unittest.TestCase):
         type("stupidvideos.com - the stupid review \n")
         m.find(testvars.guide_add_feed)
         click(m.getLastMatch())
-        self.assertTrue(s.exists("StupidVideos"))
-        click(s.getLastMatch())
-        mtb.find("Stupid")
+        p = mirolib.get_podcasts_region(s)
+        self.assertTrue(p.exists("StupidVideos"))
+        click(p.getLastMatch())
+        m.find("Stupid")
+        click(m.getLastMatch())
         #2. Copy the url and attempt to add it
-        t.click("File")
+        t.click("Sidebar")
         t.click("Copy")
-        t.click("File")
+        t.click("Sidebar")
         t.click("Add Podcast")
-        m.find("stupidvideos.com")
+        time.sleep(2)
         type("\n")
-        time.sleep(5)
+        time.sleep(3)
         #3. Verify feed not duplicated
-        fl = s.findall("StupidVideos")
-        self.assertTrue(len(fl) == 1)       
+        p = mirolib.get_podcasts_region(s)
+        mm = []
+        f = p.findAll("StupidVideos") # find all matches
+        while f.hasNext(): # loop as long there is a first and more matches
+            mm.append(f.next())     # access next match and add to mm
+            f.destroy() # release the memory used by finder
+        self.assertEqual(len(mm),1)       
         #4. cleanup
         mirolib.delete_feed(self,m,s,"StupidVideos")
         
         
-    def test_138(self):
+    def skip_test_138(self): #revisit this when item count is back or out, or update to feed with 1 item.
         """http://litmus.pculture.org/show_test.cgi?id=138 clear out old items.
 
         Litmus Test Title:: 138 Channels - clear out old items 
@@ -142,8 +149,8 @@ class Miro_Suite(unittest.TestCase):
 
     	#1. Add the feed and start dl
     	mirolib.add_feed(self,t,s,mtb,url,feed)
-    	tmpr = Region(mtb.below(30))
-    	self.assertTrue(tmpr.exists("2 Items"))
+#    	tmpr = Region(mtb.below(30))
+#    	self.assertTrue(tmpr.exists("2 Items"))
     	badges = m.findAll("Download")
     	for x in badges:\
             m.click(x)
@@ -184,7 +191,7 @@ class Miro_Suite(unittest.TestCase):
         #1. Add the feed and start dl
         mirolib.cancel_all_downloads(self,m,s,mtb)
         self.assertFalse(s.exists("Downloading",5)) #make sure no in progress downloads
-        mirolib.add_feed(self,m,s,url,feed)
+        mirolib.add_feed(self,t,s,mtb,url,feed)
         tmpr = Region(mtb.below(30))
         self.assertTrue(tmpr.exists("3 Items"))
         mirolib.download_all_items(self,m)
@@ -217,7 +224,7 @@ class Miro_Suite(unittest.TestCase):
         feedlist = ["TechVi", "Uploads by Gimp", "Brooklyn Museum", "LandlineTV"]
 
         #1. Add the feed and start dl
-        mirolib.add_feed(self,m,s,url,feed)
+        mirolib.add_feed(self,t,s,mtb,url,feed)
         addlink = m.findAll("Add this channel")
         for x in addlink:
             click(x)
@@ -273,7 +280,7 @@ class Miro_Suite(unittest.TestCase):
 
         #1. Add the feeds and check num items
         for feed, url in FEEDS.iteritems():
-            mirolib.add_feed(self,m,s,url,feed)
+            mirolib.add_feed(self,t,s,mtb,url,feed)
             
         #2. Select them and add to a folder    
         try:
