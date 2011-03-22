@@ -54,7 +54,7 @@ class Miro_Suite(unittest.TestCase):
         mirolib.tab_search(self,m,s,term)
         reg.mtb.click("button_save_search.png")
         #3. verify search saved
-        self.assertTrue(s.exists("GIMP"))
+        self.assertTrue(reg.s.exists("GIMP"))
         click(s.getLastMatch())
         mirolib.tab_search(self,m,s,title,confirm_present=True)
         #4. cleanup
@@ -88,7 +88,7 @@ class Miro_Suite(unittest.TestCase):
         mirolib.tab_search(self,m,s,term)
         reg.mtb.click("button_save_search.png")
         #3. verify search saved
-        self.assertTrue(s.exists("STRANGE"))
+        self.assertTrue(reg.s.exists("STRANGE"))
         click(s.getLastMatch())
         mirolib.tab_search(self,m,s,title,confirm_present=True)
         #4. cleanup
@@ -162,7 +162,7 @@ class Miro_Suite(unittest.TestCase):
         mirolib.new_search_feed(self,m,t,term,"Feed",feed)
                         
         #3. verify search saved
-        self.assertTrue(s.exists("Static List for 'touring'"))
+        self.assertTrue(reg.s.exists("Static List for 'touring'"))
         click(s.getLastMatch())
         mirolib.tab_search(self,m,s,title,confirm_present=True)
         #4. cleanup
@@ -197,7 +197,7 @@ class Miro_Suite(unittest.TestCase):
         self.assertTrue(reg.m.exists(title))
         self.assertFalse(reg.m.exists("Flip"))
         mirolib.click_sidebar_tab(self,m,s,"Videos")
-        s.click(feed)
+        reg.s.click(feed)
         self.assertTrue(reg.mtb.exists(term.upper()))
         self.assertTrue(reg.m.exists(title))
         self.assertFalse(reg.m.exists("Flip"))
@@ -244,13 +244,13 @@ class Miro_Suite(unittest.TestCase):
         self.assertTrue(exists("playback_controls.png"))
         mirolib.shortcut("d")
 
-        s.click(feed2)
+        reg.s.click(feed2)
         self.assertTrue(reg.mtb.exists("BROOKLYN"))
         mirolib.tab_search(self,m,s,"filmweek")
         reg.mtb.click("Save Search")
 
-        self.assertTrue(s.exists("FILMWEEK"))
-        s.click("for 'FILMWEEK'")
+        self.assertTrue(reg.s.exists("FILMWEEK"))
+        reg.s.click("for 'FILMWEEK'")
         self.assertTrue(reg.m.exists("FilmWeek"))
 
         #4. cleanup

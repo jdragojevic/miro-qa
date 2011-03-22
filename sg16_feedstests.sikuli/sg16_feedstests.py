@@ -213,7 +213,7 @@ class Miro_Suite(unittest.TestCase):
         type(url + "\n")
 
         #3. verify item metadata
-        self.assertTrue(s.exists(feed))
+        self.assertTrue(reg.s.exists(feed))
         #cleanup
         mirolib.delete_feed(self,m,s,feed) 
  

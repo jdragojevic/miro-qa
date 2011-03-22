@@ -57,8 +57,8 @@ class Miro_Suite(unittest.TestCase):
             
             #Start Miro 
             miroApp.focus()
-            self.assertTrue(s.exists("Ryan is Hungry"))
-            s.click("Ryan is Hungry")
+            self.assertTrue(reg.s.exists("Ryan is Hungry"))
+            reg.s.click("Ryan is Hungry")
         finally:
             mirolib.delete_feed(self,m,s,"Ryan is Hungry")
             ffApp.close()
@@ -88,12 +88,12 @@ class Miro_Suite(unittest.TestCase):
             tl.click("Website")
             time.sleep(4)
             type(site_url+"\n")
-            s.click("Awesome")
+            reg.s.click("Awesome")
             reg.m.find("subscribe_to_revver.png")
             reg.m.click("subscribe_to_revver.png")
             time.sleep(4)
-            s.find("Revver Video")
-            s.click("Revver Video")
+            reg.s.find("Revver Video")
+            reg.s.click("Revver Video")
             time.sleep(4)
             reg.m.find(testvars.revver_logo)
             self.assertTrue(reg.m.exists(testvars.revver_logo))

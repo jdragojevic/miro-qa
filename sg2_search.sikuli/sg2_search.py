@@ -76,7 +76,7 @@ class Miro_Suite(unittest.TestCase):
                 mirolib.search_tab_search(self,reg.mtb,term,engine)
                 reg.mtb.highlight(5)
                 reg.mtb.click("button_save_as_podcast.png")
-                self.assertTrue(s.exists(term.upper()))
+                self.assertTrue(reg.s.exists(term.upper()))
                 click(s.getLastMatch())
                 #FIXME verify feed has items
         #cleanup

@@ -36,14 +36,14 @@ class Miro_Suite(unittest.TestCase):
         
         #set the search regions
         reg = mirolib.AppRegions()
-        reg.reg.mtb.click(testvars.guide_search)
+        reg..mtb.click(testvars.guide_search)
         type("stupidvideos.com - the stupid review \n")
-        reg.reg.m.find(testvars.guide_add_feed)
+        reg..m.find(testvars.guide_add_feed)
         click(reg.m.getLastMatch())
         p = mirolib.get_podcasts_region(reg)
         self.assertTrue(p.exists("StupidVideos"))
         click(p.getLastMatch())
-        reg.reg.m.find("Stupid")
+        reg..m.find("Stupid")
         click(reg.m.getLastMatch())
         #2. Copy the url and attempt to add it
         t.click("Sidebar")
@@ -83,7 +83,7 @@ class Miro_Suite(unittest.TestCase):
         url = "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi"
         feed = "my feed"
         mirolib.add_feed(self,reg,url,feed)
-        tmpr = Region(reg.reg.mtb.below(30))
+        tmpr = Region(reg..mtb.below(30))
         self.assertTrue(tmpr.exists("5 Items"))
         mirolib.shortcut("r")
         tmpr.find("10 Items",5)
@@ -144,10 +144,10 @@ class Miro_Suite(unittest.TestCase):
             reg.m.click(x)
     	mirolib.wait_for_item_in_tab(self,m,s,"videos","Flip")
     	mirolib.wait_for_item_in_tab(self,m,s,"videos","Dinosaur")
-    	s.click("feed")
+    	reg.s.click("feed")
     	type(Key.DELETE)
     	mirolib.remove_confirm(self,m,action="keep")
-    	self.assertFalse(s.exists(feed))
+    	self.assertFalse(reg.s.exists(feed))
     	mirolib.click_sidebar_tab(self,m,s,"videos")
     	mirolib.tab_search(self,m,s,"Flip",confirm_present=True)
     	mirolib.tab_search(self,m,s,"Dinosaur",confirm_present=True)
@@ -178,14 +178,14 @@ class Miro_Suite(unittest.TestCase):
 
         #1. Add the feed and start dl
         mirolib.cancel_all_downloads(self,m,s,reg.mtb)
-        self.assertFalse(s.exists("Downloading",5)) #make sure no in progress downloads
+        self.assertFalse(reg.s.exists("Downloading",5)) #make sure no in progress downloads
         mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         tmpr = Region(reg.mtb.below(30))
         self.assertTrue(tmpr.exists("3 Items"))
         mirolib.download_all_items(self,m)
         mirolib.confirm_download_started(self,m,s,"Joo Joo")
         mirolib.delete_feed(self,m,s,"my feed")
-        self.assertFalse(s.exists("Downloading",5))
+        self.assertFalse(reg.s.exists("Downloading",5))
 
 
     def test_117(self):
@@ -221,8 +221,8 @@ class Miro_Suite(unittest.TestCase):
         try:
             keyDown(SHIFT_KEY)
             for x in feedlist:
-                if s.exists(x):
-                    s.click(x)
+                if reg.s.exists(x):
+                    reg.s.click(x)
                 else:
                     print "could not find feed" +str(x)
                 time.sleep(2)
@@ -236,7 +236,7 @@ class Miro_Suite(unittest.TestCase):
         reg.m.click("Delete")
         mirolib.remove_confirm(self,m,"cancel")
         mirolib.click_sidebar_tab(self,m,s,"videos")
-        self.assertTrue(s.exists("Static List",5))
+        self.assertTrue(reg.s.exists("Static List",5))
         #4. Cleanup
         feedlist.append("Static")
         for x in feedlist:
@@ -272,10 +272,10 @@ class Miro_Suite(unittest.TestCase):
             
         #2. Select them and add to a folder    
         try:
-            s.click("my feed")
+            reg.s.click("my feed")
             time.sleep(2)
             keyDown(SHIFT_KEY)
-            s.click("recent posts")
+            reg.s.click("recent posts")
             self.assertTrue(reg.m.exists("Delete"))
             self.assertTrue(reg.m.exists("New Folder"))
         except:
@@ -286,7 +286,7 @@ class Miro_Suite(unittest.TestCase):
         reg.m.click("New Folder")
         time.sleep(2)
         type("Counter Test \n")
-        s.click("Counter Test")
+        reg.s.click("Counter Test")
         tmpr = Region(reg.mtb.below(30))
         self.assertTrue(tmpr.exists("15 Items"))
         mirolib.shortcut("r",shift=True)

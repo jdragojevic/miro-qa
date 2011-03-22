@@ -48,7 +48,7 @@ class Miro_Suite(unittest.TestCase):
             feed_name = "StupidVideo"
             mirolib.shortcut("n")
             type(feed_url+"\n")
-            s.click(feed_name)
+            reg.s.click(feed_name)
             mirolib.delete_feed(self,m,s,feed_name)
         except:
             self.verificationErrors.append("delete feed failed")
@@ -66,8 +66,8 @@ class Miro_Suite(unittest.TestCase):
         try:
             item_url =  "http://www.boatingsidekicks.com/fish-detective.swf"
             item_title = "fish"
-            s.click("File")
-            s.click("Download")
+            reg.s.click("File")
+            reg.s.click("Download")
             type(item_url+"\n")
             mirolib.wait_download_complete(self,m,s,item_title)
             mirolib.delete_items(self,m,s,item_title,"Other")
@@ -78,12 +78,12 @@ class Miro_Suite(unittest.TestCase):
         try:
             mirolib.shortcut("p")
             type("Testlist"+"\n")
-            s.find("Testlist")
-            s.click("Testlist")
+            reg.s.find("Testlist")
+            reg.s.click("Testlist")
             time.sleep(2)
             type(Key.DELETE)
             mslib.remove_confirm(self,m,action="remove")
-            self.assertFalse(s.exists("Testlist",5))
+            self.assertFalse(reg.s.exists("Testlist",5))
         except:
             self.verificationErrors.append("delete playlist failed")
 
@@ -91,12 +91,12 @@ class Miro_Suite(unittest.TestCase):
         try:
             shortcut("p",shift=True)
             type("Playlist-Folder"+"\n")
-            s.find("Playlist-Folder")
-            s.click("Playlit-Folder")
+            reg.s.find("Playlist-Folder")
+            reg.s.click("Playlit-Folder")
             time.sleep(2)
             type(Key.DELETE)
             mslib.remove_confirm(self,m,action="remove")
-            self.assertFalse(s.exists("Playlist-Folder",5))
+            self.assertFalse(reg.s.exists("Playlist-Folder",5))
         except:
             self.verificationErrors.append("delete playlist folder failed")
 

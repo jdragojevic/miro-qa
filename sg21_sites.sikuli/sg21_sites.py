@@ -45,7 +45,7 @@ class Miro_Suite(unittest.TestCase):
         reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
-        s.click(site)
+        reg.s.click(site)
         reg.m.find("download_this_video.png")
         self.assertTrue(t.exists("download_this_video.png"))
         t.click("download_this_video.png")
@@ -70,17 +70,17 @@ class Miro_Suite(unittest.TestCase):
         reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
-        s.click(site)
+        reg.s.click(site)
         t.click("Sidebar")
         t.click("Rename")
         time.sleep(3)
         type("BLIP.TV ROCKS \n")
-        self.assertTrue(s.exists("BLIP.TV ROCKS"))
+        self.assertTrue(reg.s.exists("BLIP.TV ROCKS"))
 
         mirolib.quit_miro(self,m,s)
         miroRegions = mirolib.launch_miro()
         s = miroRegions[0] #Sidebar Region
-        self.assertTrue(s.exists("BLIP.TV ROCKS"))
+        self.assertTrue(reg.s.exists("BLIP.TV ROCKS"))
 
         mirolib.delete_site(self,m,s,"BLIP.TV")
 
@@ -103,7 +103,7 @@ class Miro_Suite(unittest.TestCase):
         reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
-        s.click(site)
+        reg.s.click(site)
 
         self.assertTrue(reg.mtb.exists("navstop_disabled.png"))
         self.assertTrue(reg.mtb.exists("navforward_disabled.png"))
@@ -167,10 +167,10 @@ class Miro_Suite(unittest.TestCase):
         reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
-        s.click(site)
+        reg.s.click(site)
         reg.m.click("Netlabel Music")
         reg.m.click(testvars.clearbits_rss)
-        self.assertTrue(s.exists("Netlabel"))
+        self.assertTrue(reg.s.exists("Netlabel"))
         mirolib.delete_feed(self,m,s,"Netlabel")
         mirolib.delete_site(self,m,s,"ClearBits")
 
@@ -195,7 +195,7 @@ class Miro_Suite(unittest.TestCase):
         reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
-        s.click(site)
+        reg.s.click(site)
         reg.m.click("Torrent file")
         mirolib.confirm_download_started(self,m,s,title)
 
@@ -237,7 +237,7 @@ class Miro_Suite(unittest.TestCase):
         reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
-        s.click(site)
+        reg.s.click(site)
         for filetype, title in HTTPDOWNLOADS.iteritems():
             try:
                 if reg.m.exists(filetype):
@@ -310,13 +310,13 @@ class Miro_Suite(unittest.TestCase):
         reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
-        s.click(site)
+        reg.s.click(site)
         reg.m.find(testvars.dizizle_logo)
         mirolib.quit_miro(self,m,s)
         miroRegions = mirolib.launch_miro()
         s = miroRegions[0] #Sidebar Region
         m = miroRegions[1] #Mainview Region
-        s.click(site)
+        reg.s.click(site)
         self.assertTrue(reg.m.exists(testvars.dizizle_logo))    
         mirolib.delete_site(self,m,s,site)
 
@@ -342,16 +342,16 @@ class Miro_Suite(unittest.TestCase):
 
         mirolib.add_website(self,s,tl,site_url,site)
         mirolib.add_website(self,s,tl,site_url2,site2)
-        s.click(site)
+        reg.s.click(site)
         keyDown(SHIFT_KEY)
-        s.click(site2)
+        reg.s.click(site2)
         keyUp(SHIFT_KEY)
         self.assertTrue(reg.m.exists("Delete All"))
         click(m.getLastMatch())
         reg.m.click("button_cancel.png")
         mslib.click_sidebar_tab(self,m,s,"Videos")
-        self.assertTrue(s.exists(site1))
-        self.assertTrue(s.exists(site2))
+        self.assertTrue(reg.s.exists(site1))
+        self.assertTrue(reg.s.exists(site2))
 
         #Cleanup
         mirolib.delete_site(self,m,s,site)

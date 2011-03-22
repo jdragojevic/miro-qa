@@ -48,7 +48,7 @@ class Miro_Suite(unittest.TestCase):
         item_title = "Joo Joo"
         #add feed and download joo joo item
         mirolib.add_feed(self,t,s,reg.mtb,url,feed)
-        s.click(feed)
+        reg.s.click(feed)
         mirolib.tab_search(self,m,s,item_title)
         reg.m.click("Download")
         mirolib.wait_download_complete(self,m,s,item_title)

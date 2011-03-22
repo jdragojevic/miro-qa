@@ -44,7 +44,7 @@ class Miro_Suite(unittest.TestCase):
             reg.m.click(testvars.guide_search)
             type("StupidVideos \n")
             reg.m.find(testvars.guide_add_feed)
-            click(m.getLastMatch())            self.assertTrue(s.exists("StupidVideos"))
+            click(m.getLastMatch())            self.assertTrue(reg.s.exists("StupidVideos"))
                         
         finally:
             #4. cleanup
