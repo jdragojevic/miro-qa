@@ -47,8 +47,8 @@ class Miro_Suite(unittest.TestCase):
         mirolib.add_website(self,s,tl,site_url,site)
         reg.s.click(site)
         reg.m.find("download_this_video.png")
-        self.assertTrue(t.exists("download_this_video.png"))
-        t.click("download_this_video.png")
+        self.assertTrue(reg.t.exists("download_this_video.png"))
+        reg.t.click("download_this_video.png")
         mirolib.confirm_download_started(self,m,s,"Hubble")
         mirolib.delete_site(self,m,s,site)
 
@@ -71,8 +71,8 @@ class Miro_Suite(unittest.TestCase):
 
         mirolib.add_website(self,s,tl,site_url,site)
         reg.s.click(site)
-        t.click("Sidebar")
-        t.click("Rename")
+        reg.t.click("Sidebar")
+        reg.t.click("Rename")
         time.sleep(3)
         type("BLIP.TV ROCKS \n")
         self.assertTrue(reg.s.exists("BLIP.TV ROCKS"))

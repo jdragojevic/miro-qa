@@ -38,7 +38,7 @@ class AppRegions():
         else:
             if exists("icon-guide_active.png"):
                 print "on guide tab"
-        if not exists(testvars.feedback,5):
+        if noreg.t.exists(testvars.feedback,5):
             print ("network either off or slow, no feeback icon")
             find("Videos")
             sidex = int(getLastMatch().getX())+200
@@ -195,7 +195,7 @@ def toggle_radio(self,button):
     """Looks for the specified tab by image base name.
     Should be able to find the image if it is selected or not selected.
     """
-    if not exists (imagemap.Buttons[button +"_selected"]):
+    if noreg.t.exists (imagemap.Buttons[button +"_selected"]):
         click (imagemap.Buttons[(button)])   
  
 
@@ -304,8 +304,8 @@ def add_feed(self,t,s,mtb,url,feed):
     Verify the feed is added by clicking on the feed and verify the feed name is present
     in the main title bar.
     """
-    t.click("Sidebar")
-    t.click("Add Podcast")
+    reg.t.click("Sidebar")
+    reg.t.click("Add Podcast")
     time.sleep(2)
     type(url + "\n")
     time.sleep(5)
@@ -551,8 +551,8 @@ def add_website(self,s,tl,site_url,site):
     self.assertTrue(s.exists(site))
 
 def new_search_feed(self,m,t,term,radio,source):
-    t.click("Sidebar")
-    t.click("New Search")
+    reg.t.click("Sidebar")
+    reg.t.click("New Search")
     type(term)
     m.find(radio)
     f = Region(m.getLastMatch().left(300))

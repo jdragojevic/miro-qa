@@ -46,10 +46,10 @@ class Miro_Suite(unittest.TestCase):
         reg..m.find("Stupid")
         click(reg.m.getLastMatch())
         #2. Copy the url and attempt to add it
-        t.click("Sidebar")
-        t.click("Copy")
-        t.click("Sidebar")
-        t.click("Add Podcast")
+        reg.t.click("Sidebar")
+        reg.t.click("Copy")
+        reg.t.click("Sidebar")
+        reg.t.click("Add Podcast")
         time.sleep(2)
         type("\n")
         time.sleep(3)
@@ -224,7 +224,7 @@ class Miro_Suite(unittest.TestCase):
                 if reg.s.exists(x):
                     reg.s.click(x)
                 else:
-                    print "could not find feed" +str(x)
+                    print "could noreg.t.find feed" +str(x)
                 time.sleep(2)
             self.assertTrue(reg.m.exists("Delete"))
             self.assertTrue(reg.m.exists("New Folder"))

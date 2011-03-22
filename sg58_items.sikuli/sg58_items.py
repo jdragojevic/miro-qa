@@ -56,8 +56,8 @@ class Miro_Suite(unittest.TestCase):
         mirolib.click_sidebar_tab(self,m,s,"Video")
         mirolib.tab_search(self,m,item_title,confirm_present=True)
         reg.m.click(item_title)
-        t.click("File")
-        t.click("Edit")
+        reg.t.click("File")
+        reg.t.click("Edit")
         reg.m.click("Audio")
         reg.m.click("Apply")
         #locate item in audio tab and verify playback

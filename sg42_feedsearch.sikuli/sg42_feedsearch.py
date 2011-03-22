@@ -239,8 +239,8 @@ class Miro_Suite(unittest.TestCase):
         mirolib.tab_search(self,m,s,"Brooklyn")
         mirolib.wait_for_item_in_tab(self,m,s,"Videos",title)
         reg.m.click(title)
-        t.click("Playback")
-        t.click("Play")
+        reg.t.click("Playback")
+        reg.t.click("Play")
         self.assertTrue(exists("playback_controls.png"))
         mirolib.shortcut("d")
 

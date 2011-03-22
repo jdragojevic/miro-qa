@@ -91,7 +91,7 @@ class Miro_Suite(unittest.TestCase):
             tmpr = Region(find("Main_Menu.png"))
         if tmpr.exists("Dev"):
             click(tmpr.getLastMatch())
-            t.click("Test Crash")
+            reg.t.click("Test Crash")
             mirolib.handle_crash_dialog(self,db=False,test=True) 
         else:
             print "not in debug mode - menu not tested"
@@ -118,7 +118,7 @@ class Miro_Suite(unittest.TestCase):
             tmpr = Region(find("Main_Menu.png"))
         if tmpr.exists("Dev"):
             click(tmpr.getLastMatch())
-            t.click("Test Soft")
+            reg.t.click("Test Soft")
             mirolib.handle_crash_dialog(self,db=False,test=True) 
         else:
             self.pass("not in debug mode")
