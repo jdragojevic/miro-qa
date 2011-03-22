@@ -43,7 +43,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
         
         url = "http://pculture.org/feeds_test/feed1.rss"
         feed = "Yahoo"
@@ -57,7 +57,7 @@ class Miro_Suite(unittest.TestCase):
         
         
         #1. add feed
-        mirolib.add_feed(self,t,s,mtb,url,feed)
+        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         #2. search
         mirolib.tab_search(self,m,s,term)
         #3. verify item metadata
@@ -79,7 +79,7 @@ class Miro_Suite(unittest.TestCase):
             m = miroRegions[1] #Mainview Region
             t = miroRegions[2] #top half screen
             tl = miroRegions[3] #top left quarter
-            mtb = miroRegions[4] #main title bar
+            reg.mtb = miroRegions[4] #main title bar
             
             #1. add feed
             url = "http://pculture.org/feeds_test/feed1.rss"
@@ -88,7 +88,7 @@ class Miro_Suite(unittest.TestCase):
             title = "Video 3"
             
             #1. add feed
-            mirolib.add_feed(self,t,s,mtb,url,feed)
+            mirolib.add_feed(self,t,s,reg.mtb,url,feed)
             #2. search
             mirolib.tab_search(self,m,s,term)
             
@@ -126,9 +126,9 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
         m.highlight(3)
-        mtb.highlight(3)
+        reg.mtb.highlight(3)
         s.highlight(3)
         
         
@@ -139,7 +139,7 @@ class Miro_Suite(unittest.TestCase):
         title = "Video 1"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,mtb,url,feed)
+        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         mirolib.download_all_items(self,m)
         #2. search
         
@@ -167,7 +167,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
         
         url = "http://pculture.org/feeds_test/feed3.rss"
         feed = "RSS 2.0 and Yahoo"
@@ -175,7 +175,7 @@ class Miro_Suite(unittest.TestCase):
         title = "Video 1"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,mtb,url,feed)
+        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         #2. search
         mirolib.tab_search(self,m,s,term)
         
@@ -200,7 +200,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
         
         feed = "The AV Club"
         print "open ff"

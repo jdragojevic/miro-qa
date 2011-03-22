@@ -40,7 +40,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
         mirolib.click_sidebar_tab(self,m,s,"search")
@@ -63,7 +63,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
         mirolib.click_sidebar_tab(self,m,s,"search")

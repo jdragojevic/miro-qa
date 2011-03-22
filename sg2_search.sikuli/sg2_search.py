@@ -41,16 +41,16 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
-        mtb.highlight(3)
+        reg.mtb = miroRegions[4] #main title bar
+        reg.mtb.highlight(3)
 
         SEARCHES = {"Blip": 'lizards', "YouTube": 'cosmicomics'}
         for engine, term in SEARCHES.iteritems():
             mirolib.click_sidebar_tab(self,m,s,"Search")
-            mirolib.search_tab_search(self,mtb,term,engine)
+            mirolib.search_tab_search(self,reg.mtb,term,engine)
             mirolib.click_sidebar_tab(self,m,s,"Videos")
             mirolib.click_sidebar_tab(self,m,s,"Search")
-            self.assertTrue(mtb.exists(term.upper()))
+            self.assertTrue(reg.mtb.exists(term.upper()))
 
 
         
@@ -68,14 +68,14 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
 
         searches = {"Blip": "lizards", "YouTube": "cosmicomics"}
         for engine, term in searches.iteritems():
         	mirolib.click_sidebar_tab(self,m,s,"search")
-                mirolib.search_tab_search(self,mtb,term,engine)
-                mtb.highlight(5)
-                mtb.click("button_save_as_podcast.png")
+                mirolib.search_tab_search(self,reg.mtb,term,engine)
+                reg.mtb.highlight(5)
+                reg.mtb.click("button_save_as_podcast.png")
                 self.assertTrue(s.exists(term.upper()))
                 click(s.getLastMatch())
                 #FIXME verify feed has items

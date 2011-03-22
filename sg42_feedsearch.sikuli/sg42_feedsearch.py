@@ -41,7 +41,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static List"
@@ -49,10 +49,10 @@ class Miro_Suite(unittest.TestCase):
         title = "GimpKnowHow"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,mtb,url,feed)
+        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         #2. search
         mirolib.tab_search(self,m,s,term)
-        mtb.click("button_save_search.png")
+        reg.mtb.click("button_save_search.png")
         #3. verify search saved
         self.assertTrue(s.exists("GIMP"))
         click(s.getLastMatch())
@@ -75,7 +75,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
         
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "3 blip"
@@ -83,10 +83,10 @@ class Miro_Suite(unittest.TestCase):
         title = "Joo Joo"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,mtb,url,feed)
+        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         #2. search
         mirolib.tab_search(self,m,s,term)
-        mtb.click("button_save_search.png")
+        reg.mtb.click("button_save_search.png")
         #3. verify search saved
         self.assertTrue(s.exists("STRANGE"))
         click(s.getLastMatch())
@@ -109,7 +109,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "2 stupid"
@@ -117,14 +117,14 @@ class Miro_Suite(unittest.TestCase):
         title = "Flip Face"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,mtb,url,feed)
+        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         #2. search
         mirolib.download_all_items(self,m)
         mirolib.wait_for_item_in_tab(self,m,s,"videos","Flip")
         mirolib.wait_for_item_in_tab(self,m,s,"videos","Dinosaur")
         mirolib.tab_search(self,m,s,term)
         self.assertFalse(m.exists("Flip"))
-        mtb.click(term)
+        reg.mtb.click(term)
         for x in range(0,8):
             type(Key.LEFT)
         
@@ -149,7 +149,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static List"
@@ -157,7 +157,7 @@ class Miro_Suite(unittest.TestCase):
         title = "Travelling Two"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,mtb,url,feed)
+        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         #2. search
         mirolib.new_search_feed(self,m,t,term,"Feed",feed)
                         
@@ -183,7 +183,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "2 stupid"
@@ -191,14 +191,14 @@ class Miro_Suite(unittest.TestCase):
         title = "Dinosaur"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,mtb,url,feed)
+        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         #2. search
         mirolib.tab_search(self,m,s,term)
         self.assertTrue(m.exists(title))
         self.assertFalse(m.exists("Flip"))
         mirolib.click_sidebar_tab(self,m,s,"Videos")
         s.click(feed)
-        self.assertTrue(mtb.exists(term.upper()))
+        self.assertTrue(reg.mtb.exists(term.upper()))
         self.assertTrue(m.exists(title))
         self.assertFalse(m.exists("Flip"))
         #4. cleanup
@@ -219,7 +219,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "2 stupid"
@@ -227,7 +227,7 @@ class Miro_Suite(unittest.TestCase):
         title = "Dinosaur"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,mtb,url,feed)
+        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         #2. search
         mirolib.tab_search(self,m,s,term)
         self.assertTrue(m.exists(title))
@@ -235,7 +235,7 @@ class Miro_Suite(unittest.TestCase):
 
         url2 = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed2 = "Static List"
-        mirolib.add_feed(self,t,s,mtb,url2,feed2)
+        mirolib.add_feed(self,t,s,reg.mtb,url2,feed2)
         mirolib.tab_search(self,m,s,"Brooklyn")
         mirolib.wait_for_item_in_tab(self,m,s,"Videos",title)
         m.click(title)
@@ -245,9 +245,9 @@ class Miro_Suite(unittest.TestCase):
         mirolib.shortcut("d")
 
         s.click(feed2)
-        self.assertTrue(mtb.exists("BROOKLYN"))
+        self.assertTrue(reg.mtb.exists("BROOKLYN"))
         mirolib.tab_search(self,m,s,"filmweek")
-        mtb.click("Save Search")
+        reg.mtb.click("Save Search")
 
         self.assertTrue(s.exists("FILMWEEK"))
         s.click("for 'FILMWEEK'")

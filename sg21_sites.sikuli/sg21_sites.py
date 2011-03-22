@@ -42,7 +42,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #mainview title bar
+        reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
         s.click(site)
@@ -67,7 +67,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #mainview title bar
+        reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
         s.click(site)
@@ -100,48 +100,48 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #mainview title bar
+        reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
         s.click(site)
 
-        self.assertTrue(mtb.exists("navstop_disabled.png"))
-        self.assertTrue(mtb.exists("navforward_disabled.png"))
-        self.assertTrue(mtb.exists("navhome.png"))
-        self.assertTrue(mtb.exists("navreload.png"))
+        self.assertTrue(reg.mtb.exists("navstop_disabled.png"))
+        self.assertTrue(reg.mtb.exists("navforward_disabled.png"))
+        self.assertTrue(reg.mtb.exists("navhome.png"))
+        self.assertTrue(reg.mtb.exists("navreload.png"))
 
         m.click(testvars.blip_browse)
         m.click(testvars.blip_recent)
-        self.assertTrue(mtb.exists("navback.png"))
-        self.assertTrue(mtb.exists("navforward_disabled.png"))
-        self.assertTrue(mtb.exists("navhome.png"))
-        self.assertTrue(mtb.exists("navreload.png"))
+        self.assertTrue(reg.mtb.exists("navback.png"))
+        self.assertTrue(reg.mtb.exists("navforward_disabled.png"))
+        self.assertTrue(reg.mtb.exists("navhome.png"))
+        self.assertTrue(reg.mtb.exists("navreload.png"))
 
-        mtb.click("navback.png")
-        self.assertTrue(mtb.exists("navforward.png"))
-        self.assertTrue(mtb.exists("navback_disabled.png"))
-        self.assertTrue(mtb.exists("navhome.png"))
-        self.assertTrue(mtb.exists("navreload.png"))
+        reg.mtb.click("navback.png")
+        self.assertTrue(reg.mtb.exists("navforward.png"))
+        self.assertTrue(reg.mtb.exists("navback_disabled.png"))
+        self.assertTrue(reg.mtb.exists("navhome.png"))
+        self.assertTrue(reg.mtb.exists("navreload.png"))
 
-        mtb.click("navforward")
-        self.assertTrue(mtb.exists("navback.png"))
-        self.assertTrue(mtb.exists("navforward_disabled.png"))
-        self.assertTrue(mtb.exists("navhome.png"))
-        self.assertTrue(mtb.exists("navreload.png"))
+        reg.mtb.click("navforward")
+        self.assertTrue(reg.mtb.exists("navback.png"))
+        self.assertTrue(reg.mtb.exists("navforward_disabled.png"))
+        self.assertTrue(reg.mtb.exists("navhome.png"))
+        self.assertTrue(reg.mtb.exists("navreload.png"))
         
-        mtb.click("navreload.png")
-        mtb.click("navstop.png")
-        self.assertTrue(mtb.exists("navback.png"))
-        self.assertTrue(mtb.exists("navforward.png"))
-        self.assertTrue(mtb.exists("navhome.png"))
-        self.assertTrue(mtb.exists("navreload.png"))
+        reg.mtb.click("navreload.png")
+        reg.mtb.click("navstop.png")
+        self.assertTrue(reg.mtb.exists("navback.png"))
+        self.assertTrue(reg.mtb.exists("navforward.png"))
+        self.assertTrue(reg.mtb.exists("navhome.png"))
+        self.assertTrue(reg.mtb.exists("navreload.png"))
 
-        mtb.click("navhome.png")
+        reg.mtb.click("navhome.png")
         #FIX MEwait for the updating icon to appear then disappear
-        self.assertTrue(mtb.exists("navback.png"))
-        self.assertTrue(mtb.exists("navforward_disabled.png"))
-        self.assertTrue(mtb.exists("navhome.png"))
-        self.assertTrue(mtb.exists("navreload.png"))
+        self.assertTrue(reg.mtb.exists("navback.png"))
+        self.assertTrue(reg.mtb.exists("navforward_disabled.png"))
+        self.assertTrue(reg.mtb.exists("navhome.png"))
+        self.assertTrue(reg.mtb.exists("navreload.png"))
         
 
 
@@ -164,7 +164,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #mainview title bar
+        reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
         s.click(site)
@@ -192,7 +192,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #mainview title bar
+        reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
         s.click(site)
@@ -234,7 +234,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #mainview title bar
+        reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
         s.click(site)
@@ -250,7 +250,7 @@ class Miro_Suite(unittest.TestCase):
             except:
                 self.verificationErrors.append("download failed for imagetype" +str(x))
             finally:
-                mslib.cancel_all_downloads(self,m,s,mtb)
+                mslib.cancel_all_downloads(self,m,s,reg.mtb)
         mirolib.delete_site(self,m,s,site)
 
     def test_321(self):
@@ -267,7 +267,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #mainview title bar
+        reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
         mirolib.delete_site(self,m,s,site)
@@ -286,7 +286,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #mainview title bar
+        reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
         mirolib.delete_site(self,m,s,site)
@@ -307,7 +307,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #mainview title bar
+        reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
         s.click(site)
@@ -338,7 +338,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #mainview title bar
+        reg.mtb = miroRegions[4] #mainview title bar
 
         mirolib.add_website(self,s,tl,site_url,site)
         mirolib.add_website(self,s,tl,site_url2,site2)

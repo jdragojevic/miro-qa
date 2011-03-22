@@ -41,13 +41,13 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #mainview title bar
+        reg.mtb = miroRegions[4] #mainview title bar
         
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "blip"
         item_title = "Joo Joo"
         #add feed and download joo joo item
-        mirolib.add_feed(self,t,s,mtb,url,feed)
+        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         s.click(feed)
         mirolib.tab_search(self,m,s,item_title)
         m.click("Download")

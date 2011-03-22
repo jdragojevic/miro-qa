@@ -12,6 +12,7 @@ from sikuli.Sikuli import *
 setBundlePath(config.get_img_path())
 
 
+
 def open_miro():
     """Returns the launch path for the application.
 
@@ -29,77 +30,100 @@ def open_miro():
     wait("Miro",60)
     click(getLastMatch())
 
-def launch_miro():
-    """Open the Miro Application, the sets the region coords for searching.
-    
-    Uses the Miro Guides, Feedback, Bottom Corner, and VolumeBar to find coordinates.
-    Returns the:
+class AppRegions():
+    def get_regions():
+        regions = []
+        if exists("Miro",5):
+            click(getLastMatch())
+        else:
+            if exists("icon-guide_active.png"):
+                print "on guide tab"
+        if not exists(testvars.feedback,5):
+            print ("network either off or slow, no feeback icon")
+            find("Videos")
+            sidex = int(getLastMatch().getX())+200
+        else:
+            wait(testvars.feedback)
+            sidex = getLastMatch().getX()
+
+        find("Music")
+        topx =  int(getLastMatch().getX())-55
+        topy = int(getLastMatch().getY())-90
         
-    SidebarRegion (s) - miro sidebar 
-    MainViewRegion(m) - miro mainview
-    TopHalfRegion (t) - top 1/2 of whole screen
-    TopLeftRegion (tl) - top left of whole screen
-    MainTitleBarRegion (mtb) - miro mainview title bar region
+        find("BottomCorner.png")
+        vbarx =  int(getLastMatch().getX())+30
+        vbary = int(getLastMatch().getY())+10
+        vbarw = getLastMatch().getW()
 
-    Note - order mattters, this would be better as a dict.
-    """
-    regions = []
-    if open_miro() == "linux":
-        config.start_miro_on_linux()
-    else:
-        App.open(open_miro())
-    wait("Sidebar",45)
+        sidebar_width = int(sidex-topx)
+        app_height = int(vbary-topy)
+        tbar_height = 100
+        
+        #Sidebar Region
+        SidebarRegion = Region(topx,topy,sidebar_width,app_height)
+        SidebarRegion.setAutoWaitTimeout(30)
+        regions.append(SidebarRegion)                
+        #Mainview Region
+        mainwidth = int((vbarx-sidex)+vbarw)
+        MainViewRegion = Region(sidex,topy+tbar_height,mainwidth,app_height-155)
+        MainViewRegion.setAutoWaitTimeout(30)
+        regions.append(MainViewRegion)
+        #Top Half of screen, width of Miro app Region
+        TopHalfRegion = Region(0,0,mainwidth+sidebar_width,app_height/2)
+        TopHalfRegion.setAutoWaitTimeout(30)
+        regions.append(TopHalfRegion)
+        #Top Left Half of screen, 1/2 width of Miro app from left side
+        TopLeftRegion = Region(0,0,mainwidth/2,app_height/2)
+        TopLeftRegion.setAutoWaitTimeout(30)
+        regions.append(TopLeftRegion)
+        #Main Title bar section of the main view
+        MainTitleBarRegion = Region(sidex,topy,mainwidth,tbar_height)
+        MainTitleBarRegion.setAutoWaitTimeout(30)
+        regions.append(MainTitleBarRegion)
+        return regions
 
-    
-    if exists("Miro",5):
-        click(getLastMatch())
-    else:
-        if exists("icon-guide_active.png"):
-            print "on guide tab"
-    if not exists(testvars.feedback,5):
-        print ("network either off or slow, no feeback icon")
-        find("Videos")
-        sidex = int(getLastMatch().getX())+200
-    else:
-        wait(testvars.feedback)
-        sidex = getLastMatch().getX()
 
-    find("Music")
-    topx =  int(getLastMatch().getX())-55
-    topy = int(getLastMatch().getY())-90
-    
-    find("BottomCorner.png")
-    vbarx =  int(getLastMatch().getX())+30
-    vbary = int(getLastMatch().getY())+30
-    vbarw = getLastMatch().getW()
 
-    sidebar_width = int(sidex-topx)
-    app_height = int(vbary-topy)
-    
-    #Sidebar Region
-    SidebarRegion = Region(topx,topy,sidebar_width,app_height)
-    SidebarRegion.setAutoWaitTimeout(30)
-    regions.append(SidebarRegion)
-    
-    #Mainview Region
-    mainwidth = int((vbarx-sidex)+vbarw)
-    MainViewRegion = Region(sidex,topy-150,mainwidth,app_height)
-    MainViewRegion.setAutoWaitTimeout(30)
-    regions.append(MainViewRegion)
-    #Top Half of screen, width of Miro app Region
-    TopHalfRegion = Region(0,0,mainwidth+sidebar_width,app_height/2)
-    TopHalfRegion.setAutoWaitTimeout(30)
-    regions.append(TopHalfRegion)
-    #Top Left Half of screen, 1/2 width of Miro app from left side
-    TopLeftRegion = Region(0,0,mainwidth/2,app_height/2)
-    TopLeftRegion.setAutoWaitTimeout(30)
-    regions.append(TopLeftRegion)
-    #Main Title bar section of the main view
-    MainTitleBarRegion = Region(sidex,topy,mainwidth,150)
-    MainTitleBarRegion.setAutoWaitTimeout(30)
-    regions.append(MainTitleBarRegion)
-    
-    return regions
+
+    def launch_miro():
+        """Open the Miro Application, the sets the region coords for searching.
+        
+        Uses the Miro Guides, Feedback, Bottom Corner, and VolumeBar to find coordinates.
+        Returns the:
+            
+        SidebarRegion (s) - miro sidebar 
+        MainViewRegion(m) - miro mainview
+        TopHalfRegion (t) - top 1/2 of whole screen
+        TopLeftRegion (tl) - top left of whole screen
+        MainTitleBarRegion (reg.mtb) - miro mainview title bar region
+
+        Note - order mattters, this would be better as a dict.
+        """
+        if open_miro() == "linux":
+            config.start_miro_on_linux()
+        else:
+            App.open(open_miro())
+        wait("Sidebar",45)
+
+
+
+    launch_miro()
+    miroRegions = get_regions()
+    s = miroRegions[0] #Sidebar Region
+    m = miroRegions[1] #Mainview Region
+    t= miroRegions[2] #top half screen
+    tl = miroRegions[3] #top left quarter
+    reg.mtb = miroRegions[4] #main title bar
+        
+        
+
+
+        
+
+
+
+
+
 
 def shortcut(key,shift=False):
     """Keyboard press of the correct shortcut key
@@ -224,29 +248,29 @@ def remove_confirm(self,m,action="remove"):
             print "not sure what to do in this dialog"
     self.assertTrue(m.waitVanish(Pattern("dialog_are_you_sure.png"),10))
     
-def get_website_region(m,s):
+def get_website_region(reg):
     """takes the main and sidebar regions to create a region for the websites section.
     
     """
-    s.click("Sources")
-    topx =  s.getLastMatch().getX()
-    topy =  s.getLastMatch().getY()
-    width = s.getW()
-    s.find("Podcasts")
-    boty =  s.getLastMatch().getY()
+    reg.s.click("Sources")
+    topx =  reg.s.getLastMatch().getX()
+    topy =  reg.s.getLastMatch().getY()
+    width = reg.s.getW()
+    reg.s.find("Podcasts")
+    boty =  reg.s.getLastMatch().getY()
     height = boty-topy
     WebsitesRegion = Region(topx,topy, width, height)
     WebsitesRegion.setAutoWaitTimeout(20)
     return WebsitesRegion
 
-def get_podcasts_region(s):
-    s.click("Podcasts")
-    topx =  s.getLastMatch().getX()
-    topy =  s.getLastMatch().getY()
-    s.find("Playlists")
-    boty =  s.getLastMatch().getY()
+def get_podcasts_region(reg):
+    reg.s.click("Podcasts")
+    topx =  reg.s.getLastMatch().getX()
+    topy =  reg.s.getLastMatch().getY()
+    reg.s.find("Playlists")
+    boty =  reg.s.getLastMatch().getY()
     height = boty-topy
-    width = s.getW()
+    width = reg.s.getW()
     PodcastsRegion = Region(topx,topy, width, height)
     PodcastsRegion.setAutoWaitTimeout(20)
     return PodcastsRegion
@@ -274,7 +298,7 @@ def delete_site(self,m,s,site):
     else:
         print "feed: " +site+ " not present"
 
-def add_feed(self,t,s,mtb,url,feed):
+def add_feed(self,t,s,reg.mtb,url,feed):
     """Add a feed to miro, click on it in the sidebar.
     
     Verify the feed is added by clicking on the feed and verify the feed name is present
@@ -347,15 +371,16 @@ def click_sidebar_tab(self,m,s,tab):
 ## Menu related stuff ##
    
 
-def tab_search(self,m,s,title,confirm_present=False):
+def tab_search(self,m,s,title,reg.mtb,confirm_present=False):
     """enter text in the search box.
 
     """
     print "searching within tab"
-    if m.exists("tabsearch_inactive.png",5):
+    if reg.mtb.exists("tabsearch_inactive.png",5):
         click(m.getLastMatch())
-    elif m.exists("tabsearch_clear.png",5):
-        click(m.getLastMatch())
+    elif reg.mtb.exists("tabsearch_clear.png",5):
+        click(reg.mtb.getLastMatch())
+        click(reg.mtb.getLastMatch().left(10))
     
     type(title.upper())
     if confirm_present == True:
@@ -363,24 +388,24 @@ def tab_search(self,m,s,title,confirm_present=False):
         present=True
         return present
 
-def search_tab_search(self,mtb,term,engine=None):
+def search_tab_search(self,reg.mtb,term,engine=None):
     """perform a search in the search tab.
 
-    Requires: search term (term), search engine(engine) and MainViewTopRegion (mtb)
+    Requires: search term (term), search engine(engine) and MainViewTopRegion (reg.mtb)
 
     """
     print "starting a search tab search"
     # Find the search box and type in the search text
-    if mtb.exists("tabsearch_inactive.png",5):
-        click(mtb.getLastMatch())
-    elif mtb.exists("tabsearch_clear.png",5): # this should always be found on gtk
+    if reg.mtb.exists("tabsearch_inactive.png",5):
+        click(reg.mtb.getLastMatch())
+    elif reg.mtb.exists("tabsearch_clear.png",5): # this should always be found on gtk
         print "found the broom"
-        click(mtb.getLastMatch())
-        click(mtb.getLastMatch().left(10))
+        click(reg.mtb.getLastMatch())
+        click(reg.mtb.getLastMatch().left(10))
     type(term.upper())
     # Use the search text to create a region for specifying the search engine
     if engine != None:
-        l = mtb.find(term.upper())
+        l = reg.mtb.find(term.upper())
         l1= Region(int(l.getX()-20), l.getY(), 8, 8,)
         click(l1)
         l2 = Region(int(l.getX()-15), l.getY(), 200, 300,)
@@ -391,7 +416,7 @@ def search_tab_search(self,mtb,term,engine=None):
         else:
             l2.click(engine)
         type("\n") #enter the search
-        self.assertTrue(mtb.exists("button_save_as_podcast.png"))
+        self.assertTrue(reg.mtb.exists("button_save_as_podcast.png"))
     else:
         type("\n")
  
@@ -444,7 +469,7 @@ def wait_download_complete(self,m,s,title,torrent=False):
             while not m.exists("item_stop_seeding.png"):
                 time.sleep(5)
                 
-def cancel_all_downloads(self,m,s,mtb):
+def cancel_all_downloads(self,m,s,reg.mtb):
     """Cancel all in progress downloads.
     
     If the tab exists, cancel all dls and seeding.
@@ -453,7 +478,7 @@ def cancel_all_downloads(self,m,s,mtb):
     """
     if s.exists("Downloading",5):
         click_sidebar_tab(self,m,s,"downloading")
-        mtb.click("Cancel All")
+        reg.mtb.click("Cancel All")
         seedlist = m.findAll("Seeding")
         if len(seedlist > 0):
             for x in seedlist:
@@ -462,8 +487,9 @@ def cancel_all_downloads(self,m,s,mtb):
     self.assertFalse(s.exists("Downloading"))
     
                 
-def wait_for_item_in_tab(self,m,s,tab,item):
+def wait_for_item_in_tab(self,m,s,tab,item,reg.mtb):
     click_sidebar_tab(self,m,s,tab)
+    tab_search(self,m,s,reg.mtb,item)
     while not m.exists(item):
     	time.sleep(5)
     
@@ -539,8 +565,8 @@ def new_search_feed(self,m,t,term,radio,source):
         f1.click(source)
     m.click("Create Feed")
 
-def verify_normalview_metadata(self,mtb,metadata):
-    i = mtb.below(300)
+def verify_normalview_metadata(self,reg.mtb,metadata):
+    i = reg.mtb.below(300)
     for k,v in metadata.iteritems():
         self.assertTrue(i.exists(v,3))   
 
@@ -573,9 +599,7 @@ def handle_crash_dialog(self,db=True,test=False):
         print "miro crashed"
         self.fail("Got a crash report - check bogon")
         shortcut("q")
-        time.sleep(10)
-    
-    
+        time.sleep(10)   
         
 
     

@@ -35,22 +35,16 @@ class Miro_Suite(unittest.TestCase):
         setAutoWaitTimeout(testvars.timeout)
         
         #set the search regions
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
-        
-        m.click(testvars.guide_search)
+        reg = mirolib.AppRegions()
+        reg.reg.mtb.click(testvars.guide_search)
         type("stupidvideos.com - the stupid review \n")
-        m.find(testvars.guide_add_feed)
-        click(m.getLastMatch())
-        p = mirolib.get_podcasts_region(s)
+        reg.m.find(testvars.guide_add_feed)
+        click(reg.m.getLastMatch())
+        p = mirolib.get_podcasts_region(reg)
         self.assertTrue(p.exists("StupidVideos"))
         click(p.getLastMatch())
-        m.find("Stupid")
-        click(m.getLastMatch())
+        reg.m.find("Stupid")
+        click(reg.m.getLastMatch())
         #2. Copy the url and attempt to add it
         t.click("Sidebar")
         t.click("Copy")
@@ -85,22 +79,16 @@ class Miro_Suite(unittest.TestCase):
         setAutoWaitTimeout(testvars.timeout)
         
         #set the search regions
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
-        
+        reg = mirolib.AppRegions()        
         url = "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi"
         feed = "my feed"
-        mirolib.add_feed(self,t,s,mtb,url,feed)
-        tmpr = Region(mtb.below(30))
+        mirolib.add_feed(self,reg,url,feed)
+        tmpr = Region(reg.reg.mtb.below(30))
         self.assertTrue(tmpr.exists("5 Items"))
         mirolib.shortcut("r")
         tmpr.find("10 Items",5)
         #Set feed setting to 100 and update to verify items kept to limit
-        mtb.click("Settings")
+        reg.mtb.click("Settings")
         m.click("Keep")
         m.click("100")
         type("\n")
@@ -109,14 +97,14 @@ class Miro_Suite(unittest.TestCase):
             time.sleep(3)
         self.assertTrue(tmpr.exists("105 Items"))
         #Set feed setting to 20 (Default) and verify items kept to limit
-        mtb.click("Settings")
+        reg.mtb.click("Settings")
         m.click("Keep")
         m.click("(Default)")
         m.click("Remove All")
         type("\n")
         self.assertTrue(tmpr.exists("25 Items",5))
         #Set feed setting to 0 and verify items kept to limit
-        mtb.click("Settings")
+        reg.mtb.click("Settings")
         m.click("Keep")
         m.click("Keep 0")
         type("\n")
@@ -142,14 +130,14 @@ class Miro_Suite(unittest.TestCase):
     	m = miroRegions[1] #Mainview Region
     	t = miroRegions[2] #top half screen
     	tl = miroRegions[3] #top left quarter
-    	mtb = miroRegions[4] #main title bar
+    	reg.mtb = miroRegions[4] #main title bar
 
     	url = "http://pculture.org/feeds_test/2stupidvideos.xml"
     	feed = "TwoStupid Videos"
 
     	#1. Add the feed and start dl
-    	mirolib.add_feed(self,t,s,mtb,url,feed)
-#    	tmpr = Region(mtb.below(30))
+    	mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+#    	tmpr = Region(reg.mtb.below(30))
 #    	self.assertTrue(tmpr.exists("2 Items"))
     	badges = m.findAll("Download")
     	for x in badges:\
@@ -183,16 +171,16 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
 
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "3 blip videos"
 
         #1. Add the feed and start dl
-        mirolib.cancel_all_downloads(self,m,s,mtb)
+        mirolib.cancel_all_downloads(self,m,s,reg.mtb)
         self.assertFalse(s.exists("Downloading",5)) #make sure no in progress downloads
-        mirolib.add_feed(self,t,s,mtb,url,feed)
-        tmpr = Region(mtb.below(30))
+        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+        tmpr = Region(reg.mtb.below(30))
         self.assertTrue(tmpr.exists("3 Items"))
         mirolib.download_all_items(self,m)
         mirolib.confirm_download_started(self,m,s,"Joo Joo")
@@ -217,14 +205,14 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
 
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static List"
         feedlist = ["TechVi", "Uploads by Gimp", "Brooklyn Museum", "LandlineTV"]
 
         #1. Add the feed and start dl
-        mirolib.add_feed(self,t,s,mtb,url,feed)
+        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         addlink = m.findAll("Add this channel")
         for x in addlink:
             click(x)
@@ -272,7 +260,7 @@ class Miro_Suite(unittest.TestCase):
         m = miroRegions[1] #Mainview Region
         t = miroRegions[2] #top half screen
         tl = miroRegions[3] #top left quarter
-        mtb = miroRegions[4] #main title bar
+        reg.mtb = miroRegions[4] #main title bar
 
         FEEDS = {"my feed": "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi",
                  "recent posts": "http://blip.tv/rss?pagelen=10",
@@ -280,7 +268,7 @@ class Miro_Suite(unittest.TestCase):
 
         #1. Add the feeds and check num items
         for feed, url in FEEDS.iteritems():
-            mirolib.add_feed(self,t,s,mtb,url,feed)
+            mirolib.add_feed(self,t,s,reg.mtb,url,feed)
             
         #2. Select them and add to a folder    
         try:
@@ -299,7 +287,7 @@ class Miro_Suite(unittest.TestCase):
         time.sleep(2)
         type("Counter Test \n")
         s.click("Counter Test")
-        tmpr = Region(mtb.below(30))
+        tmpr = Region(reg.mtb.below(30))
         self.assertTrue(tmpr.exists("15 Items"))
         mirolib.shortcut("r",shift=True)
         time.sleep(3)
