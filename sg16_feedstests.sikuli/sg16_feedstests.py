@@ -52,12 +52,12 @@ class Miro_Suite(unittest.TestCase):
         
         
         #1. add feed
-        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+        mirolib.add_feed(self,reg,url,feed)
         #2. search
-        mirolib.tab_search(self,m,s,term)
+        mirolib.tab_search(self,reg,term)
         #3. verify item metadata
         #4. cleanup
-        mirolib.delete_feed(self,m,s,feed)
+        mirolib.delete_feed(self,reg,feed)
 
     def stest_75(self):
         """http://litmus.pculture.org/show_test.cgi?id=75 Absolute and relative links.
@@ -78,9 +78,9 @@ class Miro_Suite(unittest.TestCase):
             title = "Video 3"
             
             #1. add feed
-            mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+            mirolib.add_feed(self,reg,url,feed)
             #2. search
-            mirolib.tab_search(self,m,s,term)
+            mirolib.tab_search(self,reg,term)
             
             #3. verify item metadata
             self.assertTrue(reg.m.exists(title))
@@ -101,7 +101,7 @@ class Miro_Suite(unittest.TestCase):
                         self.verificationErrors.append("relative link not opened in browser")
         #cleanup
         finally:
-            mirolib.delete_feed(self,m,s,feed)
+            mirolib.delete_feed(self,reg,feed)
  
     def stest_60(self):
         """http://litmus.pculture.org/show_test.cgi?id=60  Feed with no enclosures.
@@ -124,8 +124,8 @@ class Miro_Suite(unittest.TestCase):
         title = "Video 1"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
-        mirolib.download_all_items(self,m)
+        mirolib.add_feed(self,reg,url,feed)
+        mirolib.download_all_items(self,reg)
         #2. search
         
         #3. verify item metadata
@@ -134,10 +134,10 @@ class Miro_Suite(unittest.TestCase):
         self.assertTrue(reg.m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
         self.assertTrue(reg.m.exists("842 B"))
 
-        mirolib.tab_search(self,m,s,"Video 2",confirm_present=False)
+        mirolib.tab_search(self,reg,"Video 2",confirm_present=False)
         self.assertFalse(reg.m.exists("Video 2",1))
         #cleanup
-        mirolib.delete_feed(self,m,s,feed)
+        mirolib.delete_feed(self,reg,feed)
 
     def stest_73(self):
         """http://litmus.pculture.org/show_test.cgi?id=73 Feed with Yahoo and RSS enclosures.
@@ -155,9 +155,9 @@ class Miro_Suite(unittest.TestCase):
         title = "Video 1"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+        mirolib.add_feed(self,reg,url,feed)
         #2. search
-        mirolib.tab_search(self,m,s,term)
+        mirolib.tab_search(self,reg,term)
         
         #3. verify item metadata
         self.assertTrue(reg.m.exists(title))
@@ -165,7 +165,7 @@ class Miro_Suite(unittest.TestCase):
         self.assertTrue(reg.m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
         self.assertTrue(reg.m.exists("842 B"))
         #cleanup
-        mirolib.delete_feed(self,m,s,feed)
+        mirolib.delete_feed(self,reg,feed)
 
     def stest_69(self):
         """http://litmus.pculture.org/show_test.cgi?id=69 Add rss feed via browser.
@@ -191,7 +191,7 @@ class Miro_Suite(unittest.TestCase):
         #3. verify item metadata
         self.assertTrue(reg.s.exists(feed))
         #cleanup
-        mirolib.delete_feed(self,m,s,feed) 
+        mirolib.delete_feed(self,reg,feed) 
  
     def tearDown(self):
         mirolib.handle_crash_dialog(self)

@@ -40,10 +40,10 @@ class Miro_Suite(unittest.TestCase):
 
         SEARCHES = {"Blip": 'lizards', "YouTube": 'cosmicomics'}
         for engine, term in SEARCHES.iteritems():
-            mirolib.click_sidebar_tab(self,m,s,"Search")
-            mirolib.search_tab_search(self,reg.mtb,term,engine)
-            mirolib.click_sidebar_tab(self,m,s,"Videos")
-            mirolib.click_sidebar_tab(self,m,s,"Search")
+            mirolib.click_sidebar_tab(self,reg,"Search")
+            mirolib.search_tab_search(self,reg,term,engine)
+            mirolib.click_sidebar_tab(self,reg,"Videos")
+            mirolib.click_sidebar_tab(self,reg,"Search")
             self.assertTrue(reg.mtb.exists(term.upper()))
 
 
@@ -61,8 +61,8 @@ class Miro_Suite(unittest.TestCase):
 
         searches = {"Blip": "lizards", "YouTube": "cosmicomics"}
         for engine, term in searches.iteritems():
-        	mirolib.click_sidebar_tab(self,m,s,"search")
-                mirolib.search_tab_search(self,reg.mtb,term,engine)
+        	mirolib.click_sidebar_tab(self,reg,"search")
+                mirolib.search_tab_search(self,reg,term,engine)
                 reg.mtb.highlight(5)
                 reg.mtb.click("button_save_as_podcast.png")
                 self.assertTrue(reg.s.exists(term.upper()))
@@ -70,7 +70,7 @@ class Miro_Suite(unittest.TestCase):
                 #FIXME verify feed has items
         #cleanup
         for x in searches.keys():
-            mirolib.delete_feed(self,m,s,x)
+            mirolib.delete_feed(self,reg,x)
         
     def tearDown(self):
         mirolib.handle_crash_dialog(self)

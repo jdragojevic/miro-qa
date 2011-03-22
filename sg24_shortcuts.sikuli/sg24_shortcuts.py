@@ -43,7 +43,7 @@ class Miro_Suite(unittest.TestCase):
             mirolib.shortcut("n")
             type(feed_url+"\n")
             reg.s.click(feed_name)
-            mirolib.delete_feed(self,m,s,feed_name)
+            mirolib.delete_feed(self,reg,feed_name)
         except:
             self.verificationErrors.append("delete feed failed")
     
@@ -51,8 +51,8 @@ class Miro_Suite(unittest.TestCase):
         try:
             site_url =  "http://blip.tv"
             site = "Blip.tv"
-            mirolib.add_website(self,m,s,site_url,site)
-            mirolib.delete_site(self,m,s,site)
+            mirolib.add_website(self,reg,site_url,site)
+            mirolib.delete_site(self,reg,site)
         except:
             self.verificationErrors.append("delete site failed")
             
@@ -63,8 +63,8 @@ class Miro_Suite(unittest.TestCase):
             reg.s.click("File")
             reg.s.click("Download")
             type(item_url+"\n")
-            mirolib.wait_download_complete(self,m,s,item_title)
-            mirolib.delete_items(self,m,s,item_title,"Other")
+            mirolib.wait_download_complete(self,reg,item_title)
+            mirolib.delete_items(self,reg,item_title,"Other")
         except:
             self.verificationErrors.append("delete item failed")
 
@@ -76,7 +76,7 @@ class Miro_Suite(unittest.TestCase):
             reg.s.click("Testlist")
             time.sleep(2)
             type(Key.DELETE)
-            mslib.remove_confirm(self,m,action="remove")
+            mslib.remove_confirm(self,reg,action="remove")
             self.assertFalse(reg.s.exists("Testlist",5))
         except:
             self.verificationErrors.append("delete playlist failed")
@@ -89,7 +89,7 @@ class Miro_Suite(unittest.TestCase):
             reg.s.click("Playlit-Folder")
             time.sleep(2)
             type(Key.DELETE)
-            mslib.remove_confirm(self,m,action="remove")
+            mslib.remove_confirm(self,reg,action="remove")
             self.assertFalse(reg.s.exists("Playlist-Folder",5))
         except:
             self.verificationErrors.append("delete playlist folder failed")

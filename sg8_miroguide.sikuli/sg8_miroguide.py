@@ -44,7 +44,7 @@ class Miro_Suite(unittest.TestCase):
                         
         finally:
             #4. cleanup
-            mirolib.delete_feed(self,m,s,"StupidVideos") 
+            mirolib.delete_feed(self,reg,"StupidVideos") 
 
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)

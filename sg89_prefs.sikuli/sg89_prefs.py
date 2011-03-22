@@ -53,7 +53,7 @@ class Miro_Suite(unittest.TestCase):
             click(p.getLastMatch())
             mirolib.shortcut("w")
             #3. Restart Miro
-            mirolib.quit_miro(self,m,s)
+            mirolib.quit_miro(self,reg)
             switchApp(mirolib.open_miro())
             wait("Miro",45)
             click(getLastMatch())
@@ -65,7 +65,7 @@ class Miro_Suite(unittest.TestCase):
             click(p.getLastMatch())
             mirolib.shortcut("w")
             #5. Restart Miro
-            mirolib.quit_miro(self,m,s)
+            mirolib.quit_miro(self,reg)
             switchApp(mirolib.open_miro())
             
             

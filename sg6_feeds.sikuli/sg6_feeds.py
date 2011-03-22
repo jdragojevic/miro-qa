@@ -62,7 +62,7 @@ class Miro_Suite(unittest.TestCase):
             f.destroy() # release the memory used by finder
         self.assertEqual(len(mm),1)       
         #4. cleanup
-        mirolib.delete_feed(self,m,s,"StupidVideos")
+        mirolib.delete_feed(self,reg,"StupidVideos")
         
         
     def skip_test_138(self): #revisit this when item count is back or out, or update to feed with 1 item.
@@ -110,7 +110,7 @@ class Miro_Suite(unittest.TestCase):
         type("\n")
         self.assertTrue(tmpr.exists("5 Items",5))
         #4. cleanup
-        mirolib.delete_feed(self,m,s,"my feed") 
+        mirolib.delete_feed(self,reg,"my feed") 
    
     def test_339(self):
     	"""http://litmus.pculture.org/show_test.cgi?id=339 delete feed with dl items.
@@ -132,24 +132,24 @@ class Miro_Suite(unittest.TestCase):
     	feed = "TwoStupid Videos"
 
     	#1. Add the feed and start dl
-    	mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+    	mirolib.add_feed(self,reg,url,feed)
 #    	tmpr = Region(reg.mtb.below(30))
 #    	self.assertTrue(tmpr.exists("2 Items"))
     	badges = reg.m.findAll("Download")
     	for x in badges:\
             reg.m.click(x)
-    	mirolib.wait_for_item_in_tab(self,m,s,"videos","Flip")
-    	mirolib.wait_for_item_in_tab(self,m,s,"videos","Dinosaur")
+    	mirolib.wait_for_item_in_tab(self,reg,"videos","Flip")
+    	mirolib.wait_for_item_in_tab(self,reg,"videos","Dinosaur")
     	reg.s.click("feed")
     	type(Key.DELETE)
-    	mirolib.remove_confirm(self,m,action="keep")
+    	mirolib.remove_confirm(self,reg,action="keep")
     	self.assertFalse(reg.s.exists(feed))
-    	mirolib.click_sidebar_tab(self,m,s,"videos")
-    	mirolib.tab_search(self,m,s,"Flip",confirm_present=True)
-    	mirolib.tab_search(self,m,s,"Dinosaur",confirm_present=True)
+    	mirolib.click_sidebar_tab(self,reg,"videos")
+    	mirolib.tab_search(self,reg,"Flip",confirm_present=True)
+    	mirolib.tab_search(self,reg,"Dinosaur",confirm_present=True)
     	#4. cleanup
-    	mirolib.delete_items(self,m,s,"Flip","videos")
-    	mirolib.delete_items(self,m,s,"Dinosaur","videos")
+    	mirolib.delete_items(self,reg,"Flip","videos")
+    	mirolib.delete_items(self,reg,"Dinosaur","videos")
 
     def test_338(self):
         """http://litmus.pculture.org/show_test.cgi?id=338 delete feed with dl items.
@@ -168,14 +168,14 @@ class Miro_Suite(unittest.TestCase):
         feed = "3 blip videos"
 
         #1. Add the feed and start dl
-        mirolib.cancel_all_downloads(self,m,s,reg.mtb)
+        mirolib.cancel_all_downloads(self,reg,reg.mtb)
         self.assertFalse(reg.s.exists("Downloading",5)) #make sure no in progress downloads
-        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+        mirolib.add_feed(self,reg,url,feed)
         tmpr = Region(reg.mtb.below(30))
         self.assertTrue(tmpr.exists("3 Items"))
-        mirolib.download_all_items(self,m)
-        mirolib.confirm_download_started(self,m,s,"Joo Joo")
-        mirolib.delete_feed(self,m,s,"my feed")
+        mirolib.download_all_items(self,reg)
+        mirolib.confirm_download_started(self,reg,"Joo Joo")
+        mirolib.delete_feed(self,reg,"my feed")
         self.assertFalse(reg.s.exists("Downloading",5))
 
 
@@ -198,7 +198,7 @@ class Miro_Suite(unittest.TestCase):
         feedlist = ["TechVi", "Uploads by Gimp", "Brooklyn Museum", "LandlineTV"]
 
         #1. Add the feed and start dl
-        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+        mirolib.add_feed(self,reg,url,feed)
         addlink = reg.m.findAll("Add this channel")
         for x in addlink:
             click(x)
@@ -220,13 +220,13 @@ class Miro_Suite(unittest.TestCase):
             keyUp(SHIFT_KEY)
         #3. Delete then cancel.  Verify still exists Static List
         reg.m.click("Delete")
-        mirolib.remove_confirm(self,m,"cancel")
-        mirolib.click_sidebar_tab(self,m,s,"videos")
+        mirolib.remove_confirm(self,reg,"cancel")
+        mirolib.click_sidebar_tab(self,reg,"videos")
         self.assertTrue(reg.s.exists("Static List",5))
         #4. Cleanup
         feedlist.append("Static")
         for x in feedlist:
-            mirolib.delete_feed(self,m,s,x)
+            mirolib.delete_feed(self,reg,x)
 
     def test_120(self):
         """http://litmus.pculture.org/show_test.cgi?id=120 full feed counter.
@@ -249,7 +249,7 @@ class Miro_Suite(unittest.TestCase):
 
         #1. Add the feeds and check num items
         for feed, url in FEEDS.iteritems():
-            mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+            mirolib.add_feed(self,reg,url,feed)
             
         #2. Select them and add to a folder    
         try:
@@ -275,7 +275,7 @@ class Miro_Suite(unittest.TestCase):
         self.assertTrue(tmpr.exists("20 Items"))
         #4. Cleanup
         type(Key.DELETE)
-        mirolib.remove_confirm(self,m,action="remove")
+        mirolib.remove_confirm(self,reg,action="remove")
         
     def tearDown(self):
         mirolib.handle_crash_dialog(self)

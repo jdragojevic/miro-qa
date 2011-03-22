@@ -52,7 +52,7 @@ def open_tab(self,tab):
     m = Region(find("pref_heading.png"))
     reg.m.click(pref_icon)
 
-def set_autodownload(self,tl,m,setting):
+def set_autodownload(self,reg,setting):
     """Set the global autodownload prefernce setting.
 
     Setting can be "Off, New, or All"

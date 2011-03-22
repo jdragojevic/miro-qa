@@ -38,8 +38,8 @@ class Miro_Suite(unittest.TestCase):
         reg = mirolib.AppRegions()
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
-        mirolib.click_sidebar_tab(self,m,s,"Search")
-        mirolib.search_tab_search(self,reg.mtb,term)
+        mirolib.click_sidebar_tab(self,reg,"Search")
+        mirolib.search_tab_search(self,reg,term)
         mirolib.handle_crash_dialog(self,test=True)
             
     def test_54(self):
@@ -54,8 +54,8 @@ class Miro_Suite(unittest.TestCase):
         reg = mirolib.AppRegions()
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
-        mirolib.click_sidebar_tab(self,m,s,"Search")
-        mirolib.search_tab_search(self,reg.mtb,term)
+        mirolib.click_sidebar_tab(self,reg,"Search")
+        mirolib.search_tab_search(self,reg,term)
         mirolib.handle_crash_dialog(self,db=False,test=True)
 
 

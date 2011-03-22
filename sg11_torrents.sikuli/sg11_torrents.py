@@ -45,12 +45,12 @@ class Miro_Suite(unittest.TestCase):
         time.sleep(4)
         type(item_url+"\n")
         print ("confirm download started")
-        status = mirolib.confirm_download_started(self,m,s,item_title)
+        status = mirolib.confirm_download_started(self,reg,item_title)
         print status
         if status == "downloaded":
-            mirolib.delete_items(self,m,s,item_title,"videos")
+            mirolib.delete_items(self,reg,item_title,"videos")
         elif status == "in_progress":
-            mirolib.delete_items(self,m,s,item_title,"downloading")
+            mirolib.delete_items(self,reg,item_title,"downloading")
         else:
             self.fail("Can not confirm download started")
 

@@ -42,26 +42,26 @@ class Miro_Suite(unittest.TestCase):
         feed = "blip"
         item_title = "Joo Joo"
         #add feed and download joo joo item
-        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+        mirolib.add_feed(self,reg,url,feed)
         reg.s.click(feed)
-        mirolib.tab_search(self,m,s,item_title)
+        mirolib.tab_search(self,reg,item_title)
         reg.m.click("Download")
-        mirolib.wait_download_complete(self,m,s,item_title)
+        mirolib.wait_download_complete(self,reg,item_title)
         #find item in video tab and edit to audio
-        mirolib.click_sidebar_tab(self,m,s,"Video")
-        mirolib.tab_search(self,m,item_title,confirm_present=True)
+        mirolib.click_sidebar_tab(self,reg,"Video")
+        mirolib.tab_search(self,reg,item_title,confirm_present=True)
         reg.m.click(item_title)
         reg.t.click("File")
         reg.t.click("Edit")
         reg.m.click("Audio")
         reg.m.click("Apply")
         #locate item in audio tab and verify playback
-        mirolib.click_sidebar_tab(self,m,s,"Music")
-        mirolib.tab_search(self,m,item_title,confirm_present=True)
+        mirolib.click_sidebar_tab(self,reg,"Music")
+        mirolib.tab_search(self,reg,item_title,confirm_present=True)
         m.doubleClick(item_title)
-        mirolib.verify_audio_playback(self,m,s)
+        mirolib.verify_audio_playback(self,reg)
         #cleanup
-        mirolib.delete_feed(self,m,s,"blip")
+        mirolib.delete_feed(self,reg,"blip")
  
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)

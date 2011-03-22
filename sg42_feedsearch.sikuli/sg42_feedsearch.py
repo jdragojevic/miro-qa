@@ -44,17 +44,17 @@ class Miro_Suite(unittest.TestCase):
         title = "GimpKnowHow"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+        mirolib.add_feed(self,reg,url,feed)
         #2. search
-        mirolib.tab_search(self,m,s,term)
+        mirolib.tab_search(self,reg,term)
         reg.mtb.click("button_save_search.png")
         #3. verify search saved
         self.assertTrue(reg.s.exists("GIMP"))
         click(reg.s.getLastMatch())
-        mirolib.tab_search(self,m,s,title,confirm_present=True)
+        mirolib.tab_search(self,reg,title,confirm_present=True)
         #4. cleanup
-        mirolib.delete_feed(self,m,s,"GIMP")
-        mirolib.delete_feed(self,m,s,"Static List")
+        mirolib.delete_feed(self,reg,"GIMP")
+        mirolib.delete_feed(self,reg,"Static List")
 
     def test_214(self):
         """http://litmus.pculture.org/show_test.cgi?id=214 Feed search, search with spaces
@@ -73,17 +73,17 @@ class Miro_Suite(unittest.TestCase):
         title = "Joo Joo"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+        mirolib.add_feed(self,reg,url,feed)
         #2. search
-        mirolib.tab_search(self,m,s,term)
+        mirolib.tab_search(self,reg,term)
         reg.mtb.click("button_save_search.png")
         #3. verify search saved
         self.assertTrue(reg.s.exists("STRANGE"))
         click(reg.s.getLastMatch())
-        mirolib.tab_search(self,m,s,title,confirm_present=True)
+        mirolib.tab_search(self,reg,title,confirm_present=True)
         #4. cleanup
-        mirolib.delete_feed(self,m,s,"STRANGE")
-        mirolib.delete_feed(self,m,s,"blip")
+        mirolib.delete_feed(self,reg,"STRANGE")
+        mirolib.delete_feed(self,reg,"blip")
 
     def test_213(self):
         """http://litmus.pculture.org/show_test.cgi?id=213 Feed search, delete key.
@@ -102,12 +102,12 @@ class Miro_Suite(unittest.TestCase):
         title = "Flip Face"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+        mirolib.add_feed(self,reg,url,feed)
         #2. search
-        mirolib.download_all_items(self,m)
-        mirolib.wait_for_item_in_tab(self,m,s,"videos","Flip")
-        mirolib.wait_for_item_in_tab(self,m,s,"videos","Dinosaur")
-        mirolib.tab_search(self,m,s,term)
+        mirolib.download_all_items(self,reg)
+        mirolib.wait_for_item_in_tab(self,reg,"videos","Flip")
+        mirolib.wait_for_item_in_tab(self,reg,"videos","Dinosaur")
+        mirolib.tab_search(self,reg,term)
         self.assertFalse(reg.m.exists("Flip"))
         reg.mtb.click(term)
         for x in range(0,8):
@@ -118,7 +118,7 @@ class Miro_Suite(unittest.TestCase):
 
         self.assertTrue(reg.m.exists("Flip"))
         #4. cleanup
-        mirolib.delete_feed(self,m,s,"stupid")
+        mirolib.delete_feed(self,reg,"stupid")
 
     def test_78(self):
         """http://litmus.pculture.org/show_test.cgi?id=78 Menu New Search Feed.
@@ -137,17 +137,17 @@ class Miro_Suite(unittest.TestCase):
         title = "Travelling Two"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+        mirolib.add_feed(self,reg,url,feed)
         #2. search
-        mirolib.new_search_feed(self,m,t,term,"Feed",feed)
+        mirolib.new_search_feed(self,reg,term,"Feed",feed)
                         
         #3. verify search saved
         self.assertTrue(reg.s.exists("Static List for 'touring'"))
         click(reg.s.getLastMatch())
-        mirolib.tab_search(self,m,s,title,confirm_present=True)
+        mirolib.tab_search(self,reg,title,confirm_present=True)
         #4. cleanup
-        mirolib.delete_feed(self,m,s,"touring")
-        mirolib.delete_feed(self,m,s,"Static List")
+        mirolib.delete_feed(self,reg,"touring")
+        mirolib.delete_feed(self,reg,"Static List")
 
     def test_23(self):
         """http://litmus.pculture.org/show_test.cgi?id=23 remember search.
@@ -165,18 +165,18 @@ class Miro_Suite(unittest.TestCase):
         title = "Dinosaur"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+        mirolib.add_feed(self,reg,url,feed)
         #2. search
-        mirolib.tab_search(self,m,s,term)
+        mirolib.tab_search(self,reg,term)
         self.assertTrue(reg.m.exists(title))
         self.assertFalse(reg.m.exists("Flip"))
-        mirolib.click_sidebar_tab(self,m,s,"Videos")
+        mirolib.click_sidebar_tab(self,reg,"Videos")
         reg.s.click(feed)
         self.assertTrue(reg.mtb.exists(term.upper()))
         self.assertTrue(reg.m.exists(title))
         self.assertFalse(reg.m.exists("Flip"))
         #4. cleanup
-        mirolib.delete_feed(self,m,s,"stupid")
+        mirolib.delete_feed(self,reg,"stupid")
 
 
     def test_24(self):
@@ -196,17 +196,17 @@ class Miro_Suite(unittest.TestCase):
         title = "Dinosaur"
         
         #1. add feed
-        mirolib.add_feed(self,t,s,reg.mtb,url,feed)
+        mirolib.add_feed(self,reg,url,feed)
         #2. search
-        mirolib.tab_search(self,m,s,term)
+        mirolib.tab_search(self,reg,term)
         self.assertTrue(reg.m.exists(title))
-        mirolib.download_all_items(self,m)
+        mirolib.download_all_items(self,reg)
 
         url2 = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed2 = "Static List"
-        mirolib.add_feed(self,t,s,reg.mtb,url2,feed2)
-        mirolib.tab_search(self,m,s,"Brooklyn")
-        mirolib.wait_for_item_in_tab(self,m,s,"Videos",title)
+        mirolib.add_feed(self,reg,url2,feed2)
+        mirolib.tab_search(self,reg,"Brooklyn")
+        mirolib.wait_for_item_in_tab(self,reg,"Videos",title)
         reg.m.click(title)
         reg.t.click("Playback")
         reg.t.click("Play")
@@ -215,7 +215,7 @@ class Miro_Suite(unittest.TestCase):
 
         reg.s.click(feed2)
         self.assertTrue(reg.mtb.exists("BROOKLYN"))
-        mirolib.tab_search(self,m,s,"filmweek")
+        mirolib.tab_search(self,reg,"filmweek")
         reg.mtb.click("Save Search")
 
         self.assertTrue(reg.s.exists("FILMWEEK"))
@@ -223,9 +223,9 @@ class Miro_Suite(unittest.TestCase):
         self.assertTrue(reg.m.exists("FilmWeek"))
 
         #4. cleanup
-        mirolib.delete_feed(self,m,s,"stupid")
-        mirolib.delete_feed(self,m,s,"FILMWEEK")
-        mirolib.delete_feed(self,m,s,"Static List")
+        mirolib.delete_feed(self,reg,"stupid")
+        mirolib.delete_feed(self,reg,"FILMWEEK")
+        mirolib.delete_feed(self,reg,"Static List")
 
  
     def tearDown(self):

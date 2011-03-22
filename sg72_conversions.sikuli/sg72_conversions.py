@@ -51,9 +51,9 @@ class Miro_Suite(unittest.TestCase):
             time.sleep(4)
             type(vid_url+"\n")
             
-            mirolib.wait_download_complete(self,m,s,item_title)
-            mirolib.click_sidebar_tab(self,m,s,"video")
-            mirolib.tab_search(self,m,s,item_title,True)
+            mirolib.wait_download_complete(self,reg,item_title)
+            mirolib.click_sidebar_tab(self,reg,"video")
+            mirolib.tab_search(self,reg,item_title,True)
             reg.m.click(item_title)
             # 2. Convert to audio formats
             aconvertList = ("mp3","oggvorbis")
@@ -61,17 +61,17 @@ class Miro_Suite(unittest.TestCase):
                 reg.tl.click("Convert")
                 reg.tl.click(x)
                 time.sleep(2)
-            mirolib.click_sidebar_tab(self,m,s,"conversions")
-            mirolib.wait_conversions_complete(self,m,s,title,str(x))
+            mirolib.click_sidebar_tab(self,reg,"conversions")
+            mirolib.wait_conversions_complete(self,reg,title,str(x))
             
             # 3. Verify playback
             mirolib.click_sidebar_tab(self,"music")
             aplaybackList = ("MP3", "Ogg Vorbis")
             for x in aplaybackList:
-                mirolib.tab_search(self,m,s,"Converted to "+str(x),False)
+                mirolib.tab_search(self,reg,"Converted to "+str(x),False)
                 self.assertTrue(reg.m.exists("item_play_unplayed.png"))
                 click(reg.m.getLastMatch())
-                mirolib.verify_audio_playback(self,m,s)
+                mirolib.verify_audio_playback(self,reg)
                                 
             
             # 4. Convert items to video formats
@@ -81,13 +81,13 @@ class Miro_Suite(unittest.TestCase):
                 reg.tl.click("Convert")
                 reg.tl.click(x)
                 time.sleep(4)
-            mirolib.click_sidebar_tab(self,m,s,"conversions")
-            mirolib.wait_conversions_complete(self,m,s,title,str(x))
+            mirolib.click_sidebar_tab(self,reg,"conversions")
+            mirolib.wait_conversions_complete(self,reg,title,str(x))
             # 5. Verify playback
             mirolib.click_sidebar_tab(self,"video")
             aplaybackList = ("Droid", "Galaxy", "G2", "iPad", "iPhone", "MP4", "Ogg Theora", "Playstation")
             for x in aplaybackList:
-                mirolib.tab_search(self,m,s,"Converted to "+str(x))
+                mirolib.tab_search(self,reg,"Converted to "+str(x))
                 self.assertTrue(reg.m.exists("item_play_unplayed.png"))
                 click(reg.m.getLastMatch())
                 self.assertTrue(exists("playback_bar_video.png"))
@@ -96,8 +96,8 @@ class Miro_Suite(unittest.TestCase):
 
         finally:
             # 6. Cleanup
-            mirolib.delete_items(self,m,s,item_title,"video")
-            mirolib.delete_items(self,m,s,item_title,"music")
+            mirolib.delete_items(self,reg,item_title,"video")
+            mirolib.delete_items(self,reg,item_title,"music")
             
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)

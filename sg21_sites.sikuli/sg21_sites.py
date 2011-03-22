@@ -39,13 +39,13 @@ class Miro_Suite(unittest.TestCase):
         
         reg = mirolib.AppRegions()
 
-        mirolib.add_website(self,s,tl,site_url,site)
+        mirolib.add_website(self,reg,site_url,site)
         reg.s.click(site)
         reg.m.find("download_this_video.png")
         self.assertTrue(reg.t.exists("download_this_video.png"))
         reg.t.click("download_this_video.png")
-        mirolib.confirm_download_started(self,m,s,"Hubble")
-        mirolib.delete_site(self,m,s,site)
+        mirolib.confirm_download_started(self,reg,"Hubble")
+        mirolib.delete_site(self,reg,site)
 
     def test_194(self):
         """http://litmus.pculture.org/show_test.cgi?id=194 rename source.
@@ -59,7 +59,7 @@ class Miro_Suite(unittest.TestCase):
         site = "blip.tv (since 2005)"
         reg = mirolib.AppRegions()
 
-        mirolib.add_website(self,s,tl,site_url,site)
+        mirolib.add_website(self,reg,site_url,site)
         reg.s.click(site)
         reg.t.click("Sidebar")
         reg.t.click("Rename")
@@ -67,12 +67,12 @@ class Miro_Suite(unittest.TestCase):
         type("BLIP.TV ROCKS \n")
         self.assertTrue(reg.s.exists("BLIP.TV ROCKS"))
 
-        mirolib.quit_miro(self,m,s)
+        mirolib.quit_miro(self,reg)
         miroRegions = mirolib.launch_miro()
         s = miroRegions[0] #Sidebar Region
         self.assertTrue(reg.s.exists("BLIP.TV ROCKS"))
 
-        mirolib.delete_site(self,m,s,"BLIP.TV")
+        mirolib.delete_site(self,reg,"BLIP.TV")
 
 
     def test_39(self):
@@ -86,7 +86,7 @@ class Miro_Suite(unittest.TestCase):
         site_url = "http://blip.tv"
         site = "blip.tv (since 2005)"
         reg = mirolib.AppRegions()
-        mirolib.add_website(self,s,tl,site_url,site)
+        mirolib.add_website(self,reg,site_url,site)
         reg.s.click(site)
 
         self.assertTrue(reg.mtb.exists("navstop_disabled.png"))
@@ -130,7 +130,7 @@ class Miro_Suite(unittest.TestCase):
 
 
 
-        mirolib.delete_site(self,m,s,site)
+        mirolib.delete_site(self,reg,site)
         
 
     def test_191(self):
@@ -144,13 +144,13 @@ class Miro_Suite(unittest.TestCase):
         site_url = "http://clearbits.net"
         site = "ClearBits"
         reg = mirolib.AppRegions()
-        mirolib.add_website(self,s,tl,site_url,site)
+        mirolib.add_website(self,reg,site_url,site)
         reg.s.click(site)
         reg.m.click("Netlabel Music")
         reg.m.click(testvars.clearbits_rss)
         self.assertTrue(reg.s.exists("Netlabel"))
-        mirolib.delete_feed(self,m,s,"Netlabel")
-        mirolib.delete_site(self,m,s,"ClearBits")
+        mirolib.delete_feed(self,reg,"Netlabel")
+        mirolib.delete_site(self,reg,"ClearBits")
 
 
     def test_193(self):
@@ -167,13 +167,13 @@ class Miro_Suite(unittest.TestCase):
                         
         reg = mirolib.AppRegions()
 
-        mirolib.add_website(self,s,tl,site_url,site)
+        mirolib.add_website(self,reg,site_url,site)
         reg.s.click(site)
         reg.m.click("Torrent file")
-        mirolib.confirm_download_started(self,m,s,title)
+        mirolib.confirm_download_started(self,reg,title)
 
-        mirolib.delete_items(self,m,s,title,"Downloading")
-        mirolib.delete_site(self,m,s,"ClearBits")
+        mirolib.delete_items(self,reg,title,"Downloading")
+        mirolib.delete_site(self,reg,"ClearBits")
 
 
     def test_192(self):
@@ -204,7 +204,7 @@ class Miro_Suite(unittest.TestCase):
 
         reg = mirolib.AppRegions()
 
-        mirolib.add_website(self,s,tl,site_url,site)
+        mirolib.add_website(self,reg,site_url,site)
         reg.s.click(site)
         for filetype, title in HTTPDOWNLOADS.iteritems():
             try:
@@ -214,12 +214,12 @@ class Miro_Suite(unittest.TestCase):
                     type(Key.PAGE_DOWN)
                     reg.m.find(filetype)
                     click(reg.m.getLastMatch())
-                mslib.confirm_download_started(self,m,s,title)
+                mslib.confirm_download_started(self,reg,title)
             except:
                 self.verificationErrors.append("download failed for imagetype" +str(x))
             finally:
-                mslib.cancel_all_downloads(self,m,s,reg.mtb)
-        mirolib.delete_site(self,m,s,site)
+                mslib.cancel_all_downloads(self,reg,reg.mtb)
+        mirolib.delete_site(self,reg,site)
 
     def test_321(self):
         """http://litmus.pculture.org/show_test.cgi?id=321 delete slow to load site.
@@ -232,8 +232,8 @@ class Miro_Suite(unittest.TestCase):
                         
         reg = mirolib.AppRegions()
 
-        mirolib.add_website(self,s,tl,site_url,site)
-        mirolib.delete_site(self,m,s,site)
+        mirolib.add_website(self,reg,site_url,site)
+        mirolib.delete_site(self,reg,site)
 
     def test_195(self):
         """http://litmus.pculture.org/show_test.cgi?id=196 delete site.
@@ -246,8 +246,8 @@ class Miro_Suite(unittest.TestCase):
                         
         reg = mirolib.AppRegions()
 
-        mirolib.add_website(self,s,tl,site_url,site)
-        mirolib.delete_site(self,m,s,site)
+        mirolib.add_website(self,reg,site_url,site)
+        mirolib.delete_site(self,reg,site)
 
     def test_194(self):
         """http://litmus.pculture.org/show_test.cgi?id=196 site with non-utf-8 chars.
@@ -261,16 +261,16 @@ class Miro_Suite(unittest.TestCase):
         site = "http://diziizle"
                         
         reg = mirolib.AppRegions()
-        mirolib.add_website(self,s,tl,site_url,site)
+        mirolib.add_website(self,reg,site_url,site)
         reg.s.click(site)
         reg.m.find(testvars.dizizle_logo)
-        mirolib.quit_miro(self,m,s)
+        mirolib.quit_miro(self,reg)
         miroRegions = mirolib.launch_miro()
         s = miroRegions[0] #Sidebar Region
         m = miroRegions[1] #Mainview Region
         reg.s.click(site)
         self.assertTrue(reg.m.exists(testvars.dizizle_logo))    
-        mirolib.delete_site(self,m,s,site)
+        mirolib.delete_site(self,reg,site)
 
 
     def test_143(self):
@@ -287,8 +287,8 @@ class Miro_Suite(unittest.TestCase):
         site2 = "archive.org"
         reg = mirolib.AppRegions()
 
-        mirolib.add_website(self,s,tl,site_url,site)
-        mirolib.add_website(self,s,tl,site_url2,site2)
+        mirolib.add_website(self,reg,site_url,site)
+        mirolib.add_website(self,reg,site_url2,site2)
         reg.s.click(site)
         keyDown(SHIFT_KEY)
         reg.s.click(site2)
@@ -296,13 +296,13 @@ class Miro_Suite(unittest.TestCase):
         self.assertTrue(reg.m.exists("Delete All"))
         click(reg.m.getLastMatch())
         reg.m.click("button_cancel.png")
-        mslib.click_sidebar_tab(self,m,s,"Videos")
+        mslib.click_sidebar_tab(self,reg,"Videos")
         self.assertTrue(reg.s.exists(site1))
         self.assertTrue(reg.s.exists(site2))
 
         #Cleanup
-        mirolib.delete_site(self,m,s,site)
-        mirolib.delete_site(self,m,s,site2)
+        mirolib.delete_site(self,reg,site)
+        mirolib.delete_site(self,reg,site2)
         
     def tearDown(self):
         mirolib.handle_crash_dialog(self)
