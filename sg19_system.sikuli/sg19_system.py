@@ -43,11 +43,9 @@ class Miro_Suite(unittest.TestCase):
         mtb = miroRegions[4] #main title bar
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
-        mirolib.click_sidebar_tab(self,m,s,"search")
-        mirolib.tab_search(self,m,s,term)
-        time.sleep(2)
-        type("\n")
-        mirolib.handle_crash_dialog(self)
+        mirolib.click_sidebar_tab(self,m,s,"Search")
+        mirolib.search_tab_search(self,mtb,term)
+        mirolib.handle_crash_dialog(self,test=True)
             
     def test_54(self):
         """http://litmus.pculture.org/show_test.cgi?id=54 Test Crash Reporter no DB.
@@ -66,11 +64,59 @@ class Miro_Suite(unittest.TestCase):
         mtb = miroRegions[4] #main title bar
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
-        mirolib.click_sidebar_tab(self,m,s,"search")
-        mirolib.tab_search(self,m,s,term)
-        time.sleep(2)
-        type("\n")
-        mirolib.handle_crash_dialog(self,db=False) 
+        mirolib.click_sidebar_tab(self,m,s,"Search")
+        mirolib.search_tab_search(self,mtb,term)
+        mirolib.handle_crash_dialog(self,db=False,test=True)
+
+
+    def test_681(self):
+        """http://litmus.pculture.org/show_test.cgi?id=54 Test Crash Reporter no DB.
+
+        1. Perform a search of crash inducing text
+        2. Submit crash dialog
+        3. Quit Miro
+        """
+        print self.id()
+        setAutoWaitTimeout(60)
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
+        mtb = miroRegions[4] #main title bar
+
+        t.find("Help")
+        tmpr = Region(getLastMatch().left(100))
+        if tmpr.exists("Dev"):
+            click(tmpr.getLastMatch())
+            tmpr.click("Test Crash")
+            mirolib.handle_crash_dialog(self,db=False,test=True) 
+        else:
+            print "not in debug mode - menu not tested"
+
+    def test_682(self):
+        """http://litmus.pculture.org/show_test.cgi?id=54 Test Crash Reporter no DB.
+
+        1. Perform a search of crash inducing text
+        2. Submit crash dialog
+        3. Quit Miro
+        """
+        print self.id()
+        setAutoWaitTimeout(60)
+        miroRegions = mirolib.launch_miro()
+        s = miroRegions[0] #Sidebar Region
+        m = miroRegions[1] #Mainview Region
+        t = miroRegions[2] #top half screen
+        tl = miroRegions[3] #top left quarter
+        mtb = miroRegions[4] #main title bar
+
+        if t.exists("Dev"):
+            click(t.getLastMatch())
+            t.click("Test Soft")
+            mirolib.handle_crash_dialog(self,db=False,test=True) 
+        else:
+            self.pass("not in debug mode")
+        
         
     def tearDown(self):
         self.assertEqual([], self.verificationErrors)

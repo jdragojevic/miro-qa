@@ -361,7 +361,7 @@ def tab_search(self,m,s,title,confirm_present=False):
         present=True
         return present
 
-def search_tab_search(self,mtb,term,engine):
+def search_tab_search(self,mtb,term,engine=None):
     """perform a search in the search tab.
 
     Requires: search term (term), search engine(engine) and MainViewTopRegion (mtb)
@@ -377,17 +377,21 @@ def search_tab_search(self,mtb,term,engine):
         click(mtb.getLastMatch().left(10))
     type(term.upper())
     # Use the search text to create a region for specifying the search engine
-    l = mtb.find(term.upper())
-    l1= Region(int(l.getX()-20), l.getY(), 8, 8,)
-    click(l1)
-    l2 = Region(int(l.getX()-15), l.getY(), 200, 300,)
-    if engine == "YouTube":
-        l3 = Region(l2.find("YouTube User").above())
-        l3.click(engine)
+    if engine != None:
+        l = mtb.find(term.upper())
+        l1= Region(int(l.getX()-20), l.getY(), 8, 8,)
+        click(l1)
+        l2 = Region(int(l.getX()-15), l.getY(), 200, 300,)
+        
+        if engine == "YouTube":
+            l3 = Region(l2.find("YouTube User").above())
+            l3.click(engine)
+        else:
+            l2.click(engine)
+        type("\n") #enter the search
+        self.assertTrue(mtb.exists("button_save_as_podcast.png"))
     else:
-        l2.click(engine)
-    type("\n") #enter the search
-    self.assertTrue(mtb.exists("button_save_as_podcast.png"))
+        type("\n")
  
 
 def download_all_items(self,m):
@@ -544,22 +548,28 @@ def verify_audio_playback(self,m,s):
     mirolib.shortcut("d")
     waitVanish("playback_bar_audio.png")
     
-def handle_crash_dialog(self,db=True):
+def handle_crash_dialog(self,db=True,test=False):
     """Look for the crash dialog message and submit report.
     
     """
     crashes = False
     while exists(Pattern("internal_error.png"),15):
         crashes = True
-#        tmpr = Region(getLastMatch().around(500))
+        tmpr = Region(getLastMatch().nearby(500))
         if db == True:
             click("Include")
-        type("Auto test crashed:" +str(self.id().split(".")[2]))
-        click("button_submit_crash_report.png")
+        try:
+            tmpr.find("Describe")
+            print "describe found"
+            click(tmpr.getLastMatch().below(30))
+            type("Sikuli Automated test crashed:" +str(self.id().split(".")[2]))
+        finally:
+            click("button_submit_crash_report.png")
         time.sleep(5)
     	
-    if crashes == True:
+    if crashes == True and test == False:
         print "miro crashed"
+        self.fail("Got a crash report - check bogon")
         shortcut("q")
         time.sleep(10)
     
