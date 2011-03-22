@@ -34,11 +34,7 @@ class Miro_Suite(unittest.TestCase):
         setAutoWaitTimeout(60)
         
         #set the search regions
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
+        reg = mirolib.AppRegions()
  
         try:
             reg.m.click(testvars.guide_search)

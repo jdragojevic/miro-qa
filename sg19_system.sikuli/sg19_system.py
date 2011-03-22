@@ -35,12 +35,7 @@ class Miro_Suite(unittest.TestCase):
         """
        
         setAutoWaitTimeout(60)
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
         mirolib.click_sidebar_tab(self,m,s,"Search")
@@ -56,12 +51,7 @@ class Miro_Suite(unittest.TestCase):
         """
         print self.id()
         setAutoWaitTimeout(60)
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
         mirolib.click_sidebar_tab(self,m,s,"Search")
@@ -78,12 +68,7 @@ class Miro_Suite(unittest.TestCase):
         """
         print self.id()
         setAutoWaitTimeout(60)
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
 
         if config.get_os_name() == "osx":
             tmpr = tl
@@ -104,13 +89,7 @@ class Miro_Suite(unittest.TestCase):
         3. Quit Miro
         """
         print self.id()
-        setAutoWaitTimeout(60)
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
 
         if config.get_os_name() == "osx":
             tmpr = tl

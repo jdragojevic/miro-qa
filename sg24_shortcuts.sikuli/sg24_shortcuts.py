@@ -36,13 +36,7 @@ class Miro_Suite(unittest.TestCase):
         4. Verify item played as audio item
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-
-        # Add a feed and delete it with keyboard shortcut
+        reg = mirolib.AppRegions()
         try:
             feed_url = "http://www.stupidvideos.com/rss/rss.php?chart=new&format=yahoo"
             feed_name = "StupidVideo"

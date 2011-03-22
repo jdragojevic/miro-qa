@@ -36,11 +36,7 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
+        reg = mirolib.AppRegions()
         
         item_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
         item_title = "Fameless"

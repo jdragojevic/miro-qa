@@ -38,12 +38,7 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/feed1.rss"
         feed = "Yahoo"
@@ -74,12 +69,7 @@ class Miro_Suite(unittest.TestCase):
 
         """
         try:
-            miroRegions = mirolib.launch_miro()
-            s = miroRegions[0] #Sidebar Region
-            m = miroRegions[1] #Mainview Region
-            t = miroRegions[2] #top half screen
-            tl = miroRegions[3] #top left quarter
-            reg.mtb = miroRegions[4] #main title bar
+            reg = mirolib.AppRegions()
             
             #1. add feed
             url = "http://pculture.org/feeds_test/feed1.rss"
@@ -121,12 +111,7 @@ class Miro_Suite(unittest.TestCase):
         3. Cleanup
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
         m.highlight(3)
         reg.mtb.highlight(3)
         s.highlight(3)
@@ -162,12 +147,7 @@ class Miro_Suite(unittest.TestCase):
         3. Cleanup
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/feed3.rss"
         feed = "RSS 2.0 and Yahoo"
@@ -195,12 +175,8 @@ class Miro_Suite(unittest.TestCase):
         3. Cleanup
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        
+        reg = mirolib.AppRegions()
         
         feed = "The AV Club"
         print "open ff"

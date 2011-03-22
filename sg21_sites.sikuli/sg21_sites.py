@@ -37,12 +37,7 @@ class Miro_Suite(unittest.TestCase):
         site_url = "http://www.youtube.com/watch?v=fgg2tpUVbXQ&feature=channel"
         site = "YouTube"
         
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #mainview title bar
+        reg = mirolib.AppRegions()
 
         mirolib.add_website(self,s,tl,site_url,site)
         reg.s.click(site)
@@ -62,12 +57,7 @@ class Miro_Suite(unittest.TestCase):
         """
         site_url = "http://blip.tv"
         site = "blip.tv (since 2005)"
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #mainview title bar
+        reg = mirolib.AppRegions()
 
         mirolib.add_website(self,s,tl,site_url,site)
         reg.s.click(site)
@@ -95,13 +85,7 @@ class Miro_Suite(unittest.TestCase):
         """
         site_url = "http://blip.tv"
         site = "blip.tv (since 2005)"
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #mainview title bar
-
+        reg = mirolib.AppRegions()
         mirolib.add_website(self,s,tl,site_url,site)
         reg.s.click(site)
 
@@ -159,13 +143,7 @@ class Miro_Suite(unittest.TestCase):
         """
         site_url = "http://clearbits.net"
         site = "ClearBits"
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #mainview title bar
-
+        reg = mirolib.AppRegions()
         mirolib.add_website(self,s,tl,site_url,site)
         reg.s.click(site)
         reg.m.click("Netlabel Music")
@@ -187,12 +165,7 @@ class Miro_Suite(unittest.TestCase):
         site = "ClearBits"
         title = "Brian Dunning"
                         
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #mainview title bar
+        reg = mirolib.AppRegions()
 
         mirolib.add_website(self,s,tl,site_url,site)
         reg.s.click(site)
@@ -229,12 +202,7 @@ class Miro_Suite(unittest.TestCase):
                          ".mka download":"Widow",
                          }
 
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #mainview title bar
+        reg = mirolib.AppRegions()
 
         mirolib.add_website(self,s,tl,site_url,site)
         reg.s.click(site)
@@ -262,12 +230,7 @@ class Miro_Suite(unittest.TestCase):
         site_url = "http://pculture.org/feeds_test/slowsite.php"
         site = "slowsite"
                         
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #mainview title bar
+        reg = mirolib.AppRegions()
 
         mirolib.add_website(self,s,tl,site_url,site)
         mirolib.delete_site(self,m,s,site)
@@ -281,12 +244,7 @@ class Miro_Suite(unittest.TestCase):
         site_url = "http://pculture.org/feeds_test/header-test.php"
         site = "Header Test"
                         
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #mainview title bar
+        reg = mirolib.AppRegions()
 
         mirolib.add_website(self,s,tl,site_url,site)
         mirolib.delete_site(self,m,s,site)
@@ -302,13 +260,7 @@ class Miro_Suite(unittest.TestCase):
         site_url = "http://diziizle.net/"
         site = "http://diziizle"
                         
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #mainview title bar
-
+        reg = mirolib.AppRegions()
         mirolib.add_website(self,s,tl,site_url,site)
         reg.s.click(site)
         reg.m.find(testvars.dizizle_logo)
@@ -333,12 +285,7 @@ class Miro_Suite(unittest.TestCase):
         site_url2 = "http://archive.org"
         site = "ClearBits"
         site2 = "archive.org"
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #mainview title bar
+        reg = mirolib.AppRegions()
 
         mirolib.add_website(self,s,tl,site_url,site)
         mirolib.add_website(self,s,tl,site_url2,site2)

@@ -36,12 +36,7 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static List"
@@ -70,12 +65,7 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "3 blip"
@@ -104,12 +94,7 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "2 stupid"
@@ -144,12 +129,7 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static List"
@@ -178,13 +158,7 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
-        
+        reg = mirolib.AppRegions()
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "2 stupid"
         term = "House"
@@ -214,12 +188,7 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "2 stupid"

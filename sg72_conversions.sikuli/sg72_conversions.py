@@ -39,14 +39,8 @@ class Miro_Suite(unittest.TestCase):
         6. Cleanup
         """
 
-        miroApp = App("Miro")
         ffApp = App("Firefox")
-        setAutoWaitTimeout(60)
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
+        reg = mirolib.AppRegions()
         try:
             # 1. Download youtube vidoe
             vid_url = "http://www.youtube.com/watch?v=baJ43ByylbM&feature=fvw"

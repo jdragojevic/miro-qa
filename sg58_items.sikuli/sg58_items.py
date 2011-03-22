@@ -36,12 +36,7 @@ class Miro_Suite(unittest.TestCase):
         4. Verify item played as audio item
 
         """
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #mainview title bar
+        reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "blip"

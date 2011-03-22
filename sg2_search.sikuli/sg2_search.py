@@ -36,13 +36,7 @@ class Miro_Suite(unittest.TestCase):
         """
        
         setAutoWaitTimeout(60)
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
-        reg.mtb.highlight(3)
+        reg = mirolib.AppRegions()
 
         SEARCHES = {"Blip": 'lizards', "YouTube": 'cosmicomics'}
         for engine, term in SEARCHES.iteritems():
@@ -63,12 +57,7 @@ class Miro_Suite(unittest.TestCase):
         4. Cleanup
         """
         setAutoWaitTimeout(60)
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
 
         searches = {"Blip": "lizards", "YouTube": "cosmicomics"}
         for engine, term in searches.iteritems():

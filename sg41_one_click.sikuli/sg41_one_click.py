@@ -30,15 +30,9 @@ class Miro_Suite(unittest.TestCase):
         3. Verify feed added
         4. Cleanup
         """
-        miroApp = App("Miro")
+        
         ffApp = App("Firefox")
-        setAutoWaitTimeout(60)
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-
+        reg = mirolib.AppRegions()
         
         try:
             print "open ff"
@@ -56,7 +50,7 @@ class Miro_Suite(unittest.TestCase):
             mirolib.close_one_click_confirm(self)
             
             #Start Miro 
-            miroApp.focus()
+            reg = mirolib.AppRegions()
             self.assertTrue(reg.s.exists("Ryan is Hungry"))
             reg.s.click("Ryan is Hungry")
         finally:
@@ -73,13 +67,7 @@ class Miro_Suite(unittest.TestCase):
         3. Verify site added
         4. Cleanup
         """       
-        miroRegions = mirolib.launch_miro()
-        setAutoWaitTimeout(30)
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
+        reg = mirolib.AppRegions()
 
         
         try:

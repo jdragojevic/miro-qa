@@ -36,9 +36,9 @@ class Miro_Suite(unittest.TestCase):
         
         #set the search regions
         reg = mirolib.AppRegions()
-        reg..mtb.click(testvars.guide_search)
+        reg.mtb.click(testvars.guide_search)
         type("stupidvideos.com - the stupid review \n")
-        reg..m.find(testvars.guide_add_feed)
+        reg.m.find(testvars.guide_add_feed)
         click(reg.m.getLastMatch())
         p = mirolib.get_podcasts_region(reg)
         self.assertTrue(p.exists("StupidVideos"))
@@ -83,7 +83,7 @@ class Miro_Suite(unittest.TestCase):
         url = "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi"
         feed = "my feed"
         mirolib.add_feed(self,reg,url,feed)
-        tmpr = Region(reg..mtb.below(30))
+        tmpr = Region(reg.mtb.below(30))
         self.assertTrue(tmpr.exists("5 Items"))
         mirolib.shortcut("r")
         tmpr.find("10 Items",5)
@@ -126,11 +126,7 @@ class Miro_Suite(unittest.TestCase):
     	setAutoWaitTimeout(testvars.timeout)   
         #set the search regions
     	miroRegions = mirolib.launch_miro()
-    	s = miroRegions[0] #Sidebar Region
-    	m = miroRegions[1] #Mainview Region
-    	t = miroRegions[2] #top half screen
-    	tl = miroRegions[3] #top left quarter
-    	reg.mtb = miroRegions[4] #main title bar
+    	reg = mirolib.AppRegions()
 
     	url = "http://pculture.org/feeds_test/2stupidvideos.xml"
     	feed = "TwoStupid Videos"
@@ -166,12 +162,7 @@ class Miro_Suite(unittest.TestCase):
 
         setAutoWaitTimeout(testvars.timeout)   
         #set the search regions
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
 
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "3 blip videos"
@@ -200,12 +191,7 @@ class Miro_Suite(unittest.TestCase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
 
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static List"
@@ -255,12 +241,7 @@ class Miro_Suite(unittest.TestCase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        miroRegions = mirolib.launch_miro()
-        s = miroRegions[0] #Sidebar Region
-        m = miroRegions[1] #Mainview Region
-        t = miroRegions[2] #top half screen
-        tl = miroRegions[3] #top left quarter
-        reg.mtb = miroRegions[4] #main title bar
+        reg = mirolib.AppRegions()
 
         FEEDS = {"my feed": "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi",
                  "recent posts": "http://blip.tv/rss?pagelen=10",
