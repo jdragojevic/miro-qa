@@ -41,18 +41,18 @@ class AppRegions():
         if noreg.t.exists(testvars.feedback,5):
             print ("network either off or slow, no feeback icon")
             find("Videos")
-            sidex = int(getLastMatch().getX())+200
+            sidex = inreg.t.getLastMatch().getX())+200
         else:
             wait(testvars.feedback)
             sidex = getLastMatch().getX()
 
         find("Music")
-        topx =  int(getLastMatch().getX())-55
-        topy = int(getLastMatch().getY())-90
+        topx =  inreg.t.getLastMatch().getX())-55
+        topy = inreg.t.getLastMatch().getY())-90
         
         find("BottomCorner.png")
-        vbarx =  int(getLastMatch().getX())+30
-        vbary = int(getLastMatch().getY())+10
+        vbarx =  inreg.t.getLastMatch().getX())+30
+        vbary = inreg.t.getLastMatch().getY())+10
         vbarw = getLastMatch().getW()
 
         sidebar_width = int(sidex-topx)
@@ -230,7 +230,7 @@ def remove_confirm(self,m,action="remove"):
     if m.exists(Pattern("dialog_are_you_sure.png"),5) or \
        m.exists(Pattern("dialog_one_of_these.png"),5):
 
-        click(m.getLastMatch())
+        click(reg.m.getLastMatch())
         print "confirm dialog"
         time.sleep(3)
         if action == "remove":
@@ -255,7 +255,7 @@ def get_website_region(reg):
     reg.s.click("Sources")
     topx =  reg.s.getLastMatch().getX()
     topy =  reg.s.getLastMatch().getY()
-    width = reg.s.getW()
+    width = s.getW()
     reg.s.find("Podcasts")
     boty =  reg.s.getLastMatch().getY()
     height = boty-topy
@@ -270,7 +270,7 @@ def get_podcasts_region(reg):
     reg.s.find("Playlists")
     boty =  reg.s.getLastMatch().getY()
     height = boty-topy
-    width = reg.s.getW()
+    width = s.getW()
     PodcastsRegion = Region(topx,topy, width, height)
     PodcastsRegion.setAutoWaitTimeout(20)
     return PodcastsRegion
@@ -287,7 +287,7 @@ def delete_site(self,m,s,site):
 
     """
     if s.exists("miro_guide_tab.png",1):
-        click(s.getLastMatch())
+        click(reg.s.getLastMatch())
     w = get_website_region(m,s)
     while w.exists(site,10):
         w.click(site)
@@ -323,7 +323,7 @@ def delete_feed(self,m,s,feed):
 
     """
     if s.exists("Videos",1):
-        click(s.getLastMatch())
+        click(reg.s.getLastMatch())
     
     p = get_podcasts_region(s)
     
@@ -341,7 +341,7 @@ def delete_items(self,m,s,title,item_type):
     click_sidebar_tab(self,m,s,item_type)
     tab_search(self,m,s,title)
     while m.exists(title,10):
-        click(m.getLastMatch())
+        click(reg.m.getLastMatch())
         type(Key.DELETE)
         remove_confirm(self,m,"delete_item")
     self.assertFalse(m.exists(title,10))
@@ -377,10 +377,10 @@ def tab_search(self,m,s,title,mtb,confirm_present=False):
     """
     print "searching within tab"
     if mtb.exists("tabsearch_inactive.png",5):
-        click(m.getLastMatch())
+        click(reg.m.getLastMatch())
     elif mtb.exists("tabsearch_clear.png",5):
-        click(mtb.getLastMatch())
-        click(mtb.getLastMatch().left(10))
+        click(reg.mtb.getLastMatch())
+        click(reg.mtb.getLastMatch().left(10))
     
     type(title.upper())
     if confirm_present == True:
@@ -397,11 +397,11 @@ def search_tab_search(self,mtb,term,engine=None):
     print "starting a search tab search"
     # Find the search box and type in the search text
     if mtb.exists("tabsearch_inactive.png",5):
-        click(mtb.getLastMatch())
+        click(reg.mtb.getLastMatch())
     elif mtb.exists("tabsearch_clear.png",5): # this should always be found on gtk
         print "found the broom"
-        click(mtb.getLastMatch())
-        click(mtb.getLastMatch().left(10))
+        click(reg.mtb.getLastMatch())
+        click(reg.mtb.getLastMatch().left(10))
     type(term.upper())
     # Use the search text to create a region for specifying the search engine
     if engine != None:
@@ -506,7 +506,7 @@ def wait_conversions_complete(self,m,s,title,conv):
     while m.exists(title):
         if m.exists("Open log"):
             try:
-                click(m.getLastMatch())
+                click(reg.m.getLastMatch())
                 #save the error log to a file
                 if config.get_os_name() == "osx":
                     time.sleep(10)
@@ -531,7 +531,7 @@ def wait_conversions_complete(self,m,s,title,conv):
 
 def expand_sidebar_section(self,s,section):
     s.find(section)
-    a = Region(s.getLastMatch().left(35))
+    a = Region(reg.s.getLastMatch().left(35))
     a1 = Region(a.nearby(25))
     if a1.exists(Pattern("arrow_opened.png").similar(0.95)):
         print("section expanded")
@@ -555,8 +555,8 @@ def new_search_feed(self,m,t,term,radio,source):
     reg.t.click("New Search")
     type(term)
     m.find(radio)
-    f = Region(m.getLastMatch().left(300))
-    click(m.getLastMatch())
+    f = Region(reg.m.getLastMatch().left(300))
+    click(reg.m.getLastMatch())
     click(f)
     if radio == url:
         type(source)

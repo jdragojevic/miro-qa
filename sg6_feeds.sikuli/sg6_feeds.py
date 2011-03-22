@@ -43,7 +43,7 @@ class Miro_Suite(unittest.TestCase):
         p = mirolib.get_podcasts_region(reg)
         self.assertTrue(p.exists("StupidVideos"))
         click(p.getLastMatch())
-        reg..m.find("Stupid")
+        reg.m.find("Stupid")
         click(reg.m.getLastMatch())
         #2. Copy the url and attempt to add it
         reg.t.click("Sidebar")

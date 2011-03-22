@@ -92,7 +92,7 @@ class Miro_Suite(unittest.TestCase):
             LINKS = {"absolute link": "http://www.google.com", "relative link": "appcast.xml","another relative": "index.php" }
             for link, linkurl in LINKS.iteritems():
                 if reg.m.exists(link):
-                    click(m.getLastMatch())
+                    click(reg.m.getLastMatch())
                     App.open("Firefox")
                     mirolib.shortcut("l")
                     try:

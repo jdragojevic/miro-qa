@@ -209,11 +209,11 @@ class Miro_Suite(unittest.TestCase):
         for filetype, title in HTTPDOWNLOADS.iteritems():
             try:
                 if reg.m.exists(filetype):
-                    click(m.getLastMatch())
+                    click(reg.m.getLastMatch())
                 else:
                     type(Key.PAGE_DOWN)
                     reg.m.find(filetype)
-                    click(m.getLastMatch())
+                    click(reg.m.getLastMatch())
                 mslib.confirm_download_started(self,m,s,title)
             except:
                 self.verificationErrors.append("download failed for imagetype" +str(x))
@@ -294,7 +294,7 @@ class Miro_Suite(unittest.TestCase):
         reg.s.click(site2)
         keyUp(SHIFT_KEY)
         self.assertTrue(reg.m.exists("Delete All"))
-        click(m.getLastMatch())
+        click(reg.m.getLastMatch())
         reg.m.click("button_cancel.png")
         mslib.click_sidebar_tab(self,m,s,"Videos")
         self.assertTrue(reg.s.exists(site1))

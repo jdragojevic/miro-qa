@@ -66,7 +66,7 @@ class Miro_Suite(unittest.TestCase):
                 reg.mtb.highlight(5)
                 reg.mtb.click("button_save_as_podcast.png")
                 self.assertTrue(reg.s.exists(term.upper()))
-                click(s.getLastMatch())
+                click(reg.s.getLastMatch())
                 #FIXME verify feed has items
         #cleanup
         for x in searches.keys():

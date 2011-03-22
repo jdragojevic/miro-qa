@@ -50,7 +50,7 @@ class Miro_Suite(unittest.TestCase):
         reg.mtb.click("button_save_search.png")
         #3. verify search saved
         self.assertTrue(reg.s.exists("GIMP"))
-        click(s.getLastMatch())
+        click(reg.s.getLastMatch())
         mirolib.tab_search(self,m,s,title,confirm_present=True)
         #4. cleanup
         mirolib.delete_feed(self,m,s,"GIMP")
@@ -79,7 +79,7 @@ class Miro_Suite(unittest.TestCase):
         reg.mtb.click("button_save_search.png")
         #3. verify search saved
         self.assertTrue(reg.s.exists("STRANGE"))
-        click(s.getLastMatch())
+        click(reg.s.getLastMatch())
         mirolib.tab_search(self,m,s,title,confirm_present=True)
         #4. cleanup
         mirolib.delete_feed(self,m,s,"STRANGE")
@@ -143,7 +143,7 @@ class Miro_Suite(unittest.TestCase):
                         
         #3. verify search saved
         self.assertTrue(reg.s.exists("Static List for 'touring'"))
-        click(s.getLastMatch())
+        click(reg.s.getLastMatch())
         mirolib.tab_search(self,m,s,title,confirm_present=True)
         #4. cleanup
         mirolib.delete_feed(self,m,s,"touring")

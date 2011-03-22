@@ -70,7 +70,7 @@ class Miro_Suite(unittest.TestCase):
             for x in aplaybackList:
                 mirolib.tab_search(self,m,s,"Converted to "+str(x),False)
                 self.assertTrue(reg.m.exists("item_play_unplayed.png"))
-                click(m.getLastMatch())
+                click(reg.m.getLastMatch())
                 mirolib.verify_audio_playback(self,m,s)
                                 
             
@@ -89,7 +89,7 @@ class Miro_Suite(unittest.TestCase):
             for x in aplaybackList:
                 mirolib.tab_search(self,m,s,"Converted to "+str(x))
                 self.assertTrue(reg.m.exists("item_play_unplayed.png"))
-                click(m.getLastMatch())
+                click(reg.m.getLastMatch())
                 self.assertTrue(exists("playback_bar_video.png"))
                 mirolib.shortcut("d")
                 waitVanish("playback_bar_video.png")
