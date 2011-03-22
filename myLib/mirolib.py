@@ -73,17 +73,14 @@ def launch_miro():
     vbarw = getLastMatch().getW()
 
     sidebar_width = int(sidex-topx)
+    mainwidth = int((vbarx-sidex)+vbarw)
     app_height = int(vbary-topy)
     
     #Sidebar Region
     SidebarRegion = Region(topx,topy,sidebar_width,app_height)
     SidebarRegion.setAutoWaitTimeout(30)
     regions.append(SidebarRegion)
-    #Mainview Region
-    mainwidth = int((vbarx-sidex)+vbarw)
-    MainViewRegion = Region(sidex,topy,mainwidth,app_height)
-    MainViewRegion.setAutoWaitTimeout(30)
-    regions.append(MainViewRegion)
+    
     #Top Half of screen, width of Miro app Region
     TopHalfRegion = Region(0,0,mainwidth+sidebar_width,app_height/2)
     TopHalfRegion.setAutoWaitTimeout(30)
@@ -96,6 +93,12 @@ def launch_miro():
     MainTitleBarRegion = Region(sidex,topy,mainwidth,150)
     MainTitleBarRegion.setAutoWaitTimeout(30)
     regions.append(MainTitleBarRegion)
+
+    mvy = MainTitleBarRegion.getY()
+    #Mainview Region
+    MainViewRegion = Region(sidex,mvy,mainwidth,app_height)
+    MainViewRegion.setAutoWaitTimeout(30)
+    regions.append(MainViewRegion)
     
     return regions
 

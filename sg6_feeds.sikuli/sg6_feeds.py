@@ -129,7 +129,7 @@ class Miro_Suite(unittest.TestCase):
 
         Litmus Test Title:: 339 - channels delete a feed with downloaded items
         Description: 
-        1. Add the 2-stupid-videos feed, abd download both items in the feed.  
+        1. Add the 2-stupid-videos feed, and download both items in the feed.  
         2. Remove Feed and Keep the videos.  
         3. Verify videos are displayed in the non-feed section of the Library
         4. Cleanup
@@ -145,7 +145,7 @@ class Miro_Suite(unittest.TestCase):
     	mtb = miroRegions[4] #main title bar
 
     	url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-    	feed = "2-stupid-videos"
+    	feed = "TwoStupid Videos"
 
     	#1. Add the feed and start dl
     	mirolib.add_feed(self,t,s,mtb,url,feed)

@@ -85,11 +85,13 @@ class Miro_Suite(unittest.TestCase):
         tl = miroRegions[3] #top left quarter
         mtb = miroRegions[4] #main title bar
 
-        t.find("Help")
-        tmpr = Region(getLastMatch().left(100))
+        if config.get_os_name() == "osx":
+            tmpr = tl
+        else:
+            tmpr = Region(find("Main_Menu.png"))
         if tmpr.exists("Dev"):
             click(tmpr.getLastMatch())
-            tmpr.click("Test Crash")
+            t.click("Test Crash")
             mirolib.handle_crash_dialog(self,db=False,test=True) 
         else:
             print "not in debug mode - menu not tested"
@@ -110,8 +112,12 @@ class Miro_Suite(unittest.TestCase):
         tl = miroRegions[3] #top left quarter
         mtb = miroRegions[4] #main title bar
 
-        if t.exists("Dev"):
-            click(t.getLastMatch())
+        if config.get_os_name() == "osx":
+            tmpr = tl
+        else:
+            tmpr = Region(find("Main_Menu.png"))
+        if tmpr.exists("Dev"):
+            click(tmpr.getLastMatch())
             t.click("Test Soft")
             mirolib.handle_crash_dialog(self,db=False,test=True) 
         else:
