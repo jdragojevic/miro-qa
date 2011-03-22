@@ -84,8 +84,8 @@ class Miro_Suite(unittest.TestCase):
         
         try:
             site_url = "http://pculture.org/feeds_test/subscription-test-guide.html"
-            tl.click("Sidebar")
-            tl.click("Website")
+            reg.tl.click("Sidebar")
+            reg.tl.click("Website")
             time.sleep(4)
             type(site_url+"\n")
             reg.s.click("Awesome")

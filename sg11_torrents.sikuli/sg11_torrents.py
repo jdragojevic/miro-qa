@@ -44,8 +44,8 @@ class Miro_Suite(unittest.TestCase):
         
         item_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
         item_title = "Fameless"
-        tl.click("File")
-        tl.click("Download")
+        reg.tl.click("File")
+        reg.tl.click("Download")
         time.sleep(4)
         type(item_url+"\n")
         print ("confirm download started")

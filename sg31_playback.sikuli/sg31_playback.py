@@ -42,8 +42,8 @@ class Miro_Suite(unittest.TestCase):
         
         try:
             vid_path = os.path.join(mycwd,"TestData","short-video.ogv")
-            tl.click("File")
-            tl.click("Open")
+            reg.tl.click("File")
+            reg.tl.click("Open")
             time.sleep(4)
             type(video_path+"\n")
             self.assertTrue(exists("playback_controls.png"))

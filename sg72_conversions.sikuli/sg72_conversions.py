@@ -52,8 +52,8 @@ class Miro_Suite(unittest.TestCase):
             vid_url = "http://www.youtube.com/watch?v=baJ43ByylbM&feature=fvw"
             item_title = "Hubble"
             switchApp(mirolib.open_miro())
-            tl.click("File")
-            tl.click("Download")
+            reg.tl.click("File")
+            reg.tl.click("Download")
             time.sleep(4)
             type(vid_url+"\n")
             
@@ -64,8 +64,8 @@ class Miro_Suite(unittest.TestCase):
             # 2. Convert to audio formats
             aconvertList = ("mp3","oggvorbis")
             for x in aconvertList:
-                tl.click("Convert")
-                tl.click(x)
+                reg.tl.click("Convert")
+                reg.tl.click(x)
                 time.sleep(2)
             mirolib.click_sidebar_tab(self,m,s,"conversions")
             mirolib.wait_conversions_complete(self,m,s,title,str(x))
@@ -84,8 +84,8 @@ class Miro_Suite(unittest.TestCase):
             vconvertList = ("droid","galaxy","g2","ipad","iphone","mp4", "oggtheora","psp")
             
             for x in vconvertList:
-                tl.click("Convert")
-                tl.click(x)
+                reg.tl.click("Convert")
+                reg.tl.click(x)
                 time.sleep(4)
             mirolib.click_sidebar_tab(self,m,s,"conversions")
             mirolib.wait_conversions_complete(self,m,s,title,str(x))

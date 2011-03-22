@@ -543,8 +543,8 @@ def expand_sidebar_section(self,s,section):
 
 def add_website(self,s,tl,site_url,site):
     expand_sidebar_section(self,s,"Sources")
-    tl.click("Sidebar")
-    tl.click("Website")
+    reg.tl.click("Sidebar")
+    reg.tl.click("Website")
     time.sleep(4)
     type(site_url+"\n")
     s.find(site)
