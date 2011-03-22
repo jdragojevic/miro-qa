@@ -41,9 +41,9 @@ class Miro_Suite(unittest.TestCase):
         tl = miroRegions[3] #top left quarter
  
         try:
-            m.click(testvars.guide_search)
+            reg.m.click(testvars.guide_search)
             type("StupidVideos \n")
-            m.find(testvars.guide_add_feed)
+            reg.m.find(testvars.guide_add_feed)
             click(m.getLastMatch())            self.assertTrue(s.exists("StupidVideos"))
                         
         finally:

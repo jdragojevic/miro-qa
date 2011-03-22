@@ -38,12 +38,12 @@ class Miro_Suite(unittest.TestCase):
         reg = mirolib.AppRegions()
         reg.reg.mtb.click(testvars.guide_search)
         type("stupidvideos.com - the stupid review \n")
-        reg.m.find(testvars.guide_add_feed)
+        reg.reg.m.find(testvars.guide_add_feed)
         click(reg.m.getLastMatch())
         p = mirolib.get_podcasts_region(reg)
         self.assertTrue(p.exists("StupidVideos"))
         click(p.getLastMatch())
-        reg.m.find("Stupid")
+        reg.reg.m.find("Stupid")
         click(reg.m.getLastMatch())
         #2. Copy the url and attempt to add it
         t.click("Sidebar")
@@ -89,8 +89,8 @@ class Miro_Suite(unittest.TestCase):
         tmpr.find("10 Items",5)
         #Set feed setting to 100 and update to verify items kept to limit
         reg.mtb.click("Settings")
-        m.click("Keep")
-        m.click("100")
+        reg.m.click("Keep")
+        reg.m.click("100")
         type("\n")
         for x in range(0,25):
             mirolib.shortcut("r")
@@ -98,15 +98,15 @@ class Miro_Suite(unittest.TestCase):
         self.assertTrue(tmpr.exists("105 Items"))
         #Set feed setting to 20 (Default) and verify items kept to limit
         reg.mtb.click("Settings")
-        m.click("Keep")
-        m.click("(Default)")
-        m.click("Remove All")
+        reg.m.click("Keep")
+        reg.m.click("(Default)")
+        reg.m.click("Remove All")
         type("\n")
         self.assertTrue(tmpr.exists("25 Items",5))
         #Set feed setting to 0 and verify items kept to limit
         reg.mtb.click("Settings")
-        m.click("Keep")
-        m.click("Keep 0")
+        reg.m.click("Keep")
+        reg.m.click("Keep 0")
         type("\n")
         self.assertTrue(tmpr.exists("5 Items",5))
         #4. cleanup
@@ -139,9 +139,9 @@ class Miro_Suite(unittest.TestCase):
     	mirolib.add_feed(self,t,s,reg.mtb,url,feed)
 #    	tmpr = Region(reg.mtb.below(30))
 #    	self.assertTrue(tmpr.exists("2 Items"))
-    	badges = m.findAll("Download")
+    	badges = reg.m.findAll("Download")
     	for x in badges:\
-            m.click(x)
+            reg.m.click(x)
     	mirolib.wait_for_item_in_tab(self,m,s,"videos","Flip")
     	mirolib.wait_for_item_in_tab(self,m,s,"videos","Dinosaur")
     	s.click("feed")
@@ -213,7 +213,7 @@ class Miro_Suite(unittest.TestCase):
 
         #1. Add the feed and start dl
         mirolib.add_feed(self,t,s,reg.mtb,url,feed)
-        addlink = m.findAll("Add this channel")
+        addlink = reg.m.findAll("Add this channel")
         for x in addlink:
             click(x)
             time.sleep(4)
@@ -226,14 +226,14 @@ class Miro_Suite(unittest.TestCase):
                 else:
                     print "could not find feed" +str(x)
                 time.sleep(2)
-            self.assertTrue(m.exists("Delete"))
-            self.assertTrue(m.exists("New Folder"))
+            self.assertTrue(reg.m.exists("Delete"))
+            self.assertTrue(reg.m.exists("New Folder"))
         except:
             self.verificationErrors.append("multi select failed")
         finally:
             keyUp(SHIFT_KEY)
         #3. Delete then cancel.  Verify still exists Static List
-        m.click("Delete")
+        reg.m.click("Delete")
         mirolib.remove_confirm(self,m,"cancel")
         mirolib.click_sidebar_tab(self,m,s,"videos")
         self.assertTrue(s.exists("Static List",5))
@@ -276,14 +276,14 @@ class Miro_Suite(unittest.TestCase):
             time.sleep(2)
             keyDown(SHIFT_KEY)
             s.click("recent posts")
-            self.assertTrue(m.exists("Delete"))
-            self.assertTrue(m.exists("New Folder"))
+            self.assertTrue(reg.m.exists("Delete"))
+            self.assertTrue(reg.m.exists("New Folder"))
         except:
             self.verificationErrors.append("multi select failed")
         finally:
             keyUp(SHIFT_KEY)
         #3. Delete then cancel.  Verify still exists Static List
-        m.click("New Folder")
+        reg.m.click("New Folder")
         time.sleep(2)
         type("Counter Test \n")
         s.click("Counter Test")

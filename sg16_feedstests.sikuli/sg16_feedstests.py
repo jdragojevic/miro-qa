@@ -93,15 +93,15 @@ class Miro_Suite(unittest.TestCase):
             mirolib.tab_search(self,m,s,term)
             
             #3. verify item metadata
-            self.assertTrue(m.exists(title))
-            self.assertTrue(m.exists("This is the third test video"))
-            self.assertTrue(m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
-            self.assertTrue(m.exists("842 B"))
+            self.assertTrue(reg.m.exists(title))
+            self.assertTrue(reg.m.exists("This is the third test video"))
+            self.assertTrue(reg.m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
+            self.assertTrue(reg.m.exists("842 B"))
 
             #verify the links
             LINKS = {"absolute link": "http://www.google.com", "relative link": "appcast.xml","another relative": "index.php" }
             for link, linkurl in LINKS.iteritems():
-                if m.exists(link):
+                if reg.m.exists(link):
                     click(m.getLastMatch())
                     App.open("Firefox")
                     mirolib.shortcut("l")
@@ -144,13 +144,13 @@ class Miro_Suite(unittest.TestCase):
         #2. search
         
         #3. verify item metadata
-        self.assertTrue(m.exists(title))
-        self.assertTrue(m.exists("This is the first test video"))
-        self.assertTrue(m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
-        self.assertTrue(m.exists("842 B"))
+        self.assertTrue(reg.m.exists(title))
+        self.assertTrue(reg.m.exists("This is the first test video"))
+        self.assertTrue(reg.m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
+        self.assertTrue(reg.m.exists("842 B"))
 
         mirolib.tab_search(self,m,s,"Video 2",confirm_present=False)
-        self.assertFalse(m.exists("Video 2",1))
+        self.assertFalse(reg.m.exists("Video 2",1))
         #cleanup
         mirolib.delete_feed(self,m,s,feed)
 
@@ -180,10 +180,10 @@ class Miro_Suite(unittest.TestCase):
         mirolib.tab_search(self,m,s,term)
         
         #3. verify item metadata
-        self.assertTrue(m.exists(title))
-        self.assertTrue(m.exists("This is the first test video"))
-        self.assertTrue(m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
-        self.assertTrue(m.exists("842 B"))
+        self.assertTrue(reg.m.exists(title))
+        self.assertTrue(reg.m.exists("This is the first test video"))
+        self.assertTrue(reg.m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
+        self.assertTrue(reg.m.exists("842 B"))
         #cleanup
         mirolib.delete_feed(self,m,s,feed)
 

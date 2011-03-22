@@ -60,7 +60,7 @@ class Miro_Suite(unittest.TestCase):
             mirolib.wait_download_complete(self,m,s,item_title)
             mirolib.click_sidebar_tab(self,m,s,"video")
             mirolib.tab_search(self,m,s,item_title,True)
-            m.click(item_title)
+            reg.m.click(item_title)
             # 2. Convert to audio formats
             aconvertList = ("mp3","oggvorbis")
             for x in aconvertList:
@@ -75,7 +75,7 @@ class Miro_Suite(unittest.TestCase):
             aplaybackList = ("MP3", "Ogg Vorbis")
             for x in aplaybackList:
                 mirolib.tab_search(self,m,s,"Converted to "+str(x),False)
-                self.assertTrue(m.exists("item_play_unplayed.png"))
+                self.assertTrue(reg.m.exists("item_play_unplayed.png"))
                 click(m.getLastMatch())
                 mirolib.verify_audio_playback(self,m,s)
                                 
@@ -94,7 +94,7 @@ class Miro_Suite(unittest.TestCase):
             aplaybackList = ("Droid", "Galaxy", "G2", "iPad", "iPhone", "MP4", "Ogg Theora", "Playstation")
             for x in aplaybackList:
                 mirolib.tab_search(self,m,s,"Converted to "+str(x))
-                self.assertTrue(m.exists("item_play_unplayed.png"))
+                self.assertTrue(reg.m.exists("item_play_unplayed.png"))
                 click(m.getLastMatch())
                 self.assertTrue(exists("playback_bar_video.png"))
                 mirolib.shortcut("d")

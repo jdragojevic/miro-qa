@@ -123,7 +123,7 @@ class Miro_Suite(unittest.TestCase):
         mirolib.wait_for_item_in_tab(self,m,s,"videos","Flip")
         mirolib.wait_for_item_in_tab(self,m,s,"videos","Dinosaur")
         mirolib.tab_search(self,m,s,term)
-        self.assertFalse(m.exists("Flip"))
+        self.assertFalse(reg.m.exists("Flip"))
         reg.mtb.click(term)
         for x in range(0,8):
             type(Key.LEFT)
@@ -131,7 +131,7 @@ class Miro_Suite(unittest.TestCase):
         for x in range(0,8):
             type(Key.DELETE)
 
-        self.assertTrue(m.exists("Flip"))
+        self.assertTrue(reg.m.exists("Flip"))
         #4. cleanup
         mirolib.delete_feed(self,m,s,"stupid")
 
@@ -194,13 +194,13 @@ class Miro_Suite(unittest.TestCase):
         mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         #2. search
         mirolib.tab_search(self,m,s,term)
-        self.assertTrue(m.exists(title))
-        self.assertFalse(m.exists("Flip"))
+        self.assertTrue(reg.m.exists(title))
+        self.assertFalse(reg.m.exists("Flip"))
         mirolib.click_sidebar_tab(self,m,s,"Videos")
         s.click(feed)
         self.assertTrue(reg.mtb.exists(term.upper()))
-        self.assertTrue(m.exists(title))
-        self.assertFalse(m.exists("Flip"))
+        self.assertTrue(reg.m.exists(title))
+        self.assertFalse(reg.m.exists("Flip"))
         #4. cleanup
         mirolib.delete_feed(self,m,s,"stupid")
 
@@ -230,7 +230,7 @@ class Miro_Suite(unittest.TestCase):
         mirolib.add_feed(self,t,s,reg.mtb,url,feed)
         #2. search
         mirolib.tab_search(self,m,s,term)
-        self.assertTrue(m.exists(title))
+        self.assertTrue(reg.m.exists(title))
         mirolib.download_all_items(self,m)
 
         url2 = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
@@ -238,7 +238,7 @@ class Miro_Suite(unittest.TestCase):
         mirolib.add_feed(self,t,s,reg.mtb,url2,feed2)
         mirolib.tab_search(self,m,s,"Brooklyn")
         mirolib.wait_for_item_in_tab(self,m,s,"Videos",title)
-        m.click(title)
+        reg.m.click(title)
         t.click("Playback")
         t.click("Play")
         self.assertTrue(exists("playback_controls.png"))
@@ -251,7 +251,7 @@ class Miro_Suite(unittest.TestCase):
 
         self.assertTrue(s.exists("FILMWEEK"))
         s.click("for 'FILMWEEK'")
-        self.assertTrue(m.exists("FilmWeek"))
+        self.assertTrue(reg.m.exists("FilmWeek"))
 
         #4. cleanup
         mirolib.delete_feed(self,m,s,"stupid")

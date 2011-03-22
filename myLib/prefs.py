@@ -50,7 +50,7 @@ def open_tab(self,tab):
             pref_icon = testvars.PREF_PANEL[x]        
     print "going to tab: "+str(tab)
     m = Region(find("pref_heading.png"))
-    m.click(pref_icon)
+    reg.m.click(pref_icon)
 
 def set_autodownload(self,tl,m,setting):
     """Set the global autodownload prefernce setting.
