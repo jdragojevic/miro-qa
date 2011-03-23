@@ -12,15 +12,13 @@ import mirolib
 import testvars
 import litmusresult
 
-setBundlePath(config.get_img_path())
-
-
 class Miro_Suite(unittest.TestCase):
     """Subgroup 6 - Feeds tests.
 
     """
     def setUp(self):
         self.verificationErrors = []
+        
 
     def test_123(self):
         """http://litmus.pculture.org/show_test.cgi?id=123 add feed more than once.
@@ -34,7 +32,6 @@ class Miro_Suite(unittest.TestCase):
         """       
         #set the search regions
         reg = mirolib.AppRegions()
-        reg.mtb.click(testvars.guide_home)
         reg.mtb.click(testvars.guide_search)
         type("stupidvideos.com - the stupid review \n")
         reg.m.find(testvars.guide_add_feed)
@@ -54,13 +51,7 @@ class Miro_Suite(unittest.TestCase):
         #3. Verify feed not duplicated
         p = mirolib.get_podcasts_region(reg)
         time.sleep(2)
-        mm = []
-        f = p.findAll("StupidVideos") # find all matches
-        while f.hasNext(): # loop as long there is a first and more matches
-            mm.append(f.next())     # access next match and add to mm
-            f.destroy() # release the memory used by finder
-        self.assertEqual(len(mm),1)       
-        #4. cleanup
+        mirolib.count_images(self,reg, "StupidVideos",region="sidebar",num_expected=1)
         mirolib.delete_feed(self,reg,"StupidVideos")
         
         
@@ -131,14 +122,13 @@ class Miro_Suite(unittest.TestCase):
 
     	#1. Add the feed and start dl
     	mirolib.add_feed(self,reg,url,feed)
-#    	tmpr = Region(reg.mtb.below(30))
-#    	self.assertTrue(tmpr.exists("2 Items"))
-    	badges = reg.m.findAll("Download")
+        mirolib.count_images(self,reg, "item-context-button.png",region="mainright",num_expected=2)
+    	badges = reg.m.findAll("button_download.png")
     	for x in badges:\
             reg.m.click(x)
     	mirolib.wait_for_item_in_tab(self,reg,"videos","Flip")
     	mirolib.wait_for_item_in_tab(self,reg,"videos","Dinosaur")
-    	reg.s.click("feed")
+    	reg.s.click(feed)
     	type(Key.DELETE)
     	mirolib.remove_confirm(self,reg,action="keep")
     	self.assertFalse(reg.s.exists(feed))
@@ -163,13 +153,14 @@ class Miro_Suite(unittest.TestCase):
         reg = mirolib.AppRegions()
 
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
-        feed = "3 blip videos"
+        feed = "ThreeBlip"
 
         #1. Add the feed and start dl
-        mirolib.cancel_all_downloads(self,reg,reg.mtb)
+        mirolib.cancel_all_downloads(self,reg)
         self.assertFalse(reg.s.exists("Downloading",5)) #make sure no in progress downloads
         mirolib.add_feed(self,reg,url,feed)
         tmpr = Region(reg.mtb.below(30))
+        
         self.assertTrue(tmpr.exists("3 Items"))
         mirolib.download_all_items(self,reg)
         mirolib.confirm_download_started(self,reg,"Joo Joo")

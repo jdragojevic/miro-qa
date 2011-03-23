@@ -9,7 +9,7 @@ import config
 import testvars
 from sikuli.Sikuli import *
 
-setBundlePath(config.get_img_path())
+#setBundlePath(config.get_img_path())
 
 
 
@@ -35,10 +35,12 @@ class AppRegions():
         regions = []
         if exists("Miro",5):
             click(getLastMatch())
-        else:
-            if exists("icon-guide_active.png"):
-                print "on guide tab"
         if not exists(testvars.feedback,5):
+            try:
+                click("navhome.png")
+                wait("navstop_disabled.png",15)
+            except:
+                pass
             print ("network either off or slow, no feeback icon")
             find("Videos")
             sidex = int(getLastMatch().getX())+200
@@ -105,8 +107,7 @@ class AppRegions():
             App.open(open_miro())
         wait("Sidebar",45)
 
-
-
+    config.set_image_dirs()
     launch_miro()
     miroRegions = get_regions()
     s = miroRegions[0] #Sidebar Region
@@ -228,8 +229,8 @@ def remove_confirm(self,reg,action="remove"):
     need to add remove_library option
     """
     time.sleep(5)
-    if m.exists(Pattern("dialog_are_you_sure.png"),5) or \
-       m.exists(Pattern("dialog_one_of_these.png"),5):
+    if reg.m.exists(Pattern("dialog_are_you_sure.png"),5) or \
+       reg.m.exists(Pattern("dialog_one_of_these.png"),5):
 
         click(reg.m.getLastMatch())
         print "confirm dialog"
@@ -239,15 +240,15 @@ def remove_confirm(self,reg,action="remove"):
             type(Key.ENTER)
         elif action == "delete_item":
             print "clicking delete button"
-            m.click("button_delete_file.png")
+            reg.m.click("button_delete_file.png")
         elif action == "cancel":
-            m.click("Cancel")
+            reg.m.click("Cancel")
         elif action == "keep":
-            m.click("Keep")
+            reg.m.click("Keep")
             type(Key.ENTER)
         else:
             print "not sure what to do in this dialog"
-    self.assertTrue(m.waitVanish(Pattern("dialog_are_you_sure.png"),10))
+    self.assertTrue(reg.m.waitVanish(Pattern("dialog_are_you_sure.png"),10))
     
 def get_website_region(reg):
     """takes the main and sidebar regions to create a region for the websites section.
@@ -325,13 +326,13 @@ def delete_feed(self,reg,feed):
     """
     if reg.s.exists("Videos",1):
         click(reg.s.getLastMatch())    
-    p = get_podcasts_region(reg.s)
+    p = get_podcasts_region(reg)
     
     while p.exists(feed,1):
         p.click(feed)
         type(Key.DELETE)
         remove_confirm(self,reg,"remove")
-        p = get_podcasts_region(reg.s)
+        p = get_podcasts_region(reg)
         self.assertFalse(p.exists(feed),5)
 
 def delete_items(self,reg,title,item_type):
@@ -378,7 +379,7 @@ def tab_search(self,reg,title,confirm_present=False):
     print "searching within tab"
     if reg.mtb.exists("tabsearch_inactive.png",5):
         click(reg.m.getLastMatch())
-    elif mtb.exists("tabsearch_clear.png",5):
+    elif reg.mtb.exists("tabsearch_clear.png",5):
         click(reg.mtb.getLastMatch())
         click(reg.mtb.getLastMatch().left(10))
     
@@ -575,7 +576,42 @@ def verify_audio_playback(self,reg):
     self.assertTrue(reg.m.exists("item_currently_playing.png"))
     mirolib.shortcut("d")
     waitVanish("playback_bar_audio.png")
-    
+
+
+def count_images(self,reg,img,region="screen",num_expected=None):
+    """Counts the number of images present on the screen.
+
+    It will either confirms that it is the expected value.
+    Returns the number found.
+
+    To narrow the search view - more reliable and efficient, specify the search region
+    main: mainview
+    sidebar: sidebar
+    mainright: right half of mainview extended)
+
+    mainles
+    """
+    if region == "main":
+        search_reg = reg.m
+    if region == "mainright":
+        lx = int(reg.m.getX())*2
+        wx = int(reg.m.getW()/2)+60  
+        search_reg = Region(lx,reg.m.getY(),wx,reg.m.getH())
+    elif region == "sidebar":
+        search_reg = reg.s
+    else:
+        print "searching default SCREEN"
+        search_reg = SCREEN
+    mm = []
+    f = search_reg.findAll(img) # find all matches
+    while f.hasNext(): # loop as long there is a first and more matches
+        mm.append(f.next())     # access next match and add to mm
+        f.destroy() # release the memory used by finder
+    if num_expected != None:
+        self.assertEqual(len(mm),int(num_expected))
+    return len(mm)
+
+   
 def handle_crash_dialog(self,db=True,test=False):
     """Look for the crash dialog message and submit report.
     
@@ -598,7 +634,7 @@ def handle_crash_dialog(self,db=True,test=False):
     if crashes == True and test == False:
         print "miro crashed"
         self.fail("Got a crash report - check bogon")
-        shortcut("q")
+        quit_miro()
         time.sleep(10)   
         
 

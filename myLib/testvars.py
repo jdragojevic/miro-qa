@@ -53,6 +53,10 @@ youtube_user_icon = os.path.join(search_imgs,"search_icon_youtubeuser.png")
 all_icon = os.path.join(search_imgs,"search_icon_all.png")
 
 
+#Items
+
+item_context_button = os.path.join(config.miro_images(),"Items")
+
 #Misc
 
 misc_imgs = os.path.join(config.miro_images(),"Misc")

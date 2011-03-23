@@ -19,6 +19,27 @@ def get_img_path():
     img_path = os.path.join(proj_dir,img_dir)
     return img_path
 
+def set_image_dirs():
+    """Set the Sikuli image path for the os specific image directory and the main Image dir.
+
+    """
+    os_specific_images = "Images_"+get_os_name()
+    app_images = "Images"
+    dir_list = []
+    proj_dir = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
+
+    os_image_dir = os.path.join(proj_dir,os_specific_images)
+    app_image_dir = os.path.join(proj_dir,app_images)
+    
+    #Add the os-specific image directory to the sikuli search path if it is not in there already   
+    if os_image_dir not in list(getImagePath()):
+        addImagePath(os_image_dir)
+    #Add the sub-dir under Images to the sikuli search path if they are not there already
+    for x in os.listdir(app_image_dir):
+        dirx = os.path.join(app_image_dir,x)
+        if dirx not in list(getImagePath()):
+            addImagePath(dirx)    
+    
 
 def miro_images():
     """Set up the path to the generic miro images.
