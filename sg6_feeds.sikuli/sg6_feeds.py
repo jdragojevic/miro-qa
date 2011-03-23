@@ -31,11 +31,10 @@ class Miro_Suite(unittest.TestCase):
          2. Copy the URL and use the Add Feed dialog to add it.  
          3. Verify feed not duplicated.
          4. Cleanup
-        """
-        setAutoWaitTimeout(testvars.timeout)
-        
+        """       
         #set the search regions
         reg = mirolib.AppRegions()
+        reg.mtb.click(testvars.guide_home)
         reg.mtb.click(testvars.guide_search)
         type("stupidvideos.com - the stupid review \n")
         reg.m.find(testvars.guide_add_feed)
@@ -43,8 +42,7 @@ class Miro_Suite(unittest.TestCase):
         p = mirolib.get_podcasts_region(reg)
         self.assertTrue(p.exists("StupidVideos"))
         click(p.getLastMatch())
-        reg.m.find("Stupid")
-        click(reg.m.getLastMatch())
+        
         #2. Copy the url and attempt to add it
         reg.t.click("Sidebar")
         reg.t.click("Copy")
@@ -54,7 +52,8 @@ class Miro_Suite(unittest.TestCase):
         type("\n")
         time.sleep(3)
         #3. Verify feed not duplicated
-        p = mirolib.get_podcasts_region(s)
+        p = mirolib.get_podcasts_region(reg)
+        time.sleep(2)
         mm = []
         f = p.findAll("StupidVideos") # find all matches
         while f.hasNext(): # loop as long there is a first and more matches
@@ -125,11 +124,10 @@ class Miro_Suite(unittest.TestCase):
 
     	setAutoWaitTimeout(testvars.timeout)   
         #set the search regions
-    	miroRegions = mirolib.launch_miro()
     	reg = mirolib.AppRegions()
 
     	url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-    	feed = "TwoStupid Videos"
+    	feed = "TwoStupid"
 
     	#1. Add the feed and start dl
     	mirolib.add_feed(self,reg,url,feed)

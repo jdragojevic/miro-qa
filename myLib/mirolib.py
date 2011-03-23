@@ -38,21 +38,21 @@ class AppRegions():
         else:
             if exists("icon-guide_active.png"):
                 print "on guide tab"
-        if noreg.t.exists(testvars.feedback,5):
+        if not exists(testvars.feedback,5):
             print ("network either off or slow, no feeback icon")
             find("Videos")
-            sidex = inreg.t.getLastMatch().getX())+200
+            sidex = int(getLastMatch().getX())+200
         else:
             wait(testvars.feedback)
             sidex = getLastMatch().getX()
 
         find("Music")
-        topx =  inreg.t.getLastMatch().getX())-55
-        topy = inreg.t.getLastMatch().getY())-90
+        topx =  int(getLastMatch().getX())-55
+        topy = int(getLastMatch().getY())-90
         
         find("BottomCorner.png")
-        vbarx =  inreg.t.getLastMatch().getX())+30
-        vbary = inreg.t.getLastMatch().getY())+10
+        vbarx =  int(getLastMatch().getX())+30
+        vbary = int(getLastMatch().getY())+10
         vbarw = getLastMatch().getW()
 
         sidebar_width = int(sidex-topx)
@@ -114,6 +114,7 @@ class AppRegions():
     t= miroRegions[2] #top half screen
     tl = miroRegions[3] #top left quarter
     mtb = miroRegions[4] #main title bar
+    setAutoWaitTimeout(testvars.timeout)   
         
         
 
@@ -255,7 +256,7 @@ def get_website_region(reg):
     reg.s.click("Sources")
     topx =  reg.s.getLastMatch().getX()
     topy =  reg.s.getLastMatch().getY()
-    width = s.getW()
+    width = reg.s.getW()
     reg.s.find("Podcasts")
     boty =  reg.s.getLastMatch().getY()
     height = boty-topy
@@ -270,7 +271,7 @@ def get_podcasts_region(reg):
     reg.s.find("Playlists")
     boty =  reg.s.getLastMatch().getY()
     height = boty-topy
-    width = s.getW()
+    width = reg.s.getW()
     PodcastsRegion = Region(topx,topy, width, height)
     PodcastsRegion.setAutoWaitTimeout(20)
     return PodcastsRegion
@@ -309,7 +310,7 @@ def add_feed(self,reg,url,feed):
     time.sleep(2)
     type(url + "\n")
     time.sleep(5)
-    p = get_podcasts_region(s)
+    p = get_podcasts_region(reg)
     self.assertTrue(p.exists(feed))
     click(p.getLastMatch())
     
@@ -322,16 +323,15 @@ def delete_feed(self,reg,feed):
     s = Sideview Region, calculated in the testcase on launch.
 
     """
-    if s.exists("Videos",1):
-        click(reg.s.getLastMatch())
-    
-    p = get_podcasts_region(s)
+    if reg.s.exists("Videos",1):
+        click(reg.s.getLastMatch())    
+    p = get_podcasts_region(reg.s)
     
     while p.exists(feed,1):
         p.click(feed)
         type(Key.DELETE)
         remove_confirm(self,reg,"remove")
-        p = get_podcasts_region(s)
+        p = get_podcasts_region(reg.s)
         self.assertFalse(p.exists(feed),5)
 
 def delete_items(self,reg,title,item_type):
@@ -344,18 +344,18 @@ def delete_items(self,reg,title,item_type):
         click(reg.m.getLastMatch())
         type(Key.DELETE)
         remove_confirm(self,reg,"delete_item")
-    self.assertFalse(m.exists(title,10))
+    self.assertFalse(reg.m.exists(title,10))
 
 
-def click_sidebar_tab(self,regab):
+def click_sidebar_tab(self,reg,tab):
     """Click any default tab in the sidebar.
 
     assumes the tab image file is an os-speicific image, and then verifies
     the tab is selected by verifying the miro large icon in the main view
 
     """
-    if s.exists("Sources",0):
-        s.click("Sources")
+    if reg.s.exists("Sources",0):
+        reg.s.click("Sources")
     for x in testvars.SIDEBAR_ICONS.keys():
         if tab.lower() == "videos":
             tab = "video"
@@ -363,9 +363,9 @@ def click_sidebar_tab(self,regab):
             tab_icon = testvars.SIDEBAR_ICONS[x]        
     print "going to tab: "+str(tab)
     if tab.lower() == "video":
-        s.click("Videos")
+        reg.s.click("Videos")
     else:
-        s.click(tab.capitalize())
+        reg.s.click(tab.capitalize())
 
 
 ## Menu related stuff ##
@@ -376,7 +376,7 @@ def tab_search(self,reg,title,confirm_present=False):
 
     """
     print "searching within tab"
-    if mtb.exists("tabsearch_inactive.png",5):
+    if reg.mtb.exists("tabsearch_inactive.png",5):
         click(reg.m.getLastMatch())
     elif mtb.exists("tabsearch_clear.png",5):
         click(reg.mtb.getLastMatch())
@@ -384,7 +384,7 @@ def tab_search(self,reg,title,confirm_present=False):
     
     type(title.upper())
     if confirm_present == True:
-        self.assertTrue(m.exists(title))
+        self.assertTrue(reg.m.exists(title))
         present=True
         return present
 
@@ -396,16 +396,16 @@ def search_tab_search(self,reg,term,engine=None):
     """
     print "starting a search tab search"
     # Find the search box and type in the search text
-    if mtb.exists("tabsearch_inactive.png",5):
+    if reg.mtb.exists("tabsearch_inactive.png",5):
         click(reg.mtb.getLastMatch())
-    elif mtb.exists("tabsearch_clear.png",5): # this should always be found on gtk
+    elif reg.mtb.exists("tabsearch_clear.png",5): # this should always be found on gtk
         print "found the broom"
         click(reg.mtb.getLastMatch())
         click(reg.mtb.getLastMatch().left(10))
     type(term.upper())
     # Use the search text to create a region for specifying the search engine
     if engine != None:
-        l = mtb.find(term.upper())
+        l = reg.mtb.find(term.upper())
         l1= Region(int(l.getX()-20), l.getY(), 8, 8,)
         click(l1)
         l2 = Region(int(l.getX()-15), l.getY(), 200, 300,)
@@ -416,15 +416,15 @@ def search_tab_search(self,reg,term,engine=None):
         else:
             l2.click(engine)
         type("\n") #enter the search
-        self.assertTrue(mtb.exists("button_save_as_podcast.png"))
+        self.assertTrue(reg.mtb.exists("button_save_as_podcast.png"))
     else:
         type("\n")
  
 
 def download_all_items(self,reg):
-    badges = m.findAll("Download")
+    badges = reg.m.findAll("Download")
     for x in badges:
-        m.click(x)
+        reg.m.click(x)
 
 
   
@@ -435,22 +435,22 @@ def confirm_download_started(self,reg,title):
     """
     print "in function confirm dl started"
     time.sleep(2)
-    if m.exists("message_already_downloaded.png",1):
+    if reg.m.exists("message_already_downloaded.png",1):
         downloaded = "downloaded"
         print "item already downloaded"
         type(Key.ENTER)            
-    elif m.exists("message_already_external_dl.png",1):
+    elif reg.m.exists("message_already_external_dl.png",1):
         downloaded = "in_progress"
         print "item already downloaded"
         type(Key.ENTER)
     else:
-        s.click("Downloading")
-        m.click("button_pause_all.png")
+        reg.s.click("Downloading")
+        reg.m.click("button_pause_all.png")
         if tab_search(self,reg,title,confirm_present=True) == True:
         	downloaded = "in_progress"
         else:
         	downloaded = "item not located"
-        m.click("button_resume_all.png")
+        reg.m.click("button_resume_all.png")
     return downloaded
 
 
@@ -460,13 +460,13 @@ def wait_download_complete(self,reg,title,torrent=False):
     provide title - to verify item present itemtitle_'title'.png
 
     """
-    if not confirm_download_started(self,title,confirm_present=True) == "downloaded":
+    if not confirm_download_started(self,reg,title) == "downloaded":
         if torrent == False:
-            while m.exists(title,5):
+            while reg.m.exists(title,5):
                 time.sleep(5)
         elif torrent == True:
     #break out if stop seeding button found for torrent
-            while not m.exists("item_stop_seeding.png"):
+            while not reg.m.exists("item_stop_seeding.png"):
                 time.sleep(5)
                 
 def cancel_all_downloads(self,reg):
@@ -476,21 +476,21 @@ def cancel_all_downloads(self,reg):
     Click off downloads tab and confirm tab disappears.
     
     """
-    if s.exists("Downloading",5):
+    if reg.s.exists("Downloading",5):
         click_sidebar_tab(self,reg,"downloading")
-        mtb.click("Cancel All")
-        seedlist = m.findAll("Seeding")
+        reg.mtb.click("Cancel All")
+        seedlist = reg.m.findAll("Seeding")
         if len(seedlist > 0):
             for x in seedlist:
                 click(x)
     click_sidebar_tab(self,reg,"video")
-    self.assertFalse(s.exists("Downloading"))
+    self.assertFalse(reg.s.exists("Downloading"))
     
                 
-def wait_for_item_in_tab(self,regab,item,mtb):
-    click_sidebar_tab(self,regab)
+def wait_for_item_in_tab(self,reg,tab,item):
+    click_sidebar_tab(self,reg,tab)
     tab_search(self,reg,item)
-    while not m.exists(item):
+    while not reg.m.exists(item):
     	time.sleep(5)
     
     
@@ -503,8 +503,8 @@ def wait_conversions_complete(self,reg,title,conv):
     Then it clears out the finished conversions.
 
     """
-    while m.exists(title):
-        if m.exists("Open log"):
+    while reg.m.exists(title):
+        if reg.m.exists("Open log"):
             try:
                 click(reg.m.getLastMatch())
                 #save the error log to a file
@@ -526,11 +526,11 @@ def wait_conversions_complete(self,reg,title,conv):
             sstatus = "pass"
             
         #fix - it's possible that I am clicking the wrong button
-        m.click("Clear Finished")
+        reg.m.click("Clear Finished")
 
 
 def expand_sidebar_section(self,reg,section):
-    s.find(section)
+    reg.s.find(section)
     a = Region(reg.s.getLastMatch().left(35))
     a1 = Region(a.nearby(25))
     if a1.exists(Pattern("arrow_opened.png").similar(0.95)):
@@ -547,14 +547,14 @@ def add_website(self,reg,site_url,site):
     reg.tl.click("Website")
     time.sleep(4)
     type(site_url+"\n")
-    s.find(site)
-    self.assertTrue(s.exists(site))
+    reg.s.find(site)
+    self.assertTrue(reg.s.exists(site))
 
 def new_search_feed(self,reg,term,radio,source):
     reg.t.click("Sidebar")
     reg.t.click("New Search")
     type(term)
-    m.find(radio)
+    reg.m.find(radio)
     f = Region(reg.m.getLastMatch().left(300))
     click(reg.m.getLastMatch())
     click(f)
@@ -563,16 +563,16 @@ def new_search_feed(self,reg,term,radio,source):
     else:     
         f1 = f.below()
         f1.click(source)
-    m.click("Create Feed")
+    reg.m.click("Create Feed")
 
 def verify_normalview_metadata(self,reg,metadata):
-    i = mtb.below(300)
+    i = reg.mtb.below(300)
     for k,v in metadata.iteritems():
         self.assertTrue(i.exists(v,3))   
 
 def verify_audio_playback(self,reg):
     self.assertTrue(exists("playback_bar_audio.png"))
-    self.assertTrue(m.exists("item_currently_playing.png"))
+    self.assertTrue(reg.m.exists("item_currently_playing.png"))
     mirolib.shortcut("d")
     waitVanish("playback_bar_audio.png")
     
