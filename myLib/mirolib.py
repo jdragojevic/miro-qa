@@ -277,8 +277,7 @@ def get_podcasts_region(reg):
     PodcastsRegion.setAutoWaitTimeout(20)
     return PodcastsRegion
     
-    
-    
+      
 	
     
 def delete_site(self,reg,site):
@@ -310,7 +309,7 @@ def add_feed(self,reg,url,feed):
     reg.t.click("Add Podcast")
     time.sleep(2)
     type(url + "\n")
-    time.sleep(5)
+    time.sleep(10) #give it 10 seconds to add the feed
     p = get_podcasts_region(reg)
     self.assertTrue(p.exists(feed))
     click(p.getLastMatch())

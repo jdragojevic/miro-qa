@@ -4,24 +4,21 @@ import glob
 import unittest
 import StringIO
 import time
+from sikuli.Sikuli import *
 
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
+import base_testcase
 import config
 import mirolib
 import testvars
-import litmusresult
-
-setBundlePath(config.get_img_path())
 
 
-class Miro_Suite(unittest.TestCase):
+class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 41 - one-click subscribe tests.
 
     """
-    def setUp(self):
-        self.verificationErrors = []
-
+  
     def test_6(self):
         """http://litmus.pculture.org/show_test.cgi?id=6 add feed from MiroGuide.
 
@@ -30,47 +27,32 @@ class Miro_Suite(unittest.TestCase):
         3. Verify feed added
         4. Cleanup
         """
-        miroApp = App("Miro")
         setAutoWaitTimeout(60)
+        pass
         
         #set the search regions
         reg = mirolib.AppRegions()
  
         try:
-            reg.m.click(testvars.guide_search)
+            reg.mtb.click(testvars.guide_search)
             type("StupidVideos \n")
             reg.m.find(testvars.guide_add_feed)
-            click(reg.m.getLastMatch())            self.assertTrue(reg.s.exists("StupidVideos"))
+            click(reg.m.getLastMatch())
+            time.sleep(5)
+            self.assertTrue(reg.s.exists("StupidVideos"))
                         
         finally:
             #4. cleanup
             mirolib.delete_feed(self,reg,"StupidVideos") 
 
-    def tearDown(self):
-        self.assertEqual([], self.verificationErrors)
     
 # Post the output directly to Litmus
-if config.testlitmus == True:
-    suite_list = unittest.getTestCaseNames(Miro_Suite,'test')
-    suite = unittest.TestSuite()
-    for x in suite_list:
-        suite.addTest(Miro_Suite(x))
-
-    buf = StringIO.StringIO()
-    runner = unittest.TextTestRunner(stream=buf)
-    litmusresult.write_header(config.get_os_name())
-    for x in suite:
-        runner.run(x)
-        # check out the output
-        byte_output = buf.getvalue()
-        id_string = str(x)
-        stat = byte_output[0]
-        try:
-            litmusresult.write_log(id_string,stat,byte_output)
-        finally:
-            buf.truncate(0)
-    litmusresult.write_footer()
-#or just run it locally
-else:
-    unittest.main()
+if __name__ == "__main__":
+    import LitmusTestRunner
+    
+    if len(sys.argv) > 1:
+        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+    else:
+        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+   
 

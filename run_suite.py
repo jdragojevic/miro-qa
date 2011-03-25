@@ -6,8 +6,17 @@ import subprocess
 
 sys.path.append(os.path.join(os.getcwd(),'myLib'))
 
-import litmusresult
 
+
+from optparse import OptionParser
+parser = OptionParser()
+parser.add_option("-q", "--quicktest", action="store_true", dest="quicktest", default=False,
+                  help='Runs the quicktest suite')
+
+
+
+(options, args) = parser.parse_args()
+qt = options.quicktest
 
 ###Run all the subgroups:
 
@@ -25,17 +34,16 @@ if os.getenv("SIKULI_HOME") == None:
 jar_path = os.path.join(os.getenv("SIKULI_HOME"),"sikuli-script.jar")
 sik_run_cmd = ['java', '-jar', jar_path]
 
+
 for subgroup in glob.glob(os.path.join(os.getcwd(), '*.sikuli')):
     print subgroup
     sik_run_cmd.append(subgroup)
     p = subprocess.Popen(sik_run_cmd).communicate()
-
-##litmusresult.send_result(fn=os.path.join(os.path.dirname(os.getcwd()),"log.xml"))
-        
+    
 
 
 #To run just one test:
-##os.system("java -jar $SIKULI_HOME/sikuli-script.jar test.sikuli")
+##os.system("java -jar $SIKULI_HOME/sikuli-script.jar test.sikuli Miro_Suite.test_x")
 
     
 
