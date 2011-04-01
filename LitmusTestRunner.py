@@ -8,9 +8,21 @@ import platform
 import StringIO
 from sikuli.Sikuli import *
 
-import sg8_miroguide
+
 import sg2_search
 import sg6_feeds
+import sg8_miroguide
+import sg11_torrents
+import sg16_feedstests
+import sg19_system
+import sg21_sites
+import sg24_shortcuts
+import sg31_playback
+import sg41_one_click
+import sg42_feedsearch
+import sg58_items
+import sg72_conversions
+import sg89_prefs
 
 
    
@@ -149,7 +161,7 @@ def send_result(log):
 
 def set_build_id():
 #    build_id = "2010112900" #set custom build id here.
-    build_id = time.strftime("%Y%m%d", time.gmtime()) + "99"
+    build_id = time.strftime("%Y%m%d99", time.gmtime())
     return build_id
 
 def write_header(log):
@@ -178,8 +190,9 @@ class LitmusRunner(unittest.TestCase):
                 if "test" in tc:
                     self.suite.addTests([unittest.defaultTestLoader.loadTestsFromName(sg[0]+'.Miro_Suite.'+tc)],)
                     
-    def litmus_test_run(self):   
-        logfile = os.path.join(os.getcwd(),"log.xml")
+    def litmus_test_run(self):
+        log = time.strftime("Log_%M%s.xml", time.gmtime())
+        logfile = os.path.join(os.getcwd(),log)
         buf = StringIO.StringIO()
         runner = unittest.TextTestRunner(stream=buf)
         write_header(logfile)

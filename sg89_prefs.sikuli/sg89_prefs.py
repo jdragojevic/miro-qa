@@ -4,30 +4,19 @@ import glob
 import unittest
 import StringIO
 import time
-
+from sikuli.Sikuli import *
 
 sys.path.append(os.path.join(os.getcwd(),'myLib'))
 import config
 import mirolib
 import prefs
 import testvars
-import litmusresult
+import base_testcase
 
-setBundlePath(config.get_img_path())
-
-
-
-
-class Miro_Suite(unittest.TestCase):
+class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 89 - preferences tests.
 
-    """
-    def setUp(self):
-        self.verificationErrors = []
-        setAutoWaitTimeout(3)
-        
-        
-         
+    """    
 
     def test_467(self):
         """http://litmus.pculture.org/show_test.cgi?id=467 change sys language.
@@ -40,63 +29,38 @@ class Miro_Suite(unittest.TestCase):
         
         """
         reg = mirolib.AppRegions()
-
-
-        try:
-            #1. open preferences
-            p = prefs.open_prefs(self)
-            prefs.open_tab(self,p,"general")
-            #2. change language to croatian (hr)
-            p.click("System default")
-            
-            self.assertTrue(p.exists("pref_lang_hr.png"))
-            click(p.getLastMatch())
-            mirolib.shortcut("w")
-            #3. Restart Miro
-            mirolib.quit_miro(self,reg)
-            switchApp(mirolib.open_miro())
-            wait("Miro",45)
-            click(getLastMatch())
-            #4. Verify Changes and reset
-            p = prefs.open_prefs(self,'hr','Datoteka','Postavke')       
-            self.assertTrue(p.exists("pref_language_pulldown.png"))
-            click(p.getLastMatch())
-            self.assertTrue(p.exists("pref_lang_def.png"))
-            click(p.getLastMatch())
-            mirolib.shortcut("w")
-            #5. Restart Miro
-            mirolib.quit_miro(self,reg)
-            switchApp(mirolib.open_miro())
-            
-            
-        finally:
-            pass
-    def tearDown(self):
-        self.assertEqual([], self.verificationErrors)
-    
+        #1. open preferences
+        p = prefs.open_prefs(self,reg)
+        prefs.open_tab(self,reg,p,"general")
+        #2. change language to croatian (hr)
+        p.click("System default")
+        
+        self.assertTrue(p.exists("pref_lang_hr.png"))
+        click(p.getLastMatch())
+        mirolib.shortcut("w")
+        #3. Restart Miro
+        mirolib.quit_miro(self,reg)
+        switchApp(mirolib.open_miro())
+        wait("Miro",45)
+        click(getLastMatch())
+        #4. Verify Changes and reset
+        p = prefs.open_prefs(self,'hr','Datoteka','Postavke')       
+        self.assertTrue(p.exists("pref_language_pulldown.png"))
+        click(p.getLastMatch())
+        self.assertTrue(p.exists("pref_lang_def.png"))
+        click(p.getLastMatch())
+        mirolib.shortcut("w")
+        #5. Restart Miro
+        mirolib.quit_miro(self,reg)
+        switchApp(mirolib.open_miro())
+   
 # Post the output directly to Litmus
-
-if config.testlitmus == True:
-    suite_list = unittest.getTestCaseNames(Miro_Suite,'test')
-    suite = unittest.TestSuite()
-    for x in suite_list:
-        suite.addTest(Miro_Suite(x))
-
-    buf = StringIO.StringIO()
-    runner = unittest.TextTestRunner(stream=buf)
-    litmusresult.write_header(config.get_os_name())
-    for x in suite:
-        runner.run(x)
-        # check out the output
-        byte_output = buf.getvalue()
-        id_string = str(x)
-        stat = byte_output[0]
-        try:
-            litmusresult.write_log(id_string,stat,byte_output)
-        finally:
-            buf.truncate(0)
-    litmusresult.write_footer()
-#or just run it locally
-else:
-    unittest.main()
+if __name__ == "__main__":
+    import LitmusTestRunner
+    print len(sys.argv)
+    if len(sys.argv) > 1:
+        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+    else:
+        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+ 
 

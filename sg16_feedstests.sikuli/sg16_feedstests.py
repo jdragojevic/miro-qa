@@ -4,30 +4,18 @@ import glob
 import unittest
 import StringIO
 import time
-
+from sikuli.Sikuli import *
 
 sys.path.append(os.path.join(os.getcwd(),'myLib'))
-
-
 import config
 import mirolib
 import testvars
-import litmusresult
+import base_testcase
 
-
-
-setBundlePath(config.get_img_path())
-
-
-class Miro_Suite(unittest.TestCase):
+class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 16 - one-click subscribe tests.
 
     """
-    def setUp(self):
-        self.verificationErrors = []
-        setAutoWaitTimeout(60)
-         
-
 
     def test_74(self):
         """http://litmus.pculture.org/show_test.cgi?id=74 Feed search, saved search feed
@@ -193,33 +181,13 @@ class Miro_Suite(unittest.TestCase):
         #cleanup
         mirolib.delete_feed(self,reg,feed) 
  
-    def tearDown(self):
-        mirolib.handle_crash_dialog(self)
-        self.assertEqual([], self.verificationErrors)
-        
-        
 # Post the output directly to Litmus
-if config.testlitmus == True:
-    suite_list = unittest.getTestCaseNames(Miro_Suite,'test')
-    suite = unittest.TestSuite()
-    for x in suite_list:
-        suite.addTest(Miro_Suite(x))
+if __name__ == "__main__":
+    import LitmusTestRunner
+    print len(sys.argv)
+    if len(sys.argv) > 1:
+        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+    else:
+        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+   
 
-    buf = StringIO.StringIO()
-    runner = unittest.TextTestRunner(stream=buf)
-    litmusresult.write_header(config.get_os_name())
-    for x in suite:
-        runner.run(x)
-        # check out the output
-        byte_output = buf.getvalue()
-        id_string = str(x)
-        stat = byte_output[0]
-        try:
-            print "writing log"
-            litmusresult.write_log(id_string,stat,byte_output)
-        finally:
-            buf.truncate(0)
-    litmusresult.write_footer()
-#or just run it locally
-else:
-    unittest.main()

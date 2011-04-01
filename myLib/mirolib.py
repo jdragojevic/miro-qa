@@ -33,8 +33,12 @@ def open_miro():
 class AppRegions():
     def get_regions():
         regions = []
-        if exists("Miro",5):
+        if exists("Music",2):
             click(getLastMatch())
+        elif exists("Videos",2):
+            click(getLastMatch())
+        libr = Region(getLastMatch().above(500))
+        libr.click("Miro")
         if not exists(testvars.feedback,5):
             try:
                 click("navhome.png")
@@ -340,7 +344,7 @@ def delete_items(self,reg,title,item_type):
     """
     click_sidebar_tab(self,reg,item_type)
     tab_search(self,reg,title)
-    while m.exists(title,10):
+    while reg.m.exists(title,10):
         click(reg.m.getLastMatch())
         type(Key.DELETE)
         remove_confirm(self,reg,"delete_item")
@@ -445,12 +449,12 @@ def confirm_download_started(self,reg,title):
         type(Key.ENTER)
     else:
         reg.s.click("Downloading")
-        reg.m.click("button_pause_all.png")
+        reg.mtb.click("button_pause_all.png")
         if tab_search(self,reg,title,confirm_present=True) == True:
         	downloaded = "in_progress"
         else:
         	downloaded = "item not located"
-        reg.m.click("button_resume_all.png")
+        reg.mtb.click("button_resume_all.png")
     return downloaded
 
 
@@ -530,21 +534,23 @@ def wait_conversions_complete(self,reg,title,conv):
 
 
 def expand_sidebar_section(self,reg,section):
-    reg.s.find(section)
-    a = Region(reg.s.getLastMatch().left(35))
-    a1 = Region(a.nearby(25))
-    if a1.exists(Pattern("arrow_opened.png").similar(0.95)):
-        print("section expanded")
-    elif a1.exists(Pattern("arrow_closed.png").similar(0.95)):
-        click(a1.getLastMatch())
-    else:
-        print "expander not found"
+    reg.s.click(section)
+
+#Don't need this - section expands when heading clicked now
+##    a = Region(reg.s.getLastMatch().left(35))
+##    a1 = Region(a.nearby(25))
+##    if a1.exists(Pattern("arrow_opened.png").similar(0.95)):
+##        print("section expanded")
+##    elif a1.exists(Pattern("arrow_closed.png").similar(0.95)):
+##        click(a1.getLastMatch())
+##    else:
+##        print "expander not found"
 
 
 def add_website(self,reg,site_url,site):
     expand_sidebar_section(self,reg,"Sources")
     reg.tl.click("Sidebar")
-    reg.tl.click("Website")
+    reg.tl.click("Source")
     time.sleep(4)
     type(site_url+"\n")
     reg.s.find(site)

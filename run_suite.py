@@ -4,9 +4,6 @@ import glob
 import sys
 import subprocess
 
-sys.path.append(os.path.join(os.getcwd(),'myLib'))
-
-
 
 from optparse import OptionParser
 parser = OptionParser()
@@ -20,11 +17,11 @@ qt = options.quicktest
 
 ###Run all the subgroups:
 
-if sys.platform.startswith("darwin"):
-    if os.getenv("PCF_TEST_HOME") == None:
-        raw_input("Must set PCF_TEST_HOME env to current dir, press key to exit")
-else:
-    os.putenv("PCF_TEST_HOME",os.getcwd())
+##if sys.platform.startswith("darwin"):
+if os.getenv("PCF_TEST_HOME") == None:
+    raw_input("Must set PCF_TEST_HOME env to current dir, press key to exit")
+##else:
+##    os.putenv("PCF_TEST_HOME",os.getcwd())
 
 
 if os.getenv("SIKULI_HOME") == None:
@@ -32,12 +29,12 @@ if os.getenv("SIKULI_HOME") == None:
               Press any key to exit")
 
 jar_path = os.path.join(os.getenv("SIKULI_HOME"),"sikuli-script.jar")
-sik_run_cmd = ['java', '-jar', jar_path]
 
 
 for subgroup in glob.glob(os.path.join(os.getcwd(), '*.sikuli')):
-    print subgroup
-    sik_run_cmd.append(subgroup)
+    sik_run_cmd = ['java', '-jar', jar_path]
+    print os.path.basename(subgroup)
+    sik_run_cmd.append(os.path.basename(subgroup))
     p = subprocess.Popen(sik_run_cmd).communicate()
     
 

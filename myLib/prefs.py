@@ -6,7 +6,7 @@ import mirolib
 from sikuli.Sikuli import *
 
 
-def open_prefs(self,lang='en',menu=None,option=None):
+def open_prefs(self,reg,lang='en',menu=None,option=None):
     """OS specific handling for Preferences menu, since it differs on osx and windows.
 
     """
@@ -41,7 +41,7 @@ def open_prefs(self,lang='en',menu=None,option=None):
 
 
 
-def open_tab(self,tab):
+def open_tab(self,reg,p,tab):
     """Open the specified tab by searching with-in the preferences region (p) for the icon.
 
     """
@@ -49,8 +49,8 @@ def open_tab(self,tab):
         if tab.lower() in x:
             pref_icon = testvars.PREF_PANEL[x]        
     print "going to tab: "+str(tab)
-    m = Region(find("pref_heading.png"))
-    reg.m.click(pref_icon)
+    ph = Region(find("pref_heading.png"))
+    ph.click(pref_icon)
 
 def set_autodownload(self,reg,setting):
     """Set the global autodownload prefernce setting.

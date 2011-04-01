@@ -66,7 +66,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
    
 # Post the output directly to Litmus
 if __name__ == "__main__":
-    import LitmusTestResult
+    import LitmusTestRunner
     print len(sys.argv)
     if len(sys.argv) > 1:
         LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
