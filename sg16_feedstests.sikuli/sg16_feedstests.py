@@ -81,7 +81,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                 if reg.m.exists(link):
                     click(reg.m.getLastMatch())
                     App.open("Firefox")
-                    time.sleep(10)
+                    time.sleep(20)
                     mirolib.shortcut("l")
                     try:
                         self.assertEqual(Env.getClipboard(),linkurl)
