@@ -71,20 +71,22 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             
             #3. verify item metadata
             self.assertTrue(reg.m.exists(title))
-            self.assertTrue(reg.m.exists("This is"))
-            self.assertTrue(reg.m.exists("mike_tv.png"))
-            self.assertTrue(reg.m.exists("842 KB"))
+##            self.assertTrue(reg.m.exists("This is"))
+##            self.assertTrue(reg.m.exists("mike_tv.png"))
+##            self.assertTrue(reg.m.exists("842 KB"))
 
             #verify the links
-            LINKS = {"absolute link": "http://www.google.com", "relative link": "appcast.xml","another relative": "index.php" }
+            LINKS = {"absolute link": "google", "relative link": "feeds_test","another relative": "pculture.org" }
             for link, linkurl in LINKS.iteritems():
                 if reg.m.exists(link):
                     click(reg.m.getLastMatch())
                     App.open("Firefox")
                     time.sleep(20)
                     mirolib.shortcut("l")
+                    mirolib.shortcut("c")
                     try:
-                        self.assertEqual(Env.getClipboard(),linkurl)
+                        print Env.getClipboard()
+                        self.failUnless(linkurl in Env.getClipboard())
                     except:
                         self.verificationErrors.append("relative link not opened in browser")
                     mirolib.shortcut("w")
