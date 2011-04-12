@@ -191,7 +191,8 @@ class LitmusRunner(unittest.TestCase):
                     self.suite.addTests([unittest.defaultTestLoader.loadTestsFromName(sg[0]+'.Miro_Suite.'+tc)],)
                     
     def litmus_test_run(self):
-        log = time.strftime("Log_%M%s.xml", time.gmtime())
+        ts = time.strftime("%M%S", time.gmtime())
+        log = "Log"+ts+".xml"
         logfile = os.path.join(os.getcwd(),log)
         buf = StringIO.StringIO()
         runner = unittest.TextTestRunner(stream=buf)
@@ -208,6 +209,7 @@ class LitmusRunner(unittest.TestCase):
             buf.truncate(0)
 
         write_footer(logfile)
+        
 #        send_result(logfile)
 
 

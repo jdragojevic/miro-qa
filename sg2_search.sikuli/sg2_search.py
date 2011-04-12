@@ -29,7 +29,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(60)
         reg = mirolib.AppRegions()
 
-        SEARCHES = {"Blip": 'lizards', "YouTube": 'cosmicomics'}
+        SEARCHES = {"blip": 'lizards', "YouTube": 'cosmicomics'}
         for engine, term in SEARCHES.iteritems():
             mirolib.click_sidebar_tab(self,reg,"Search")
             mirolib.search_tab_search(self,reg,term,engine)
@@ -40,7 +40,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         
     def test_322(self):
-        """http://litmus.pculture.org/show_test.cgi?id=82 remember last search.
+        """http://litmus.pculture.org/show_test.cgi?id=322 search and save as a podcast
 
         1. Perform a search
         2. Click off the tab
@@ -50,14 +50,17 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(60)
         reg = mirolib.AppRegions()
 
-        searches = {"Blip": "lizards", "YouTube": "cosmicomics"}
+        searches = {"blip": "lizards", "YouTube": "cosmicomics"}
         for engine, term in searches.iteritems():
         	mirolib.click_sidebar_tab(self,reg,"search")
                 mirolib.search_tab_search(self,reg,term,engine)
-                reg.mtb.highlight(5)
                 reg.mtb.click("button_save_as_podcast.png")
-                self.assertTrue(reg.s.exists(term.upper()))
-                click(reg.s.getLastMatch())
+                if engine == "blip":
+                    saved_search = engine
+                else:
+                    saved_search = engine +" for"
+                mirolib.click_podcast(self,reg,saved_search)
+                
                 #FIXME verify feed has items
         #cleanup
         for x in searches.keys():

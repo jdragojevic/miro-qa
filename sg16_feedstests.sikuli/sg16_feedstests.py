@@ -32,22 +32,21 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         feed = "Yahoo"
         term = "first test video"
         title = "Video"
-
-        metadata = {"title":"Video",
-                    "description":"This",
-                    "icon":testvars.tv_icon,
-                    "size":"842 B"}
-        
+       
         
         #1. add feed
         mirolib.add_feed(self,reg,url,feed)
         #2. search
         mirolib.tab_search(self,reg,term)
         #3. verify item metadata
+        self.assertTrue(reg.m.exists(title))
+        self.assertTrue(reg.m.exists("This is"))
+        self.assertTrue(reg.m.exists("mike_tv.png"))
+        self.assertTrue(reg.m.exists("842 KB"))
         #4. cleanup
         mirolib.delete_feed(self,reg,feed)
 
-    def stest_75(self):
+    def test_175(self):
         """http://litmus.pculture.org/show_test.cgi?id=75 Absolute and relative links.
 
         1. Feed 1
@@ -72,9 +71,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             
             #3. verify item metadata
             self.assertTrue(reg.m.exists(title))
-            self.assertTrue(reg.m.exists("This is the third test video"))
-            self.assertTrue(reg.m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
-            self.assertTrue(reg.m.exists("842 B"))
+            self.assertTrue(reg.m.exists("This is"))
+            self.assertTrue(reg.m.exists("mike_tv.png"))
+            self.assertTrue(reg.m.exists("842 KB"))
 
             #verify the links
             LINKS = {"absolute link": "http://www.google.com", "relative link": "appcast.xml","another relative": "index.php" }
@@ -82,16 +81,18 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                 if reg.m.exists(link):
                     click(reg.m.getLastMatch())
                     App.open("Firefox")
+                    time.sleep(10)
                     mirolib.shortcut("l")
                     try:
-                        self.assertEqual(Env.getClipboard(),link)
+                        self.assertEqual(Env.getClipboard(),linkurl)
                     except:
                         self.verificationErrors.append("relative link not opened in browser")
+                    mirolib.shortcut("w")
         #cleanup
         finally:
             mirolib.delete_feed(self,reg,feed)
  
-    def stest_60(self):
+    def test_60(self):
         """http://litmus.pculture.org/show_test.cgi?id=60  Feed with no enclosures.
 
         1. Feed 3
@@ -99,11 +100,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. Cleanup
 
         """
-        reg = mirolib.AppRegions()
-        m.highlight(3)
-        reg.mtb.highlight(3)
-        s.highlight(3)
-        
+        reg = mirolib.AppRegions()        
         
         #1. add feed
         url = "http://pculture.org/feeds_test/no-enclosures.rss"
@@ -118,16 +115,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         #3. verify item metadata
         self.assertTrue(reg.m.exists(title))
-        self.assertTrue(reg.m.exists("This is the first test video"))
-        self.assertTrue(reg.m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
-        self.assertTrue(reg.m.exists("842 B"))
+        self.assertTrue(reg.m.exists("This is")) #Description text
+        self.assertTrue(reg.m.exists("mike_tv.png"))
+        self.assertTrue(reg.m.exists("842 KB"))
 
         mirolib.tab_search(self,reg,"Video 2",confirm_present=False)
         self.assertFalse(reg.m.exists("Video 2",1))
         #cleanup
         mirolib.delete_feed(self,reg,feed)
 
-    def stest_73(self):
+    def test_73(self):
         """http://litmus.pculture.org/show_test.cgi?id=73 Feed with Yahoo and RSS enclosures.
 
         1. Feed 3
@@ -138,7 +135,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/feed3.rss"
-        feed = "RSS 2.0 and Yahoo"
+        feed = "RSS 2"
         term = "first test video"
         title = "Video 1"
         
@@ -149,35 +146,38 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         #3. verify item metadata
         self.assertTrue(reg.m.exists(title))
-        self.assertTrue(reg.m.exists("This is the first test video"))
-        self.assertTrue(reg.m.exists("http://participatoryculture.org/feeds_test/mike_tv_drawing_cropped.jpg"))
-        self.assertTrue(reg.m.exists("842 B"))
+        self.assertTrue(reg.m.exists("This is"))
+        self.assertTrue(reg.m.exists("mike_tv.png"))
+        self.assertTrue(reg.m.exists("842 KB"))
         #cleanup
         mirolib.delete_feed(self,reg,feed)
 
-    def stest_69(self):
+    def test_69(self):
         """http://litmus.pculture.org/show_test.cgi?id=69 Add rss feed via browser.
 
         1. Add feed The AV Club via the browser (assumes the browser is set to automatically add the feed).
         2. Verify the feed is added
         3. Cleanup
 
+        Assumes that Miro is configured as the default application to open rss feeds in FF.
+        
         """
         
         reg = mirolib.AppRegions()
         
-        feed = "The AV Club"
+        feed = "The AV"
         print "open ff"
         App.open(mirolib.open_ff())
-        find(testvars.ffhome)
-        App.focus("Firefox")
+        time.sleep(2)
         url = "http://feeds.feedburner.com/theavclub/AVClubPresents?format=xml"
         mirolib.shortcut("l")
         time.sleep(2)
         type(url + "\n")
-
+        time.sleep(5)
+        mirolib.shortcut('w')
+        reg = mirolib.AppRegions()
         #3. verify item metadata
-        self.assertTrue(reg.s.exists(feed))
+        mirolib.click_podcast(self,reg,feed)
         #cleanup
         mirolib.delete_feed(self,reg,feed) 
  

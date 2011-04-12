@@ -121,14 +121,6 @@ class AppRegions():
     mtb = miroRegions[4] #main title bar
     setAutoWaitTimeout(testvars.timeout)   
         
-        
-
-
-        
-
-
-
-
 
 
 def shortcut(key,shift=False):
@@ -191,6 +183,8 @@ def open_ff():
         return "/Applications/Firefox.app"
     elif config.get_os_name() == "win":
         return "C:\\Program Files\\Mozilla Firefox\\Firefox.exe"
+    elif config.get_os_name() == "lin":
+        return "firefox"
     else:
         print "no clue"
 
@@ -233,9 +227,11 @@ def remove_confirm(self,reg,action="remove"):
     need to add remove_library option
     """
     time.sleep(5)
-    if reg.m.exists(Pattern("dialog_are_you_sure.png"),5) or \
-       reg.m.exists(Pattern("dialog_one_of_these.png"),5):
-
+    if reg.m.exists("Remove",5) or \
+       reg.m.exists(Pattern("dialog_are_you_sure.png"),3) or \
+       reg.m.exists(Pattern("dialog_one_of_these.png"),3):
+        
+        print "got confirmation dialog"
         click(reg.m.getLastMatch())
         print "confirm dialog"
         time.sleep(3)
@@ -244,10 +240,15 @@ def remove_confirm(self,reg,action="remove"):
             type(Key.ENTER)
         elif action == "delete_item":
             print "clicking delete button"
-            reg.m.click("button_delete_file.png")
+            if config.get_os_name() == "osx":
+                reg.m.click("button_delete_file.png")
+            else:
+                reg.m.click("Delete File")
         elif action == "cancel":
+            print "clicking cancel"
             reg.m.click("Cancel")
         elif action == "keep":
+            print "keeping"
             reg.m.click("Keep")
             type(Key.ENTER)
         else:
@@ -258,11 +259,12 @@ def get_website_region(reg):
     """takes the main and sidebar regions to create a region for the websites section.
     
     """
-    reg.s.click("Sources")
+    
+    reg.s.find("Sources")
     topx =  reg.s.getLastMatch().getX()
     topy =  reg.s.getLastMatch().getY()
     width = reg.s.getW()
-    reg.s.find("Podcasts")
+    reg.s.find("Stores")
     boty =  reg.s.getLastMatch().getY()
     height = boty-topy
     WebsitesRegion = Region(topx,topy, width, height)
@@ -270,12 +272,14 @@ def get_website_region(reg):
     return WebsitesRegion
 
 def get_podcasts_region(reg):
+    if not reg.s.exists("Podcasts",1):
+        reg.s.click("Sources")
     reg.s.click("Podcasts")
     topx =  reg.s.getLastMatch().getX()
     topy =  reg.s.getLastMatch().getY()
     reg.s.find("Playlists")
     boty =  reg.s.getLastMatch().getY()
-    height = boty-topy
+    height = (boty-topy)+30
     width = reg.s.getW()
     PodcastsRegion = Region(topx,topy, width, height)
     PodcastsRegion.setAutoWaitTimeout(20)
@@ -314,11 +318,13 @@ def add_feed(self,reg,url,feed):
     time.sleep(2)
     type(url + "\n")
     time.sleep(10) #give it 10 seconds to add the feed
-    p = get_podcasts_region(reg)
-    self.assertTrue(p.exists(feed))
-    click(p.getLastMatch())
+    click_podcast(self,reg,feed)
     
-
+def click_podcast(self,reg,feed):
+        p = get_podcasts_region(reg)
+        self.assertTrue(p.exists(feed))
+        click(p.getLastMatch())
+        
 
 def delete_feed(self,reg,feed):
     """Delete the video feed from the sidebar.
@@ -326,9 +332,7 @@ def delete_feed(self,reg,feed):
     m = Mainview Region, calculate in the testcase on launch.
     s = Sideview Region, calculated in the testcase on launch.
 
-    """
-    if reg.s.exists("Videos",1):
-        click(reg.s.getLastMatch())    
+    """ 
     p = get_podcasts_region(reg)
     
     while p.exists(feed,1):
@@ -336,7 +340,7 @@ def delete_feed(self,reg,feed):
         type(Key.DELETE)
         remove_confirm(self,reg,"remove")
         p = get_podcasts_region(reg)
-        self.assertFalse(p.exists(feed),5)
+        self.assertFalse(p.exists(feed,5))
 
 def delete_items(self,reg,title,item_type):
     """Remove video audio music other items from the library.
@@ -358,7 +362,7 @@ def click_sidebar_tab(self,reg,tab):
     the tab is selected by verifying the miro large icon in the main view
 
     """
-    if reg.s.exists("Sources",0):
+    if reg.s.exists("s",0):
         reg.s.click("Sources")
     for x in testvars.SIDEBAR_ICONS.keys():
         if tab.lower() == "videos":
@@ -388,6 +392,8 @@ def tab_search(self,reg,title,confirm_present=False):
     
     type(title.upper())
     if confirm_present == True:
+        if reg.mtb.exists("list-view_active.png",3):
+            reg.mtb.click("standard-view.png")
         self.assertTrue(reg.m.exists(title))
         present=True
         return present
@@ -412,23 +418,26 @@ def search_tab_search(self,reg,term,engine=None):
         l = reg.mtb.find(term.upper())
         l1= Region(int(l.getX()-20), l.getY(), 8, 8,)
         click(l1)
-        l2 = Region(int(l.getX()-15), l.getY(), 200, 300,)
+        l2 = Region(int(l.getX()-15), l.getY(), 300, 500,)
         
         if engine == "YouTube":
             l3 = Region(l2.find("YouTube User").above())
             l3.click(engine)
         else:
             l2.click(engine)
-        type("\n") #enter the search
-        self.assertTrue(reg.mtb.exists("button_save_as_podcast.png"))
+        type("\n") #enter the search 
+        self.assertTrue(reg.mtb.exists("button_save_as_podcast.png",10))
     else:
         type("\n")
  
 
 def download_all_items(self,reg):
-    badges = reg.m.findAll("Download")
-    for x in badges:
-        reg.m.click(x)
+    if reg.m.exists("Download"):
+        badges = reg.m.findAll("Download")
+        for x in badges:
+            reg.m.click(x)
+    else:
+        print "no badges found, maybe autodownloads in progress"
 
 
   
@@ -449,12 +458,12 @@ def confirm_download_started(self,reg,title):
         type(Key.ENTER)
     else:
         reg.s.click("Downloading")
-        reg.mtb.click("button_pause_all.png")
+        reg.mtb.click("download-pause.png")
         if tab_search(self,reg,title,confirm_present=True) == True:
         	downloaded = "in_progress"
         else:
         	downloaded = "item not located"
-        reg.mtb.click("button_resume_all.png")
+        reg.mtb.click("download-resume.png")
     return downloaded
 
 
@@ -548,13 +557,13 @@ def expand_sidebar_section(self,reg,section):
 
 
 def add_website(self,reg,site_url,site):
-    expand_sidebar_section(self,reg,"Sources")
     reg.tl.click("Sidebar")
     reg.tl.click("Source")
-    time.sleep(4)
+    time.sleep(2)
     type(site_url+"\n")
-    reg.s.find(site)
-    self.assertTrue(reg.s.exists(site))
+    reg.s.click("Sources")
+    reg.s.find(site[0:15])
+    self.assertTrue(reg.s.exists(site[0:15]))
 
 def new_search_feed(self,reg,term,radio,source):
     reg.t.click("Sidebar")
@@ -622,7 +631,7 @@ def handle_crash_dialog(self,db=True,test=False):
     
     """
     crashes = False
-    while exists(Pattern("internal_error.png"),15):
+    while exists(Pattern("internal_error.png"),5):
         crashes = True
         tmpr = Region(getLastMatch().nearby(500))
         if db == True:
@@ -639,8 +648,8 @@ def handle_crash_dialog(self,db=True,test=False):
     if crashes == True and test == False:
         print "miro crashed"
         self.fail("Got a crash report - check bogon")
+        time.sleep(20) #give it some time to send the report before shutting down.
         quit_miro()
-        time.sleep(10)   
         
 
     
