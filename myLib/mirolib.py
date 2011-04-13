@@ -255,21 +255,22 @@ def remove_confirm(self,reg,action="remove"):
             print "not sure what to do in this dialog"
     self.assertTrue(reg.m.waitVanish(Pattern("dialog_are_you_sure.png"),10))
     
-def get_website_region(reg):
+def get_sources_region(reg):
     """takes the main and sidebar regions to create a region for the websites section.
     
     """
-    
-    reg.s.find("Sources")
+    if not reg.s.exists("Sources",1):
+        reg.s.click("Music")
+    reg.s.click("Sources")
     topx =  reg.s.getLastMatch().getX()
     topy =  reg.s.getLastMatch().getY()
-    width = reg.s.getW()
     reg.s.find("Stores")
     boty =  reg.s.getLastMatch().getY()
-    height = boty-topy
-    WebsitesRegion = Region(topx,topy, width, height)
-    WebsitesRegion.setAutoWaitTimeout(20)
-    return WebsitesRegion
+    height = (boty-topy)
+    width = reg.s.getW()
+    SourcesRegion = Region(topx,topy, width, height)
+    SourcesRegion.setAutoWaitTimeout(20)
+    return SourcesRegion
 
 def get_podcasts_region(reg):
     if not reg.s.exists("Podcasts",1):
@@ -323,6 +324,11 @@ def add_feed(self,reg,url,feed):
 def click_podcast(self,reg,feed):
         p = get_podcasts_region(reg)
         self.assertTrue(p.exists(feed))
+        click(p.getLastMatch())
+
+def click_source(self,reg,website):
+        p = get_sources_region(reg)
+        self.assertTrue(p.exists(website))
         click(p.getLastMatch())
         
 
@@ -556,14 +562,14 @@ def expand_sidebar_section(self,reg,section):
 ##        print "expander not found"
 
 
-def add_website(self,reg,site_url,site):
+def add_source(self,reg,site_url,site):
     reg.tl.click("Sidebar")
-    reg.tl.click("Source")
+    reg.tl.click("Add Source")
     time.sleep(2)
     type(site_url+"\n")
-    reg.s.click("Sources")
-    reg.s.find(site[0:15])
-    self.assertTrue(reg.s.exists(site[0:15]))
+    p = get_sources_region(reg)
+    website = site[0:15]
+    self.assertTrue(p.exists(site))
 
 def new_search_feed(self,reg,term,radio,source):
     reg.t.click("Sidebar")
