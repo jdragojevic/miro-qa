@@ -27,15 +27,13 @@ def open_miro():
         return "linux"
     else:
         print config.get_os_name()
-    wait("Miro",60)
-    click(getLastMatch())
 
 class AppRegions():
     def get_regions():
         regions = []
         if exists("Music",2):
             click(getLastMatch())
-        elif exists("Videos",2):
+        elif exists("Videos",5):
             click(getLastMatch())
         libr = Region(getLastMatch().above(500))
         libr.click("Miro")
@@ -113,13 +111,15 @@ class AppRegions():
 
     config.set_image_dirs()
     launch_miro()
+    setAutoWaitTimeout(testvars.timeout) 
     miroRegions = get_regions()
     s = miroRegions[0] #Sidebar Region
     m = miroRegions[1] #Mainview Region
     t= miroRegions[2] #top half screen
     tl = miroRegions[3] #top left quarter
     mtb = miroRegions[4] #main title bar
-    setAutoWaitTimeout(testvars.timeout)   
+    miroapp = App("Miro")
+      
         
 
 
@@ -156,10 +156,16 @@ def shortcut(key,shift=False):
 def quit_miro(self,reg):
     click_sidebar_tab(self,reg,"Videos")
     shortcut("q")
-    while m.exists("dialog_confirm_quit.png",5):
-        m.click("dialog_quit.png")
-    self.assertFalse(s.exists("Music",5))
-    
+    while reg.m.exists("dialog_confirm_quit.png",5):
+        reg.m.click("dialog_quit.png")
+    self.assertFalse(reg.s.exists("Music",10))
+
+def restart_miro(self,reg):
+    if config.get_os_name() == "lin":
+        config.start_miro_on_linux()
+    else:
+        reg.miroapp.focus()
+    wait("Sidebar",45)    
     
 def cmd_ctrl():
     """Based on the operating systems, returns the correct key modifier for shortcuts.
@@ -246,7 +252,7 @@ def remove_confirm(self,reg,action="remove"):
                 reg.m.click("Delete File")
         elif action == "cancel":
             print "clicking cancel"
-            reg.m.click("Cancel")
+            type(Key.ESC)
         elif action == "keep":
             print "keeping"
             reg.m.click("Keep")
@@ -262,11 +268,11 @@ def get_sources_region(reg):
     if not reg.s.exists("Sources",1):
         reg.s.click("Music")
     reg.s.click("Sources")
-    topx =  reg.s.getLastMatch().getX()
+    topx =  reg.s.getX()
     topy =  reg.s.getLastMatch().getY()
     reg.s.find("Stores")
     boty =  reg.s.getLastMatch().getY()
-    height = (boty-topy)
+    height = (boty-topy)+40
     width = reg.s.getW()
     SourcesRegion = Region(topx,topy, width, height)
     SourcesRegion.setAutoWaitTimeout(20)
@@ -296,15 +302,14 @@ def delete_site(self,reg,site):
     s = Sideview Region, calculated in the testcase on launch.
 
     """
-    if s.exists("miro_guide_tab.png",1):
-        click(reg.s.getLastMatch())
-    w = get_website_region(reg)
-    while w.exists(site,10):
-        w.click(site)
+    p = get_sources_region(reg)
+    
+    while p.exists(site,1):
+        p.click(site)
         type(Key.DELETE)
         remove_confirm(self,reg,"remove")
-        click_sidebar_tab(self,reg,"Video")
-        self.assertFalse(w.exists(site),5)
+        p = get_sources_region(reg)
+        self.assertFalse(p.exists(site,5))     
     else:
         print "feed: " +site+ " not present"
 
@@ -368,7 +373,7 @@ def click_sidebar_tab(self,reg,tab):
     the tab is selected by verifying the miro large icon in the main view
 
     """
-    if reg.s.exists("s",0):
+    if reg.s.exists("Sources",0):
         reg.s.click("Sources")
     for x in testvars.SIDEBAR_ICONS.keys():
         if tab.lower() == "videos":
@@ -497,12 +502,15 @@ def cancel_all_downloads(self,reg):
     """
     if reg.s.exists("Downloading",5):
         click_sidebar_tab(self,reg,"downloading")
-        reg.mtb.click("Cancel All")
-        seedlist = reg.m.findAll("Seeding")
-        if len(seedlist > 0):
-            for x in seedlist:
-                click(x)
-    click_sidebar_tab(self,reg,"video")
+        time.sleep(3)
+        reg.mtb.click("download-cancel.png")
+        if reg.m.exists("Seeding"):
+            seedlist = reg.m.findAll("Seeding")
+            if len(seedlist > 0):
+                for x in seedlist:
+                    click(x)
+    click_sidebar_tab(self,reg,"Videos")
+    time.sleep(2)
     self.assertFalse(reg.s.exists("Downloading"))
     
                 

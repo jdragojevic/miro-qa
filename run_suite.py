@@ -40,7 +40,7 @@ for subgroup in glob.glob(os.path.join(os.getcwd(), '*.sikuli')):
 
 
 #To run just one test:
-##os.system("java -jar $SIKULI_HOME/sikuli-script.jar test.sikuli Miro_Suite.test_x")
+##os.system("java -jar $SIKULI_HOME/sikuli-script.jar test.sikuli test_x test_y ...")
 
     
 
