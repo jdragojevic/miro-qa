@@ -403,11 +403,21 @@ def tab_search(self,reg,title,confirm_present=False):
     
     type(title.upper())
     if confirm_present == True:
-        if reg.mtb.exists("list-view_active.png",3):
-            reg.mtb.click("standard-view.png")
+        toggle_normal(reg)
         self.assertTrue(reg.m.exists(title))
         present=True
         return present
+
+    
+def toggle_normal(reg):
+    mtbr = Region(int(reg.mtb.getX()*2), reg.mtb.getY(), reg.mtb.getW(), reg.mtb.getH())
+    if mtbr.exists("list-view_active.png",3):
+        mtbr.click("standard-view.png")
+
+def toggle_list(reg):
+    mtbr = Region(int(reg.mtb.getX()*2), reg.mtb.getY(), reg.mtb.getW(), reg.mtb.getH())
+    if mtbr.exists("normal-view_active.png",3):
+        mtbr.click("list-view.png")
 
 def search_tab_search(self,reg,term,engine=None):
     """perform a search in the search tab.
@@ -651,19 +661,20 @@ def handle_crash_dialog(self,db=True,test=False):
         if db == True:
             click("Include")
         try:
-            tmpr.find("Describe")
-            print "describe found"
-            click(tmpr.getLastMatch().below(30))
+            time.sleep(3)
+            tmpr.find("Include")
+            click(tmpr.getLastMatch().below(120))
             type("Sikuli Automated test crashed:" +str(self.id().split(".")[2]))
         finally:
-            click("button_submit_crash_report.png")
+            if exists("button_submit_crash_report.png") or exists("Submit Crash"):
+                click(getLastMatch())
         time.sleep(5)
     	
     if crashes == True and test == False:
         print "miro crashed"
-        self.fail("Got a crash report - check bogon")
         time.sleep(20) #give it some time to send the report before shutting down.
         quit_miro()
+        self.fail("Got a crash report - check bogon")
         
 
     

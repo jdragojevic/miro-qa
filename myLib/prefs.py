@@ -14,7 +14,9 @@ def open_prefs(self,reg,lang='en',menu=None,option=None):
     if lang == 'en':
         if config.get_os_name() == "osx":
             click("Miro_Menu.png")
-        elif config.get_os_name() == ("win" or "lin"):
+        elif config.get_os_name() == "win":
+            click("File")
+        elif config.get_os_name() == "lin":
             click("File")
         else:
             print config.get_os_name()

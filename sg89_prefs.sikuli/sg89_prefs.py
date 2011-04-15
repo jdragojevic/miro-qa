@@ -31,7 +31,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         #1. open preferences
         p = prefs.open_prefs(self,reg)
-        prefs.open_tab(self,reg,p,"general")
         #2. change language to croatian (hr)
         p.click("System default")
         

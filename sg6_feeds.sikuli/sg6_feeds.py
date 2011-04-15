@@ -180,35 +180,47 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
 
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
-        feed = "Static List"
-        feedlist = ["TechVi", "Uploads by Gimp", "Brooklyn Museum", "LandlineTV"]
+        feed = "Static"
+        feedlist = ["Help", "Film", "Earth"]
 
         #1. Add the feed and start dl
         mirolib.add_feed(self,reg,url,feed)
-        addlink = reg.m.findAll("Add this channel")
-        for x in addlink:
-            click(x)
+        for f in feedlist:
+            mirolib.tab_search(self,reg,f)
+            self.assertTrue(reg.m.exists("Add this"))
+            reg.m.click("Add this")
             time.sleep(4)
-        #2. Select them all    
+        mirolib.tab_search(self,reg,"")
+
+        p = mirolib.get_podcasts_region(reg)
+        mirolib.click_sidebar_tab(self,reg,"Music")
+        mirolib.click_podcast(self,reg,feed)
+##        addlink = reg.m.findAll("Add this")
+##        for x in addlink:
+##            click(x)
+##            time.sleep(4)
+            
+        #2. Select them all
         try:
-            keyDown(SHIFT_KEY)
+            keyDown(Key.SHIFT)
+        
             for x in feedlist:
-                if reg.s.exists(x):
-                    reg.s.click(x)
+                if p.exists(x):
+                    p.click(x)
                 else:
-                    print "could noreg.t.find feed" +str(x)
+                    print "could not find feed" +str(x)
                 time.sleep(2)
-            self.assertTrue(reg.m.exists("Delete"))
+            self.assertTrue(reg.m.exists("button_mv_delete_all.png"))
             self.assertTrue(reg.m.exists("New Folder"))
         except:
             self.verificationErrors.append("multi select failed")
         finally:
-            keyUp(SHIFT_KEY)
+            keyUp(Key.SHIFT)
         #3. Delete then cancel.  Verify still exists Static List
-        reg.m.click("Delete")
+        reg.m.click("button_mv_delete_all.png")
         mirolib.remove_confirm(self,reg,"cancel")
-        mirolib.click_sidebar_tab(self,reg,"videos")
-        self.assertTrue(reg.s.exists("Static List",5))
+        p = mirolib.get_podcasts_region(reg)
+        self.assertTrue(p.exists("Static",5))
         #4. Cleanup
         feedlist.append("Static")
         for x in feedlist:
