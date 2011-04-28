@@ -36,7 +36,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.add_feed(self,reg,url,feed)
         #2. search
         mirolib.tab_search(self,reg,term)
-        reg.mtb.click("button_save_search.png")
+        reg.mtb.click("button_save_as_podcast.png")
         #3. verify search saved
         self.assertTrue(reg.s.exists("GIMP"))
         click(reg.s.getLastMatch())
@@ -57,7 +57,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
-        feed = "3 blip"
+        feed = "ThreeBlip"
         term = "strange creature"
         title = "Joo Joo"
         
@@ -65,7 +65,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.add_feed(self,reg,url,feed)
         #2. search
         mirolib.tab_search(self,reg,term)
-        reg.mtb.click("button_save_search.png")
+        reg.mtb.click("button_save_as_podcast.png")
         #3. verify search saved
         self.assertTrue(reg.s.exists("STRANGE"))
         click(reg.s.getLastMatch())
@@ -86,7 +86,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "2 stupid"
+        feed = "TwoStupid"
         term = "dinosaur"
         title = "Flip Face"
         
@@ -128,7 +128,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #1. add feed
         mirolib.add_feed(self,reg,url,feed)
         #2. search
-        mirolib.new_search_feed(self,reg,term,"Feed",feed)
+        mirolib.new_search_feed(self,reg,term,"Podcast",feed)
                         
         #3. verify search saved
         self.assertTrue(reg.s.exists("Static List for 'touring'"))
@@ -149,7 +149,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         reg = mirolib.AppRegions()
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "2 stupid"
+        feed = "TwoStupid"
         term = "House"
         title = "Dinosaur"
         
@@ -180,7 +180,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "2 stupid"
+        feed = "TwoStupid"
         term = "House"
         title = "Dinosaur"
         

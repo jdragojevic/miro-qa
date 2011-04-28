@@ -25,22 +25,22 @@ def open_prefs(self,reg,lang='en',menu=None,option=None):
         time.sleep(2)
         #Click the dialog heading name to activate it
         click("Preferences")
+        self.assertTrue(exists("pref_heading.png"))
+        PrefRegion = Region(getLastMatch().below(600))
+        
     else:
         if config.get_os_name() == "osx":
             mirolib.shortcut(',')
-        elif config.get_os_name() == ("win" or "lin"):
-            click(menu)
-            click(option)
+        elif config.get_os_name() == "win" or config.get_os_name() == "lin":
+            reg.t.click(menu)
+            time.sleep(2)
+            reg.t.click(option)
         else:
             print config.get_os_name()
-        if exists("pref_heading_inactive.png"):
-            click("pref_general_inactive.png")
-        click(option) # the dialog heading name should also be localized.
-        #Choose the Preferences menu option
-    self.assertTrue(exists("pref_heading.png"))
-    PrefRegion = Region(getLastMatch().below(600))
+        myScreen = Screen(0)
+        PrefRegion = myScreen.getBounds()
+    
     return PrefRegion
-
 
 
 def open_tab(self,reg,p,tab):

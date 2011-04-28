@@ -33,25 +33,29 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         p = prefs.open_prefs(self,reg)
         #2. change language to croatian (hr)
         p.click("System default")
-        
-        self.assertTrue(p.exists("pref_lang_hr.png"))
-        click(p.getLastMatch())
+        for x in range(0,3):
+            if not exists("Croatian",1):
+                type(Key.PAGE_DOWN)
+        click("Croatian")
         mirolib.shortcut("w")
         #3. Restart Miro
         mirolib.quit_miro(self,reg)
-        switchApp(mirolib.open_miro())
-        wait("Miro",45)
-        click(getLastMatch())
+        mirolib.restart_miro(self,reg)
+
         #4. Verify Changes and reset
-        p = prefs.open_prefs(self,'hr','Datoteka','Postavke')       
-        self.assertTrue(p.exists("pref_language_pulldown.png"))
-        click(p.getLastMatch())
-        self.assertTrue(p.exists("pref_lang_def.png"))
-        click(p.getLastMatch())
+        prefs.open_prefs(self,reg,lang='hr',menu='Datoteka',option='Postavke')       
+        self.assertTrue(exists("Croatian"))
+        click(getLastMatch())
+        self.assertTrue(exists("System",1))
+        for x in range(0,3):
+            if not exists("System",1):
+                type(Key.PAGE_UP)
+        click("System")
         mirolib.shortcut("w")
         #5. Restart Miro
         mirolib.quit_miro(self,reg)
-        switchApp(mirolib.open_miro())
+        mirolib.restart_miro(self,reg)
+        self.assertTrue(exists("File"))
    
 # Post the output directly to Litmus
 if __name__ == "__main__":

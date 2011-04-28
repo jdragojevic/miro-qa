@@ -165,7 +165,8 @@ def restart_miro(self,reg):
         config.start_miro_on_linux()
     else:
         reg.miroapp.focus()
-    wait("Sidebar",45)    
+    time.sleep(5)
+    wait("Miro",45)    
     
 def cmd_ctrl():
     """Based on the operating systems, returns the correct key modifier for shortcuts.
@@ -416,7 +417,7 @@ def toggle_normal(reg):
 
 def toggle_list(reg):
     mtbr = Region(int(reg.mtb.getX()*2), reg.mtb.getY(), reg.mtb.getW(), reg.mtb.getH())
-    if mtbr.exists("normal-view_active.png",3):
+    if mtbr.exists("standard-view_active.png",3):
         mtbr.click("list-view.png")
 
 def search_tab_search(self,reg,term,engine=None):
@@ -602,7 +603,7 @@ def new_search_feed(self,reg,term,radio,source):
     else:     
         f1 = f.below()
         f1.click(source)
-    reg.m.click("Create Feed")
+    reg.m.click("Create")
 
 def verify_normalview_metadata(self,reg,metadata):
     i = reg.mtb.below(300)
