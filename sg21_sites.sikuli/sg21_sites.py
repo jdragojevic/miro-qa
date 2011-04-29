@@ -182,14 +182,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         site_url = "http://pculture.org/feeds_test/http-direct-downloads.html"
         site = "HTTP Direct"
-        HTTPDOWNLOADS = {".mpeg download":"mighty_mouse",
+        HTTPDOWNLOADS = {".mpeg download":"mighty",
                          ".ogv download":"popeye",
-                         ".mp4 download":"the_big_bad_wolf",
-                         ".mov download":"Matrix_Reloaded",
+                         ".mp4 download":"big",
+                         ".mov download":"Matrix",
                          ".wmv download":"WindowsMedia",
-                         ".avi download":"Coyote.Ugly",
+                         ".avi download":"Coyote",
                          ".mpg download":"dothack2",
-                         ".mkv download 2":"mulitple sub sample",
+                         ".mkv download 2":"mulitple",
                          ".ogg download":"gd",
                          ".mp3 download":"gd",
                          ".wma download":"Bangles",

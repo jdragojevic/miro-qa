@@ -153,12 +153,16 @@ def shortcut(key,shift=False):
 
     
 
-def quit_miro(self,reg):
-    click_sidebar_tab(self,reg,"Videos")
-    shortcut("q")
-    while reg.m.exists("dialog_confirm_quit.png",5):
-        reg.m.click("dialog_quit.png")
-    self.assertFalse(reg.s.exists("Music",10))
+def quit_miro(self,reg=None):
+    if reg == None:
+        shortcut("q")
+        time.sleep(10)
+    else:
+        click_sidebar_tab(self,reg,"Videos")
+        
+        while reg.m.exists("dialog_confirm_quit.png",5):
+            reg.m.click("dialog_quit.png")
+        self.assertFalse(reg.s.exists("Music",10))
 
 def restart_miro(self,reg):
     if config.get_os_name() == "lin":
@@ -674,7 +678,7 @@ def handle_crash_dialog(self,db=True,test=False):
     if crashes == True and test == False:
         print "miro crashed"
         time.sleep(20) #give it some time to send the report before shutting down.
-        quit_miro()
+        quit_miro(self)
         self.fail("Got a crash report - check bogon")
         
 

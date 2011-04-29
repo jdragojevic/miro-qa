@@ -64,7 +64,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
 
         if config.get_os_name() == "osx":
-            tmpr = tl
+            tmpr = reg.tl
         else:
             tmpr = Region(find("Main_Menu.png"))
         if tmpr.exists("Dev"):
@@ -85,7 +85,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
 
         if config.get_os_name() == "osx":
-            tmpr = tl
+            tmpr = reg.tl
         else:
             tmpr = Region(find("Main_Menu.png"))
         if tmpr.exists("Dev"):

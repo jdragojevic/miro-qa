@@ -31,7 +31,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         
         item_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
-        item_title = "Fameless"
+        item_title = "Young"
         reg.tl.click("File")
         reg.tl.click("Download")
         time.sleep(4)
@@ -42,7 +42,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         if status == "downloaded":
             mirolib.delete_items(self,reg,item_title,"Misc")
         elif status == "in_progress":
-            mirolib.delete_items(self,reg,item_title,"downloading")
+            mirolib.delete_items(self,reg,item_title,"Downloading")
         else:
             self.fail("Can not confirm download started")
 
