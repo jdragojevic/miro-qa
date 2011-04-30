@@ -70,3 +70,16 @@ blip_browse = os.path.join(misc_imgs,"blip_browse.png")
 blip_recent = os.path.join(misc_imgs,"blip_recent.png")
 blip_popular = os.path.join(misc_imgs,"blip_popular.png")
 tv_icon = os.path.join(misc_imgs,"mike_tv.png")
+
+def youtube_download_this(self,reg):
+    if config.get_os_name() == "osx":
+        button = "download_this_video.png"
+    elif config.get_os_name() == "lin":
+        button = "download_this_video.png"
+    elif config.get_os_name() == "win":
+        button = "Download this"
+    else:
+        print "no clue what os"
+    return button
+
+        

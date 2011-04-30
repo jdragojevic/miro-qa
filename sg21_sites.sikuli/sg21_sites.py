@@ -31,9 +31,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         mirolib.add_source(self,reg,site_url,site)
         mirolib.click_source(self,reg,site)
-        reg.mtb.find("download_this_video.png")
-        self.assertTrue(reg.mtb.exists("download_this_video.png"))
-        reg.mtb.click("download_this_video.png")
+        dl_this = testvars.youtube_download_this(self)
+        reg.mtb.find(dl_this)
+        self.assertTrue(reg.mtb.exists(dl_this))
+        reg.mtb.click(dl_this)
         mirolib.confirm_download_started(self,reg,"Deep")
         mirolib.delete_site(self,reg,site)
 
