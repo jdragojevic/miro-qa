@@ -237,14 +237,15 @@ def remove_confirm(self,reg,action="remove"):
     m = Mainview region from testcase
     need to add remove_library option
     """
-    time.sleep(5)
+    time.sleep(3)       
     if reg.m.exists("Remove",5) or \
        reg.m.exists(Pattern("dialog_are_you_sure.png"),3) or \
-       reg.m.exists(Pattern("dialog_one_of_these.png"),3):
+       reg.m.exists(Pattern("dialog_one_of_these.png"),3) or \
+       reg.t.exists("Cancel",3)or \
+       reg.t.exists(Pattern("dialog_are_you_sure.png"),3) or \
+       reg.t.exists(Pattern("dialog_one_of_these.png"),3):
         
         print "got confirmation dialog"
-        click(reg.m.getLastMatch())
-        print "confirm dialog"
         time.sleep(3)
         if action == "remove":
             print "clicking remove button"
@@ -252,7 +253,7 @@ def remove_confirm(self,reg,action="remove"):
         elif action == "delete_item":
             print "clicking delete button"
             if config.get_os_name() == "osx":
-                reg.m.click("button_delete_file.png")
+                reg.t.click("button_delete_file.png")
             else:
                 reg.m.click("Delete File")
         elif action == "cancel":
@@ -264,7 +265,6 @@ def remove_confirm(self,reg,action="remove"):
             type(Key.ENTER)
         else:
             print "not sure what to do in this dialog"
-    self.assertTrue(reg.m.waitVanish(Pattern("dialog_are_you_sure.png"),10))
     
 def get_sources_region(reg):
     """takes the main and sidebar regions to create a region for the websites section.
