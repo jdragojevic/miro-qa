@@ -414,7 +414,7 @@ def toggle_normal(reg):
         try:
             reg.mtb.click("standard-view.png")
         finally:
-            print 'may not be in standard view"
+            print 'may not be in standard view'
 
 def toggle_list(reg):
     if mtbr.exists("standard-view_active.png",3):
