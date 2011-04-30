@@ -308,7 +308,8 @@ def delete_site(self,reg,site):
 
     """
     p = get_sources_region(reg)
-    
+    if not reg.s.exists("Sources",1):
+        reg.s.click("Podcasts")
     while p.exists(site,1):
         p.click(site)
         type(Key.DELETE)
