@@ -198,11 +198,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                          ".flac download":"luckynight",
                          ".mka download":"Widow",
                          }
-        setAutoWaitTimeout(60) 
+        setAutoWaitTimeout(20) 
         reg = mirolib.AppRegions()
 
         mirolib.add_source(self,reg,site_url,site)
-        reg.s.click(site)
+        mirolib.click_source(self,reg,site)
         for filetype, title in HTTPDOWNLOADS.iteritems():
             try:
                 if reg.m.exists(filetype):
@@ -212,7 +212,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                     reg.m.find(filetype)
                     click(reg.m.getLastMatch())
                 mirolib.confirm_download_started(self,reg,title)
-                mirolib.delete_items(self,reg,title,"downloading")
+                reg.mtb.click("download-cancel.png")
                 mirolib.click_source(self,reg,site)
             except:
                 self.verificationErrors.append("download failed for imagetype" +str(filetype))
