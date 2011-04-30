@@ -589,8 +589,8 @@ def add_source(self,reg,site_url,site):
     time.sleep(2)
     type(site_url+"\n")
     p = get_sources_region(reg)
-    website = site[0:15]
-    self.assertTrue(p.exists(site))
+    website = site[0:10].rstrip()
+    self.assertTrue(p.exists(website))
 
 def new_search_feed(self,reg,term,radio,source):
     reg.t.click("Sidebar")
