@@ -399,7 +399,7 @@ def tab_search(self,reg,title,confirm_present=False):
         click(reg.m.getLastMatch())
     elif reg.mtb.exists("tabsearch_clear.png",5):
         click(reg.mtb.getLastMatch())
-        click(reg.mtb.getLastMatch().left(10))
+        click(reg.mtb.getLastMatch().left(20))
     
     type(title.upper())
     if confirm_present == True:
