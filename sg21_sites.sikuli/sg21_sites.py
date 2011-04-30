@@ -211,9 +211,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                     reg.m.find(filetype)
                     click(reg.m.getLastMatch())
                 mirolib.confirm_download_started(self,reg,title)
-                reg.s.click(site)
                 mirolib.delete_items(self,reg,title,"downloading")
-                reg.s.click(site)
+                mirolib.click_source(self,reg,site)
             except:
                 self.verificationErrors.append("download failed for imagetype" +str(filetype))
                 
