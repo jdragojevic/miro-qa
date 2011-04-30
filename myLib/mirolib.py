@@ -379,14 +379,9 @@ def click_sidebar_tab(self,reg,tab):
 
     """
     if reg.s.exists("Sources",0):
-        reg.s.click("Sources")
-    for x in testvars.SIDEBAR_ICONS.keys():
-        if tab.lower() == "videos":
-            tab = "video"
-        if tab.lower() in x:
-            tab_icon = testvars.SIDEBAR_ICONS[x]        
+        reg.s.click("Sources")        
     print "going to tab: "+str(tab)
-    if tab.lower() == "video":
+    if "video" in tab.lower():
         reg.s.click("Videos")
     else:
         reg.s.click(tab.capitalize())
@@ -532,11 +527,9 @@ def cancel_all_downloads(self,reg):
 def wait_for_item_in_tab(self,reg,tab,item):
     click_sidebar_tab(self,reg,tab)
     tab_search(self,reg,item)
-    while not reg.m.exists(item):
-    	time.sleep(5)
-    
-    
-
+    for x in range(0,30):
+        while not reg.m.exists(item):
+            time.sleep(5)
     
 def wait_conversions_complete(self,reg,title,conv):
     """Waits for a conversion to complete.
@@ -678,7 +671,7 @@ def handle_crash_dialog(self,db=True,test=False):
     if crashes == True and test == False:
         print "miro crashed"
         time.sleep(20) #give it some time to send the report before shutting down.
-        quit_miro(self)
+#        quit_miro(self)
         self.fail("Got a crash report - check bogon")
         
 
