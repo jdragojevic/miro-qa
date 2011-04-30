@@ -289,7 +289,7 @@ def get_podcasts_region(reg):
     reg.s.click("Podcasts")
     topx =  reg.s.getLastMatch().getX()
     topy =  reg.s.getLastMatch().getY()
-    reg.s.find("Playlists")
+    reg.s.find("Playli")
     boty =  reg.s.getLastMatch().getY()
     height = (boty-topy)+30
     width = reg.s.getW()
