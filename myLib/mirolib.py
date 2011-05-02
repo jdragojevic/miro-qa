@@ -411,18 +411,25 @@ def tab_search(self,reg,title,confirm_present=False):
 
     
 def toggle_normal(reg):
-    if reg.mtb.exists("list-view_active.png",3):
-        try:
+    if reg.mtb.exists("tabsearch_inactive.png",1) or \
+       reg.mtb.exists("tabsearch_clear.png",1):
+        v = Region(reg.mtb.getLastMatch().left(200))
+    try:
+        if reg.mtb.exists("list-view_active.png",3):
+            reg.mtb.getLastMatch().highlight(10)
             reg.mtb.click("standard-view.png")
-        finally:
-            print 'may not be in standard view'
+    finally:
+        print 'may not be in standard view'
 
 def toggle_list(reg):
-    if mtbr.exists("standard-view_active.png",3):
-        try:
+    if reg.mtb.exists("tabsearch_inactive.png",1) or \
+       reg.mtb.exists("tabsearch_clear.png",1):
+        v = Region(reg.mtb.getLastMatch().left(500))
+    try:
+        if mtbr.exists("standard-view_active.png",3):
             mtbr.click("list-view.png")
-        finally:
-            print 'may not be in list view'
+    finally:
+        print 'may not be in list view'
 
 def search_tab_search(self,reg,term,engine=None):
     """perform a search in the search tab.
