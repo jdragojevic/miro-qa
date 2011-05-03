@@ -114,10 +114,14 @@ class AppRegions():
     setAutoWaitTimeout(testvars.timeout) 
     miroRegions = get_regions()
     s = miroRegions[0] #Sidebar Region
+#    s.highlight(5)
     m = miroRegions[1] #Mainview Region
+#    m.highlight(5)
     t= miroRegions[2] #top half screen
+#    t.highlight(5)
     tl = miroRegions[3] #top left quarter
-    mtb = miroRegions[4] #main title bar
+#    tl.highlight(5)
+    mtb = miroRegions[4] #main title bar  
     miroapp = App("Miro")
       
         
@@ -159,7 +163,7 @@ def quit_miro(self,reg=None):
         time.sleep(10)
     else:
         click_sidebar_tab(self,reg,"Videos")
-        
+        shortcut("q")
         while reg.m.exists("dialog_confirm_quit.png",5):
             reg.m.click("dialog_quit.png")
         self.assertFalse(reg.s.exists("Music",10))
@@ -287,11 +291,11 @@ def get_podcasts_region(reg):
     if not reg.s.exists("Podcasts",1):
         reg.s.click("Sources")
     reg.s.click("Podcasts")
-    topx =  reg.s.getLastMatch().getX()
+    topx =  (reg.s.getLastMatch().getX())-10
     topy =  reg.s.getLastMatch().getY()
-    reg.s.find("Playli")
+    reg.s.find("Playlists")
     boty =  reg.s.getLastMatch().getY()
-    height = (boty-topy)+30
+    height = (boty-topy)+50
     width = reg.s.getW()
     PodcastsRegion = Region(topx,topy, width, height)
     PodcastsRegion.setAutoWaitTimeout(20)
@@ -307,10 +311,9 @@ def delete_site(self,reg,site):
     s = Sideview Region, calculated in the testcase on launch.
 
     """
+    
     p = get_sources_region(reg)
-    if not reg.s.exists("Sources",1):
-        reg.s.click("Podcasts")
-    while p.exists(site,1):
+    while p.exists(site,2):
         p.click(site)
         type(Key.DELETE)
         remove_confirm(self,reg,"remove")
@@ -333,9 +336,37 @@ def add_feed(self,reg,url,feed):
     click_podcast(self,reg,feed)
     
 def click_podcast(self,reg,feed):
-        p = get_podcasts_region(reg)
-        self.assertTrue(p.exists(feed))
-        click(p.getLastMatch())
+    """Find the podcast in the sidebar within podcast region and click on it.
+    """
+    p = get_podcasts_region(reg)
+    self.assertTrue(p.exists(feed))
+    click(p.getLastMatch())
+
+def click_last_podcast(self,reg):
+    """Based on the position of the Playlists tab, click on the last podcast in the list.
+
+    This is useful if the title isn't displayed completely or you have other chars to don't work for text recognition.
+    """
+    p = get_podcasts_region(reg)
+    p.find("Playlists")
+    click(p.getLastMatch().above(35))
+
+def set_podcast_autodownload(self,reg,setting="Off"):
+    """Set the feed autodownload setting using the button at the bottom of the mainview.
+
+    """
+    """Based on the position of the Playlists tab, click on the last podcast in the list.
+
+    This is useful if the title isn't displayed completely or you have other chars to don't work for text recognition.
+    """
+    
+    b = Region(reg.m.getX(),reg.m.getY()*2,reg.m.getW(), reg.m.getH())
+    b.find("Auto-Download")
+    b1 = Region(b.getLastMatch().right(80))
+    for x in range(0,3):
+        if not b1.exists(setting,2):
+               click(b1.getLastMatch())
+               time.sleep(2)
 
 def click_source(self,reg,website):
         p = get_sources_region(reg)
@@ -370,6 +401,13 @@ def delete_items(self,reg,title,item_type):
         type(Key.DELETE)
         remove_confirm(self,reg,"delete_item")
     self.assertFalse(reg.m.exists(title,10))
+
+def delete_current_selection(self,reg):
+    """Wherever you are, remove what is currently selected.
+
+    """
+    type(Key.DELETE)
+    remove_confirm(self,reg,"remove")
 
 
 def click_sidebar_tab(self,reg,tab):
@@ -414,20 +452,16 @@ def toggle_normal(reg):
     if reg.mtb.exists("tabsearch_inactive.png",1) or \
        reg.mtb.exists("tabsearch_clear.png",1):
         v = Region(reg.mtb.getLastMatch().left(200))
-    try:
-        if reg.mtb.exists("list-view_active.png",3):
-            reg.mtb.getLastMatch().highlight(10)
-            reg.mtb.click("standard-view.png")
-    finally:
-        print 'may not be in standard view'
+        if v.exists("list-view_active.png",1):
+            v.click("standard-view.png")
 
 def toggle_list(reg):
     if reg.mtb.exists("tabsearch_inactive.png",1) or \
        reg.mtb.exists("tabsearch_clear.png",1):
         v = Region(reg.mtb.getLastMatch().left(500))
     try:
-        if mtbr.exists("standard-view_active.png",3):
-            mtbr.click("list-view.png")
+        if v.exists("standard-view_active.png",3):
+            v.click("list-view.png")
     finally:
         print 'may not be in list view'
 
@@ -465,8 +499,10 @@ def search_tab_search(self,reg,term,engine=None):
  
 
 def download_all_items(self,reg):
-    if reg.m.exists("Download"):
-        badges = reg.m.findAll("Download")
+    time.sleep(2)
+    toggle_normal(reg)
+    if reg.m.exists("down.png",3):
+        badges = reg.m.findAll("down.png")
         for x in badges:
             reg.m.click(x)
     else:
@@ -489,6 +525,9 @@ def confirm_download_started(self,reg,title):
         downloaded = "in_progress"
         print "item already downloaded"
         type(Key.ENTER)
+    elif reg.m.exists("Error",1) or reg.m.exists("Error",1):
+        downloaded = "failed"
+        type(Key.ESC)
     else:
         reg.s.click("Downloading")
         reg.mtb.click("download-pause.png")
@@ -603,16 +642,26 @@ def new_search_feed(self,reg,term,radio,source):
     reg.t.click("Sidebar")
     reg.t.click("New Search")
     type(term)
-    reg.m.find(radio)
-    f = Region(reg.m.getLastMatch().left(300))
-    click(reg.m.getLastMatch())
-    click(f)
-    if radio == url:
+    # Dialog appears in different locations on os x vs gtk
+    if config.get_os_name() == "osx":
+        reg.t.find("In this")
+        f = Region(reg.t.getLastMatch().right(400).below())
+    else:
+        reg.m.find("In this")
+        f = Region(reg.m.getLastMatch().nearby(500))
+    f.click(radio)
+    click(f.getLastMatch().right(135))
+    time.sleep(2)
+    if radio == "url":
         type(source)
     else:     
-        f1 = f.below()
-        f1.click(source)
-    reg.m.click("Create")
+        if not f.exists(source,2):
+            type(Key.PAGE_DOWN)
+        if not f.exists(source,2):
+            type(Key.PAGE_UP)
+        f.click(source)
+        
+    f.click("Create")
 
 def verify_normalview_metadata(self,reg,metadata):
     i = reg.mtb.below(300)

@@ -87,18 +87,15 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TwoStupid"
-        term = "dinosaur"
         title = "Flip Face"
+        term = "dinosaur"
         
         #1. add feed
         mirolib.add_feed(self,reg,url,feed)
         #2. search
-        mirolib.download_all_items(self,reg)
-        mirolib.wait_for_item_in_tab(self,reg,"videos","Flip")
-        mirolib.wait_for_item_in_tab(self,reg,"videos","Dinosaur")
         mirolib.tab_search(self,reg,term)
-        self.assertFalse(reg.m.exists("Flip"))
-        reg.mtb.click(term)
+        self.assertFalse(reg.m.exists("Flip",5))
+        reg.mtb.click(term.upper())
         for x in range(0,8):
             type(Key.LEFT)
         
@@ -107,7 +104,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         self.assertTrue(reg.m.exists("Flip"))
         #4. cleanup
-        mirolib.delete_feed(self,reg,"stupid")
+        mirolib.delete_feed(self,reg,"TwoStupid")
 
     def test_78(self):
         """http://litmus.pculture.org/show_test.cgi?id=78 Menu New Search Feed.
@@ -123,19 +120,22 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static List"
         term = "touring"
+        term2 = "Biking"
         title = "Travelling Two"
         
         #1. add feed
         mirolib.add_feed(self,reg,url,feed)
         #2. search
-        mirolib.new_search_feed(self,reg,term,"Podcast",feed)
+        mirolib.new_search_feed(self,reg,term,radio="Podcast",source=feed)
+        time.sleep(5)
                         
         #3. verify search saved
-        self.assertTrue(reg.s.exists("Static List for 'touring'"))
-        click(reg.s.getLastMatch())
-        mirolib.tab_search(self,reg,title,confirm_present=True)
+        mirolib.click_last_podcast(self,reg)
+        mirolib.tab_search(self,reg,term2,confirm_present=True)
+        
         #4. cleanup
-        mirolib.delete_feed(self,reg,"touring")
+        mirolib.click_last_podcast(self,reg)
+        mirolib.delete_current_selection(self,reg)
         mirolib.delete_feed(self,reg,"Static List")
 
     def test_23(self):
@@ -186,10 +186,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         #1. add feed
         mirolib.add_feed(self,reg,url,feed)
+        mirolib.set_podcast_autodownload(self,reg,setting="All")
         #2. search
         mirolib.tab_search(self,reg,term)
         self.assertTrue(reg.m.exists(title))
-        mirolib.download_all_items(self,reg)
 
         url2 = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed2 = "Static List"
