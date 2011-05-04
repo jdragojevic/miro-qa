@@ -361,7 +361,7 @@ def set_podcast_autodownload(self,reg,setting="Off"):
     """
     
     b = Region(reg.m.getX(),reg.m.getY()*2,reg.m.getW(), reg.m.getH())
-    b.find("Auto-Download")
+    b.find("button_autodownload.png")
     b1 = Region(b.getLastMatch().right(80))
     for x in range(0,3):
         if not b1.exists(setting,2):

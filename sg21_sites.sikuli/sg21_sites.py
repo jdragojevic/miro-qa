@@ -190,7 +190,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                          ".mpFour download":"big",
             #             ".mov download":"Matrix",
             #             ".wmv download":"WindowsMedia",
-                         ".avi download":"Coyote",
+            #             ".avi download":"Coyote",
             #             ".mpg download":"dothack2",
             #            ".mkv download 2":"mulitple",
             #             ".ogg download":"gd",

@@ -67,11 +67,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.tab_search(self,reg,term)
         reg.mtb.click("button_save_as_podcast.png")
         #3. verify search saved
-        self.assertTrue(reg.s.exists("STRANGE"))
-        click(reg.s.getLastMatch())
-        mirolib.tab_search(self,reg,title,confirm_present=True)
+        mirolib.click_last_podcast(self,reg)
+        mirolib.tab_search(self,reg,term,confirm_present=True)
+        
         #4. cleanup
-        mirolib.delete_feed(self,reg,"STRANGE")
+        mirolib.click_last_podcast(self,reg)
+        mirolib.delete_current_selection(self,reg)
         mirolib.delete_feed(self,reg,"blip")
 
     def test_213(self):
@@ -181,8 +182,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TwoStupid"
-        term = "House"
-        title = "Dinosaur"
+        term = "Face"
+        title = "Flip"
         
         #1. add feed
         mirolib.add_feed(self,reg,url,feed)
@@ -192,7 +193,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.assertTrue(reg.m.exists(title))
 
         url2 = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
-        feed2 = "Static List"
+        feed2 = "Static"
+        term2 = "FilmWeek"
         mirolib.add_feed(self,reg,url2,feed2)
         mirolib.tab_search(self,reg,"Brooklyn")
         mirolib.wait_for_item_in_tab(self,reg,"Videos",title)
@@ -204,23 +206,22 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         reg.s.click(feed2)
         self.assertTrue(reg.mtb.exists("BROOKLYN"))
-        mirolib.tab_search(self,reg,"filmweek")
-        reg.mtb.click("Save Search")
+        mirolib.tab_search(self,reg,term2)
+        reg.mtb.click("button_save_as_podcast.png")
 
-        self.assertTrue(reg.s.exists("FILMWEEK"))
-        reg.s.click("for 'FILMWEEK'")
-        self.assertTrue(reg.m.exists("FilmWeek"))
+        mirolib.click_last_podcast(self,reg)
+        mirolib.tab_search(self,reg,term2,confirm_present=True)
 
         #4. cleanup
         mirolib.delete_feed(self,reg,"stupid")
-        mirolib.delete_feed(self,reg,"FILMWEEK")
+        mirolib.click_last_podcast(self,reg)
+        mirolib.delete_current_selection(self,reg)
         mirolib.delete_feed(self,reg,"Static List")
 
  
 # Post the output directly to Litmus
 if __name__ == "__main__":
     import LitmusTestRunner
-    print len(sys.argv)
     if len(sys.argv) > 1:
         LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
     else:

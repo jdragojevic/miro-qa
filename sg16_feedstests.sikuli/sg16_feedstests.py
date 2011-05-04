@@ -5,8 +5,8 @@ import unittest
 import StringIO
 import time
 from sikuli.Sikuli import *
-
-sys.path.append(os.path.join(os.getcwd(),'myLib'))
+mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
+sys.path.append(os.path.join(mycwd,'myLib'))
 import config
 import mirolib
 import testvars
@@ -79,17 +79,19 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             LINKS = {"absolute link": "google", "relative link": "feeds_test","another relative": "pculture.org" }
             for link, linkurl in LINKS.iteritems():
                 if reg.m.exists(link):
+                    print link
                     click(reg.m.getLastMatch())
-                    App.open("Firefox")
-                    time.sleep(20)
+                    time.sleep(15)
                     mirolib.shortcut("l")
+                    time.sleep(1)
                     mirolib.shortcut("c")
-                    try:
-                        print Env.getClipboard()
-                        self.failUnless(linkurl in Env.getClipboard())
-                    except:
-                        self.verificationErrors.append("relative link not opened in browser")
-                    mirolib.shortcut("w")
+                    time.sleep(1)
+                    print Env.getClipboard()
+                    url = Env.getClipboard()
+                    print linkurl
+                    self.failUnless(linkurl in url)
+                    mirolib.shortcut("q")
+                    time.sleep(1)
         #cleanup
         finally:
             mirolib.delete_feed(self,reg,feed)
@@ -154,7 +156,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #cleanup
         mirolib.delete_feed(self,reg,feed)
 
-    def test_69(self):
+    def test_1169(self):
         """http://litmus.pculture.org/show_test.cgi?id=69 Add rss feed via browser.
 
         1. Add feed The AV Club via the browser (assumes the browser is set to automatically add the feed).
@@ -170,12 +172,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         feed = "The AV"
         print "open ff"
         App.open(mirolib.open_ff())
-        time.sleep(2)
+        time.sleep(20)
         url = "http://feeds.feedburner.com/theavclub/AVClubPresents?format=xml"
         mirolib.shortcut("l")
         time.sleep(2)
         type(url + "\n")
-        time.sleep(5)
+        time.sleep(10)
         mirolib.shortcut('w')
         reg = mirolib.AppRegions()
         #3. verify item metadata
@@ -186,7 +188,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 # Post the output directly to Litmus
 if __name__ == "__main__":
     import LitmusTestRunner
-    print len(sys.argv)
     if len(sys.argv) > 1:
         LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
     else:
