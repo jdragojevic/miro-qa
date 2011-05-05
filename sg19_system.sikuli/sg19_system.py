@@ -62,20 +62,17 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         print self.id()
         setAutoWaitTimeout(60)
         reg = mirolib.AppRegions()
-
         if config.get_os_name() == "osx":
-            tmpr = reg.tl
+            tl.click("Dev")
         else:
-            tmpr = Region(find("Main_Menu.png"))
-        if tmpr.exists("Dev"):
-            click(tmpr.getLastMatch())
-            reg.t.click("Test Crash")
-            mirolib.handle_crash_dialog(self,db=False,test=True) 
-        else:
-            print "not in debug mode - menu not tested"
+            type('f',KEY_ALT)
+            time.sleep(1)
+            type(Key.LEFT)
+        reg.t.click("Test Soft")
+        mirolib.handle_crash_dialog(self,db=False,test=True)
 
     def test_682(self):
-        """http://litmus.pculture.org/show_test.cgi?id=54 Test Crash Reporter no DB.
+        """http://litmus.pculture.org/show_test.cgi?id=54 Test Crash Reporter with DB.
 
         1. Perform a search of crash inducing text
         2. Submit crash dialog
@@ -85,16 +82,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
 
         if config.get_os_name() == "osx":
-            tmpr = reg.tl
+            tl.click("Dev")
         else:
-            tmpr = Region(find("Main_Menu.png"))
-        if tmpr.exists("Dev"):
-            click(tmpr.getLastMatch())
-            reg.t.click("Test Soft")
-            mirolib.handle_crash_dialog(self,db=False,test=True) 
-        else:
-            self.pass("not in debug mode")
-        
+            type('f',KEY_ALT)
+            time.sleep(1)
+            type(Key.LEFT)
+        reg.t.click("Test Soft")
+        mirolib.handle_crash_dialog(self,db=True,test=True)      
    
 # Post the output directly to Litmus
 if __name__ == "__main__":
