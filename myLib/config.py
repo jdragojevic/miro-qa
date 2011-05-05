@@ -64,6 +64,9 @@ def start_miro_on_linux():
     mydir = os.getenv("MIRONIGHTLYDIR")
     subprocess.Popen(r'./run.sh', cwd=mydir)
 
+def start_ff_on_linux():
+    subprocess.Popen(r'firefox', cwd='/usr/bin/')
+
     
     
     

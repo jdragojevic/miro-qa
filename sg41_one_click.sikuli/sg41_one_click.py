@@ -17,7 +17,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
     """
 
-    def test_7(self):
+    def stest_7(self):
         """http://litmus.pculture.org/show_test.cgi?id=7 add feed.
 
         1. Open Ryan is Hungry
@@ -26,14 +26,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         
-        ffApp = App("Firefox")
         reg = mirolib.AppRegions()
-        
+        mirolib.open_ff()
         try:
-            print "open ff"
-            App.open(mirolib.open_ff())
-            find(testvars.ffhome)
-            ffApp.focus()
+            time.sleep(10)
             feed_url = "http://ryanishungry.com/subscribe/"
             mirolib.shortcut("l")
             time.sleep(2)
@@ -42,19 +38,21 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             find(testvars.one_click_badge)
             click(testvars.one_click_badge)
             time.sleep(5)
-            mirolib.close_one_click_confirm(self)
-            
+            mirolib.shortcut('w')
+            mirolib.close_ff()
+                        
             #Start Miro 
-            reg = mirolib.AppRegions()
-            self.assertTrue(reg.s.exists("Ryan is Hungry"))
-            reg.s.click("Ryan is Hungry")
+            feed = "Ryan"
+            mirolib.close_one_click_confirm(self)
+            mirolib.shortcut("r",shift=True)
+            mirolib.click_podcast(self,reg,feed)
         finally:
-            mirolib.delete_feed(self,reg,"Ryan is Hungry")
-            ffApp.close()
+            mirolib.delete_feed(self,reg,feed)
+            
             
 
 
-    def stest_29(self):
+    def test_29(self):
         """http://litmus.pculture.org/show_test.cgi?id=29 add site from miro site.
 
         1. Open Awesome website
@@ -67,22 +65,19 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         try:
             site_url = "http://pculture.org/feeds_test/subscription-test-guide.html"
-            reg.tl.click("Sidebar")
-            reg.tl.click("Website")
+            site = "Awesome"
+            site2 = "Revver"
+            mirolib.add_source(self,reg,site_url,site)
+            mirolib.click_source(self,reg,site)
+            reg.t.find("Subscribe")
+            reg.t.click("Subscribe")
             time.sleep(4)
-            type(site_url+"\n")
-            reg.s.click("Awesome")
-            reg.m.find("subscribe_to_revver.png")
-            reg.m.click("subscribe_to_revver.png")
-            time.sleep(4)
-            reg.s.find("Revver Video")
-            reg.s.click("Revver Video")
-            time.sleep(4)
-            reg.m.find(testvars.revver_logo)
-            self.assertTrue(reg.m.exists(testvars.revver_logo))
+            mirolib.click_source(self,reg,site2)
+            self.assertTrue(reg.t.exists(testvars.revver_logo))
         finally:                            
-            mirolib.delete_feed(self,reg,"Revver")
-            mirolib.delete_feed(self,reg,"Awesome") 
+            mirolib.delete_site(self,reg,site)
+            mirolib.delete_site(self,reg,site2)
+    
         
             
 # Post the output directly to Litmus

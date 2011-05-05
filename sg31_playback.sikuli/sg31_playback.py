@@ -31,16 +31,18 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         try:
             vid_path = os.path.join(mycwd,"TestData","short-video.ogv")
-            reg.tl.click("File")
-            reg.tl.click("Open")
+            mirolib.shortcut('o')
             time.sleep(4)
-            type(video_path+"\n")
+            type(vid_path+"\n")
             self.assertTrue(exists("playback_controls.png"))
             mirolib.shortcut("d")
+        except FindFailed, debugging:
+            self.verificationErrors.append(debugging)
+        except AssertionError:
+            raise
         finally:
-            pass
-            #FIXME - should delete item, but only remove from the library
-        
+            type(Key.ESC)
+
         
 # Post the output directly to Litmus
 if __name__ == "__main__":

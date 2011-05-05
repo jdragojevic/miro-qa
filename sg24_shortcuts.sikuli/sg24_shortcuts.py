@@ -28,65 +28,75 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         reg = mirolib.AppRegions()
-        try:
-            feed_url = "http://www.stupidvideos.com/rss/rss.php?chart=new&format=yahoo"
-            feed_name = "StupidVideo"
+        def delete_feed(self):
+            feed_url = "stupidvideos.com/rss/rss.php?chart=new&format=yahoo"
+            feed = "StupidVideos"
             mirolib.shortcut("n")
+            time.sleep(2)
             type(feed_url+"\n")
-            reg.s.click(feed_name)
-            mirolib.delete_feed(self,reg,feed_name)
-        except:
-            self.verificationErrors.append("delete feed failed")
+            time.sleep(4)
+            mirolib.click_podcast(self,reg,feed)
+            time.sleep(2)
+            mirolib.delete_feed(self,reg,feed)
     
         # Add site - and delete using shortcut key
-        try:
+        def delete_site(self):
             site_url =  "http://blip.tv"
-            site = "Blip.tv"
-            mirolib.add_website(self,reg,site_url,site)
+            site = "blip"
+            mirolib.add_source(self,reg,site_url,site)
+            mirolib.click_source(self,reg,site)
+            time.sleep(2)
             mirolib.delete_site(self,reg,site)
-        except:
-            self.verificationErrors.append("delete site failed")
             
         #Download item and with shortcut key, delete item
-        try:
+        def delete_item(self):
             item_url =  "http://www.boatingsidekicks.com/fish-detective.swf"
-            item_title = "fish"
-            reg.s.click("File")
-            reg.s.click("Download")
+            title = "detective"
+            if config.get_os_name() == "osx":
+                tl.click("File")
+            else:
+                type('f',KEY_ALT)
+            reg.t.click("Download Items")
+            time.sleep(4)
             type(item_url+"\n")
-            mirolib.wait_download_complete(self,reg,item_title)
-            mirolib.delete_items(self,reg,item_title,"Other")
-        except:
-            self.verificationErrors.append("delete item failed")
+            mirolib.wait_for_item_in_tab(self,reg,"Misc","detective")
+            mirolib.delete_items(self,reg,title,"Misc")
 
         # remove playlist
-        try:
+        def delete_playlist(self):
             mirolib.shortcut("p")
+            time.sleep(4)
             type("Testlist"+"\n")
-            reg.s.find("Testlist")
-            reg.s.click("Testlist")
+            p = mirolib.get_playlists_region(reg)
+            print p
+            p.click("Testlist")
             time.sleep(2)
-            type(Key.DELETE)
-            mslib.remove_confirm(self,reg,action="remove")
-            self.assertFalse(reg.s.exists("Testlist",5))
-        except:
-            self.verificationErrors.append("delete playlist failed")
-
+            mirolib.delete_current_selection(self,reg)
+            time.sleep(2)
+            self.assertFalse(p.exists("Testlist",3))
+    
         # remove playlist folder
-        try:
-            shortcut("p",shift=True)
-            type("Playlist-Folder"+"\n")
-            reg.s.find("Playlist-Folder")
-            reg.s.click("Playlit-Folder")
+        def delete_playlist_folder(self):
+            mirolib.shortcut("p",shift=True)
+            time.sleep(4)
+            type("PlayFolder"+"\n")
+            p = mirolib.get_playlists_region(reg)
+            p.click("PlayFolder")
             time.sleep(2)
-            type(Key.DELETE)
-            mslib.remove_confirm(self,reg,action="remove")
-            self.assertFalse(reg.s.exists("Playlist-Folder",5))
-        except:
-            self.verificationErrors.append("delete playlist folder failed")
+            mirolib.delete_current_selection(self,reg)
+            time.sleep(2)
+            self.assertFalse(p.exists("PlayFolder",3))
+        try: 
+            delete_feed(self)
+            delete_site(self)
+            delete_item(self)
+            delete_playlist(self)
+            delete_playlist_folder(self)
+        except FindFailed, debugging:
+            self.verificationErrors.append(debugging)
+        except AssertionError:
+            raise
 
- 
-   
 # Post the output directly to Litmus
 if __name__ == "__main__":
     import LitmusTestRunner

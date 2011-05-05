@@ -199,10 +199,18 @@ def open_ff():
     elif config.get_os_name() == "win":
         return "C:\\Program Files\\Mozilla Firefox\\Firefox.exe"
     elif config.get_os_name() == "lin":
+        config.start_ff_on_linux()
         return "firefox"
     else:
         print "no clue"
 
+def close_ff():
+    App.close("firefox")
+    for x in range(0,2):
+        while exists("Firefox",2):
+            shortcut('w')
+            time.sleep(2)
+        
 
 
 def toggle_radio(self,button):
@@ -301,7 +309,16 @@ def get_podcasts_region(reg):
     PodcastsRegion.setAutoWaitTimeout(20)
     return PodcastsRegion
     
-      
+def get_playlists_region(reg):
+    if not reg.s.exists("Playlists",1):
+        reg.s.click("Podcasts")
+    reg.s.click("Playlists")
+    topx =  (reg.s.getLastMatch().getX())-10
+    topy =  reg.s.getLastMatch().getY()
+    width = reg.s.getW()
+    PlaylistsRegion = Region(topx,topy, width, 600)
+    PlaylistsRegion.setAutoWaitTimeout(20)
+    return PlaylistsRegion     
 	
     
 def delete_site(self,reg,site):
@@ -350,6 +367,14 @@ def click_last_podcast(self,reg):
     p = get_podcasts_region(reg)
     p.find("Playlists")
     click(p.getLastMatch().above(35))
+
+def click_misc(reg):
+    if not reg.s.exists("Music",1):
+        reg.s.click("Videos")
+    reg.s.click("Music")
+    p = Region(reg.s.getLastMatch().below(200))
+    p.click("Misc")
+    
 
 def set_podcast_autodownload(self,reg,setting="Off"):
     """Set the feed autodownload setting using the button at the bottom of the mainview.
@@ -422,12 +447,10 @@ def click_sidebar_tab(self,reg,tab):
     print "going to tab: "+str(tab)
     if "video" in tab.lower():
         reg.s.click("Videos")
+    elif "misc" in tab.lower():
+        click_misc(reg)
     else:
         reg.s.click(tab.capitalize())
-
-
-## Menu related stuff ##
-   
 
 def tab_search(self,reg,title,confirm_present=False):
     """enter text in the search box.
@@ -615,20 +638,6 @@ def wait_conversions_complete(self,reg,title,conv):
         reg.m.click("Clear Finished")
 
 
-def expand_sidebar_section(self,reg,section):
-    reg.s.click(section)
-
-#Don't need this - section expands when heading clicked now
-##    a = Region(reg.s.getLastMatch().left(35))
-##    a1 = Region(a.nearby(25))
-##    if a1.exists(Pattern("arrow_opened.png").similar(0.95)):
-##        print("section expanded")
-##    elif a1.exists(Pattern("arrow_closed.png").similar(0.95)):
-##        click(a1.getLastMatch())
-##    else:
-##        print "expander not found"
-
-
 def add_source(self,reg,site_url,site):
     reg.tl.click("Sidebar")
     reg.tl.click("Add Source")
@@ -663,6 +672,22 @@ def new_search_feed(self,reg,term,radio,source):
         
     f.click("Create")
 
+
+def edit_item_type(self,reg,new_type):
+    shortcut('i')
+    time.sleep(2)
+    click("Rating")
+    f = Region(getLastMatch().nearby(200))
+    f.find("Type")
+    click(f.getLastMatch().right(50))
+    if not f.exists(new_type,2):
+        type(Key.PAGE_DOWN)
+    f.click(new_type)
+    time.sleep(2)
+    f.click("OK")
+        
+        
+    
 def verify_normalview_metadata(self,reg,metadata):
     i = reg.mtb.below(300)
     for k,v in metadata.iteritems():
