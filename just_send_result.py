@@ -27,7 +27,7 @@ def send_result(log):
 
 
 if __name__ == "__main__":
-    logfile = "Log5032.xml"
+    logfile = "Log5027.xml"
     send_result(logfile)
 
 

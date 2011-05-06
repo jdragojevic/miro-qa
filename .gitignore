@@ -5,3 +5,6 @@
 #ignore the test data
 Images_old/*
 TestInput/*
+#ignore log files
+just_send_result.py
+Log*.xml
