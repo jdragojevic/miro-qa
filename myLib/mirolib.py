@@ -121,7 +121,8 @@ class AppRegions():
 #    t.highlight(5)
     tl = miroRegions[3] #top left quarter
 #    tl.highlight(5)
-    mtb = miroRegions[4] #main title bar  
+    mtb = miroRegions[4] #main title bar
+#    mtb.highlight(5)
     miroapp = App("Miro")
       
         
@@ -457,12 +458,18 @@ def tab_search(self,reg,title,confirm_present=False):
 
     """
     print "searching within tab"
+    time.sleep(3)
     if reg.mtb.exists("tabsearch_inactive.png",5):
-        click(reg.m.getLastMatch())
+        click(reg.mtb.getLastMatch())
     elif reg.mtb.exists("tabsearch_clear.png",5):
         click(reg.mtb.getLastMatch())
         click(reg.mtb.getLastMatch().left(20))
-    
+    else:
+        print "can not find the search box"
+    if config.get_os_name() == "osx":
+        wait("tabsearch_active",5)
+    else:
+        time.sleep(1)
     type(title.upper())
     if confirm_present == True:
         toggle_normal(reg)
