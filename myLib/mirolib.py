@@ -532,7 +532,7 @@ def search_tab_search(self,reg,term,engine=None):
 def download_all_items(self,reg):
     time.sleep(2)
     toggle_normal(reg)
-    if reg.m.exists("down.png",3):
+    if reg.m.exists("button_download.png",3):
         badges = reg.m.findAll("down.png")
         for x in badges:
             reg.m.click(x)
