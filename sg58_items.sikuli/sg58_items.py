@@ -9,6 +9,7 @@ mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import config
 import mirolib
+import prefs
 import testvars
 import base_testcase
 
@@ -37,19 +38,24 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         feed = "ThreeBlip"
         title = "Joo Joo"
         new_type = "Music"
+        #Set Global Preferences
+        
+        prefs.set_item_display(self,reg,option="audio",setting="on")
+        prefs.set_item_display(self,reg,option="video",setting="on")
+        prefs.set_autodownload(self,reg,setting="Off")
+
+        
         #add feed and download joo joo item
         mirolib.add_feed(self,reg,url,feed)
-        mirolib.click_podcast(self,reg,feed)
         mirolib.tab_search(self,reg,title)
-        if reg.m.exists("button_download.png",5):
+        if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         mirolib.wait_for_item_in_tab(self,reg,"videos",title)
         reg.m.click(title)
         mirolib.edit_item_type(self,reg,new_type)
         #locate item in audio tab and verify playback
-        mirolib.wait_for_item_in_tab(self,reg,"videos",title)
-        reg.m.doubleClick(title)
-        mirolib.verify_audio_playback(self,reg)
+        mirolib.wait_for_item_in_tab(self,reg,tab="Music",item=title)
+        mirolib.verify_audio_playback(self,reg,title)
         #cleanup
         mirolib.delete_feed(self,reg,feed)
  

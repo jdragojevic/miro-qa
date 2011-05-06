@@ -36,7 +36,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         try:
             reg.mtb.click(testvars.guide_search)
             type("StupidVideos \n")
-            reg.m.find(testvars.guide_add_feed)
+            reg.m.find("badge_add_feed.png")
             click(reg.m.getLastMatch())
             time.sleep(5)
             self.assertTrue(reg.s.exists("StupidVideos"))

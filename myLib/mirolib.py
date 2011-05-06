@@ -358,6 +358,7 @@ def click_podcast(self,reg,feed):
     """Find the podcast in the sidebar within podcast region and click on it.
     """
     p = get_podcasts_region(reg)
+    time.sleep(3)
     self.assertTrue(p.exists(feed))
     click(p.getLastMatch())
 
@@ -367,6 +368,7 @@ def click_last_podcast(self,reg):
     This is useful if the title isn't displayed completely or you have other chars to don't work for text recognition.
     """
     p = get_podcasts_region(reg)
+    time.sleep(5)
     p.find("Playlists")
     click(p.getLastMatch().above(35))
 
@@ -394,6 +396,29 @@ def set_podcast_autodownload(self,reg,setting="Off"):
         if not b1.exists(setting,2):
                click(b1.getLastMatch())
                time.sleep(2)
+
+def open_podcast_settings(self,reg):
+    b = Region(reg.s.getX(),reg.m.getY()*2,reg.m.getW(), reg.m.getH())
+    b.find(Pattern("button_settings.png").exact())
+    click(b.getLastMatch())
+
+def change_podcast_settings(self,reg,option,setting):
+    find("Expire Items")
+    p1 = Region(getLastMatch().nearby(800))
+    p1.find(option)
+    click(p1.getLastMatch().right(100))
+    if not p1.exists(setting):
+        type(Key.PAGE_DOWN)
+    if not p1.exists(setting):
+        type(Key.PAGE_UP)
+    if setting == "Keep 0":
+        type(Key.DOWN)
+        time.sleep(1)
+        type(Key.ENTER)
+    else:
+        p1.click(setting)
+    time.sleep(2)
+    p1.click("button_done.png")
 
 def click_source(self,reg,website):
         p = get_sources_region(reg)
@@ -480,21 +505,12 @@ def tab_search(self,reg,title,confirm_present=False):
 
     
 def toggle_normal(reg):
-    if reg.mtb.exists("tabsearch_inactive.png",1) or \
-       reg.mtb.exists("tabsearch_clear.png",1):
-        v = Region(reg.mtb.getLastMatch().left(200))
-        if v.exists("list-view_active.png",1):
-            v.click("standard-view.png")
+    if reg.mtb.exists(Pattern("list_view_active.png").similar(.98)):
+        click(reg.mtb.getLastMatch())
 
 def toggle_list(reg):
-    if reg.mtb.exists("tabsearch_inactive.png",1) or \
-       reg.mtb.exists("tabsearch_clear.png",1):
-        v = Region(reg.mtb.getLastMatch().left(500))
-    try:
-        if v.exists("standard-view_active.png",3):
-            v.click("list-view.png")
-    finally:
-        print 'may not be in list view'
+    if reg.mtb.exists(Pattern("normal_view_active.png").similar(.98)):
+        click(reg.mtb.getLastMatch())
 
 def search_tab_search(self,reg,term,engine=None):
     """perform a search in the search tab.
@@ -682,6 +698,7 @@ def new_search_feed(self,reg,term,radio,source):
 
 
 def edit_item_type(self,reg,new_type):
+    time.sleep(2)
     shortcut('i')
     time.sleep(2)
     click("Rating")
@@ -692,7 +709,7 @@ def edit_item_type(self,reg,new_type):
         type(Key.PAGE_DOWN)
     f.click(new_type)
     time.sleep(2)
-    f.click("OK")
+    click("button_ok.png")
         
         
     
@@ -701,12 +718,12 @@ def verify_normalview_metadata(self,reg,metadata):
     for k,v in metadata.iteritems():
         self.assertTrue(i.exists(v,3))   
 
-def verify_audio_playback(self,reg):
-    self.assertTrue(exists("playback_bar_audio.png"))
+def verify_audio_playback(self,reg,title):
+    reg.m.doubleClick(title)
     self.assertTrue(reg.m.exists("item_currently_playing.png"))
-    mirolib.shortcut("d")
-    waitVanish("playback_bar_audio.png")
-
+    reg.m.click(title)
+    shortcut("d")
+    reg.m.waitVanish("item_currently_playing.png")
 
 def count_images(self,reg,img,region="screen",num_expected=None):
     """Counts the number of images present on the screen.
@@ -719,14 +736,19 @@ def count_images(self,reg,img,region="screen",num_expected=None):
     sidebar: sidebar
     mainright: right half of mainview extended)
 
-    mainles
+    
     """
-    if region == "main":
+    if region == "list":
+        ly = reg.mtb.getY()-50
+        lh = reg.mtb.getH()+800
+        search_reg = Region(reg.mtb.getX(),ly,reg.mtb.getW(),lh)
+    elif region == "main":
         search_reg = reg.m
-    if region == "mainright":
+    elif region == "mainright":
         lx = int(reg.m.getX())*2
+        ly = int(reg.m.getY())-80
         wx = int(reg.m.getW()/2)+60  
-        search_reg = Region(lx,reg.m.getY(),wx,reg.m.getH())
+        search_reg = Region(lx,ly,wx,reg.m.getH())
     elif region == "sidebar":
         search_reg = reg.s
     else:
@@ -735,6 +757,7 @@ def count_images(self,reg,img,region="screen",num_expected=None):
     mm = []
     f = search_reg.findAll(img) # find all matches
     while f.hasNext(): # loop as long there is a first and more matches
+        print "found 1"
         mm.append(f.next())     # access next match and add to mm
         f.destroy() # release the memory used by finder
     if num_expected != None:

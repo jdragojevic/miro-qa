@@ -29,7 +29,7 @@ PREF_PANEL = {
     "diskspace" : os.path.join(pref_imgs,"pref_tab_disk_space.png"),
     "downloads" : os.path.join(pref_imgs,"pref_tab_downloads.png"),
     "extensions" : os.path.join(pref_imgs,"pref_tab_extensions.png"),
-    "feeds" : os.path.join(pref_imgs,"pref_tab_feeds.png"),
+    "podcasts" : "pref_tab_feeds.png",
     "folders" : os.path.join(pref_imgs,"pref_tab_folders.png"),
     "general" : os.path.join(pref_imgs,"pref_tab_general.png"),
     "playback" : os.path.join(pref_imgs,"pref_tab_playback.png"),

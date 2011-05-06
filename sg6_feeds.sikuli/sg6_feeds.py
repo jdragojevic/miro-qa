@@ -29,30 +29,37 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """       
         #set the search regions
         reg = mirolib.AppRegions()
+        feed = "EEVblog"
+        feed2 = "TED"
         reg.mtb.click(testvars.guide_search)
-        type("stupidvideos.com - the stupid review \n")
-        reg.m.find(testvars.guide_add_feed)
+        type(feed +"\n")
+        time.sleep(5)
+        reg.m.find("badge_add_feed.png")
         click(reg.m.getLastMatch())
-        p = mirolib.get_podcasts_region(reg)
-        self.assertTrue(p.exists("StupidVideos"))
-        click(p.getLastMatch())
-        
-        #2. Copy the url and attempt to add it
+        reg.mtb.click(testvars.guide_search)
+        type("eevblog \n")
+        time.sleep(2)
+        reg.m.find("badge_add_feed.png")
+        click(reg.m.getLastMatch())
+        time.sleep(4)
+        mirolib.click_last_podcast(self,reg)
+        time.sleep(10)
+    #2. Copy the url and attempt to add it
         reg.t.click("Sidebar")
         reg.t.click("Copy")
-        reg.t.click("Sidebar")
-        reg.t.click("Add Podcast")
-        time.sleep(2)
-        type("\n")
-        time.sleep(3)
+        url = Env.getClipboard()
+        mirolib.add_feed(self,reg,url,feed)
+
         #3. Verify feed not duplicated
         p = mirolib.get_podcasts_region(reg)
         time.sleep(2)
-        mirolib.count_images(self,reg, "StupidVideos",region="sidebar",num_expected=1)
-        mirolib.delete_feed(self,reg,"StupidVideos")
+        mirolib.count_images(self,reg, "EEVblog",region="sidebar",num_expected=1)
+        mirolib.delete_feed(self,reg,feed)
+        mirolib.delete_feed(self,reg,feed2)
         
         
-    def skip_test_138(self): #revisit this when item count is back or out, or update to feed with 1 item.
+        
+    def test_138(self): #shortened as there no more feed counter and can't count too much stuff.
         """http://litmus.pculture.org/show_test.cgi?id=138 clear out old items.
 
         Litmus Test Title:: 138 Channels - clear out old items 
@@ -70,32 +77,25 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         url = "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi"
         feed = "my feed"
         mirolib.add_feed(self,reg,url,feed)
-        tmpr = Region(reg.mtb.below(30))
-        self.assertTrue(tmpr.exists("5 Items"))
+        mirolib.get_podcasts_region(reg)
+        mirolib.toggle_list(reg)
+        mirolib.tab_search(self,reg,"my feed")
+        
+        mirolib.count_images(self,reg,img="my feed",region="list",num_expected=5)
+        mirolib.click_podcast(self,reg,feed)
         mirolib.shortcut("r")
-        tmpr.find("10 Items",5)
-        #Set feed setting to 100 and update to verify items kept to limit
-        reg.mtb.click("Settings")
-        reg.m.click("Keep")
-        reg.m.click("100")
-        type("\n")
-        for x in range(0,25):
+        time.sleep(10)
+        mirolib.get_podcasts_region(reg)
+        mirolib.count_images(self,reg,img="my feed",region="list",num_expected=10)
+        mirolib.click_podcast(self,reg,feed)
+        for x in range(0,3):
             mirolib.shortcut("r")
             time.sleep(3)
-        self.assertTrue(tmpr.exists("105 Items"))
-        #Set feed setting to 20 (Default) and verify items kept to limit
-        reg.mtb.click("Settings")
-        reg.m.click("Keep")
-        reg.m.click("(Default)")
-        reg.m.click("Remove All")
-        type("\n")
-        self.assertTrue(tmpr.exists("25 Items",5))
-        #Set feed setting to 0 and verify items kept to limit
-        reg.mtb.click("Settings")
-        reg.m.click("Keep")
-        reg.m.click("Keep 0")
-        type("\n")
-        self.assertTrue(tmpr.exists("5 Items",5))
+        mirolib.open_podcast_settings(self,reg)
+        mirolib.change_podcast_settings(self,reg,option="Podcast Items",setting="Keep 0")
+        time.sleep(2)
+        mirolib.get_podcasts_region(reg)
+        mirolib.count_images(self,reg,img="my feed",region="list",num_expected=5)
         #4. cleanup
         mirolib.delete_feed(self,reg,"my feed") 
    
@@ -203,6 +203,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #2. Select them all
         try:
             keyDown(Key.SHIFT)
+            
         
             for x in feedlist:
                 if p.exists(x):
@@ -226,7 +227,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         for x in feedlist:
             mirolib.delete_feed(self,reg,x)
 
-    def test_120(self):
+    def skiptest_120(self): ## No feed counter, this test is no longer valid.
         """http://litmus.pculture.org/show_test.cgi?id=120 full feed counter.
 
         Litmus Test Title:: 120 full feed counter
@@ -242,7 +243,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
 
         FEEDS = {"my feed": "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi",
-                 "recent posts": "http://blip.tv/rss?pagelen=10",
+                 "recent posts": "http://blip.tv/rss?pagelen=1",
                  }
 
         #1. Add the feeds and check num items
@@ -253,20 +254,21 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         try:
             reg.s.click("my feed")
             time.sleep(2)
-            keyDown(SHIFT_KEY)
+            keyDown(Key.SHIFT)
             reg.s.click("recent posts")
             self.assertTrue(reg.m.exists("Delete"))
             self.assertTrue(reg.m.exists("New Folder"))
         except:
             self.verificationErrors.append("multi select failed")
         finally:
-            keyUp(SHIFT_KEY)
+            keyUp(Key.SHIFT)
         #3. Delete then cancel.  Verify still exists Static List
         reg.m.click("New Folder")
         time.sleep(2)
         type("Counter Test \n")
-        reg.s.click("Counter Test")
-        tmpr = Region(reg.mtb.below(30))
+        mirolib.click_feed(self,reg,feed="Counter Test")
+        mirolib.toggle_list(reg)
+        mirolib.count_images(self,reg,img="Download",region="main",num_expected=6)
         self.assertTrue(tmpr.exists("15 Items"))
         mirolib.shortcut("r",shift=True)
         time.sleep(3)
