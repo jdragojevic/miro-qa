@@ -63,7 +63,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(60)
         reg = mirolib.AppRegions()
         if config.get_os_name() == "osx":
-            tl.click("Dev")
+            reg.tl.click("Dev")
         else:
             type('f',KEY_ALT)
             time.sleep(1)
@@ -82,7 +82,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
 
         if config.get_os_name() == "osx":
-            tl.click("Dev")
+            reg.tl.click("Dev")
         else:
             type('f',KEY_ALT)
             time.sleep(1)
