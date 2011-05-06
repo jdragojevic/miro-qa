@@ -41,8 +41,8 @@ def get_os_name():
 HEADER = """<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <litmusresults action="submit" useragent="UberSikuliAgent/1.0 (machine foobar)" machinename="sikuli_machine">
    <testresults
-   username="pcf.subwriter@gmail.com"
-   authtoken="autotester"
+   username="jed@pculture.org"
+   authtoken="sik-machine"
    product="Miro"
    platform="%(opsys)s"
    opsys="%(platform)s"  
@@ -107,9 +107,9 @@ def set_litmus_os():
     """
     test_os = get_os_name()
     if str(test_os) == "osx":
-        v, _, _ = platform.mac_ver()
-        v = str('.'.join(v.split('.')[:2]))
-        lit_os = ["OS X", v]
+##        v, _, _ = platform.mac_ver()
+##        v = str('.'.join(v.split('.')[:2]))
+        lit_os = ["OS X", "10.6"]
         return lit_os
     elif str(test_os) == "win":
         v = platform.release()
@@ -160,8 +160,8 @@ def send_result(log):
 
 
 def set_build_id():
-#    build_id = "2010112900" #set custom build id here.
-    build_id = time.strftime("%Y%m%d99", time.gmtime())
+    build_id = "2011050299" #set custom build id here.
+#    build_id = time.strftime("%Y%m%d99", time.gmtime())
     return build_id
 
 def write_header(log):
