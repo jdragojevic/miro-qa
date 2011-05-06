@@ -38,11 +38,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title = "Joo Joo"
         new_type = "Music"
         #add feed and download joo joo item
-##        mirolib.add_feed(self,reg,url,feed)
-##        mirolib.click_podcast(self,reg,feed)
-##        mirolib.tab_search(self,reg,title)
-##        if reg.m.exists("button_download.png",5):
-##            click(reg.m.getLastMatch())
+        mirolib.add_feed(self,reg,url,feed)
+        mirolib.click_podcast(self,reg,feed)
+        mirolib.tab_search(self,reg,title)
+        if reg.m.exists("button_download.png",5):
+            click(reg.m.getLastMatch())
         mirolib.wait_for_item_in_tab(self,reg,"videos",title)
         reg.m.click(title)
         mirolib.edit_item_type(self,reg,new_type)

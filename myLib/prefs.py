@@ -61,3 +61,7 @@ def set_autodownload(self,reg,setting):
     """
     open_prefs(self,tl)
     open_tab(self,tab)
+
+
+def set_item_display(self,reg,option,value):
+    

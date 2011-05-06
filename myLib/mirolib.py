@@ -206,6 +206,7 @@ def open_ff():
 
 def close_ff():
     App.close("firefox")
+    time.sleep(3)
     for x in range(0,2):
         while exists("Firefox",2):
             shortcut('w')
@@ -456,7 +457,7 @@ def tab_search(self,reg,title,confirm_present=False):
     """enter text in the search box.
 
     """
-    print "searching within tab"
+    print "searching within tab"tab_search
     if reg.mtb.exists("tabsearch_inactive.png",5):
         click(reg.m.getLastMatch())
     elif reg.mtb.exists("tabsearch_clear.png",5):

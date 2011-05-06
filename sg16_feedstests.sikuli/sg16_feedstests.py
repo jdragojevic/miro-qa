@@ -178,8 +178,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         time.sleep(2)
         type(url + "\n")
         time.sleep(10)
-        mirolib.shortcut('w')
-        reg = mirolib.AppRegions()
+        mirolib.close_ff()
         #3. verify item metadata
         mirolib.click_podcast(self,reg,feed)
         #cleanup
