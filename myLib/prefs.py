@@ -22,7 +22,6 @@ def open_prefs(self,reg,lang='en',menu=None,option=None):
         type('f',KEY_ALT)
         reg.t.click(option)
         time.sleep(2)             
-    pr.highlight(2)
     return pr
 
 
@@ -45,20 +44,22 @@ def set_autodownload(self,reg,setting="Off"):
     """
     allset = False
     p = open_prefs(self,reg)
-    open_tab(self,p,tab="Podcasts")
-    p.find("download setting")
-    p1 = Region(p.getLastMatch().right(200))
-    p2 = Region(p1.nearby(200))
-    if p1.exists(setting):
+    r = Region(open_tab(self,p,tab="Podcasts")).left(200).right(500).below(400)
+    r.highlight(3)
+    r.find("download setting")
+    r1 = Region(r.getLastMatch().right(200))
+    r2 = Region(r1.nearby(150))
+    r2.highlight(3)
+    if r1.exists(setting):
         allset = True
     else:
-        click(p1.getCenter())
-        if not p2.exists(setting):
+        click(r1.getCenter())
+        if not r2.exists(setting):
             type(Key.PAGE_DOWN)
-        if not p2.exists(setting):
+        if not p.exists(setting):
             type(Key.PAGE_UP)
-        p2.click(setting)
-    save_prefs(self,reg,p,allset)
+        r2.click(setting)
+    save_prefs(self,reg,r,allset)
 
 
 def set_item_display(self,reg,option,setting):
@@ -67,9 +68,8 @@ def set_item_display(self,reg,option,setting):
     """
     p = open_prefs(self,reg)
     allset = False
-    tab_loc = open_tab(self,p,tab="Podcasts")
-    p1 = Region(tab_loc.nearby(500))
-    print p1
+    p1 = Region(open_tab(self,p,tab="Podcasts").nearby(500))
+    p1.highlight(3)
     print option,setting
     if option == "audio":
         if setting == "on":

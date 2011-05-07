@@ -492,10 +492,7 @@ def tab_search(self,reg,title,confirm_present=False):
         click(reg.mtb.getLastMatch().left(20))
     else:
         print "can not find the search box"
-    if config.get_os_name() == "osx":
-        wait("tabsearch_active",5)
-    else:
-        time.sleep(1)
+    time.sleep(2)
     type(title.upper())
     if confirm_present == True:
         toggle_normal(reg)
