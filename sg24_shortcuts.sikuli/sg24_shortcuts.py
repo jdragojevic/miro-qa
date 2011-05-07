@@ -53,7 +53,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             item_url =  "http://www.boatingsidekicks.com/fish-detective.swf"
             title = "detective"
             if config.get_os_name() == "osx":
-                tl.click("File")
+                reg.tl.click("File")
             else:
                 type('f',KEY_ALT)
             reg.t.click("Download Items")
