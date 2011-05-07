@@ -33,8 +33,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         item_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
         item_title = "Young"
         reg.tl.click("File")
-        reg.tl.click("Download")
-        time.sleep(4)
+        reg.tl.click("Download from")
+        time.sleep(10)
         type(item_url+"\n")
         print ("confirm download started")
         status = mirolib.confirm_download_started(self,reg,item_title)

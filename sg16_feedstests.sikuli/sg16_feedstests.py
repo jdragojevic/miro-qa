@@ -4,6 +4,7 @@ import glob
 import unittest
 import StringIO
 import time
+
 from sikuli.Sikuli import *
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
@@ -17,6 +18,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 16 - one-click subscribe tests.
 
     """
+
+    
 
     def test_74(self):
         """http://litmus.pculture.org/show_test.cgi?id=74 Feed search, saved search feed
