@@ -11,6 +11,7 @@ sys.path.append(os.path.join(mycwd,'myLib'))
 import base_testcase
 import config
 import mirolib
+import prefs
 import testvars
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
@@ -178,10 +179,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
         reg = mirolib.AppRegions()
+        prefs.set_autodownload(self,reg,setting="Off")
 
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
-        feedlist = ["Help", "Film", "Earth"]
+        feedlist = ["Help", "Earth"]
 
         #1. Add the feed and start dl
         mirolib.add_feed(self,reg,url,feed)
@@ -194,17 +196,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         p = mirolib.get_podcasts_region(reg)
         mirolib.click_sidebar_tab(self,reg,"Music")
-        mirolib.click_podcast(self,reg,feed)
-##        addlink = reg.m.findAll("Add this")
-##        for x in addlink:
-##            click(x)
-##            time.sleep(4)
-            
+        mirolib.click_podcast(self,reg,feed)            
         #2. Select them all
         try:
-            keyDown(Key.SHIFT)
-            
-        
+            keyDown(Key.SHIFT)  
             for x in feedlist:
                 if p.exists(x):
                     p.click(x)

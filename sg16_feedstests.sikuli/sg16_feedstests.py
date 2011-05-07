@@ -9,6 +9,7 @@ mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import config
 import mirolib
+import prefs
 import testvars
 import base_testcase
 
@@ -168,7 +169,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         
         reg = mirolib.AppRegions()
-        
+        prefs.set_autodownload(self,reg,setting="Off")
         feed = "The AV"
         print "open ff"
         App.open(mirolib.open_ff())
