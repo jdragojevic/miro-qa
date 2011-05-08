@@ -546,9 +546,9 @@ def download_all_items(self,reg):
     time.sleep(2)
     toggle_normal(reg)
     if reg.m.exists(Pattern("button_download.png"),3):
-        badges = reg.m.findAll(getLastMatch())
+        badges = findAll(reg.m.getLastMatch())
         for x in badges:
-            reg.m.click(x)
+            click(x)
     else:
         print "no badges found, maybe autodownloads in progress"
 
