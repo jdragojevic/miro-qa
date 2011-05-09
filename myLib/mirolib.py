@@ -742,9 +742,9 @@ def count_images(self,reg,img,region="screen",num_expected=None):
     elif region == "main":
         search_reg = reg.m
     elif region == "mainright":
-        lx = int(reg.m.getX())*2
+        lx = int(reg.m.getX())*3
         ly = int(reg.m.getY())-80
-        wx = int(reg.m.getW()/2)+60  
+        wx = int(reg.m.getW())  
         search_reg = Region(lx,ly,wx,reg.m.getH())
     elif region == "sidebar":
         search_reg = reg.s
