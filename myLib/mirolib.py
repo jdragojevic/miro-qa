@@ -751,6 +751,7 @@ def count_images(self,reg,img,region="screen",num_expected=None):
     else:
         print "searching default SCREEN"
         search_reg = SCREEN
+    search_reg.highlight(3)
     mm = []
     f = search_reg.findAll(img) # find all matches
     while f.hasNext(): # loop as long there is a first and more matches
