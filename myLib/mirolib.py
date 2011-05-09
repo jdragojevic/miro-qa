@@ -1,5 +1,4 @@
 
-
 #mirolib.py
 
 import os
@@ -389,12 +388,14 @@ def set_podcast_autodownload(self,reg,setting="Off"):
     This is useful if the title isn't displayed completely or you have other chars to don't work for text recognition.
     """
     
-    b = Region(reg.m.getX(),reg.m.getY()*2,reg.m.getW(), reg.m.getH())
+    b = Region(reg.m.getX(),reg.m.getY()+500,reg.m.getW(), reg.m.getH())
+    b.highlight(2)
     b.find("button_autodownload.png")
     b1 = Region(b.getLastMatch().right(80))
+    b1.highlight(2)
     for x in range(0,3):
         if not b1.exists(setting,2):
-               click(b1.getLastMatch())
+               b.click("button_autodownload.png")
                time.sleep(2)
 
 def open_podcast_settings(self,reg):
@@ -742,9 +743,9 @@ def count_images(self,reg,img,region="screen",num_expected=None):
     elif region == "main":
         search_reg = reg.m
     elif region == "mainright":
-        lx = int(reg.m.getX())*3
-        ly = int(reg.m.getY())-80
-        wx = int(reg.m.getW())  
+        lx = int(reg.m.getX())*4
+        ly = int(reg.m.getY())
+        wx = int(reg.m.getW()/2)  
         search_reg = Region(lx,ly,wx,reg.m.getH())
     elif region == "sidebar":
         search_reg = reg.s

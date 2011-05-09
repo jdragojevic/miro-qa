@@ -120,16 +120,15 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
     	#1. Add the feed and start dl
     	mirolib.add_feed(self,reg,url,feed)
-    	mirolib.count_images(self,reg, "item-context-button.png",region="mainright",num_expected=2)
-    	badges = reg.m.findAll("button_download.png")
-    	for x in badges:\
-            reg.m.click(x)
+    	time.sleep(3)
+    	mirolib.toggle_normal(reg)
+#    	mirolib.count_images(self,reg, "item-context-button.png",region="mainright",num_expected=2)
+    	mirolib.set_podcast_autodownload(self,reg,setting="All")
     	mirolib.wait_for_item_in_tab(self,reg,"videos","Flip")
     	mirolib.wait_for_item_in_tab(self,reg,"videos","Dinosaur")
-    	reg.s.click(feed)
+    	mirolib.click_podcast(self,reg,feed)
     	type(Key.DELETE)
     	mirolib.remove_confirm(self,reg,action="keep")
-    	self.assertFalse(reg.s.exists(feed))
     	mirolib.click_sidebar_tab(self,reg,"videos")
     	mirolib.tab_search(self,reg,"Flip",confirm_present=True)
     	mirolib.tab_search(self,reg,"Dinosaur",confirm_present=True)
@@ -198,28 +197,28 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.click_sidebar_tab(self,reg,"Music")
         mirolib.click_podcast(self,reg,feed)            
         #2. Select them all
-        try:
-            keyDown(Key.SHIFT)  
-            for x in feedlist:
-                if p.exists(x):
-                    p.click(x)
-                else:
-                    print "could not find feed" +str(x)
-                time.sleep(2)
-            self.assertTrue(reg.m.exists("button_mv_delete_all.png"))
-            self.assertTrue(reg.m.exists("New Folder"))
-        except:
-            self.verificationErrors.append("multi select failed")
-        finally:
-            keyUp(Key.SHIFT)
+       
+        keyDown(Key.SHIFT)  
+        for x in feedlist:
+            if p.exists(x):
+                p.click(x)
+            else:
+                print "could not find feed" +str(x)
+            time.sleep(2)
+        keyUp(Key.SHIFT)
         #3. Delete then cancel.  Verify still exists Static List
-        reg.m.click("button_mv_delete_all.png")
+        if reg.m.exists("Delete",4) or reg.m.exists("button_mv_delete_all.png",4):
+            click(reg.m.getLastMatch())
+        else:
+            self.fail("Can't find Delete All button in main view")
         mirolib.remove_confirm(self,reg,"cancel")
         p = mirolib.get_podcasts_region(reg)
+        time.sleep(5)
         self.assertTrue(p.exists("Static",5))
         #4. Cleanup
         feedlist.append("Static")
         for x in feedlist:
+            print x
             mirolib.delete_feed(self,reg,x)
 
     def skiptest_120(self): ## No feed counter, this test is no longer valid.
