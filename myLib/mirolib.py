@@ -251,7 +251,9 @@ def remove_confirm(self,reg,action="remove"):
     need to add remove_library option
     """
     time.sleep(3)       
-    if reg.m.exists("Remove",5) or \
+    if reg.m.exists("Remove",3) or \
+       reg.t.exists("Are you",3) or \
+       reg.t.exists("One of",3) or \
        reg.m.exists(Pattern("dialog_are_you_sure.png"),3) or \
        reg.m.exists(Pattern("dialog_one_of_these.png"),3) or \
        reg.t.exists("Cancel",3)or \
@@ -259,7 +261,6 @@ def remove_confirm(self,reg,action="remove"):
        reg.t.exists(Pattern("dialog_one_of_these.png"),3):
         
         print "got confirmation dialog"
-        time.sleep(3)
         if action == "remove":
             print "clicking remove button"
             type(Key.ENTER)
