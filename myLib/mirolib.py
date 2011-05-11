@@ -487,9 +487,7 @@ def tab_search(self,reg,title,confirm_present=False):
     """
     print "searching within tab"
     time.sleep(3)
-    if reg.mtb.exists("search_icon_all.png",2):
-        click(reg.mtb.getLastMatch()).right(10)
-    elif reg.mtb.exists("tabsearch_inactive.png",5):
+    if reg.mtb.exists("tabsearch_inactive.png",5):
         print "found tabsearch_inactive"
         click(reg.mtb.getLastMatch())
     elif reg.mtb.exists("tabsearch_clear.png",5):
