@@ -33,12 +33,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         feed = "EEVblog"
         feed2 = "TED"
         reg.mtb.click(testvars.guide_search)
-        type(feed +"\n")
+        type(feed2 +"\n")
         time.sleep(5)
         reg.m.find("badge_add_feed.png")
         click(reg.m.getLastMatch())
+        mirolib.click_sidebar_tab(self,reg,"Miro")
         reg.mtb.click(testvars.guide_search)
-        type("eevblog \n")
+        type(feed + "\n")
         time.sleep(2)
         reg.m.find("badge_add_feed.png")
         click(reg.m.getLastMatch())
@@ -54,7 +55,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #3. Verify feed not duplicated
         p = mirolib.get_podcasts_region(reg)
         time.sleep(2)
-        mirolib.count_images(self,reg, "EEVblog",region="sidebar",num_expected=1)
+        mirolib.count_images(self,reg, img=feed,region="sidebar",num_expected=1)
         mirolib.delete_feed(self,reg,feed)
         mirolib.delete_feed(self,reg,feed2)
         
@@ -154,15 +155,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         #1. Add the feed and start dl
         mirolib.cancel_all_downloads(self,reg)
-        self.assertFalse(reg.s.exists("Downloading",5)) #make sure no in progress downloads
         mirolib.add_feed(self,reg,url,feed)
-        tmpr = Region(reg.mtb.below(30))
-        
-        self.assertTrue(tmpr.exists("3 Items"))
         mirolib.download_all_items(self,reg)
         mirolib.confirm_download_started(self,reg,"Joo Joo")
-        mirolib.delete_feed(self,reg,"my feed")
-        self.assertFalse(reg.s.exists("Downloading",5))
+        mirolib.delete_feed(self,reg,feed)
+        if reg.s.exists("Downloading",10):
+            self.fail("Downloading tab still present")
+       
 
 
     def test_117(self):
@@ -182,7 +181,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
-        feedlist = ["Help", "Earth"]
+        feedlist = ["America", "Earth"]
 
         #1. Add the feed and start dl
         mirolib.add_feed(self,reg,url,feed)

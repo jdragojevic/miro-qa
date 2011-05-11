@@ -46,7 +46,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.assertTrue(reg.m.exists(title))
         self.assertTrue(reg.m.exists("This is"))
         self.assertTrue(reg.m.exists("mike_tv.png"))
-        self.assertTrue(reg.m.exists("842 KB"))
+    
         #4. cleanup
         mirolib.delete_feed(self,reg,feed)
 
@@ -155,7 +155,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.assertTrue(reg.m.exists(title))
         self.assertTrue(reg.m.exists("This is"))
         self.assertTrue(reg.m.exists("mike_tv.png"))
-        self.assertTrue(reg.m.exists("842 KB"))
+       
         #cleanup
         mirolib.delete_feed(self,reg,feed)
 

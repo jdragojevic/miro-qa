@@ -32,6 +32,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         #set the search regions
         reg = mirolib.AppRegions()
+        feed = "StupidVideos"
  
         try:
             reg.mtb.click(testvars.guide_search)
@@ -39,7 +40,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             reg.m.find("badge_add_feed.png")
             click(reg.m.getLastMatch())
             time.sleep(5)
-            self.assertTrue(reg.s.exists("StupidVideos"))
+            mirolib.click_podcast(self,reg,feed)
                         
         finally:
             #4. cleanup

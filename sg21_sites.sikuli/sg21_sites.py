@@ -32,10 +32,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.add_source(self,reg,site_url,site)
         mirolib.click_source(self,reg,site)
         dl_this = testvars.youtube_download_this(self)
-        reg.mtb.find(dl_this)
-        self.assertTrue(reg.mtb.exists(dl_this))
-        reg.mtb.click(dl_this)
-        mirolib.confirm_download_started(self,reg,"Deep")
+        if exists(dl_this):
+            click(getLastMatch())
+            time.sleep(3)
+            mirolib.confirm_download_started(self,reg,"Deep")
+            reg.mtb.click("download-cancel.png") 
+        else: self.fail("youtube video source failed to load in 60 seconds")
         mirolib.delete_site(self,reg,site)
 
     def test_194(self):
@@ -136,16 +138,17 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         site_url = "http://clearbits.net"
         site = "ClearBits"
+        feed = "ClearBits"
         reg = mirolib.AppRegions()
         mirolib.add_source(self,reg,site_url,site)
         mirolib.click_source(self,reg,site)
         reg.m.click("Netlabel Music")
         reg.m.click(testvars.clearbits_rss)
-        p = mirolib.get_podcasts_region(reg)
+        mirolib.click_podcast(self,reg,site)
         time.sleep(3)
-        self.assertTrue(p.exists("ClearBits"))
-        mirolib.delete_feed(self,reg,"ClearBits")
-        mirolib.delete_site(self,reg,"ClearBits")
+        mirolib.delete_site(self,reg,site)
+        mirolib.delete_feed(self,reg,site)
+        
 
 
     def test_193(self):
@@ -169,8 +172,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.m.click("Torrent file")
         mirolib.confirm_download_started(self,reg,title)
 
-        mirolib.delete_items(self,reg,title,"Downloading")
-        mirolib.delete_site(self,reg,"ClearBits")
+        mirolib.cancel_all_downloads(self,reg)
+        mirolib.delete_site(self,reg,site)
 
 
     def test_192(self):
@@ -185,20 +188,20 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site = "HTTP Direct"
 
         ## FIX ME - Need new files, can't download from the videolan ftp site anymore
-        HTTPDOWNLOADS = {".mpeg download":"mighty",
+        HTTPDOWNLOADS = {".mpFour download":"big",
+                         ".mpThree download":"gd",
+                         ".mFoura download":"luckynight",
+            #             ".mpeg download":"mighty",
             #             ".ogv download":"popeye",
-                         ".mpFour download":"big",
             #             ".mov download":"Matrix",
             #             ".wmv download":"WindowsMedia",
             #             ".avi download":"Coyote",
             #             ".mpg download":"dothack2",
             #            ".mkv download 2":"mulitple",
-            #             ".ogg download":"gd",
-                         ".mpThree download":"gd",
-                         ".wma download":"Bangles",
-                         ".mFoura download":"luckynight",
-             #            ".flac download":"luckynight",
-             #            ".mka download":"Widow",
+            #             ".ogg download":"gd",       
+            #            ".wma download":"Bangles",            
+            #            ".flac download":"luckynight",
+            #            ".mka download":"Widow",
                          }
         setAutoWaitTimeout(20) 
         reg = mirolib.AppRegions()
@@ -222,9 +225,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                 self.verificationErrors.append("download failed for imagetype" +str(filetype))
             finally:
                 type(Key.ESC) #Close any lingering dialogs
-                
-        mirolib.delete_site(self,reg,site)
-        mirolib.cancel_all_downloads(self,reg)
+                mirolib.cancel_all_downloads(self,reg)
+                mirolib.delete_site(self,reg,site)
 
     def test_321(self):
         """http://litmus.pculture.org/show_test.cgi?id=321 delete slow to load site.
@@ -303,7 +305,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.assertTrue(reg.m.exists("button_mv_delete_all.png"))
         click(reg.m.getLastMatch())
         mirolib.remove_confirm(self,reg,"cancel")
+        time.sleep(3)
         p = mirolib.get_sources_region(reg)
+        time.sleep(3)
         self.assertTrue(p.exists(site))
         self.assertTrue(p.exists(site2))
 

@@ -287,11 +287,12 @@ def get_sources_region(reg):
     if not reg.s.exists("Sources",1):
         reg.s.click("Music")
     reg.s.click("Sources")
+    time.sleep(2)
     topx =  reg.s.getX()
     topy =  reg.s.getLastMatch().getY()
     reg.s.find("Stores")
     boty =  reg.s.getLastMatch().getY()
-    height = (boty-topy)+40
+    height = (boty-topy)+20
     width = reg.s.getW()
     SourcesRegion = Region(topx,topy, width, height)
     SourcesRegion.setAutoWaitTimeout(20)
@@ -333,12 +334,10 @@ def delete_site(self,reg,site):
     """
     
     p = get_sources_region(reg)
-    while p.exists(site,2):
-        p.click(site)
+    if p.exists(site,5):
+        click(p.getLastMatch())
         type(Key.DELETE)
         remove_confirm(self,reg,"remove")
-        p = get_sources_region(reg)
-        self.assertFalse(p.exists(site,5))     
     else:
         print "feed: " +site+ " not present"
 
@@ -438,8 +437,8 @@ def delete_feed(self,reg,feed):
     """ 
     p = get_podcasts_region(reg)
     
-    while p.exists(feed,1):
-        p.click(feed)
+    if p.exists(feed,4):
+        click(p.getLastMatch())
         type(Key.DELETE)
         remove_confirm(self,reg,"remove")
 ##        p = get_podcasts_region(reg)
@@ -475,9 +474,15 @@ def click_sidebar_tab(self,reg,tab):
         reg.s.click("Sources")        
     print "going to tab: "+str(tab)
     if "video" in tab.lower():
-        reg.s.click("Videos")
+        reg.s.find("Music")
+        tr = Region(reg.s.getLastMatch().left(30).right(100).above(100))
+        tr.click("Videos")
     elif "misc" in tab.lower():
         click_misc(reg)
+    elif "miro" in tab.lower():
+        reg.s.find("Music")
+        tr = Region(reg.s.getLastMatch().above(100))
+        tr.click("Miro")
     else:
         reg.s.click(tab.capitalize())
 
@@ -570,15 +575,17 @@ def confirm_download_started(self,reg,title):
     print "in function confirm dl started"
     time.sleep(2)
     if reg.t.exists("been downloaded",3) or \
+       reg.m.exists("been downloaded",3) or \
        reg.m.exists("message_already_downloaded.png",3):
         downloaded = "downloaded"
         print "item already downloaded"
-        type(Key.ENTER)            
+        type(Key.ESC)            
     elif reg.t.exists("downloading now",3) or \
+         reg.m.exists("downloading now",3) or \
          reg.m.exists("message_already_external_dl.png",1):
         downloaded = "in_progress"
         print "item already downloaded"
-        type(Key.ENTER)
+        type(Key.ESC)
     elif reg.m.exists("Error",1) or reg.t.exists("Error",1):
         downloaded = "failed"
         type(Key.ESC)
@@ -615,19 +622,20 @@ def cancel_all_downloads(self,reg):
     Click off downloads tab and confirm tab disappears.
     
     """
+    click_sidebar_tab(self,reg,"Music")
+    time.sleep(2)
     if reg.s.exists("Downloading",5):
-        click_sidebar_tab(self,reg,"downloading")
+        click(reg.s.getLastMatch())
         time.sleep(3)
         reg.mtb.click("download-cancel.png")
         if reg.m.exists("Seeding"):
-            seedlist = reg.m.findAll("Seeding")
-            if len(seedlist > 0):
-                for x in seedlist:
-                    click(x)
-    click_sidebar_tab(self,reg,"Videos")
-    time.sleep(2)
-    self.assertFalse(reg.s.exists("Downloading"))
-    
+            mm = []
+            f = reg.m.findAll("button_download.png") # find all matches
+            while f.hasNext(): # loop as long there is a first and more matches
+                print "found 1"
+                mm.append(f.next())     # access next match and add to mm
+            for x in mm:
+                click(x)    
                 
 def wait_for_item_in_tab(self,reg,tab,item):
     click_sidebar_tab(self,reg,tab)
@@ -644,7 +652,7 @@ def wait_conversions_complete(self,reg,title,conv):
 
     """
     while reg.m.exists(title):
-        if reg.m.exists("Open log"):
+        if reg.m.exists("Open log",5):
             try:
                 click(reg.m.getLastMatch())
                 #save the error log to a file
@@ -666,7 +674,10 @@ def wait_conversions_complete(self,reg,title,conv):
             sstatus = "pass"
             
         #fix - it's possible that I am clicking the wrong button
-        reg.m.click("Clear Finished")
+        if reg.mtb.exists("button_clear_finished.png",2) or \
+           reg.mtb.exists("Clear Finished",5):
+            click(reg.mtb.getLastMatch())
+        return sstatus
 
 
 def add_source(self,reg,site_url,site):
@@ -674,10 +685,12 @@ def add_source(self,reg,site_url,site):
     reg.tl.click("Add Source")
     time.sleep(2)
     type(site_url+"\n")
+    time.sleep(3)
     p = get_sources_region(reg)
     website = site[0:10].rstrip()
-    self.assertTrue(p.exists(website))
-
+    p.find(website)
+    click(p.getLastMatch())
+    
 def new_search_feed(self,reg,term,radio,source):
     reg.t.click("Sidebar")
     reg.t.click("New Search")
@@ -771,6 +784,32 @@ def count_images(self,reg,img,region="screen",num_expected=None):
     if num_expected != None:
         self.assertEqual(len(mm),int(num_expected))
     return len(mm)
+
+
+def convert_file(self,reg,out_format):
+    if config.get_os_name() == "osx":
+        reg.t.click("Convert")
+    else:
+       type('c',KEY_ALT)
+    find("Conversion Folder")
+    tmpr = Region(getLastMatch().left(300).right(200).above(900))
+    if out_format == "MP3":
+        tmpr.find("Theora")
+        click(tmpr.getLastMatch().above(80))
+    else:
+        tmpr.find(out_format)
+        click(tmpr.getLastMatch())
+    
+
+
+
+
+
+
+
+
+
+
 
    
 def handle_crash_dialog(self,db=True,test=False):

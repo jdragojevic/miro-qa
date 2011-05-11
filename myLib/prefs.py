@@ -12,6 +12,9 @@ def open_prefs(self,reg,lang='en',menu=None,option=None):
     """
     if lang == 'en':
         option = 'Preferences'
+        sc = 'f'
+    else:
+        sc = menu[0].lower()
     #Open the Preferences Menu based on the os with keyboard navigation
     if config.get_os_name() == "osx":
         mirolib.shortcut(',')
@@ -19,7 +22,7 @@ def open_prefs(self,reg,lang='en',menu=None,option=None):
     else:
         myscreen = Screen()
         pr = Region(myscreen.getBounds())
-        type('f',KEY_ALT)
+        type(sc,KEY_ALT)
         reg.t.click(option)
         time.sleep(2)             
     return pr
@@ -75,7 +78,7 @@ def set_item_display(self,reg,option,setting):
     """
     p = open_prefs(self,reg)
     allset = False
-    p1 = Region(open_tab(self,p,tab="Podcasts").nearby(500))
+    p1 = Region(open_tab(self,p,tab="Podcasts").left(300).right(400).below(300))
     p1.highlight(3)
     print option,setting
     if option == "audio":

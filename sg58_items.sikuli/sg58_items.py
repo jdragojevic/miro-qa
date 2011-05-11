@@ -41,8 +41,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #Set Global Preferences
         
         prefs.set_item_display(self,reg,option="audio",setting="on")
+        time.sleep(2)
         prefs.set_item_display(self,reg,option="video",setting="on")
+        time.sleep(2)
         prefs.set_autodownload(self,reg,setting="Off")
+        time.sleep(2)
 
         
         #add feed and download joo joo item
@@ -50,7 +53,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.tab_search(self,reg,title)
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
-        mirolib.wait_for_item_in_tab(self,reg,"videos",title)
+        mirolib.wait_for_item_in_tab(self,reg,"Videos",item=title)
         reg.m.click(title)
         mirolib.edit_item_type(self,reg,new_type)
         #locate item in audio tab and verify playback

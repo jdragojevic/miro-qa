@@ -32,7 +32,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #1. open preferences
         p = prefs.open_prefs(self,reg)
         #2. change language to croatian (hr)
-        p.click("System default")
+        if p.exists("System default") or p.exists("English"):
+            click(p.getLastMatch())
         for x in range(0,3):
             if not exists("Croatian",1):
                 type(Key.PAGE_DOWN)
@@ -46,12 +47,15 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         prefs.open_prefs(self,reg,lang='hr',menu='Datoteka',option='Postavke')       
         self.assertTrue(exists("Croatian"))
         click(getLastMatch())
-        self.assertTrue(exists("System",1))
         for x in range(0,3):
-            if not exists("System",1):
+            if exists("System",1):
+                break
+            else:
                 type(Key.PAGE_UP)
         click("System")
+        time.sleep(2)
         mirolib.shortcut("w")
+        time.sleep(2)
         #5. Restart Miro
         mirolib.quit_miro(self,reg)
         mirolib.restart_miro(self,reg)

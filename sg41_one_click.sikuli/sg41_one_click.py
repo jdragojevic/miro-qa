@@ -17,7 +17,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
     """
 
-    def stest_7(self):
+    def test_7(self):
         """http://litmus.pculture.org/show_test.cgi?id=7 add feed.
 
         1. Open Ryan is Hungry
@@ -63,20 +63,19 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
 
         
-        try:
-            site_url = "http://pculture.org/feeds_test/subscription-test-guide.html"
-            site = "Awesome"
-            site2 = "Revver"
-            mirolib.add_source(self,reg,site_url,site)
-            mirolib.click_source(self,reg,site)
-            reg.t.find("Subscribe")
-            reg.t.click("Subscribe")
-            time.sleep(4)
-            mirolib.click_source(self,reg,site2)
-            self.assertTrue(reg.t.exists(testvars.revver_logo))
-        finally:                            
-            mirolib.delete_site(self,reg,site)
-            mirolib.delete_site(self,reg,site2)
+        site_url = "http://pculture.org/feeds_test/subscription-test-guide.html"
+        site = "Awesome"
+        site2 = "Revver"
+        mirolib.add_source(self,reg,site_url,site)
+        reg.t.find("Subscribe")
+        reg.t.click("Subscribe")
+        time.sleep(4)
+        mirolib.click_source(self,reg,site2)
+        time.sleep(5)
+        self.assertTrue(reg.t.exists(testvars.revver_logo))
+                        
+        mirolib.delete_site(self,reg,site)
+        mirolib.delete_site(self,reg,site2)
     
         
             

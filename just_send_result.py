@@ -7,6 +7,22 @@ import time
 import platform
 import StringIO
 
+
+
+def find_logs():
+    log_list = []
+    miro_dir = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
+    log_dir = os.path.join(miro_dir,"goodlogs")
+    for x in os.listdir(log_dir):
+        try:
+            log = os.path.join(log_dir,x)
+            send_result(log)
+        except:
+            print "log: " +x+" not sent."
+    
+
+
+
 def send_result(log):
     f = open(log)
     log_data = f.read()
@@ -27,8 +43,7 @@ def send_result(log):
 
 
 if __name__ == "__main__":
-    logfile = "Log2113.xml"
-    send_result(logfile)
+    find_logs()
 
 
 
