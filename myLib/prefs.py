@@ -44,12 +44,19 @@ def set_autodownload(self,reg,setting="Off"):
     """
     allset = False
     p = open_prefs(self,reg)
-    r = Region(open_tab(self,p,tab="Podcasts")).left(200).right(500).below(400)
+    r = Region(open_tab(self,p,tab="Podcasts")).right(400).below(300)
+    ry = r.getY()+100
+    r.setY(ry)
     r.highlight(3)
-    r.find("download setting")
+
+    if r.exists("download setting",5):
+        print "found download setting"
+    elif r.exists("Auto-download",5):
+        print "found auto-download"
     r1 = Region(r.getLastMatch().right(200))
     r2 = Region(r1.nearby(150))
     r2.highlight(3)
+
     if r1.exists(setting):
         allset = True
     else:
@@ -59,7 +66,7 @@ def set_autodownload(self,reg,setting="Off"):
         if not p.exists(setting):
             type(Key.PAGE_UP)
         r2.click(setting)
-    save_prefs(self,reg,r,allset)
+    save_prefs(self,reg,p,allset)
 
 
 def set_item_display(self,reg,option,setting):

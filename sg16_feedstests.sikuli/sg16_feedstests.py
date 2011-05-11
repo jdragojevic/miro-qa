@@ -50,7 +50,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #4. cleanup
         mirolib.delete_feed(self,reg,feed)
 
-    def test_175(self):
+    def test_75(self):
         """http://litmus.pculture.org/show_test.cgi?id=75 Absolute and relative links.
 
         1. Feed 1
@@ -125,7 +125,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.assertTrue(reg.m.exists(title))
         self.assertTrue(reg.m.exists("This is")) #Description text
         self.assertTrue(reg.m.exists("mike_tv.png"))
-        self.assertTrue(reg.m.exists("842 KB"))
 
         mirolib.tab_search(self,reg,"Video 2",confirm_present=False)
         self.assertFalse(reg.m.exists("Video 2",1))
@@ -177,7 +176,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         print "open ff"
         App.open(mirolib.open_ff())
         time.sleep(20)
-        url = "http://feeds.feedburner.com/theavclub/AVClubPresents?format=xml"
+        url = "http://feeds.feedburner.com/theavclub/mainline"
         mirolib.shortcut("l")
         time.sleep(2)
         type(url + "\n")

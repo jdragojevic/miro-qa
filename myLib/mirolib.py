@@ -299,8 +299,9 @@ def get_sources_region(reg):
 
 def get_podcasts_region(reg):
     if not reg.s.exists("Podcasts",1):
-        reg.s.click("Sources")
+        reg.s.click("Music")
     reg.s.click("Podcasts")
+    time.sleep(2)
     topx =  (reg.s.getLastMatch().getX())-10
     topy =  reg.s.getLastMatch().getY()
     reg.s.find("Playlists")
@@ -441,8 +442,8 @@ def delete_feed(self,reg,feed):
         p.click(feed)
         type(Key.DELETE)
         remove_confirm(self,reg,"remove")
-        p = get_podcasts_region(reg)
-        self.assertFalse(p.exists(feed,5))
+##        p = get_podcasts_region(reg)
+##        self.assertFalse(p.exists(feed,5))
 
 def delete_items(self,reg,title,item_type):
     """Remove video audio music other items from the library.
@@ -450,11 +451,10 @@ def delete_items(self,reg,title,item_type):
     """
     click_sidebar_tab(self,reg,item_type)
     tab_search(self,reg,title)
-    while reg.m.exists(title,10):
+    if reg.m.exists(title,10):
         click(reg.m.getLastMatch())
         type(Key.DELETE)
         remove_confirm(self,reg,"delete_item")
-    self.assertFalse(reg.m.exists(title,10))
 
 def delete_current_selection(self,reg):
     """Wherever you are, remove what is currently selected.
@@ -487,9 +487,13 @@ def tab_search(self,reg,title,confirm_present=False):
     """
     print "searching within tab"
     time.sleep(3)
-    if reg.mtb.exists("tabsearch_inactive.png",5):
+    if reg.mtb.exists("search_icon_all.png",2):
+        click(reg.mtb.getLastMatch()).right(10)
+    elif reg.mtb.exists("tabsearch_inactive.png",5):
+        print "found tabsearch_inactive"
         click(reg.mtb.getLastMatch())
     elif reg.mtb.exists("tabsearch_clear.png",5):
+        print "found tabsearch_clear"
         click(reg.mtb.getLastMatch())
         click(reg.mtb.getLastMatch().left(20))
     else:
@@ -547,9 +551,13 @@ def search_tab_search(self,reg,term,engine=None):
 def download_all_items(self,reg):
     time.sleep(2)
     toggle_normal(reg)
-    if reg.m.exists(Pattern("button_download.png"),3):
-        badges = findAll(reg.m.getLastMatch())
-        for x in badges:
+    if reg.m.exists(Pattern("button_download.png"),3):       
+        mm = []
+        f = reg.m.findAll("button_download.png") # find all matches
+        while f.hasNext(): # loop as long there is a first and more matches
+            print "found 1"
+            mm.append(f.next())     # access next match and add to mm
+        for x in mm:
             click(x)
     else:
         print "no badges found, maybe autodownloads in progress"
@@ -563,19 +571,21 @@ def confirm_download_started(self,reg,title):
     """
     print "in function confirm dl started"
     time.sleep(2)
-    if reg.m.exists("message_already_downloaded.png",1):
+    if reg.t.exists("been downloaded",3) or \
+       reg.m.exists("message_already_downloaded.png",3):
         downloaded = "downloaded"
         print "item already downloaded"
         type(Key.ENTER)            
-    elif reg.m.exists("message_already_external_dl.png",1):
+    elif reg.t.exists("downloading now",3) or \
+         reg.m.exists("message_already_external_dl.png",1):
         downloaded = "in_progress"
         print "item already downloaded"
         type(Key.ENTER)
-    elif reg.m.exists("Error",1) or reg.m.exists("Error",1):
+    elif reg.m.exists("Error",1) or reg.t.exists("Error",1):
         downloaded = "failed"
         type(Key.ESC)
     else:
-        reg.s.click("Downloading")
+        click_sidebar_tab(self,reg,"Downloading")
         reg.mtb.click("download-pause.png")
         if tab_search(self,reg,title,confirm_present=True) == True:
         	downloaded = "in_progress"
