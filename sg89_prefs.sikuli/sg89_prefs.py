@@ -35,26 +35,38 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         if p.exists("System default") or p.exists("English"):
             click(p.getLastMatch())
         for x in range(0,3):
-            if not exists("Croatian",1):
+            if not exists("Croatian",3):
                 type(Key.PAGE_DOWN)
+        for x in range(0,3):
+            if not exists("Croatian",3):
+                type(Key.PAGE_UP)
         click("Croatian")
+        type(Key.TAB)
+        type(Key.TAB)
+        type(Key.ENTER)
         mirolib.shortcut("w")
         #3. Restart Miro
         mirolib.quit_miro(self,reg)
         mirolib.restart_miro(self,reg)
 
         #4. Verify Changes and reset
-        prefs.open_prefs(self,reg,lang='hr',menu='Datoteka',option='Postavke')       
-        self.assertTrue(exists("Croatian"))
-        click(getLastMatch())
+        prefs.open_prefs(self,reg,lang='hr',menu='Datoteka',option='Postavke')
+        if p.exists("Croatian"):
+            click(p.getLastMatch())
+        else:
+            find("Jezik")
+            click(getLastMatch().right(40))
+        type(Key.PAGE_UP)
         for x in range(0,3):
-            if exists("System",1):
+            if exists("English",3):
                 break
             else:
                 type(Key.PAGE_UP)
-        click("System")
+        click("English")
         time.sleep(2)
-        mirolib.shortcut("w")
+        type(Key.TAB)
+        type(Key.TAB)
+        type(Key.ENTER)
         time.sleep(2)
         #5. Restart Miro
         mirolib.quit_miro(self,reg)

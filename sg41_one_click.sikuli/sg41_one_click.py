@@ -28,6 +28,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         reg = mirolib.AppRegions()
         mirolib.open_ff()
+        feed = "Ryan"
         try:
             time.sleep(10)
             feed_url = "http://ryanishungry.com/subscribe/"
@@ -42,7 +43,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             mirolib.close_ff()
                         
             #Start Miro 
-            feed = "Ryan"
+            
             mirolib.close_one_click_confirm(self)
             mirolib.shortcut("r",shift=True)
             mirolib.click_podcast(self,reg,feed)
