@@ -1,5 +1,6 @@
 import sys
 import os
+import shutil
 import unittest
 import httplib
 import urllib
@@ -18,6 +19,7 @@ import sg19_system
 import sg21_sites
 import sg24_shortcuts
 import sg31_playback
+import sg40_feed_folders
 import sg41_one_click
 import sg42_feedsearch
 import sg58_items
@@ -139,6 +141,7 @@ def write_footer(log):
     f = open(log, 'a')
     f.write(FOOTER)
     f.close
+    time.sleep(4)
 
 
 def send_result(log):
@@ -160,7 +163,7 @@ def send_result(log):
 
 
 def set_build_id():
-    build_id = "2011050299" #set custom build id here.
+    build_id = "2011052499" #set custom build id here.
 #    build_id = time.strftime("%Y%m%d99", time.gmtime())
     return build_id
 
@@ -192,7 +195,7 @@ class LitmusRunner(unittest.TestCase):
                     
     def litmus_test_run(self):
         ts = time.strftime("%M%S", time.gmtime())
-        log = "Log"+ts+".xml"
+        log = "Log_current.xml"
         logfile = os.path.join(os.getcwd(),log)
         buf = StringIO.StringIO()
         runner = unittest.TextTestRunner(stream=buf)
@@ -210,6 +213,11 @@ class LitmusRunner(unittest.TestCase):
 
         write_footer(logfile)
         
+        ts = time.strftime("%H%M%S", time.gmtime())
+        final_log_dir = os.path.join(os.getcwd(),"last_run")
+        fl = os.path.join(final_log_dir,ts+"_log.xml")
+        shutil.move(log,fl)
+
 #        send_result(logfile)
 
 

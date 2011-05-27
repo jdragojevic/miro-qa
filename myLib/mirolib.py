@@ -1,6 +1,3 @@
-
-#mirolib.py
-
 import os
 import time
 import glob
@@ -36,18 +33,9 @@ class AppRegions():
             click(getLastMatch())
         libr = Region(getLastMatch().above(500))
         libr.click("Miro")
-        if not exists(testvars.feedback,5):
-            try:
-                click("navhome.png")
-                wait("navstop_disabled.png",15)
-            except:
-                pass
-            print ("network either off or slow, no feeback icon")
-            find("Videos")
-            sidex = int(getLastMatch().getX())+200
-        else:
-            wait(testvars.feedback)
-            sidex = getLastMatch().getX()
+        find(Pattern("miroguide_home.png").similar(.95))
+        click(getLastMatch())
+        sidex = getLastMatch().getX()-15            
 
         find("Music")
         topx =  int(getLastMatch().getX())-55
@@ -91,7 +79,7 @@ class AppRegions():
     def launch_miro():
         """Open the Miro Application, the sets the region coords for searching.
         
-        Uses the Miro Guides, Feedback, Bottom Corner, and VolumeBar to find coordinates.
+        Uses the Miro Guides, Home icon, Bottom Corner, and VolumeBar to find coordinates.
         Returns the:
             
         SidebarRegion (s) - miro sidebar 
@@ -204,15 +192,38 @@ def open_ff():
     else:
         print "no clue"
 
-def close_ff():
-    App.close("firefox")
-    time.sleep(3)
-    for x in range(0,2):
-        while exists("Firefox",2):
-            shortcut('w')
-            time.sleep(2)
-        
+def browser_to_miro(self,reg,url):
+    """Opens the browser and copies in a url. Waits then closes the browser.
 
+    This has the expectation that the browser is configured to open the url with miro, .torrent or feed item.
+    """
+    switchApp(open_ff())
+    if reg.t.exists("Firefox",45):
+        click(reg.t.getLastMatch())
+    shortcut("l")
+    time.sleep(2)
+    type(url + "\n")
+    time.sleep(20)
+    close_ff()
+
+
+def close_ff():
+    App.close("Firefox")
+    time.sleep(3)
+    if exists("Firefox",3):
+        print "ff still here"
+        click(getLastMatch())
+        if config.get_os_name() == "osx":
+            shortcut('w')
+        else:
+            shortcut('q')
+    time.sleep(2)
+        
+def close_window():
+    if config.get_os_name() == "osx":
+        shortcut('w')
+    else:
+        shortcut('q')
 
 def toggle_radio(self,button):
     
@@ -362,6 +373,32 @@ def click_podcast(self,reg,feed):
     self.assertTrue(p.exists(feed))
     click(p.getLastMatch())
 
+def add_watched_folder(self,reg,folder_path,show=True):
+    """Add a feed to miro, click on it in the sidebar.
+    
+    Verify the feed is added by clicking on the feed and verify the feed name is present
+    in the main title bar.
+    """
+    reg.t.click("File")
+    reg.t.click("Import")
+    reg.t.click("Watch")
+    time.sleep(4)
+    if show == True:
+        type(folder_path)
+        time.sleep(2)
+        type(Key.ENTER)
+        time.sleep(10) #give it 10 seconds to add the feed
+        click_last_podcast(self,reg)
+    else:
+        type(folder_path)
+        reg.m.click("Show in")
+        type(Key.TAB)
+        type(Key.TAB)
+        type(Key.ENTER)
+    
+
+
+
 def click_last_podcast(self,reg):
     """Based on the position of the Playlists tab, click on the last podcast in the list.
 
@@ -403,6 +440,9 @@ def open_podcast_settings(self,reg):
     b = Region(reg.s.getX(),reg.m.getY()*2,reg.m.getW(), reg.m.getH())
     b.find(Pattern("button_settings.png").exact())
     click(b.getLastMatch())
+
+def click_remove_podcast(self,reg):
+    click("button_remove_podcast.png")
 
 def change_podcast_settings(self,reg,option,setting):
     find("Expire Items")
@@ -680,7 +720,7 @@ def wait_conversions_complete(self,reg,title,conv):
         return sstatus
 
 
-def add_source(self,reg,site_url,site):
+def add_source(self,reg,site_url,site,alt_site=None):
     reg.tl.click("Sidebar")
     reg.tl.click("Add Source")
     time.sleep(2)
@@ -688,33 +728,45 @@ def add_source(self,reg,site_url,site):
     time.sleep(3)
     p = get_sources_region(reg)
     website = site[0:10].rstrip()
-    p.find(website)
+    if alt_site == None:
+        p.find(website)
+    else:
+        if not exists(website,5):
+            p.find(alt_site)
     click(p.getLastMatch())
     
-def new_search_feed(self,reg,term,radio,source):
+def new_search_feed(self,reg,term,radio,source,defaults=False,watched=False):
     reg.t.click("Sidebar")
     reg.t.click("New Search")
-    type(term)
-    # Dialog appears in different locations on os x vs gtk
-    if config.get_os_name() == "osx":
-        reg.t.find("In this")
-        f = Region(reg.t.getLastMatch().right(400).below())
+    if defaults == True:
+        time.sleep(2)
+        type(Key.ENTER)
+    elif watched == True:
+        if reg.m.exists(source):
+            self.fail
+        type(Key.ESC)   
     else:
-        reg.m.find("In this")
-        f = Region(reg.m.getLastMatch().nearby(500))
-    f.click(radio)
-    click(f.getLastMatch().right(135))
-    time.sleep(2)
-    if radio == "url":
-        type(source)
-    else:     
-        if not f.exists(source,2):
-            type(Key.PAGE_DOWN)
-        if not f.exists(source,2):
-            type(Key.PAGE_UP)
-        f.click(source)
-        
-    f.click("Create")
+        type(term)
+        # Dialog appears in different locations on os x vs gtk
+        if config.get_os_name() == "osx":
+            reg.t.find("In this")
+            f = Region(reg.t.getLastMatch().right(600).below())
+        else:
+            reg.m.find("In this")
+            f = Region(reg.m.getLastMatch().right(600).above().below())
+        f.click(radio)
+        click(f.getLastMatch().right(150))
+        time.sleep(2)
+        if radio == "url":
+            type(source)
+        else:     
+            if not f.exists(source,2):
+                type(Key.PAGE_DOWN)
+            if not f.exists(source,2):
+                type(Key.PAGE_UP)
+            f.click(source)
+            
+        f.click("Create")
 
 
 def edit_item_type(self,reg,new_type):
@@ -801,7 +853,23 @@ def convert_file(self,reg,out_format):
         click(tmpr.getLastMatch())
     
 
+def import_opml(self,reg,opml_path):
+    reg.tl.click("Sidebar")
+    reg.tl.click("Import")
+    time.sleep(2)
+    
+    if config.get_os_name() == "lin":
+        if not exists("Location",5):
+            click(Pattern("type_a_filename.png"))
+        else:
+            type(opml_path +"\n")
+    else:
+        self.fail("Add import opml steps for Windows and OSX")
 
+    wait("imported",15)
+    type(Key.ENTER)
+    
+    
 
 
 
