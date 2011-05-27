@@ -38,12 +38,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.tab_search(self,reg,term)
         reg.mtb.click("button_save_as_podcast.png")
         #3. verify search saved
-        self.assertTrue(reg.s.exists("GIMP"))
-        click(reg.s.getLastMatch())
-        mirolib.tab_search(self,reg,title,confirm_present=True)
+        mirolib.click_last_podcast(self,reg)
         #4. cleanup
-        mirolib.delete_feed(self,reg,"GIMP")
+        type(Key.DELETE)
+        #Last chance to verify Gimp is the saved search feed.
+        self.assertTrue(reg.m.exists("GIMP"),5)
+        mirolib.remove_confirm(self,reg,action="remove")
         mirolib.delete_feed(self,reg,"Static List")
+        mirolib.handle_crash_dialog(self,db=False,test=False)
 
     def test_214(self):
         """http://litmus.pculture.org/show_test.cgi?id=214 Feed search, search with spaces
@@ -71,8 +73,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.tab_search(self,reg,term,confirm_present=True)
         
         #4. cleanup
-        mirolib.click_last_podcast(self,reg)
-        mirolib.delete_current_selection(self,reg)
+        mirolib.click_remove_podcast(self,reg)
+        mirolib.remove_confirm(self,reg,action="remove")
         mirolib.delete_feed(self,reg,"blip")
 
     def test_213(self):
@@ -123,21 +125,83 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         term = "touring"
         term2 = "Biking"
         title = "Travelling Two"
+        dummy_feed_url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         
         #1. add feed
         mirolib.add_feed(self,reg,url,feed)
+        mirolib.add_feed(self,reg,dummy_feed_url,"TwoStupid")
         #2. search
         mirolib.new_search_feed(self,reg,term,radio="Podcast",source=feed)
         time.sleep(5)
                         
         #3. verify search saved
         mirolib.click_last_podcast(self,reg)
-        mirolib.tab_search(self,reg,term2,confirm_present=True)
+        self.assertTrue(reg.m.exists(term2))
         
         #4. cleanup
-        mirolib.click_last_podcast(self,reg)
-        mirolib.delete_current_selection(self,reg)
+        mirolib.click_remove_podcast(self,reg)
+        mirolib.remove_confirm(self,reg,action="remove")
         mirolib.delete_feed(self,reg,"Static List")
+
+
+    def test_720(self):
+        """http://litmus.pculture.org/show_test.cgi?id=720 Menu New Search Feed.
+
+        1. Add list of guide feeds (Static List)
+        2. From Sidebar -> New Search feed, create saved search channel
+        3. Verify Search saved
+        4. Cleanup
+
+        """
+        reg = mirolib.AppRegions()
+        
+        url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
+        feed = "Static List"
+        term = "Voice"
+        dummy_feed_url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+        
+        #1. add feed
+        mirolib.add_feed(self,reg,dummy_feed_url,"TwoStupid")
+        mirolib.add_feed(self,reg,url,feed)
+        mirolib.tab_search(self,reg,term)
+        #2. search
+        mirolib.new_search_feed(self,reg,term,radio="Podcast", source=feed,defaults=True)
+                        
+        #3. verify search saved
+        mirolib.click_last_podcast(self,reg)
+        self.assertTrue(reg.m.exists(term))
+##        mirolib.open_podcast_settings(self,reg)
+##        self.assertTrue(reg.m.exists("VOICE"))
+##        type(Key.ESC)
+        
+        #4. cleanup
+        mirolib.click_remove_podcast(self,reg)
+        mirolib.remove_confirm(self,reg,action="remove")
+        mirolib.delete_feed(self,reg,"Static List")
+
+    def test_721(self):
+        """http://litmus.pculture.org/show_test.cgi?id=721 Menu New Search Watched
+
+        1. Add list of guide feeds (Static List)
+        2. From Sidebar -> New Search feed, create saved search channel
+        3. Verify Search saved
+        4. Cleanup
+
+        """
+        reg = mirolib.AppRegions()
+    
+        feed = "TestData"
+        term = "monkey"
+        folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
+        #1. add feed
+        mirolib.add_watched_folder(self,reg,folder_path)
+        
+        #2. search
+        mirolib.tab_search(self,reg,term)
+        mirolib.new_search_feed(self,reg,term,radio="Podcast",source=feed,watched=True)
+        #4. cleanup
+       
+        
 
     def test_23(self):
         """http://litmus.pculture.org/show_test.cgi?id=23 remember search.
@@ -201,6 +265,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.m.click(title)
         reg.t.click("Playback")
         reg.t.click("Play")
+        time.sleep(2)
+        type(" ")
         self.assertTrue(exists("playback_controls.png"))
         mirolib.shortcut("d")
 

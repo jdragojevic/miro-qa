@@ -176,7 +176,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.delete_site(self,reg,site)
 
 
-    def test_192(self):
+    def skip_192(self):
         """http://litmus.pculture.org/show_test.cgi?id=192 file detection dl.
 
         1. Add clearbits.net page as a source
@@ -236,12 +236,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         site_url = "http://pculture.org/feeds_test/slowsite.php"
         site = "pculture"
+        alt_site = "Miro Guide"
         
         setAutoWaitTimeout(60)                
         reg = mirolib.AppRegions()
 
         mirolib.add_source(self,reg,site_url,site)
-        mirolib.delete_site(self,reg,site)
+        type(Key.DELETE)
+        type(Key.ENTER)
 
     def test_195(self):
         """http://litmus.pculture.org/show_test.cgi?id=196 delete site.

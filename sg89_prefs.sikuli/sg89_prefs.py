@@ -37,7 +37,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         for x in range(0,3):
             if not exists("Croatian",3):
                 type(Key.PAGE_DOWN)
-        for x in range(0,3):
+        for x in range(0,6):
             if not exists("Croatian",3):
                 type(Key.PAGE_UP)
         click("Croatian")
@@ -69,7 +69,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         type(Key.ENTER)
         time.sleep(2)
         #5. Restart Miro
-        mirolib.quit_miro(self,reg)
+        mirolib.shortcut('q')
+        time.sleep(2)
         mirolib.restart_miro(self,reg)
         self.assertTrue(exists("File"))
    

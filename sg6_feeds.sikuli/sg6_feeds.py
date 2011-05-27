@@ -220,6 +220,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             print x
             mirolib.delete_feed(self,reg,x)
 
+
+
     def skiptest_120(self): ## No feed counter, this test is no longer valid.
         """http://litmus.pculture.org/show_test.cgi?id=120 full feed counter.
 
