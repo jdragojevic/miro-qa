@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<litmusresults action="submit" useragent="UberSikuliAgent/1.0 (machine foobar)" machinename="sikuli_machine">
+   <testresults
+   username="jed@pculture.org"
+   authtoken="sik-machine"
+   product="Miro"
+   platform="Linux"
+   opsys="Ubuntu (Maverick)"  
+   branch="git-Master"
+   buildid="2011052499"
+   locale="en-US"
+   >
+   
+    <result testid="722"
+    is_automated_result="0"
+    resultstatus="fail"
+    exitstatus="0"
+    timestamp="20110527195149"
+    >
+    
+        <comment><![CDATA[ E
+======================================================================
+ERROR: http://litmus.pculture.org/show_test.cgi?id=722 delete feeds and folders confirm dialog.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jed/Sikuli-testing/Miro/sg40_feed_folders.sikuli/sg40_feed_folders.py", line 55, in test_722
+    count_images(self,reg,img=x,region="main",num_expected=1)
+NameError: global name 'count_images' is not defined
+
+----------------------------------------------------------------------
+Ran 1 test in 31.273s
+
+FAILED (errors=1)
+]]>
+        </comment>
+    </result>
+
+    </testresults>
+</litmusresults>

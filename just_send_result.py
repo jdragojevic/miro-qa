@@ -12,7 +12,7 @@ import StringIO
 def find_logs():
     log_list = []
     miro_dir = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-    log_dir = os.path.join(miro_dir,"goodlogs")
+    log_dir = os.path.join(miro_dir,"last_run")
     for x in os.listdir(log_dir):
         try:
             log = os.path.join(log_dir,x)
