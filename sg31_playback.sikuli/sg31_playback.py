@@ -34,7 +34,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             mirolib.shortcut('o')
             time.sleep(4)
             type(vid_path+"\n")
-            self.assertTrue(exists("playback_controls.png"))
+            time.sleep(3)
+            self.assertTrue(exists(Pattern("playback_controls.png")))
             mirolib.shortcut("d")
         except FindFailed, debugging:
             self.verificationErrors.append(debugging)
