@@ -114,8 +114,9 @@ def set_litmus_os():
         lit_os = ["OS X", "10.6"]
         return lit_os
     elif str(test_os) == "win":
-        v = platform.release()
-        lit_os = ["Windows", v]
+        v = platform.win32_ver()
+ #       v = platform.release()
+        lit_os = ["Windows", "XP"]
         return lit_os
     elif str(test_os) == "lin":
         plat = get_linux_os()

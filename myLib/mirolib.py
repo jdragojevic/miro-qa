@@ -60,6 +60,7 @@ class AppRegions():
         sidex = getLastMatch().getX()-15            
 
         find("Music")
+        click(getLastMatch())
         topx =  int(getLastMatch().getX())-55
         topy = int(getLastMatch().getY())-90
         
@@ -70,7 +71,7 @@ class AppRegions():
 
         sidebar_width = int(sidex-topx)
         app_height = int(vbary-topy)
-        tbar_height = 100
+#        tbar_height = 100
         
         #Sidebar Region
         SidebarRegion = Region(topx,topy,sidebar_width,app_height)
@@ -78,7 +79,8 @@ class AppRegions():
         regions.append(SidebarRegion)                
         #Mainview Region
         mainwidth = int((vbarx-sidex)+vbarw)
-        MainViewRegion = Region(sidex,topy+tbar_height,mainwidth,app_height-155)
+        #MainViewRegion = Region(sidex,topy+tbar_height,mainwidth,app_height-155) - old m
+        MainViewRegion = Region(sidex,topy+80,mainwidth,app_height)
         MainViewRegion.setAutoWaitTimeout(30)
         regions.append(MainViewRegion)
         #Top Half of screen, width of Miro app Region
@@ -90,7 +92,7 @@ class AppRegions():
         TopLeftRegion.setAutoWaitTimeout(30)
         regions.append(TopLeftRegion)
         #Main Title bar section of the main view
-        MainTitleBarRegion = Region(sidex,topy,mainwidth,tbar_height)
+        MainTitleBarRegion = Region(sidex,topy,mainwidth,120)
         MainTitleBarRegion.setAutoWaitTimeout(30)
         regions.append(MainTitleBarRegion)
         return regions
@@ -114,6 +116,7 @@ class AppRegions():
 #    tl.highlight(5)
     mtb = miroRegions[4] #main title bar
 #    mtb.highlight(5)
+    mr = Region(mtb.above(50).below())
     miroapp = App("Miro")
       
         
@@ -164,7 +167,7 @@ def restart_miro(self,reg):
     if config.get_os_name() == "lin":
         config.start_miro_on_linux()
     else:
-        reg.miroapp.focus()
+        App.open(open_miro())
     time.sleep(5)
     wait("Miro",45)    
     
@@ -189,7 +192,7 @@ def open_ff():
     if config.get_os_name() == "osx":
         return "/Applications/Firefox.app"
     elif config.get_os_name() == "win":
-        return "C:\\Program Files\\Mozilla Firefox\\Firefox.exe"
+        return "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
     elif config.get_os_name() == "lin":
         config.start_ff_on_linux()
         return "firefox"
@@ -201,7 +204,7 @@ def browser_to_miro(self,reg,url):
 
     This has the expectation that the browser is configured to open the url with miro, .torrent or feed item.
     """
-    switchApp(open_ff())
+    App.open(open_ff())
     if reg.t.exists("Firefox",45):
         click(reg.t.getLastMatch())
     shortcut("l")
@@ -218,6 +221,8 @@ def close_ff():
         print "ff still here"
         click(getLastMatch())
         if config.get_os_name() == "osx":
+            shortcut('w')
+        elif config.get_os_name() == "win":
             shortcut('w')
         else:
             shortcut('q')
@@ -301,9 +306,10 @@ def get_sources_region(reg):
     """
     if not reg.s.exists("Sources",1):
         reg.s.click("Music")
+        time.sleep(1)
     reg.s.click("Sources")
     time.sleep(2)
-    topx =  reg.s.getX()
+    topx =  reg.s.getX()-10
     topy =  reg.s.getLastMatch().getY()
     reg.s.find("Stores")
     boty =  reg.s.getLastMatch().getY()
@@ -316,6 +322,7 @@ def get_sources_region(reg):
 def get_podcasts_region(reg):
     if not reg.s.exists("Podcasts",1):
         reg.s.click("Music")
+        type(Key.ESC)
     reg.s.click("Podcasts")
     time.sleep(2)
     topx =  (reg.s.getLastMatch().getX())-10
@@ -332,10 +339,7 @@ def get_playlists_region(reg):
     if not reg.s.exists("Playlists",1):
         reg.s.click("Podcasts")
     reg.s.click("Playlists")
-    topx =  (reg.s.getLastMatch().getX())-10
-    topy =  reg.s.getLastMatch().getY()
-    width = reg.s.getW()
-    PlaylistsRegion = Region(topx,topy, width, 600)
+    PlaylistsRegion = Region(reg.s.getLastMatch().left(150).right(200).below())
     PlaylistsRegion.setAutoWaitTimeout(20)
     return PlaylistsRegion     
 	
@@ -349,12 +353,13 @@ def delete_site(self,reg,site):
     """
     
     p = get_sources_region(reg)
-    if p.exists(site,5):
+    if p.exists(site,15):
         click(p.getLastMatch())
+        time.sleep(2)
         type(Key.DELETE)
         remove_confirm(self,reg,"remove")
     else:
-        print "feed: " +site+ " not present"
+        print "site not present: ",site
 
 def add_feed(self,reg,url,feed):
     """Add a feed to miro, click on it in the sidebar.
@@ -374,7 +379,7 @@ def click_podcast(self,reg,feed):
     """
     p = get_podcasts_region(reg)
     time.sleep(3)
-    self.assertTrue(p.exists(feed))
+    p.find(feed)
     click(p.getLastMatch())
 
 def add_watched_folder(self,reg,folder_path,show=True):
@@ -400,7 +405,15 @@ def add_watched_folder(self,reg,folder_path,show=True):
         type(Key.TAB)
         type(Key.ENTER)
     
+def click_last_source(self,reg):
+    """Based on the position of the Playlists tab, click on the last podcast in the list.
 
+    This is useful if the title isn't displayed completely or you have other chars to don't work for text recognition.
+    """
+    p = get_sources_region(reg)
+    time.sleep(5)
+    p.find("Stores")
+    click(p.getLastMatch().above(38))
 
 
 def click_last_podcast(self,reg):
@@ -468,7 +481,7 @@ def change_podcast_settings(self,reg,option,setting):
 
 def click_source(self,reg,website):
         p = get_sources_region(reg)
-        self.assertTrue(p.exists(website))
+        p.find(website)
         click(p.getLastMatch())
         
 
@@ -534,33 +547,38 @@ def tab_search(self,reg,title,confirm_present=False):
     """enter text in the search box.
 
     """
+    
     print "searching within tab"
     time.sleep(3)
-    if reg.mtb.exists("tabsearch_inactive.png",5):
-        print "found tabsearch_inactive"
-        click(reg.mtb.getLastMatch())
-    elif reg.mtb.exists("tabsearch_clear.png",5):
+    if reg.mtb.exists("tabsearch_clear.png",5):
         print "found tabsearch_clear"
         click(reg.mtb.getLastMatch())
-        click(reg.mtb.getLastMatch().left(20))
+        click(reg.mtb.getLastMatch().left(10))
+    elif reg.mtb.exists("tabsearch_inactive.png",5):
+        print "found tabsearch_inactive"
+        click(reg.mtb.getLastMatch())
     else:
         print "can not find the search box"
     time.sleep(2)
     type(title.upper())
     if confirm_present == True:
         toggle_normal(reg)
-        self.assertTrue(reg.m.exists(title))
-        present=True
+        if reg.m.exists(title,5):
+            present=True
+        else:
+            self.fail("Item not found in downloading tab",title)
         return present
 
     
 def toggle_normal(reg):
-    if reg.mtb.exists(Pattern("list_view_active.png").similar(.98)):
+    if reg.mtb.exists(Pattern("list_view_active.png").similar(.98),1):
         click(reg.mtb.getLastMatch())
+        time.sleep(2)
 
 def toggle_list(reg):
-    if reg.mtb.exists(Pattern("normal_view_active.png").similar(.98)):
+    if reg.mtb.exists(Pattern("normal_view_active.png").similar(.98),1):
         click(reg.mtb.getLastMatch())
+        time.sleep(2)
 
 def search_tab_search(self,reg,term,engine=None):
     """perform a search in the search tab.
@@ -570,12 +588,13 @@ def search_tab_search(self,reg,term,engine=None):
     """
     print "starting a search tab search"
     # Find the search box and type in the search text
-    if reg.mtb.exists("tabsearch_inactive.png",5):
-        click(reg.mtb.getLastMatch())
-    elif reg.mtb.exists("tabsearch_clear.png",5): # this should always be found on gtk
+    
+    if reg.mtb.exists("tabsearch_clear.png",5): # this should always be found on gtk
         print "found the broom"
         click(reg.mtb.getLastMatch())
         click(reg.mtb.getLastMatch().left(10))
+    elif reg.mtb.exists("tabsearch_inactive.png",5):
+        click(reg.mtb.getLastMatch())
     type(term.upper())
     # Use the search text to create a region for specifying the search engine
     if engine != None:
@@ -590,7 +609,7 @@ def search_tab_search(self,reg,term,engine=None):
         else:
             l2.click(engine)
         type("\n") #enter the search 
-        self.assertTrue(reg.mtb.exists("button_save_as_podcast.png",10))
+        self.assertTrue(reg.mtb.exists(Pattern("button_save_as_podcast.png")),10)
     else:
         type("\n")
  
@@ -618,8 +637,7 @@ def confirm_download_started(self,reg,title):
     """
     print "in function confirm dl started"
     time.sleep(2)
-    mr = Region(reg.mtb.below())
-    print mr
+    mr = Region(reg.mtb.above(50).below())
     if mr.exists("been downloaded",3) or \
        mr.exists("message_already_downloaded.png",1):
         downloaded = "downloaded"
@@ -628,7 +646,7 @@ def confirm_download_started(self,reg,title):
     elif mr.exists("downloading now",5) or \
          mr.exists("message_already_external_dl.png",1):
         downloaded = "in_progress"
-        print "item already downloaded"
+        print "item downloading"
         type(Key.ESC)
     elif mr.exists("Error",3) or \
          mr.exists(Pattern("badge_dl_error.png"),1):
@@ -637,8 +655,10 @@ def confirm_download_started(self,reg,title):
     else:
         click_sidebar_tab(self,reg,"Downloading")
         reg.mtb.click("download-pause.png")
-        if tab_search(self,reg,title,confirm_present=True) == True and mr.exists(Pattern("badge_dl_error.png"),3) == False:
-        	downloaded = "in_progress"
+        if mr.exists(Pattern("badge_dl_error.png"),2):
+            downlaoded = "errors"
+        elif tab_search(self,reg,title,confirm_present=True) == True:
+            downloaded = "in_progress"
         else:
         	downloaded = "item not located"
         reg.mtb.click("download-resume.png")
@@ -739,6 +759,13 @@ def add_source(self,reg,site_url,site,alt_site=None):
         if not exists(website,5):
             p.find(alt_site)
     click(p.getLastMatch())
+
+
+def add_source_from_tab(self,reg,site_url):
+    p = get_sources_region(reg)
+    reg.m.find("URL")
+    click(reg.m.getLastMatch().right(150))
+    type(site_url+"\n")
     
 def new_search_feed(self,reg,term,radio,source,defaults=False,watched=False):
     reg.t.click("Sidebar")
@@ -753,12 +780,16 @@ def new_search_feed(self,reg,term,radio,source,defaults=False,watched=False):
     else:
         type(term)
         # Dialog appears in different locations on os x vs gtk
-        if config.get_os_name() == "osx":
-            reg.t.find("In this")
-            f = Region(reg.t.getLastMatch().right(600).below())
-        else:
-            reg.m.find("In this")
-            f = Region(reg.m.getLastMatch().right(600).above().below())
+##        if config.get_os_name() == "osx":
+##            reg.t.find("In this")
+##            f = Region(reg.t.getLastMatch().right(600).below())
+##        else:
+##            reg.m.find("In this")
+##            f = Region(reg.m.getLastMatch().right(600).above().below())
+        reg.mr.find("In this")
+        f = Region(reg.mr.getLastMatch().right(600).above().below())
+        f.highlight(10)
+                
         f.click(radio)
         click(f.getLastMatch().right(150))
         time.sleep(2)
@@ -861,27 +892,19 @@ def import_opml(self,reg,opml_path):
     reg.tl.click("Sidebar")
     reg.tl.click("Import")
     time.sleep(2)
-    
-    if config.get_os_name() == "lin":
-        if not exists("Location",5):
-            click(Pattern("type_a_filename.png"))
-        else:
-            type(opml_path +"\n")
-    else:
-        self.fail("Add import opml steps for Windows and OSX")
-
+    type_a_path(self,reg,opml_path)
     wait("imported",15)
     type(Key.ENTER)
+
+def type_a_path(self,reg,file_path):
+    if config.get_os_name() == "osx":
+        type(opml_path +"\n")     
+    else:
+        if not exists("Location",5):
+            click(Pattern("type_a_filename.png"))
+            time.sleep(2)
+        type(file_path +"\n")
     
-    
-
-
-
-
-
-
-
-
 
    
 def handle_crash_dialog(self,db=True,test=False):

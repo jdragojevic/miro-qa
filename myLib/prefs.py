@@ -114,7 +114,9 @@ def save_prefs(self,reg,p,allset):
     if allset == True or config.get_os_name() == "osx":
         type(Key.ESC)
     else:
-        p.click("button_close.png")
+        if p.exists("button_close.png") or \
+           p.exists("Close"):
+            click(p.getLastMatch())
         if reg.t.exists("Miro",2):
             click(reg.t.getLastMatch())
     time.sleep(5)
