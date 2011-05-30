@@ -35,16 +35,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         reg = mirolib.AppRegions()
         # 1. Download youtube vidoe
-##        vid_url = "http://www.youtube.com/watch?v=baJ43ByylbM&feature=fvw"
+        vid_url = "http://www.youtube.com/watch?v=baJ43ByylbM&feature=fvw"
         item_title = "Zoom"
-##        reg.tl.click("File")
-##        reg.tl.click("Download from")
-##        time.sleep(4)
-##        type(vid_url+"\n")
-##        
-##        mirolib.confirm_download_started(self,reg,item_title)
+        reg.tl.click("File")
+        reg.tl.click("Download from")
+        time.sleep(4)
+        type(vid_url+"\n")
+        
+        mirolib.confirm_download_started(self,reg,item_title)
         mirolib.wait_for_item_in_tab(self,reg,"videos",item_title)
-##        reg.m.click(item_title)
+        reg.m.click(item_title)
         # 2. Convert to audio formats
         aconvertList = ("MP3","Vorbis")
         for x in aconvertList:
@@ -60,7 +60,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             mirolib.tab_search(self,reg,"Converted to "+str(x),False)
             self.assertTrue(reg.m.exists("item_play_unplayed.png"))
             click(reg.m.getLastMatch())
-            mirolib.verify_audio_playback(self,reg)
+            mirolib.verify_audio_playback(self,reg,"Converted")
                             
         
         # 4. Convert items to video formats

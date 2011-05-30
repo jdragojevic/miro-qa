@@ -32,16 +32,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         feed = "EEVblog"
         feed2 = "TED"
-        reg.mtb.click(testvars.guide_search)
+        click(testvars.guide_search)
         type(feed2 +"\n")
         time.sleep(5)
-        reg.m.find("badge_add_feed.png")
+        reg.m.find("add_feed.png")
         click(reg.m.getLastMatch())
         mirolib.click_sidebar_tab(self,reg,"Miro")
-        reg.mtb.click(testvars.guide_search)
+        click(testvars.guide_search)
         type(feed + "\n")
         time.sleep(2)
-        reg.m.find("badge_add_feed.png")
+        reg.m.find("add_feed.png")
         click(reg.m.getLastMatch())
         time.sleep(4)
         mirolib.click_last_podcast(self,reg)
@@ -159,7 +159,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.download_all_items(self,reg)
         mirolib.confirm_download_started(self,reg,"Joo Joo")
         mirolib.delete_feed(self,reg,feed)
-        if reg.s.exists("Downloading",10):
+        time.sleep(5)
+        if reg.s.exists("Downloading",5):
             self.fail("Downloading tab still present")
        
 

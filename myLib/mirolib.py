@@ -25,6 +25,28 @@ def open_miro():
         print config.get_os_name()
 
 class AppRegions():
+
+
+    def launch_miro():
+        """Open the Miro Application, the sets the region coords for searching.
+        
+        Uses the Miro Guides, Home icon, Bottom Corner, and VolumeBar to find coordinates.
+        Returns the:
+            
+        SidebarRegion (s) - miro sidebar 
+        MainViewRegion(m) - miro mainview
+        TopHalfRegion (t) - top 1/2 of whole screen
+        TopLeftRegion (tl) - top left of whole screen
+        MainTitleBarRegion (mtb) - miro mainview title bar region
+
+        Note - order mattters, this would be better as a dict.
+        """
+        if open_miro() == "linux":
+            config.start_miro_on_linux()
+        else:
+            App.open(open_miro())
+        wait("Sidebar",45)
+    
     def get_regions():
         regions = []
         if exists("Music",2):
@@ -76,28 +98,10 @@ class AppRegions():
 
 
 
-    def launch_miro():
-        """Open the Miro Application, the sets the region coords for searching.
-        
-        Uses the Miro Guides, Home icon, Bottom Corner, and VolumeBar to find coordinates.
-        Returns the:
-            
-        SidebarRegion (s) - miro sidebar 
-        MainViewRegion(m) - miro mainview
-        TopHalfRegion (t) - top 1/2 of whole screen
-        TopLeftRegion (tl) - top left of whole screen
-        MainTitleBarRegion (mtb) - miro mainview title bar region
-
-        Note - order mattters, this would be better as a dict.
-        """
-        if open_miro() == "linux":
-            config.start_miro_on_linux()
-        else:
-            App.open(open_miro())
-        wait("Sidebar",45)
 
     config.set_image_dirs()
     launch_miro()
+    App.focus("Miro")
     setAutoWaitTimeout(testvars.timeout) 
     miroRegions = get_regions()
     s = miroRegions[0] #Sidebar Region
@@ -614,25 +618,26 @@ def confirm_download_started(self,reg,title):
     """
     print "in function confirm dl started"
     time.sleep(2)
-    if reg.t.exists("been downloaded",3) or \
-       reg.m.exists("been downloaded",3) or \
-       reg.m.exists("message_already_downloaded.png",3):
+    mr = Region(reg.mtb.below())
+    print mr
+    if mr.exists("been downloaded",3) or \
+       mr.exists("message_already_downloaded.png",1):
         downloaded = "downloaded"
         print "item already downloaded"
         type(Key.ESC)            
-    elif reg.t.exists("downloading now",3) or \
-         reg.m.exists("downloading now",3) or \
-         reg.m.exists("message_already_external_dl.png",1):
+    elif mr.exists("downloading now",5) or \
+         mr.exists("message_already_external_dl.png",1):
         downloaded = "in_progress"
         print "item already downloaded"
         type(Key.ESC)
-    elif reg.m.exists("Error",1) or reg.t.exists("Error",1):
+    elif mr.exists("Error",3) or \
+         mr.exists(Pattern("badge_dl_error.png"),1):
         downloaded = "failed"
         type(Key.ESC)
     else:
         click_sidebar_tab(self,reg,"Downloading")
         reg.mtb.click("download-pause.png")
-        if tab_search(self,reg,title,confirm_present=True) == True:
+        if tab_search(self,reg,title,confirm_present=True) == True and mr.exists(Pattern("badge_dl_error.png"),3) == False:
         	downloaded = "in_progress"
         else:
         	downloaded = "item not located"
@@ -791,7 +796,6 @@ def verify_normalview_metadata(self,reg,metadata):
         self.assertTrue(i.exists(v,3))   
 
 def verify_audio_playback(self,reg,title):
-    reg.m.doubleClick(title)
     self.assertTrue(reg.m.exists("item_currently_playing.png"))
     reg.m.click(title)
     shortcut("d")
