@@ -85,10 +85,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             time.sleep(2)
             self.assertFalse(p.exists("My Folder",3))
         try: 
-##            _delete_feed(self)
-##            _delete_site(self)
-##            _delete_item(self)
-##            _delete_playlist(self)
+            _delete_feed(self)
+            _delete_site(self)
+            _delete_item(self)
+            _delete_playlist(self)
             _delete_playlist_folder(self)
         except FindFailed, debugging:
             self.verificationErrors.append(debugging)

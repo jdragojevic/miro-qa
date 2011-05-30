@@ -28,33 +28,32 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         reg = mirolib.AppRegions()
         feed = "Ryan"
-        pass
-##        try:
-##            url = "http://ryanishungry.com/subscribe/"
-##            switchApp(mirolib.open_ff())
-##            if reg.t.exists("Firefox",45):
-##                click(reg.t.getLastMatch())
-##            mirolib.shortcut("l")
-##            time.sleep(2)
-##            type(url + "\n")
-##            time.sleep(10)
-##            find(testvars.one_click_badge)
-##            click(testvars.one_click_badge)
-##            time.sleep(5)
-##            mirolib.shortcut('w')
-##            mirolib.close_ff()
-##                        
-##            #Start Miro    
-##            mirolib.close_one_click_confirm(self)
-##            mirolib.shortcut("r",shift=True)
-##            mirolib.click_podcast(self,reg,feed)
-##        finally:
-##            mirolib.delete_feed(self,reg,feed)
+        try:
+            url = "http://ryanishungry.com/subscribe/"
+            switchApp(mirolib.open_ff())
+            if reg.t.exists("Firefox",45):
+                click(reg.t.getLastMatch())
+            mirolib.shortcut("l")
+            time.sleep(2)
+            type(url + "\n")
+            time.sleep(10)
+            find(testvars.one_click_badge)
+            click(testvars.one_click_badge)
+            time.sleep(5)
+            mirolib.shortcut('w')
+            mirolib.close_ff()
+                        
+            #Start Miro    
+            mirolib.close_one_click_confirm(self)
+            mirolib.shortcut("r",shift=True)
+            mirolib.click_podcast(self,reg,feed)
+        finally:
+            mirolib.delete_feed(self,reg,feed)
             
             
 
 
-    def stest_29(self):
+    def test_29(self):
         """http://litmus.pculture.org/show_test.cgi?id=29 add site from miro site.
 
         1. Open Awesome website
