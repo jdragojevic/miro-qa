@@ -166,8 +166,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         try:
             reg = mirolib.AppRegions()
-            prefs.set_autodownload(self,reg,setting="Off")
             feed = "The AV"
+            prefs.set_autodownload(self,reg,setting="Off")     
             url = "http://feeds.feedburner.com/theavclub/mainline"
             mirolib.browser_to_miro(self,reg,url)
             #3. verify feed added

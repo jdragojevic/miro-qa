@@ -29,7 +29,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(60)
         reg = mirolib.AppRegions()
 
-        SEARCHES = {"blip": 'lizards', "YouTube": 'cosmicomics'}
+        SEARCHES = {"blip": 'octopus', "YouTube": 'cosmicomics'}
         for engine, term in SEARCHES.iteritems():
             mirolib.click_sidebar_tab(self,reg,"Search")
             mirolib.search_tab_search(self,reg,term,engine)
@@ -50,7 +50,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(60)
         reg = mirolib.AppRegions()
 
-        searches = {"blip": "lizards", "YouTube": "cosmicomics"}
+        searches = {"blip": "python", "YouTube": "cosmicomics"}
         for engine, term in searches.iteritems():
         	mirolib.click_sidebar_tab(self,reg,"search")
                 mirolib.search_tab_search(self,reg,term,engine)

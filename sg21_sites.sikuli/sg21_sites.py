@@ -28,17 +28,20 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site = "YouTube"
         
         reg = mirolib.AppRegions()
-
-        mirolib.add_source(self,reg,site_url,site)
-        mirolib.click_source(self,reg,site)
-        dl_this = testvars.youtube_download_this(self)
-        if exists(dl_this):
-            click(getLastMatch())
-            time.sleep(3)
+        try:
+            mirolib.add_source(self,reg,site_url,site)
+            mirolib.click_source(self,reg,site)
+            
+            if reg.mtb.exists(Pattern("download_this_video.png")) or \
+                      reg.mtb.exists("Download this"):
+                click(reg.mtb.getLastMatch())
+                time.sleep(3)
             mirolib.confirm_download_started(self,reg,"Deep")
-            reg.mtb.click("download-cancel.png") 
-        else: self.fail("youtube video source failed to load in 60 seconds")
-        mirolib.delete_site(self,reg,site)
+            reg.mtb.click("download-cancel.png")
+        finally:
+            mirolib.delete_site(self,reg,site)
+
+
 
     def test_194(self):
         """http://litmus.pculture.org/show_test.cgi?id=194 rename source.
@@ -121,17 +124,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.assertTrue(reg.mtb.exists("navforward_disabled.png"))
         self.assertTrue(reg.mtb.exists("navhome.png"))
         self.assertTrue(reg.mtb.exists("navreload.png"))
-        
-
-
-
         mirolib.delete_site(self,reg,site)
         
 
     def test_191(self):
         """http://litmus.pculture.org/show_test.cgi?id=191 Add rss feed to sidebar.
 
-        1. Addbits.net as a source
+        1. Add ClearBits.net as a source
         2. Open Netlabel Music page and add RSS feed
         3. Verify feed added to the sidebar
         4. Cleanup
@@ -146,8 +145,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.m.click(testvars.clearbits_rss)
         mirolib.click_podcast(self,reg,site)
         time.sleep(3)
+        mirolib.delete_feed(self,reg,feed)
         mirolib.delete_site(self,reg,site)
-        mirolib.delete_feed(self,reg,site)
+        
         
 
 
@@ -241,9 +241,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(60)                
         reg = mirolib.AppRegions()
 
-        mirolib.add_source(self,reg,site_url,site)
+        mirolib.add_source_from_tab(self,reg,site_url)
+        mirolib.click_last_source(self,reg)
         type(Key.DELETE)
         type(Key.ENTER)
+        mirolib.handle_crash_dialog(self,db=False,test=False)
 
     def test_195(self):
         """http://litmus.pculture.org/show_test.cgi?id=196 delete site.
@@ -272,12 +274,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site = "diziizle"
         setAutoWaitTimeout(60)                
         reg = mirolib.AppRegions()
-        mirolib.add_source(self,reg,site_url,site)
-        mirolib.click_source(self,reg,site)
+        mirolib.add_source_from_tab(self,reg,site_url)
+        mirolib.click_last_source(self,reg)
         reg.m.find(testvars.dizizle_logo)
         mirolib.quit_miro(self,reg)
         mirolib.restart_miro(self,reg)
-        mirolib.click_source(self,reg,site)
+        mirolib.click_last_source(self,reg)
         self.assertTrue(reg.m.exists(testvars.dizizle_logo))    
         mirolib.delete_site(self,reg,site)
 
@@ -304,8 +306,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         keyDown(Key.SHIFT)
         p.click(site2)
         keyUp(Key.SHIFT)
-        self.assertTrue(reg.m.exists("button_mv_delete_all.png"))
-        click(reg.m.getLastMatch())
+        if reg.m.exists("Delete All",3) or \
+           reg.m.exists(Pattern("button_mv_delete_all.png"),3):
+            click(reg.m.getLastMatch())
+        else:
+            self.fail("Delete All button for multi-select not found")
         mirolib.remove_confirm(self,reg,"cancel")
         time.sleep(3)
         p = mirolib.get_sources_region(reg)

@@ -28,7 +28,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
-        feed = "Static List"
+        feed = "Static"
         term = "Gimp"
         title = "GimpKnowHow"
         
@@ -121,7 +121,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
-        feed = "Static List"
+        feed = "Static"
         term = "touring"
         term2 = "Biking"
         title = "Travelling Two"
@@ -156,7 +156,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
-        feed = "Static List"
+        feed = "Static"
         term = "Voice"
         dummy_feed_url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         

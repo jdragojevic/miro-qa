@@ -27,33 +27,34 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         
         reg = mirolib.AppRegions()
-        mirolib.open_ff()
         feed = "Ryan"
-        try:
-            time.sleep(10)
-            feed_url = "http://ryanishungry.com/subscribe/"
-            mirolib.shortcut("l")
-            time.sleep(2)
-            type(feed_url + "\n")
-            time.sleep(10)
-            find(testvars.one_click_badge)
-            click(testvars.one_click_badge)
-            time.sleep(5)
-            mirolib.shortcut('w')
-            mirolib.close_ff()
-                        
-            #Start Miro 
-            
-            mirolib.close_one_click_confirm(self)
-            mirolib.shortcut("r",shift=True)
-            mirolib.click_podcast(self,reg,feed)
-        finally:
-            mirolib.delete_feed(self,reg,feed)
+        pass
+##        try:
+##            url = "http://ryanishungry.com/subscribe/"
+##            switchApp(mirolib.open_ff())
+##            if reg.t.exists("Firefox",45):
+##                click(reg.t.getLastMatch())
+##            mirolib.shortcut("l")
+##            time.sleep(2)
+##            type(url + "\n")
+##            time.sleep(10)
+##            find(testvars.one_click_badge)
+##            click(testvars.one_click_badge)
+##            time.sleep(5)
+##            mirolib.shortcut('w')
+##            mirolib.close_ff()
+##                        
+##            #Start Miro    
+##            mirolib.close_one_click_confirm(self)
+##            mirolib.shortcut("r",shift=True)
+##            mirolib.click_podcast(self,reg,feed)
+##        finally:
+##            mirolib.delete_feed(self,reg,feed)
             
             
 
 
-    def test_29(self):
+    def stest_29(self):
         """http://litmus.pculture.org/show_test.cgi?id=29 add site from miro site.
 
         1. Open Awesome website
@@ -67,11 +68,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site_url = "http://pculture.org/feeds_test/subscription-test-guide.html"
         site = "Awesome"
         site2 = "Revver"
-        mirolib.add_source(self,reg,site_url,site)
+        mirolib.add_source_from_tab(self,reg,site_url)
+        mirolib.click_last_source(self,reg)
         reg.t.find("Subscribe")
         reg.t.click("Subscribe")
         time.sleep(4)
-        mirolib.click_source(self,reg,site2)
+        mirolib.click_last_source(self,reg)
         time.sleep(5)
         self.assertTrue(reg.t.exists(testvars.revver_logo))
                         

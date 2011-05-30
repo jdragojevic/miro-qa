@@ -58,7 +58,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         
         url = "http://www.clearbits.net/get/993-wurlitztraction---lucidity-cue.torrent"
-        item_title = "Lucidity"
+        item_title = "Enough"
         mirolib.browser_to_miro(self,reg,url)
         print ("confirm download started")
         status = mirolib.confirm_download_started(self,reg,item_title)
