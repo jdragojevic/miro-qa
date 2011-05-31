@@ -35,9 +35,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         feed = "StupidVideos"
  
         try:
+            mirolib.click_sidebar_tab(self,reg,"Miro")
             reg.mtb.click(testvars.guide_search)
-            type("StupidVideos \n")
-            reg.m.find("badge_add_feed.png")
+            type("StupidVideos\n")
+            reg.m.find("add_feed.png")
             click(reg.m.getLastMatch())
             time.sleep(5)
             mirolib.click_podcast(self,reg,feed)

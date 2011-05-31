@@ -49,13 +49,20 @@ class AppRegions():
     
     def get_regions():
         regions = []
-        if exists("Music",2):
-            click(getLastMatch())
-        elif exists("Videos",5):
-            click(getLastMatch())
-        libr = Region(getLastMatch().above(500))
-        libr.click("Miro")
-        find(Pattern("miroguide_home.png").similar(.95))
+        myscreen = Screen()
+        pr = Region(myscreen.getBounds())
+        hw = pr.getW()/3
+        hh = pr.getH()/3
+        pr.setW(hw)
+        pr.setH(hh)
+        pr.setY(10)
+        pr.highlight(5)
+        if pr.exists("Music",2):
+            click(pr.getLastMatch())
+        elif pr.exists("Video Search",5):
+            click(pr.getLastMatch())
+        pr.click("Miro")
+        pr.find(Pattern("miroguide_home.png").similar(.95))
         click(getLastMatch())
         sidex = getLastMatch().getX()-15            
 
@@ -103,7 +110,6 @@ class AppRegions():
 
     config.set_image_dirs()
     launch_miro()
-    App.focus("Miro")
     setAutoWaitTimeout(testvars.timeout) 
     miroRegions = get_regions()
     s = miroRegions[0] #Sidebar Region
