@@ -40,7 +40,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.tl.click("File")
         reg.tl.click("Download from")
         time.sleep(4)
-        type(vid_url+"\n")
+        type(vid_url)
+        time.sleep(2)
+        type("\n")
         
         mirolib.confirm_download_started(self,reg,item_title)
         mirolib.wait_for_item_in_tab(self,reg,"videos",item_title)
@@ -67,13 +69,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         vconvertList = ("Droid","Galaxy","G2","iPad","iPhone","MP4", "Theora","Playstation")
         
         for x in vconvertList:
-            reg.tl.click("Convert")
-            reg.tl.click(x)
-            time.sleep(4)
-        mirolib.click_sidebar_tab(self,reg,"conversions")
+            mirolib.convert_file(self,reg,x)
+            time.sleep(2)
+        mirolib.click_sidebar_tab(self,reg,"Converting")
         mirolib.wait_conversions_complete(self,reg,title,str(x))
         # 5. Verify playback
-        mirolib.click_sidebar_tab(self,reg,"video")
+        mirolib.click_sidebar_tab(self,reg,"Videos")
         aplaybackList = ("Droid", "Galaxy", "G2", "iPad", "iPhone", "MP4", "Ogg Theora", "Playstation")
         for x in aplaybackList:
             mirolib.tab_search(self,reg,"Converted to "+str(x))

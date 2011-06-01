@@ -32,6 +32,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         feed = "EEVblog"
         feed2 = "TED"
+        mirolib.click_sidebar_tab(self,reg,"Miro")
         click(testvars.guide_search)
         type(feed2 +"\n")
         time.sleep(5)
