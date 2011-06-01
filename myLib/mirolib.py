@@ -56,20 +56,21 @@ class AppRegions():
         pr.setW(hw)
         pr.setH(hh)
         pr.setY(10)
-        pr.highlight(5)
         if pr.exists("Music",2):
             click(pr.getLastMatch())
         elif pr.exists("Video Search",5):
             click(pr.getLastMatch())
-        pr.click("Miro")
+        libr = Region(pr.getLastMatch().above().left(120).right(200))
+        libr.click("Miro")
+        mg = Region(libr.getLastMatch())
         pr.find(Pattern("miroguide_home.png").similar(.95))
-        click(getLastMatch())
-        sidex = getLastMatch().getX()-15            
+        click(pr.getLastMatch())
+        click(mg)
+        sidex = pr.getLastMatch().getX()-15            
 
-        find("Music")
-        click(getLastMatch())
-        topx =  int(getLastMatch().getX())-55
-        topy = int(getLastMatch().getY())-90
+        pr.find("Music")
+        topx =  int(pr.getLastMatch().getX())-55
+        topy = int(pr.getLastMatch().getY())-90
         
         find("BottomCorner.png")
         vbarx =  int(getLastMatch().getX())+30
@@ -104,11 +105,18 @@ class AppRegions():
         regions.append(MainTitleBarRegion)
         return regions
 
-
-
+    def _set_fonts():
+        if config.get_os_name == "win"():
+            searchExp = "Tahoma 11"
+            replaceExp = "Segoe UI 13"
+            for line in fileinput.input(file="C:\\Program Files\\Participatory Culture Foundation\\Miro\\etc\gtkrc", inplace=1):
+                if searchExp in line:
+                    line = line.replace(searchExp,replaceExp)
+                    sys.stdout.write(line)
 
 
     config.set_image_dirs()
+    _set_fonts()
     launch_miro()
     setAutoWaitTimeout(testvars.timeout) 
     miroRegions = get_regions()
@@ -399,9 +407,7 @@ def add_watched_folder(self,reg,folder_path,show=True):
     reg.t.click("Watch")
     time.sleep(4)
     if show == True:
-        type(folder_path)
-        time.sleep(2)
-        type(Key.ENTER)
+        type(folder_path+"\n")
         time.sleep(10) #give it 10 seconds to add the feed
         click_last_podcast(self,reg)
     else:
@@ -920,7 +926,7 @@ def handle_crash_dialog(self,db=True,test=False):
     crashes = False
     while exists(Pattern("internal_error.png"),5):
         crashes = True
-        tmpr = Region(getLastMatch().nearby(500))
+        tmpr = Region(getLastMatch().nearby(800))
         if db == True:
             click("Include")
         try:
