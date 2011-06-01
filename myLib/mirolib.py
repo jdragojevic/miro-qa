@@ -105,18 +105,7 @@ class AppRegions():
         regions.append(MainTitleBarRegion)
         return regions
 
-    def _set_fonts():
-        if config.get_os_name == "win"():
-            searchExp = "Tahoma 11"
-            replaceExp = "Segoe UI 13"
-            for line in fileinput.input(file="C:\\Program Files\\Participatory Culture Foundation\\Miro\\etc\gtkrc", inplace=1):
-                if searchExp in line:
-                    line = line.replace(searchExp,replaceExp)
-                    sys.stdout.write(line)
-
-
     config.set_image_dirs()
-    _set_fonts()
     launch_miro()
     setAutoWaitTimeout(testvars.timeout) 
     miroRegions = get_regions()
