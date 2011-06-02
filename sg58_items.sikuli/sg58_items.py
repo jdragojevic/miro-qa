@@ -33,10 +33,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         reg = mirolib.AppRegions()
-        
+        time.sleep(5)
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
-        title = "Joo Joo"
+        title = "The Joo"
         new_type = "Music"
         #Set Global Preferences
         
@@ -58,6 +58,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.edit_item_type(self,reg,new_type)
         #locate item in audio tab and verify playback
         mirolib.wait_for_item_in_tab(self,reg,tab="Music",item=title)
+        doubleClick(reg.m.getLastMatch())
         mirolib.verify_audio_playback(self,reg,title)
         #cleanup
         mirolib.delete_feed(self,reg,feed)

@@ -33,25 +33,28 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         feed = "EEVblog"
         feed2 = "TED"
         mirolib.click_sidebar_tab(self,reg,"Miro")
-        click(testvars.guide_search)
+        gr = Region(reg.mtb)
+        gr.setH(300)
+        gr.click(Pattern("guide_search.png"))
         type(feed2 +"\n")
         time.sleep(5)
         reg.m.find("add_feed.png")
         click(reg.m.getLastMatch())
         mirolib.click_sidebar_tab(self,reg,"Miro")
-        click(testvars.guide_search)
+        gr.click(Pattern("guide_search.png"))
         type(feed + "\n")
-        time.sleep(2)
+        time.sleep(10)
         reg.m.find("add_feed.png")
         click(reg.m.getLastMatch())
-        time.sleep(4)
+        time.sleep(20)
         mirolib.click_last_podcast(self,reg)
-        time.sleep(10)
+        time.sleep(5)
     #2. Copy the url and attempt to add it
         reg.t.click("Sidebar")
         reg.t.click("Copy")
-        url = Env.getClipboard()
-        mirolib.add_feed(self,reg,url,feed)
+        mirolib.shortcut("n")        
+        time.sleep(2)
+        type(Key.ENTER)
 
         #3. Verify feed not duplicated
         p = mirolib.get_podcasts_region(reg)
@@ -81,8 +84,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         feed = "my feed"
         mirolib.add_feed(self,reg,url,feed)
         mirolib.get_podcasts_region(reg)
-        mirolib.toggle_list(reg)
+
+        
         mirolib.tab_search(self,reg,"my feed")
+        mirolib.toggle_list(reg)
         
         mirolib.count_images(self,reg,img="my feed",region="list",num_expected=5)
         mirolib.click_podcast(self,reg,feed)
@@ -158,7 +163,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.cancel_all_downloads(self,reg)
         mirolib.add_feed(self,reg,url,feed)
         mirolib.download_all_items(self,reg)
-        mirolib.confirm_download_started(self,reg,"Joo Joo")
+        mirolib.confirm_download_started(self,reg,"The Joo")
         mirolib.delete_feed(self,reg,feed)
         time.sleep(5)
         if reg.s.exists("Downloading",5):
@@ -179,7 +184,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
         reg = mirolib.AppRegions()
-        mirolib.click_sidebar_tab(self,reg,"Music")
         prefs.set_autodownload(self,reg,setting="Off")
 
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
