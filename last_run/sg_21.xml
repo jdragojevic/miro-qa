@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<litmusresults action="submit" useragent="UberSikuliAgent/1.0 (machine foobar)" machinename="sikuli_machine">
+   <testresults
+   username="jed@pculture.org"
+   authtoken="sik-machine"
+   product="Miro"
+   platform="Windows"
+   opsys="1.6.0_22"  
+   branch="git-Master"
+   buildid="2011052499"
+   locale="en-US"
+   >
+   
+    <result testid="143"
+    is_automated_result="0"
+    resultstatus="pass"
+    exitstatus="0"
+    timestamp="20110530164220"
+    >
+    
+        <comment><![CDATA[ 
+----------------------------------------------------------------------
+Ran 1 test in 60.671s
+
+OK
+]]>
+        </comment>
+    </result>
+
+    <result testid="182"
+    is_automated_result="0"
+    resultstatus="pass"
+    exitstatus="0"
+    timestamp="20110530164441"
+    >
+    
+        <comment>
+        </comment>
+    </result>
+
+    <result testid="191"
+    is_automated_result="0"
+    resultstatus="pass"
+    exitstatus="0"
+    timestamp="20110530164526"
+    >
+    
+        <comment><![CDATA[ 
+----------------------------------------------------------------------
+Ran 1 test in 45.234s
+
+OK
+]]>
+        </comment>
+    </result>
+
+    <result testid="193"
+    is_automated_result="0"
+    resultstatus="pass"
+    exitstatus="0"
+    timestamp="20110530164722"
+    >
+    
+        <comment><![CDATA[ 
+----------------------------------------------------------------------
+Ran 1 test in 116.062s
+
+OK
+]]>
+        </comment>
+    </result>
+
+    <result testid="194"
+    is_automated_result="0"
+    resultstatus="pass"
+    exitstatus="0"
+    timestamp="20110530164835"
+    >
+    
+        <comment><![CDATA[ 
+----------------------------------------------------------------------
+Ran 1 test in 72.625s
+
+OK
+]]>
+        </comment>
+    </result>
+
+    <result testid="195"
+    is_automated_result="0"
+    resultstatus="pass"
+    exitstatus="0"
+    timestamp="20110530164901"
+    >
+    
+        <comment><![CDATA[ 
+----------------------------------------------------------------------
+Ran 1 test in 25.829s
+
+OK
+]]>
+        </comment>
+    </result>

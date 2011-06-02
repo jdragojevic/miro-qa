@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<litmusresults action="submit" useragent="UberSikuliAgent/1.0 (machine foobar)" machinename="sikuli_machine">
+   <testresults
+   username="jed@pculture.org"
+   authtoken="sik-machine"
+   product="Miro"
+   platform="Windows"
+   opsys="1.6.0_22"  
+   branch="git-Master"
+   buildid="2011052499"
+   locale="en-US"
+   >
+   
+    <result testid="7"
+    is_automated_result="0"
+    resultstatus="pass"
+    exitstatus="0"
+    timestamp="20110530201957"
+    >
+    
+        <comment><![CDATA[ 
+----------------------------------------------------------------------
+Ran 1 test in 119.140s
+
+OK
+]]>
+        </comment>
+    </result>
+
+    </testresults>
+</litmusresults>
