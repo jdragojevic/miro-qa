@@ -56,11 +56,12 @@ class AppRegions():
         pr.setW(hw)
         pr.setH(hh)
         pr.setY(10)
-        if pr.exists("Music",2):
+        if pr.exists("Music") or \
+           pr.exists(Pattern("icon-audio_active.png")):
             click(pr.getLastMatch())
-        elif pr.exists("Video Search",5):
+        elif pr.exists("Videos",3):
             click(pr.getLastMatch())
-        libr = Region(pr.getLastMatch().above().left(120).right(200))
+        libr = Region(pr.getLastMatch().above(80).left(120).right(200))
         libr.click("Miro")
         mg = Region(libr.getLastMatch())
         pr.find(Pattern("miroguide_home.png").similar(.95))
@@ -70,7 +71,8 @@ class AppRegions():
 
         pr.find("Music")
         topx =  int(pr.getLastMatch().getX())-55
-        topy = int(pr.getLastMatch().getY())-90
+        topy = int(pr.getLastMatch().getY())-80
+         
         
         find("BottomCorner.png")
         vbarx =  int(getLastMatch().getX())+30
@@ -105,14 +107,15 @@ class AppRegions():
         regions.append(MainTitleBarRegion)
         return regions
 
+    
     config.set_image_dirs()
     launch_miro()
     setAutoWaitTimeout(testvars.timeout) 
     miroRegions = get_regions()
     s = miroRegions[0] #Sidebar Region
-#    s.highlight(5)
+    s.highlight(1)
     m = miroRegions[1] #Mainview Region
-#    m.highlight(5)
+    m.highlight(1)
     t= miroRegions[2] #top half screen
 #    t.highlight(5)
     tl = miroRegions[3] #top left quarter
@@ -325,13 +328,14 @@ def get_sources_region(reg):
 def get_podcasts_region(reg):
     if not reg.s.exists("Podcasts",1):
         reg.s.click("Music")
-        type(Key.ESC)
     reg.s.click("Podcasts")
     time.sleep(2)
     topx =  (reg.s.getLastMatch().getX())-10
     topy =  reg.s.getLastMatch().getY()
-    reg.s.find("Playlists")
-    boty =  reg.s.getLastMatch().getY()
+    tmpr = Region(reg.s)
+    tmpr.setY(tmpr.y+200)
+    tmpr.find("Playlists")
+    boty =  tmpr.getLastMatch().getY()
     height = (boty-topy)+50
     width = reg.s.getW()
     PodcastsRegion = Region(topx,topy, width, height)
@@ -424,8 +428,8 @@ def click_last_podcast(self,reg):
     """
     p = get_podcasts_region(reg)
     time.sleep(5)
-    p.find("Playlists")
-    click(p.getLastMatch().above(35))
+    reg.s.find("Playlists")
+    click(reg.s.getLastMatch().above(35))
 
 def click_misc(reg):
     if not reg.s.exists("Music",1):
@@ -533,15 +537,13 @@ def click_sidebar_tab(self,reg,tab):
     print "going to tab: "+str(tab)
     if "video" in tab.lower():
         reg.s.find("Music")
-        click(reg.s.getLastMatch())
         tr = Region(reg.s.getLastMatch().left(30).right(100).above(100))
         tr.click("Videos")
     elif "misc" in tab.lower():
         click_misc(reg)
     elif "miro" in tab.lower():
         reg.s.find("Music")
-        click(reg.s.getLastMatch())
-        tr = Region(reg.s.getLastMatch().above(200))
+        tr = Region(reg.s.getLastMatch().above(100))
         tr.click("Miro")
     else:
         reg.s.click(tab.capitalize())
@@ -564,14 +566,12 @@ def tab_search(self,reg,title,confirm_present=False):
         print "can not find the search box"
     time.sleep(2)
     type(title.upper())
-    
     if confirm_present == True:
         toggle_normal(reg)
-        
         if reg.m.exists(title,5):
             present=True
         else:
-            self.fail("Item not found in downloading tab")
+            self.fail("Item not found in downloading tab",title)
         return present
 
     
@@ -617,7 +617,6 @@ def search_tab_search(self,reg,term,engine=None):
         self.assertTrue(reg.mtb.exists(Pattern("button_save_as_podcast.png")),10)
     else:
         type("\n")
-    toggle_normal(reg)
  
 
 def download_all_items(self,reg):
@@ -711,9 +710,9 @@ def cancel_all_downloads(self,reg):
 def wait_for_item_in_tab(self,reg,tab,item):
     click_sidebar_tab(self,reg,tab)
     tab_search(self,reg,item)
-    for x in range(0,75):
+    for x in range(0,30):
         while not reg.m.exists(item):
-            time.sleep(3)
+            time.sleep(5)
     
 def wait_conversions_complete(self,reg,title,conv):
     """Waits for a conversion to complete.
@@ -724,25 +723,27 @@ def wait_conversions_complete(self,reg,title,conv):
     """
     while reg.m.exists(title):
         if reg.m.exists("Open log",5):
-##            try:
-##                click(reg.m.getLastMatch())
-##                #save the error log to a file
-##                if config.get_os_name() == "osx":
-##                    time.sleep(10)
-##                    shortcut("s",shift=True)
-##                    wait("sys_save_as.png")
-##                    type(os.getcwd+"\n")
-##                    type(self.id()+"conv_"+conv+".log"+ "\n")
-##                else:
-##                    click("File")
-##                    click("Save as")
-##                    type(self.id()+"conv_"+conv+".log"+ "\n")
-##                    click("Save")
-##            finally:
+            try:
+                click(reg.m.getLastMatch())
+                #save the error log to a file
+                if config.get_os_name() == "osx":
+                    time.sleep(10)
+                    shortcut("s",shift=True)
+                    wait("sys_save_as.png")
+                    type(os.getcwd+"\n")
+                    type(self.id()+"conv_"+conv+".log"+ "\n")
+                else:
+                    click("File")
+                    click("Save as")
+                    type(self.id()+"conv_"+conv+".log"+ "\n")
+                    click("Save")
+            finally:
+                self.verificationErrors.append("error in conversion see log. "+str(title)+": "+str(conv))
             sstatus = "fail"
         else:
             sstatus = "pass"
             
+        #fix - it's possible that I am clicking the wrong button
         if reg.mtb.exists("button_clear_finished.png",2) or \
            reg.mtb.exists("Clear Finished",5):
             click(reg.mtb.getLastMatch())
@@ -780,6 +781,7 @@ def new_search_feed(self,reg,term,radio,source,defaults=False,watched=False):
     elif watched == True:
         if reg.m.exists(source):
             self.fail
+        handle_crash_dialog(self,db=True,test=False)   
         type(Key.ESC)   
     else:
         type(term)
@@ -792,22 +794,17 @@ def new_search_feed(self,reg,term,radio,source,defaults=False,watched=False):
 ##            f = Region(reg.m.getLastMatch().right(600).above().below())
         reg.mr.find("In this")
         f = Region(reg.mr.getLastMatch().right(600).above().below())
+        f.highlight(10)
+                
         f.click(radio)
         click(f.getLastMatch().right(150))
         time.sleep(2)
         if radio == "url":
             type(source)
-        else:
-            
-            newy = f.getY()-500
-            newh = f.getH()+500
-            f.setY(newy)
-            f.setH(newh)
-            f.highlight(5)
+        else:     
             if not f.exists(source,2):
                 type(Key.PAGE_DOWN)
             if not f.exists(source,2):
-                type(Key.PAGE_UP)
                 type(Key.PAGE_UP)
             f.click(source)
             
@@ -883,21 +880,15 @@ def count_images(self,reg,img,region="screen",num_expected=None):
 
 
 def convert_file(self,reg,out_format):
-    time.sleep(3)
     if config.get_os_name() == "osx":
         reg.t.click("Convert")
     else:
        type('c',KEY_ALT)
     find("Conversion Folder")
-    tmpr = Region(getLastMatch().above())
-    tmpr.setX(tmpr.getX()-50)
-    tmpr.setW(tmpr.getW()+150)
+    tmpr = Region(getLastMatch().left(300).right(200).above(900))
     if out_format == "MP3":
         tmpr.find("Theora")
         click(tmpr.getLastMatch().above(80))
-    elif out_format == "MP4":
-        tmpr.find("Theora")
-        click(tmpr.getLastMatch().above(40))
     else:
         tmpr.find(out_format)
         click(tmpr.getLastMatch())
@@ -921,6 +912,29 @@ def type_a_path(self,reg,file_path):
         type(file_path +"\n")
     
 
+def log_result(result_id,runner_id):
+    LOG_RESULT = """
+    <result testid="%(testid)s"
+    is_automated_result="0"
+    resultstatus="%(status)s"
+    exitstatus="0"
+    timestamp="%(timestamp)s"
+    >
+    
+        <comment><![CDATA[ %(msg)s]]>
+        </comment>
+    </result>
+"""
+    
+    log = "Log_current.xml"
+    logfile = os.path.join(os.getcwd(),log)
+    f = open(logfile, 'a')
+    f.write(LOG_RESULT % {"testid": result_id,
+                     "status": "pass",
+                     "timestamp": time.strftime("%Y%m%d%H%M%S", time.gmtime()),
+                     "msg": "executed as part of "+runner_id
+                         })
+    f.close
    
 def handle_crash_dialog(self,db=True,test=False):
     """Look for the crash dialog message and submit report.
