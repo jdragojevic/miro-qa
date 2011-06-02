@@ -533,6 +533,7 @@ def click_sidebar_tab(self,reg,tab):
     print "going to tab: "+str(tab)
     if "video" in tab.lower():
         reg.s.find("Music")
+        click(reg.s.getLastMatch())
         tr = Region(reg.s.getLastMatch().left(30).right(100).above(100))
         tr.click("Videos")
     elif "misc" in tab.lower():
@@ -710,10 +711,9 @@ def cancel_all_downloads(self,reg):
 def wait_for_item_in_tab(self,reg,tab,item):
     click_sidebar_tab(self,reg,tab)
     tab_search(self,reg,item)
-    reg.m.highlight(3)
-    for x in range(0,30):
+    for x in range(0,75):
         while not reg.m.exists(item):
-            time.sleep(5)
+            time.sleep(3)
     
 def wait_conversions_complete(self,reg,title,conv):
     """Waits for a conversion to complete.
@@ -724,27 +724,25 @@ def wait_conversions_complete(self,reg,title,conv):
     """
     while reg.m.exists(title):
         if reg.m.exists("Open log",5):
-            try:
-                click(reg.m.getLastMatch())
-                #save the error log to a file
-                if config.get_os_name() == "osx":
-                    time.sleep(10)
-                    shortcut("s",shift=True)
-                    wait("sys_save_as.png")
-                    type(os.getcwd+"\n")
-                    type(self.id()+"conv_"+conv+".log"+ "\n")
-                else:
-                    click("File")
-                    click("Save as")
-                    type(self.id()+"conv_"+conv+".log"+ "\n")
-                    click("Save")
-            finally:
-                self.verificationErrors.append("error in conversion see log. "+str(title)+": "+str(conv))
+##            try:
+##                click(reg.m.getLastMatch())
+##                #save the error log to a file
+##                if config.get_os_name() == "osx":
+##                    time.sleep(10)
+##                    shortcut("s",shift=True)
+##                    wait("sys_save_as.png")
+##                    type(os.getcwd+"\n")
+##                    type(self.id()+"conv_"+conv+".log"+ "\n")
+##                else:
+##                    click("File")
+##                    click("Save as")
+##                    type(self.id()+"conv_"+conv+".log"+ "\n")
+##                    click("Save")
+##            finally:
             sstatus = "fail"
         else:
             sstatus = "pass"
             
-        #fix - it's possible that I am clicking the wrong button
         if reg.mtb.exists("button_clear_finished.png",2) or \
            reg.mtb.exists("Clear Finished",5):
             click(reg.mtb.getLastMatch())
@@ -885,15 +883,21 @@ def count_images(self,reg,img,region="screen",num_expected=None):
 
 
 def convert_file(self,reg,out_format):
+    time.sleep(3)
     if config.get_os_name() == "osx":
         reg.t.click("Convert")
     else:
        type('c',KEY_ALT)
     find("Conversion Folder")
-    tmpr = Region(getLastMatch().left(300).right(200).above(900))
+    tmpr = Region(getLastMatch().above())
+    tmpr.setX(tmpr.getX()-50)
+    tmpr.setW(tmpr.getW()+150)
     if out_format == "MP3":
         tmpr.find("Theora")
         click(tmpr.getLastMatch().above(80))
+    elif out_format == "MP4":
+        tmpr.find("Theora")
+        click(tmpr.getLastMatch().above(40))
     else:
         tmpr.find(out_format)
         click(tmpr.getLastMatch())

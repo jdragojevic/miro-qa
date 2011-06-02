@@ -67,10 +67,10 @@ STORY = """
     </result>
 """
 
-FOOTER = """
-    </testresults>
+FOOTER = """</testresults>
 </litmusresults>
 """
+
 
 def set_test_id(test_id):
     tid = test_id.split()
@@ -88,11 +88,11 @@ def set_status(stat):
         status = "fail"
     return status
 
+
 def get_linux_os():
     UBUNTU_DICT = {"10.04":"Ubuntu (Lucid)",
                    "10.10":"Ubuntu (Maverick)",
                    "11.04":"Ubuntu (Natty)"}
-
     f = open("/etc/issue",'r')
     info = f.read()
     f.close()
@@ -104,9 +104,12 @@ def get_linux_os():
     return plat
 
 def set_litmus_os():
-    """Returns the os string for the SUT using the Sikuli way)
+    """Returns the os string for the SUT using the Sikuli way).
 
     """
+    WINDOWS_VERS = {"5":"XP",
+                    "6":"Vista",
+                    "7":"Windows 7"}
     test_os = get_os_name()
     if str(test_os) == "osx":
 ##        v, _, _ = platform.mac_ver()
@@ -114,9 +117,10 @@ def set_litmus_os():
         lit_os = ["OS X", "10.6"]
         return lit_os
     elif str(test_os) == "win":
-        v = platform.win32_ver()
- #       v = platform.release()
-        lit_os = ["Windows", "XP"]
+        ver = Env.getOSVersion()
+        wv = ver.split('.')[0]
+        v = WINDOWS_VERS[wv]
+        lit_os = ["Windows",v]
         return lit_os
     elif str(test_os) == "lin":
         plat = get_linux_os()
@@ -137,14 +141,19 @@ def write_log(log,testid,stat,error_info=""):
                      "error_msg": error_info.lstrip('.')
                          })
     f.close
+    time.sleep(3)
 
 def write_footer(log):
     f = open(log, 'a')
     f.write(FOOTER)
     f.close
-    time.sleep(4)
-
-
+    time.sleep(10)
+    
+    ts = time.strftime("%H%M%S", time.gmtime())
+    fl = os.path.join(os.getcwd(),"last_run",ts+"_log.xml")
+    time.sleep(2)
+    shutil.move(log,fl)
+    
 def send_result(log):
     f = open(log)
     log_data = f.read()
@@ -211,16 +220,7 @@ class LitmusRunner(unittest.TestCase):
             print byte_output
             write_log(logfile,id_string,stat,byte_output)
             buf.truncate(0)
-
+        time.sleep(3)
         write_footer(logfile)
-        
-        ts = time.strftime("%H%M%S", time.gmtime())
-        final_log_dir = os.path.join(os.getcwd(),"last_run")
-        fl = os.path.join(final_log_dir,ts+"_log.xml")
-        shutil.move(log,fl)
-
 #        send_result(logfile)
-
-
-
 

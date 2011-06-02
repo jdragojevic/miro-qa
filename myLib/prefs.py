@@ -10,7 +10,9 @@ def open_prefs(self,reg,lang='en',menu=None,option=None):
     """OS specific handling for Preferences menu, since it differs on osx and windows.
 
     """
-    mirolib.click_sidebar_tab(self,reg,"Videos")
+    if reg.s.exists("icon-search.png",3) or \
+       reg.s.exists("icon-video.png",3):
+        click(reg.s.getLastMatch())
     time.sleep(3)
     if lang == 'en':
         option = 'Preferences'
