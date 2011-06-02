@@ -539,7 +539,8 @@ def click_sidebar_tab(self,reg,tab):
         click_misc(reg)
     elif "miro" in tab.lower():
         reg.s.find("Music")
-        tr = Region(reg.s.getLastMatch().above(100))
+        click(reg.s.getLastMatch())
+        tr = Region(reg.s.getLastMatch().above(200))
         tr.click("Miro")
     else:
         reg.s.click(tab.capitalize())
@@ -562,12 +563,14 @@ def tab_search(self,reg,title,confirm_present=False):
         print "can not find the search box"
     time.sleep(2)
     type(title.upper())
+    
     if confirm_present == True:
         toggle_normal(reg)
+        
         if reg.m.exists(title,5):
             present=True
         else:
-            self.fail("Item not found in downloading tab",title)
+            self.fail("Item not found in downloading tab")
         return present
 
     
@@ -613,6 +616,7 @@ def search_tab_search(self,reg,term,engine=None):
         self.assertTrue(reg.mtb.exists(Pattern("button_save_as_podcast.png")),10)
     else:
         type("\n")
+    toggle_normal(reg)
  
 
 def download_all_items(self,reg):
@@ -706,6 +710,7 @@ def cancel_all_downloads(self,reg):
 def wait_for_item_in_tab(self,reg,tab,item):
     click_sidebar_tab(self,reg,tab)
     tab_search(self,reg,item)
+    reg.m.highlight(3)
     for x in range(0,30):
         while not reg.m.exists(item):
             time.sleep(5)
@@ -789,17 +794,22 @@ def new_search_feed(self,reg,term,radio,source,defaults=False,watched=False):
 ##            f = Region(reg.m.getLastMatch().right(600).above().below())
         reg.mr.find("In this")
         f = Region(reg.mr.getLastMatch().right(600).above().below())
-        f.highlight(10)
-                
         f.click(radio)
         click(f.getLastMatch().right(150))
         time.sleep(2)
         if radio == "url":
             type(source)
-        else:     
+        else:
+            
+            newy = f.getY()-500
+            newh = f.getH()+500
+            f.setY(newy)
+            f.setH(newh)
+            f.highlight(5)
             if not f.exists(source,2):
                 type(Key.PAGE_DOWN)
             if not f.exists(source,2):
+                type(Key.PAGE_UP)
                 type(Key.PAGE_UP)
             f.click(source)
             

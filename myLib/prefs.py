@@ -10,6 +10,8 @@ def open_prefs(self,reg,lang='en',menu=None,option=None):
     """OS specific handling for Preferences menu, since it differs on osx and windows.
 
     """
+    mirolib.click_sidebar_tab(self,reg,"Videos")
+    time.sleep(3)
     if lang == 'en':
         option = 'Preferences'
         sc = 'f'
@@ -69,7 +71,7 @@ def set_autodownload(self,reg,setting="Off"):
         if not p.exists(setting):
             type(Key.PAGE_UP)
         r2.click(setting)
-    save_prefs(self,reg,p,allset)
+    save_prefs(self,reg,p=p,allset=allset)
 
 
 def set_item_display(self,reg,option,setting):
@@ -78,46 +80,43 @@ def set_item_display(self,reg,option,setting):
     """
     p = open_prefs(self,reg)
     allset = False
-    p1 = Region(open_tab(self,p,tab="Podcasts").left(300).right(400).below(300))
-    p1.highlight(3)
-    print option,setting
+    p1 = Region(open_tab(self,p,tab="Podcasts").right(600).below(300))
+    p1.setX(p1.getX()-250)
+    
     if option == "audio":
-        if setting == "on":
-            if not p1.exists(Pattern("checked_Show_audio.png").exact()):
-                print "audio not checked"
-                p1.click("Show audio")
-            else:
-                allset = True
-
-        if setting == "off":
-            if p1.exists(Pattern("checked_Show_audio.png").exact()):
-                p1.click("Show audio")
-            else:
-                allset = True
+       allset = check_the_box(search_reg=p1,phrase="Show audio",setting=setting)
         
     if option == "video" :
-        if setting == "on":
-            if not p1.exists(Pattern("checked_Show_vidoes.png").exact()):
-                p1.click("Show videos")
-            else:
-                allset = True
+        allset = check_the_box(search_reg=p1,phrase="Show videos",setting=setting)  
+    save_prefs(self,reg,p,allset=allset)
 
-        if setting == "off":
-            if p1.exists(Pattern("checked_Show_videos.png").exact()):
-                p1.click("Show videos")
-            else:
-                allset = True     
-    save_prefs(self,reg,p,allset)
-   
+def check_the_box(search_reg,phrase,setting):
+    print phrase,setting
+    allset = False
+    search_reg.find(phrase)
+    r1 = Region(search_reg.getLastMatch().left(80)).nearby(10)
+    if setting == "off":
+        if r1.exists(Pattern("prefs_checkbox.png")):
+            click(search_reg.getLastMatch())
+        else:
+            allset=True
+    if setting == "on":
+        if not r1.exists(Pattern("prefs_checkbox.png")):
+            click(search_reg.getLastMatch())
+        else:
+            allset="True"
+        print allset
+        return allset
        
 def save_prefs(self,reg,p,allset):
-    if allset == True or config.get_os_name() == "osx":
+    if allset == True or \
+       config.get_os_name() == "osx":
         type(Key.ESC)
     else:
-        if p.exists("button_close.png") or \
-           p.exists("Close"):
+        if p.exists(Pattern("button_close.png"),5) or \
+           p.exists("Close",5):
             click(p.getLastMatch())
         if reg.t.exists("Miro",2):
             click(reg.t.getLastMatch())
-    time.sleep(5)
+    time.sleep(2)
     
