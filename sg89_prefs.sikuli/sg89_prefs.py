@@ -41,10 +41,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             if not exists("Croatian",3):
                 type(Key.PAGE_UP)
         click("Croatian")
+        time.sleep(2)
         type(Key.TAB)
         type(Key.TAB)
         type(Key.ENTER)
-        mirolib.shortcut("w")
+        #mirolib.shortcut("w")
+        type(Key.ESC)
         #3. Restart Miro
         mirolib.quit_miro(self,reg)
         mirolib.restart_miro(self,reg)
@@ -67,8 +69,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         type(Key.TAB)
         type(Key.TAB)
         type(Key.ENTER)
+        type(Key.ESC)
         time.sleep(2)
         #5. Restart Miro
+        if reg.s.exists("icon-search.png",3) or \
+           reg.s.exists("icon-video.png",3):
+            click(reg.s.getLastMatch())
+            time.sleep(3)
         mirolib.shortcut('q')
         time.sleep(2)
         mirolib.restart_miro(self,reg)
