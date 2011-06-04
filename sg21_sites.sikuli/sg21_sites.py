@@ -144,6 +144,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.m.click("Netlabel Music")
         reg.m.click(testvars.clearbits_rss)
         mirolib.click_podcast(self,reg,site)
+        mirolib.log_result("29","test_191 verify 1-click add site from source.")
         time.sleep(3)
         mirolib.delete_feed(self,reg,feed)
         mirolib.delete_site(self,reg,site)

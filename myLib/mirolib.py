@@ -836,7 +836,8 @@ def verify_audio_playback(self,reg,title):
     self.assertTrue(reg.m.exists("item_currently_playing.png"))
     reg.m.click(title)
     shortcut("d")
-    reg.m.waitVanish("item_currently_playing.png")
+    reg.m.waitVanish("item_currently_playing.png",20)
+    log_result("102","stop audio playback shortcut verified.")
 
 def count_images(self,reg,img,region="screen",num_expected=None):
     """Counts the number of images present on the screen.

@@ -25,6 +25,7 @@ def find_logs():
 
 def send_result(log):
     f = open(log)
+    print "sending log: ",log
     log_data = f.read()
     params = urllib.urlencode({'data':log_data,                               
                                 })

@@ -197,7 +197,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #1. add feed
         mirolib.add_watched_folder(self,reg,folder_path)
         if reg.s.exists("TestData"):
-            mirolib.log_result("test_678","test_721")
+            mirolib.log_result("678","test_721")
         #2. search
         mirolib.tab_search(self,reg,term)
         mirolib.new_search_feed(self,reg,term,radio="Podcast",source=feed,watched=True)

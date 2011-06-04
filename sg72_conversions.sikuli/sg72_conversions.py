@@ -46,6 +46,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         mirolib.confirm_download_started(self,reg,item_title)
         mirolib.wait_for_item_in_tab(self,reg,"videos",item_title)
+        if reg.m.exists(item_title,3):
+            mirolib.log_result("9","test_620 file external download verified.")
         reg.m.click(item_title)
         # 2. Convert to audio formats
         try:
@@ -91,6 +93,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                     doubleClick(reg.m.getLastMatch())
                     find(Pattern("playback_bar_video.png"))
                     mirolib.shortcut("d")
+                    waitVanish(Pattern("playback_bar_video.png"),20)
+                    mirolib.log_result("102","test_620 stop video playback verified.")
                     time.sleep(2)
                     type(Key.DELETE)
                     mirolib.remove_confirm(self,reg,"remove")     

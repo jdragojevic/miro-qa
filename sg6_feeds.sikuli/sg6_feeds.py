@@ -94,7 +94,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.shortcut("r")
         time.sleep(10)
         mirolib.get_podcasts_region(reg)
-        mirolib.count_images(self,reg,img="my feed",region="list",num_expected=10)
+        if mirolib.count_images(self,reg,img="my feed",region="list",num_expected=10) == 10:
+            mirolib.log_result("99","test_92") #verifies update podcast shortcut
         mirolib.click_podcast(self,reg,feed)
         for x in range(0,3):
             mirolib.shortcut("r")
