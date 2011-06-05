@@ -796,9 +796,9 @@ def new_search_feed(self,reg,term,radio,source,defaults=False,watched=False):
 ##            reg.m.find("In this")
 ##            f = Region(reg.m.getLastMatch().right(600).above().below())
         reg.mr.find("In this")
-        f = Region(reg.mr.getLastMatch().right(600).above().below())
-        f.highlight(10)
-                
+        f = Region(reg.mr.getLastMatch().right(600).below())
+        f.setY(f.getY()-120)
+        f.highlight(3)         
         f.click(radio)
         click(f.getLastMatch().right(150))
         time.sleep(2)
