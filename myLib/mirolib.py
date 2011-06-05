@@ -45,7 +45,8 @@ class AppRegions():
             config.start_miro_on_linux()
         else:
             App.open(open_miro())
-        if exists("icon-audio.png",120):
+        if exists("Music",120) or \
+           exists("icon-music.png",120) :
             print "miro launched"
             
     
