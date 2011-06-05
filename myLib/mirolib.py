@@ -959,8 +959,10 @@ def handle_crash_dialog(self,db=True,test=False):
     	
     if crashes == True and test == False:
         print "miro crashed"
+        type(Key.ESC) # close any leftover dialogs
         time.sleep(20) #give it some time to send the report before shutting down.
 #        quit_miro(self)
+
         self.fail("Got a crash report - check bogon")
         
 
