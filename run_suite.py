@@ -32,7 +32,7 @@ if os.getenv("SIKULI_HOME") == None:
 jar_path = os.path.join(os.getenv("SIKULI_HOME"),"sikuli-script.jar")
 
 
-for subgroup in glob.glob(os.path.join(os.getcwd(), 'sg*.sikuli')):
+for subgroup in glob.glob(os.path.join(os.getcwd(), '*.sikuli')):
     sik_run_cmd = ['java', '-jar', jar_path]
     print os.path.basename(subgroup)
     sik_run_cmd.append(os.path.basename(subgroup))
