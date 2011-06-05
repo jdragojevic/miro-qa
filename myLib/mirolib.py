@@ -45,7 +45,9 @@ class AppRegions():
             config.start_miro_on_linux()
         else:
             App.open(open_miro())
-        wait("Sidebar",45)
+        if exists("icon-audio.png",120):
+            print "miro launched"
+            
     
     def get_regions():
         regions = []
