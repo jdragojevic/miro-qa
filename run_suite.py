@@ -18,8 +18,8 @@ qt = options.quicktest
 ###Run all the subgroups:
 
 ##if sys.platform.startswith("darwin"):
-os.setenv("MACOSX_DEPLOYMENT_TARGET","10.5")
-if os.putenv("PCF_TEST_HOME") == None:
+os.putenv("MACOSX_DEPLOYMENT_TARGET","10.5")
+if os.getenv("PCF_TEST_HOME") == None:
     raw_input("Must set PCF_TEST_HOME env to current dir, press key to exit")
 ##else:
 ##    os.putenv("PCF_TEST_HOME",os.getcwd())
