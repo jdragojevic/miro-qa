@@ -173,8 +173,8 @@ def send_result(log):
 
 
 def set_build_id():
-    build_id = "2011052499" #set custom build id here.
-#    build_id = time.strftime("%Y%m%d99", time.gmtime())
+#    build_id = "2011052499" #set custom build id here.
+    build_id = time.strftime("%Y%m%d99", time.gmtime())
     return build_id
 
 def write_header(log):
