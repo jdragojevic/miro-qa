@@ -46,7 +46,7 @@ class AppRegions():
         else:
             App.open(open_miro())
         if exists("Music",120) or \
-           exists("icon-music.png",120) :
+           exists("icon-audio.png",120) :
             print "miro launched"
             
     
@@ -59,18 +59,24 @@ class AppRegions():
         pr.setW(hw)
         pr.setH(hh)
         pr.setY(10)
-        if pr.exists("Music") or \
-           pr.exists(Pattern("icon-audio_active.png")):
+        if pr.exists("Music",1) or \
+           pr.exists(Pattern("icon-audio_active.png"),1):
             click(pr.getLastMatch())
         elif pr.exists("Videos",3):
             click(pr.getLastMatch())
-        libr = Region(pr.getLastMatch().above(80).left(120).right(200))
-        libr.click("Miro")
+        libr = Region(pr.getLastMatch().above(100).left(120).right(200))
+        if libr.exists(Pattern("icon-guide.png"),2) or \
+           libr.exists("Miro"):
+            click(libr.getLastMatch())
+        else:
+            libr.click("Miro")
+        if not exists(Pattern("miroguide_home.png").similar(.95),10):
+            libr.click("Miro")
         mg = Region(libr.getLastMatch())
         pr.find(Pattern("miroguide_home.png").similar(.95))
         click(pr.getLastMatch())
         click(mg)
-        sidex = pr.getLastMatch().getX()-15            
+        sidex = pr.getLastMatch().getX()-25            
 
         pr.find("Music")
         topx =  int(pr.getLastMatch().getX())-55
@@ -513,6 +519,7 @@ def delete_items(self,reg,title,item_type):
     """Remove video audio music other items from the library.
 
     """
+    type(Key.ESC)
     click_sidebar_tab(self,reg,item_type)
     tab_search(self,reg,title)
     if reg.m.exists(title,10):
@@ -535,27 +542,41 @@ def click_sidebar_tab(self,reg,tab):
     the tab is selected by verifying the miro large icon in the main view
 
     """
-    if reg.s.exists("Sources",0):
-        reg.s.click("Sources")        
-    print "going to tab: "+str(tab)
-    if "video" in tab.lower():
-        reg.s.find("Music")
-        tr = Region(reg.s.getLastMatch().left(30).right(100).above(100))
-        tr.click("Videos")
-    elif "misc" in tab.lower():
-        click_misc(reg)
-    elif "miro" in tab.lower():
-        reg.s.find("Music")
-        tr = Region(reg.s.getLastMatch().above(100))
-        tr.click("Miro")
+    similar_tabs = ["Music","Misc","Miro","Videos"]
+                     #including Videos so it's not mixed with the video search
+    if reg.s.exists("Search",0):
+        print "found Search"
+        reg.s.click("Search")
+        active_tab = "search"
+    elif reg.s.exists("Connect"):     
+        print "found connect"
+        reg.s.click("Connect")
+        active_tab = "connect"
+    time.sleep(2)
+    tab = tab.capitalize()
+    if tab.capitalize() in similar_tabs:    
+        boty = reg.s.getLastMatch().getY()
+        myr = Region(reg.s)
+        myr.setH(boty - reg.s.getY()) #height is top of sidebar to y position of video search
+        if tab == "Misc":
+            myr.setY(myr.getY()+100)
+        elif tab == "Miro":
+            myr.find("Music")
+            myr.setH(reg.s.getH()-(reg.s.getH()-myr.getLastMatch().getY()))
+        myr.highlight(1)
+        print "going to tab: ",tab
+        myr.click(tab)
+                
+    elif "search" in tab.lower():
+        if active_tab == "search":
+            print "should be on search already"
     else:
-        reg.s.click(tab.capitalize())
+        reg.s.click(tab)
 
 def tab_search(self,reg,title,confirm_present=False):
     """enter text in the search box.
 
     """
-    
     print "searching within tab"
     time.sleep(3)
     if reg.mtb.exists("tabsearch_clear.png",5):
@@ -889,7 +910,9 @@ def convert_file(self,reg,out_format):
     else:
        type('c',KEY_ALT)
     find("Conversion Folder")
-    tmpr = Region(getLastMatch().left(300).right(200).above(900))
+    tmpr = Region(getLastMatch().above())
+    tmpr.setX(tmpr.getX()-50)
+    tmpr.setW(tmpr.getW()+100)
     if out_format == "MP3":
         tmpr.find("Theora")
         click(tmpr.getLastMatch().above(80))
