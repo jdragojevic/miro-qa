@@ -72,12 +72,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.t.find("Subscribe")
         reg.t.click("Subscribe")
         time.sleep(4)
-        mirolib.click_last_source(self,reg)
-        time.sleep(5)
-        self.assertTrue(reg.t.exists(testvars.revver_logo))
-                        
+	if reg.s.exists("revver"):
+            print "revver site added"
+        else:
+            self.fail("revver site not added to sidebar")                        
         mirolib.delete_site(self,reg,site)
-        mirolib.delete_site(self,reg,site2)
+        mirolib.delete_site(self,reg,"revver")
     
         
             

@@ -184,7 +184,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        reg = mirolib.AppRegions()
+        reg = mirolib.AppRegions()      
         prefs.set_autodownload(self,reg,setting="Off")
 
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"

@@ -79,9 +79,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         try:
             vconvertList = ("Droid","Galaxy","G2","iPad","iPhone","MP4", "Theora","Playstation")
             mirolib.click_sidebar_tab(self,reg,"Videos")
+            reg.m.click(item_title)
+            
             for x in vconvertList:
                 mirolib.convert_file(self,reg,x)
-                time.sleep(5)
+                time.sleep(15)
             mirolib.click_sidebar_tab(self,reg,"Converting")
             mirolib.wait_conversions_complete(self,reg,item_title,str(x))
             # 5. Verify playback
@@ -108,7 +110,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                 type(Key.DELETE)
                 mirolib.remove_confirm(self,reg,"remove")  
         # 6. Cleanup
-        mirolib.delete_items(self,reg,item_title,"video")
+        mirolib.delete_items(self,reg,item_title,"Videos")
         
             
 # Post the output directly to Litmus
