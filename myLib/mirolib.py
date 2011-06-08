@@ -244,7 +244,7 @@ def close_ff():
     time.sleep(2)
         
 def close_window():
-    if config.get_os_name() == "osx":
+    if config.get_os_name() == "win":
         shortcut('w')
     else:
         shortcut('q')

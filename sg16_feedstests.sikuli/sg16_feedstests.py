@@ -4,23 +4,21 @@ import glob
 import unittest
 import StringIO
 import time
-
 from sikuli.Sikuli import *
+
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
+sys.path.append(mycwd)
 sys.path.append(os.path.join(mycwd,'myLib'))
+import base_testcase
 import config
 import mirolib
 import prefs
 import testvars
-import base_testcase
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 16 - one-click subscribe tests.
 
     """
-
-    
-
     def test_74(self):
         """http://litmus.pculture.org/show_test.cgi?id=74 Feed search, saved search feed
 
@@ -33,7 +31,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/feed1.rss"
-        feed = "Yahoo"
+        feed = "Yaho"
         term = "first test video"
         title = "Video"
        
@@ -64,7 +62,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             
             #1. add feed
             url = "http://pculture.org/feeds_test/feed1.rss"
-            feed = "Yahoo"
+            feed = "Yaho"
             term = "third test video"
             title = "Video 3"
             
@@ -76,21 +74,27 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             #3. verify item metadata
             self.assertTrue(reg.m.exists(title))
             #verify the links
-            LINKS = {"absolute link": "google", "relative link": "feeds_test","another relative": "pculture.org" }
+            LINKS = {"absolute link": "google", "relative link": "appcast.xml","another relative": "pculture" }
             for link, linkurl in LINKS.iteritems():
                 if reg.m.exists(link):
-                    print link
                     click(reg.m.getLastMatch())
                     time.sleep(15)
                     mirolib.shortcut("l")
-                    time.sleep(1)
+                    time.sleep(2)
                     mirolib.shortcut("c")
-                    time.sleep(1)
-                    print Env.getClipboard()
+                    time.sleep(2)
                     url = Env.getClipboard()
-                    print linkurl
-                    self.failUnless(linkurl in url)
-                    mirolib.close_window()
+                    print url
+                    if link == "relative link":
+                        print linkurl
+                        if linkurl not in url.split('/'):
+                            reg.s.find("Democracy",5)
+                        else:
+                            mirolib.close_ff()
+                            self.fail("wrong link url")
+                    else:
+                        mirolib.close_ff()
+                        self.failUnless(linkurl in url.split('/')               
         #cleanup
         finally:
             mirolib.delete_feed(self,reg,feed)
@@ -107,7 +111,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         #1. add feed
         url = "http://pculture.org/feeds_test/no-enclosures.rss"
-        feed = "Yahoo"
+        feed = "Yaho"
         term = "first test video"
         title = "Video 1"
         
@@ -176,10 +180,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #cleanup
             mirolib.delete_feed(self,reg,feed) 
  
-# Post the output directly to Litmus
+
 if __name__ == "__main__":
     import LitmusTestRunner
+    print len(sys.argv)
     if len(sys.argv) > 1:
+        
         LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
     else:
         LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()

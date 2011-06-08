@@ -7,6 +7,7 @@ import time
 from sikuli.Sikuli import *
 
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
+sys.path.append(mycwd)
 sys.path.append(os.path.join(mycwd,'myLib'))
 import base_testcase
 import config
