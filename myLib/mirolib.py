@@ -567,9 +567,8 @@ def click_sidebar_tab(self,reg,tab):
         print "going to tab: ",tab
         myr.click(tab)
                 
-    elif "search" in tab.lower():
-        if active_tab == "search":
-            print "should be on search already"
+    if tab.lower() == "search" and active_tab == "search":
+        print "should be on search already"
     else:
         reg.s.click(tab)
 
