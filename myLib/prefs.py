@@ -44,7 +44,7 @@ def open_tab(self,p,tab):
     tab_loc = Region(getLastMatch())
     return tab_loc
 
-def set_default_view(self,reg,setting="Standard view"):
+def set_default_view(self,reg,setting="Standard"):
     """Set the global podcast default view prefernce.
 
     Setting can be "Standard" or "List"
@@ -55,7 +55,7 @@ def set_default_view(self,reg,setting="Standard view"):
     ry = r.getY()+100
     r.setY(ry)
     r.highlight(3)
-    new_setting = setting.capitalize() +" view"
+    new_setting = setting.capitalize()
 
     if r.exists("Defau",2):
         print "found Default"
@@ -71,13 +71,13 @@ def set_default_view(self,reg,setting="Standard view"):
     if r2.exists(new_setting):
         allset = True
     else:
-        if new_setting == "Standard view":
-            r2.click("List view")
-            r2.click("Standard view")
-        elif new_setting == "List view":
-            r2.click("Standard view")
-            r2.click("List view")
-    save_prefs(self,reg,p=r,allset=allset)
+        if new_setting == "Standard":
+            r2.click("List")
+            r2.click("Standard")
+        elif new_setting == "List":
+            r2.click("Standard")
+            r2.click("List")
+    save_prefs(self,reg,p=p,allset=allset)
 
 
 def set_autodownload(self,reg,setting="Off"):

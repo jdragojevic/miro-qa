@@ -90,7 +90,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
 
         mirolib.click_podcast(self,reg,feed)
-        tab_search(self,reg,title2,confirm_present=True)
+        mirolib.tab_search(self,reg,title2,confirm_present=True)
 
         #double-click starts download
         doubleClick(title2)
@@ -116,7 +116,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.click_podcast(self,reg,feed)
         mirolib.tab_search(self,reg,title1)
         doubleClick(title1)
-        if exists("playback_bar_video.png"):
+        if exists(Pattern("playback_bar_video.png")):
             mirolib.log_result("122","normal view double-click starts playback")
         else:
             self.fail("normal view double-click start playback, failed")
@@ -172,19 +172,21 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.add_feed(self,reg,url,feed)
         mirolib.tab_search(self,reg,title1)
         #double-click starts download
-        reg.m.doubleClick(title1)
+        reg.m.find(title1)
+        title_loc = reg.m.getLastMatch()
+        doubleClick(title_loc)
         if reg.m.exists("video-download-pause.png"):
             mirolib.log_result("122","list view double-click starts download")
         else:
             self.fail("list view double-click starts download, failed")
         #double-click pauses download
-        doubleClick(title1)
+        doubleClick(title_loc)
         if reg.m.exists("video-download-resume.png"):
             mirolib.log_result("122","list view double-click pauses download")
         else:
             self.fail("list view double-click pause download, failed")
         #double-click resumes download
-        doubleClick(title1)
+        doubleClick(title_loc)
         if exists("video-download-pause.png"):
             mirolib.log_result("122","list view double-click resumes download")
         else:
@@ -194,7 +196,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.click_podcast(self,reg,feed)
         mirolib.tab_search(self,reg,title1)
         doubleClick(title1)
-        if exists("playback_bar_video.png"):
+        if exists(Pattern("playback_bar_video.png")):
             mirolib.log_result("122","list view double-click starts playback")
         else:
             self.fail("list view double-click start playback, failed")
