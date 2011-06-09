@@ -49,7 +49,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         type(Key.ESC)
         #3. Restart Miro
         mirolib.quit_miro(self,reg)
-        mirolib.restart_miro(self,reg)
+        mirolib.restart_miro()
 
         #4. Verify Changes and reset
         prefs.open_prefs(self,reg,lang='hr',menu='Datoteka',option='Postavke')
@@ -78,7 +78,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             time.sleep(3)
         mirolib.shortcut('q')
         time.sleep(2)
-        mirolib.restart_miro(self,reg)
+        mirolib.restart_miro()
         self.assertTrue(exists("File"))
    
 # Post the output directly to Litmus

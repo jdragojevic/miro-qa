@@ -44,6 +44,30 @@ def open_tab(self,p,tab):
     tab_loc = Region(p.getLastMatch())
     return tab_loc
 
+def set_default_view(self,reg,setting="Standard view"):
+    """Set the global podcast default view prefernce.
+
+    Setting can be "Standard" or "List"
+    """
+    allset = False
+    p = open_prefs(self,reg)
+    r = Region(open_tab(self,p,tab="Podcasts").below())
+    r.setW(800)
+    r.highlight(1)
+    new_setting = setting.capitalize() +" view"
+
+    if r.exists(new_setting):
+        allset = True
+    else:
+        if new_setting == "Standard":
+            r.click("List view")
+            r.click("Standard view")
+        elif new_setting == "List view":
+            r.click("Standard view")
+            r.click("List view")
+    save_prefs(self,reg,p=r,allset=allset)
+
+
 def set_autodownload(self,reg,setting="Off"):
     """Set the global autodownload prefernce setting.
 
@@ -54,15 +78,15 @@ def set_autodownload(self,reg,setting="Off"):
     r = Region(open_tab(self,p,tab="Podcasts")).right(400).below(300)
     ry = r.getY()+100
     r.setY(ry)
-    r.highlight(3)
+    r.highlight(1)
 
-    if r.exists("download setting",5):
+    if r.exists("download setting",2):
         print "found download setting"
-    elif r.exists("Auto-download",5):
+    elif r.exists("Auto-download",2):
         print "found auto-download"
     r1 = Region(r.getLastMatch().right(200))
     r2 = Region(r1.nearby(150))
-    r2.highlight(3)
+    r2.highlight(1)
 
     if r1.exists(setting):
         allset = True
@@ -74,7 +98,6 @@ def set_autodownload(self,reg,setting="Off"):
             type(Key.PAGE_UP)
         r2.click(setting)
     save_prefs(self,reg,p=p,allset=allset)
-
 
 def set_item_display(self,reg,option,setting):
     """Sets the podcast display preference for video or music sections of the library.

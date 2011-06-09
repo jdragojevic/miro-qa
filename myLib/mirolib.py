@@ -178,7 +178,7 @@ def quit_miro(self,reg=None):
             reg.m.click("dialog_quit.png")
         self.assertFalse(reg.s.exists("Music",10))
 
-def restart_miro(self,reg):
+def restart_miro():
     if config.get_os_name() == "lin":
         config.start_miro_on_linux()
     else:
@@ -862,6 +862,12 @@ def verify_audio_playback(self,reg,title):
     reg.m.waitVanish("item_currently_playing.png",20)
     log_result("102","stop audio playback shortcut verified.")
 
+def verify_video_playback(self,reg):
+    find(Pattern("playback_bar_video.png"))
+    shortcut("d")
+    waitVanish(Pattern("playback_bar_video.png"),20)
+    log_result("102","stop video playback shortcut verified.")
+
 def count_images(self,reg,img,region="screen",num_expected=None):
     """Counts the number of images present on the screen.
 
@@ -902,6 +908,26 @@ def count_images(self,reg,img,region="screen",num_expected=None):
         self.assertEqual(len(mm),int(num_expected))
     return len(mm)
 
+
+def http_auth(self,reg,username="tester",passw="pcfdudes"):
+    mr = Region(reg.mtb.above(100).below())
+    if not mr.exists("Username",30):
+        self.fail("http auth dialog not found")
+    else:
+        type(username)
+        type(Key.TAB)
+        type(passw)
+        mr.click("button_ok.png")
+        time.sleep(3)
+
+def remove_http_auth_file():
+    auth_file = os.path.join(config.get_support_dir(),"httpauth")
+    if os.path.exists(auth_file):
+        shortcut('q')
+        os.remove(auth_file)
+        restart_miro()
+    else:
+        print "no auth file found"
 
 def convert_file(self,reg,out_format):
     if config.get_os_name() == "osx":

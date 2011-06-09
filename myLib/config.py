@@ -67,6 +67,21 @@ def start_miro_on_linux():
 def start_ff_on_linux():
     subprocess.Popen(r'firefox', cwd='/usr/bin/')
 
-    
+def get_support_dir():
+    if get_os_name() == "win":
+        ver = Env.getOSVersion()
+        wv = ver.split('.')[0]
+        if int(wv) < 6:
+            support_dir = os.path.join(os.getenv("HOME"),"Application Support","Participatory Culture Foundation","Miro","Support")
+        else:
+            support_dir = os.path.join(os.getenv("HOME"),"AppData","Roaming","Participatory Culture Foundation","Miro","Support")
+    elif get_os_name() == "lin":
+            support_dir = os.path.join(os.getenv("HOME"),".miro")
+    elif get_os_name() == "osx":
+            support_dir = os.path.join(os.getenv("HOME"),"Library","Application Support","Miro")
+
+    else:
+        print "no clue"
+    return support_dir
     
     

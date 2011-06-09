@@ -279,7 +279,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.click_last_source(self,reg)
         reg.m.find(testvars.dizizle_logo)
         mirolib.quit_miro(self,reg)
-        mirolib.restart_miro(self,reg)
+        mirolib.restart_miro()
         mirolib.click_last_source(self,reg)
         self.assertTrue(reg.m.exists(testvars.dizizle_logo))    
         mirolib.delete_site(self,reg,site)
