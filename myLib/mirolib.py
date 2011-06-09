@@ -956,7 +956,7 @@ def import_opml(self,reg,opml_path):
 
 def type_a_path(self,reg,file_path):
     if config.get_os_name() == "osx":
-        type(opml_path +"\n")     
+        type(file_path +"\n")     
     else:
         if not exists("Location",5):
             click(Pattern("type_a_filename.png"))
