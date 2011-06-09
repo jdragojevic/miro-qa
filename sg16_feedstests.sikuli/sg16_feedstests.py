@@ -94,7 +94,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                             self.fail("wrong link url")
                     else:
                         mirolib.close_ff()
-                        self.failUnless(linkurl in url.split('/')               
+                        self.failUnless(linkurl in url.split('/'))            
         #cleanup
         finally:
             mirolib.delete_feed(self,reg,feed)
