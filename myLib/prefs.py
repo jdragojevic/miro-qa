@@ -40,8 +40,8 @@ def open_tab(self,p,tab):
         if tab.lower() in x:
             pref_icon = testvars.PREF_PANEL[x]        
     print "going to tab: "+str(tab)
-    p.click(pref_icon)
-    tab_loc = Region(p.getLastMatch())
+    click(Pattern(pref_icon))
+    tab_loc = Region(getLastMatch())
     return tab_loc
 
 def set_default_view(self,reg,setting="Standard view"):
@@ -51,20 +51,32 @@ def set_default_view(self,reg,setting="Standard view"):
     """
     allset = False
     p = open_prefs(self,reg)
-    r = Region(open_tab(self,p,tab="Podcasts").below())
-    r.setW(800)
-    r.highlight(1)
+    r = Region(open_tab(self,p,tab="Podcasts")).right(400).below(300)
+    ry = r.getY()+100
+    r.setY(ry)
+    r.highlight(3)
     new_setting = setting.capitalize() +" view"
 
-    if r.exists(new_setting):
+    if r.exists("Defau",2):
+        print "found Default"
+    elif r.exists("Default view",2):
+        print "found Default view"
+
+
+    r1 = Region(r.getLastMatch().right(200))
+    r2 = Region(r1.nearby(150))
+    r2.highlight(1)
+
+    
+    if r2.exists(new_setting):
         allset = True
     else:
-        if new_setting == "Standard":
-            r.click("List view")
-            r.click("Standard view")
+        if new_setting == "Standard view":
+            r2.click("List view")
+            r2.click("Standard view")
         elif new_setting == "List view":
-            r.click("Standard view")
-            r.click("List view")
+            r2.click("Standard view")
+            r2.click("List view")
     save_prefs(self,reg,p=r,allset=allset)
 
 

@@ -68,8 +68,8 @@ class AppRegions():
         if libr.exists(Pattern("icon-guide.png"),2) or \
            libr.exists("Miro"):
             click(libr.getLastMatch())
-        else:
-            libr.click("Miro")
+##        else:
+##            libr.click("Miro")
         if not exists(Pattern("miroguide_home.png").similar(.95),10):
             libr.click("Miro")
         mg = Region(libr.getLastMatch())
