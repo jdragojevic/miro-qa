@@ -4,7 +4,8 @@ import glob
 import unittest
 import StringIO
 import time
-
+from sikuli.Sikuli import *
+mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(os.getcwd(),'myLib'))
 import base_testcase
 import config
