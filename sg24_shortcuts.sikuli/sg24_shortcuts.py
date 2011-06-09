@@ -60,6 +60,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             time.sleep(2)
             mirolib.delete_site(self,reg,site)
             mirolib.log_result("92","delte site shortcut verified")
+            time.sleep(2)
             
         #Download item and with shortcut key, delete item
         def _delete_item(self):
@@ -76,6 +77,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             mirolib.wait_for_item_in_tab(self,reg,"Misc","detective")
             mirolib.delete_items(self,reg,title,"Misc")
             mirolib.log_result("92","delte item shortcut verified")
+            time.sleep(2)
 
         # remove playlist
         def _delete_playlist(self):
