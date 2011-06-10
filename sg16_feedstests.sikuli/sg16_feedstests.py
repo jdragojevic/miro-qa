@@ -179,7 +179,40 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         finally:
         #cleanup
             mirolib.delete_feed(self,reg,feed) 
- 
+
+    def test_726(self):
+        """http://litmus.pculture.org/show_test.cgi?id=726 Feed with gzipped enclosures.
+
+        1. Add feeds
+        2. verify items are displayed
+        3. Verify items are downloadable
+        4. Cleanup
+
+        """
+        reg = mirolib.AppRegions()
+
+        ZIPPED_FEEDS = {"http://podcastle.org/feed/rss2":"PodCastle",
+                        "http://escapepod.org/feed/":"Escape",
+                        "http://pseudopod.org/feed/rss2":"Pseudopod",
+                        }
+        for url,feed in ZIPPED_FEEDS.iteritems():
+           #1. add feed
+            mirolib.add_feed(self,reg,url,feed)
+            #2 verify items displayed
+            if reg.m.exists(Pattern("button_download.png"),3):
+                click(reg.m.getLastMatch())
+            else:
+                self.fail("download button not found, no items displayed?")
+            #3. verify download started
+            status = mirolib.confirm_download_started(self,reg,feed)
+            if status == "in_progress":
+                mirolob.log_result("726","verified for feed: "+feed)
+            else:
+                self.verificationErrors.append("failed for feed: "+feed)
+            #4. Cleanup
+            mirolib.delete_feed(self,reg,feed)
+
+
 
 if __name__ == "__main__":
     import LitmusTestRunner
