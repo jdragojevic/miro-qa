@@ -127,6 +127,24 @@ def set_item_display(self,reg,option,setting):
         allset = check_the_box(search_reg=p1,phrase="Show videos",setting=setting)  
     save_prefs(self,reg,p,allset=allset)
 
+
+def set_preference_checkbox(self,reg,tab,option,setting):
+    """Check or uncheck the box for a preference setting.
+
+    Setting can be either 'on' or 'off'
+
+    """
+    p = open_prefs(self,reg)
+    allset = False
+
+    if tab=="General":
+        print "already on tab"
+    else:
+        open_tab(self,p,tab)
+
+    allset = check_the_box(search_reg=p,phrase=option,setting=setting)
+    save_prefs(self,reg,p,allset=allset)
+
 def check_the_box(search_reg,phrase,setting):
     print phrase,setting
     allset = False
