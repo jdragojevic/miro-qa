@@ -59,24 +59,19 @@ class AppRegions():
         pr.setW(hw)
         pr.setH(hh)
         pr.setY(10)
-        if pr.exists("Music",1) or \
-           pr.exists(Pattern("icon-audio_active.png"),1):
-            click(pr.getLastMatch())
-        elif pr.exists("Videos",3):
+        if pr.exists("Music",2) or \
+           pr.exists("Videos",2):
             click(pr.getLastMatch())
         libr = Region(pr.getLastMatch().above(100).left(120).right(200))
-        if libr.exists(Pattern("icon-guide.png"),2) or \
-           libr.exists("Miro"):
+        if libr.exists(Pattern("icon-guide.png"),5) or \
+           libr.exists("Miro",3):
             click(libr.getLastMatch())
-##        else:
-##            libr.click("Miro")
-        if not exists(Pattern("miroguide_home.png").similar(.95),10):
-            libr.click("Miro")
-        mg = Region(libr.getLastMatch())
-        pr.find(Pattern("miroguide_home.png").similar(.95))
-        click(pr.getLastMatch())
-        click(mg)
-        sidex = pr.getLastMatch().getX()-25            
+            mg = Region(libr.getLastMatch())
+            if pr.exists(Pattern("miroguide_home.png").similar(.95),45):
+                sidex = pr.getLastMatch().getX()-25
+            else:
+                print "using default side width"
+                sidex = 250
 
         pr.find("Music")
         topx =  int(pr.getLastMatch().getX())-55
@@ -389,6 +384,7 @@ def add_feed(self,reg,url,feed):
     type(url + "\n")
     time.sleep(10) #give it 10 seconds to add the feed
     click_podcast(self,reg,feed)
+    time.sleep(3)
     
 def click_podcast(self,reg,feed):
     """Find the podcast in the sidebar within podcast region and click on it.
@@ -554,18 +550,21 @@ def click_sidebar_tab(self,reg,tab):
         active_tab = "connect"
     time.sleep(2)
     tab = tab.capitalize()
-    if tab.capitalize() in similar_tabs:    
+    if tab.capitalize() in similar_tabs:
+        print "going to tab: ",tab
         boty = reg.s.getLastMatch().getY()
         myr = Region(reg.s)
         myr.setH(boty - reg.s.getY()) #height is top of sidebar to y position of video search
-        if tab == "Misc":
-            myr.setY(myr.getY()+100)
+        if tab == "Misc": #drop the height to avoid Miro tab
+            myr.click("Music")
+            mry1 = Region(myr.getLastMatch().below(80))
+            mry1.click("Misc")
         elif tab == "Miro":
-            myr.find("Music")
-            myr.setH(reg.s.getH()-(reg.s.getH()-myr.getLastMatch().getY()))
-        myr.highlight(1)
-        print "going to tab: ",tab
-        myr.click(tab)
+            myr.click("Music")
+            mry1 = Region(myr.getLastMatch().above(100))
+            mry1.click("Miro")
+        else:
+            myr.click(tab)
                 
     if tab.lower() == "search" and active_tab == "search":
         print "should be on search already"
@@ -589,14 +588,20 @@ def tab_search(self,reg,title,confirm_present=False):
         print "can not find the search box"
     time.sleep(2)
     type(title.upper())
-    if confirm_present == True:
+    if confirm_present != False:
         toggle_normal(reg)
         if reg.m.exists(title,5):
+            present=True
+        elif reg.m.exists(Pattern("item-context-button.png")):
             present=True
         else:
             self.fail("Item not found in downloading tab",title)
         return present
 
+def expand_item_details(self,reg):
+    if reg.m.exists(Pattern("item_expand_details.png").exact()):
+        click(reg.m.getLastMatch())
+    
     
 def toggle_normal(reg):
     if reg.mtb.exists(Pattern("list_view_active.png").similar(.98),1):
@@ -701,12 +706,12 @@ def wait_download_complete(self,reg,title,torrent=False):
     """
     if not confirm_download_started(self,reg,title) == "downloaded":
         if torrent == False:
-            while reg.m.exists(title,5):
-                time.sleep(5)
+            reg.m.waitVanish(title,240)
         elif torrent == True:
     #break out if stop seeding button found for torrent
-            while not reg.m.exists("item_stop_seeding.png"):
-                time.sleep(5)
+            for x in range(0,30):
+                while not reg.m.exists("item_stop_seeding.png"):
+                    time.sleep(5)
                 
 def cancel_all_downloads(self,reg):
     """Cancel all in progress downloads.
@@ -835,6 +840,9 @@ def new_search_feed(self,reg,term,radio,source,defaults=False,watched=False):
 
 
 def edit_item_type(self,reg,new_type):
+    """Change the item's metadata type, assumes item is selected.
+
+    """
     time.sleep(2)
     shortcut('i')
     time.sleep(2)
@@ -847,7 +855,93 @@ def edit_item_type(self,reg,new_type):
     f.click(new_type)
     time.sleep(2)
     click("button_ok.png")
+
+def edit_item_rating(self,reg,rating):
+    """Change the item's metadata type, assumes item is selected.
+
+    """
+    click("Rating")
+    f = Region(getLastMatch().nearby(100))
+    click(f.getLastMatch().right(50))
+    if f.exists("None"):
+        click(f.getLastMatch())
+    for x in range(0,int(rating)):
+        type(Key.DOWN)
+    click("button_ok.png")
+
+
+def edit_item_metadata(self,reg,meta_field,meta_value):
+    """Given the field and new metadata value, edit a selected item, or mulitple items metadata.
+
+    """
+    metalist = ["name","artist","album","genre","track_num",
+                     "track_of","year","about","rating","type",
+                     "art","path","cancel","ok"]
+    time.sleep(2)
+    shortcut('i')
+    time.sleep(2)
+
+    for i in (i for i,x in enumerate(metalist) if x == meta_field.lower()):
+        rep = i
+
+    if meta_field == "rating":
+        edit_item_rating(reg,rating=meta_value)
+    elif config.get_os_name() == "osx" and rep > 6: #stupid but the tab gets stuck on the about field
+        if meta_field == "art":
+            click("Click to")
+            type(meta_value)
+            type(Key.ENTER)
+        else:
+            click(meta_field)
+            click(getLastMatch().right(50))
+            type(meta_value)
+        click(Pattern("button_ok.png"))
+    else:    
+        for x in range(0,rep): #tab to the correct field
+            type(Key.TAB)
+            time.sleep(.5)
+        if meta_field == "art": #need a space bar to open the text entry field
+            type(" ")
+            type(meta_value)
+            type(Key.ENTER)
+        else:
+            type(meta_value) #enter the new value
+        ok_but = len(metalist)
+        for x in range(rep+1,ok_but):
+            type(Key.TAB)
+            time.sleep(.5)
+        type(Key.ENTER) #Save the changes
+
+def store_item_path(self,reg):
+    """Get the items file path from the edit item dialog via clipboard and return it.
+
+    """
+    time.sleep(2)
+    shortcut('i')
+    time.sleep(2)
+    if config.get_os_name == "osx":
+        reg.m.find("Path")
+        pr = Region(reg.m.getLastMatch()).right(500)
+        pr.setX(pr.getX()+15)
+        pr.setY(pr.getY()-10)
+        pr.setH(pr.getH()+20)
+        pr.highlight(5)
+        mypath = pr.text()
+        print mypath
+        filepath = mypath
+    else:
+        for x in range(0,11):
+            type(Key.TAB)
+        shortcut('c')
+        filepath = Env.getClipboard()
+        type(Key.ESC) #ESC to close the dialog
+    return filepath
+            
+    
+
         
+        
+    
         
     
 def verify_normalview_metadata(self,reg,metadata):
