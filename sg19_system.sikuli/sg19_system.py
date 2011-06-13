@@ -34,6 +34,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.click_sidebar_tab(self,reg,"Search")
         mirolib.search_tab_search(self,reg,term)
         mirolib.handle_crash_dialog(self,test=True)
+        mirolib.search_tab_search(self,reg,term=" ",engine=None)
+        
             
     def test_54(self):
         """http://litmus.pculture.org/show_test.cgi?id=54 Test Crash Reporter no DB.

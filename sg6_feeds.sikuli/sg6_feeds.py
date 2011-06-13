@@ -187,6 +187,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #set the search regions
         reg = mirolib.AppRegions()      
         prefs.set_autodownload(self,reg,setting="Off")
+        prefs.set_default_view(self,reg,setting="Standard")
 
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -200,6 +201,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             reg.m.click("Add this")
             time.sleep(4)
         mirolib.tab_search(self,reg,"")
+        mirolib.toggle_normal(reg)
 
         p = mirolib.get_podcasts_region(reg)
         mirolib.click_sidebar_tab(self,reg,"Music")
