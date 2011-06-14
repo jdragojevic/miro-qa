@@ -828,7 +828,7 @@ def edit_item_type(self,reg,new_type):
     """Change the item's metadata type, assumes item is selected.
 
     """
-    time.sleep(2)
+    time.sleep(5)
     shortcut('i')
     time.sleep(2)
     click("Rating")
@@ -937,6 +937,7 @@ def verify_normalview_metadata(self,reg,metadata):
         self.assertTrue(i.exists(v,3))   
 
 def verify_audio_playback(self,reg,title):
+    toggle_normal(reg)
     self.assertTrue(reg.m.exists("item_currently_playing.png"))
     reg.m.click(title)
     shortcut("d")

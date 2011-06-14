@@ -38,16 +38,18 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         feed = "ThreeBlip"
         title = "The Joo"
         new_type = "Music"
-        #Set Global Preferences
         
+        
+
+        #Set Global Preferences        
         prefs.set_item_display(self,reg,option="audio",setting="on")
         time.sleep(2)
         prefs.set_item_display(self,reg,option="video",setting="on")
         time.sleep(2)
         prefs.set_autodownload(self,reg,setting="Off")
         time.sleep(2)
-
-        
+        #start clean
+        mirolib.delete_feed(self,reg,feed)
         #add feed and download joo joo item
         mirolib.add_feed(self,reg,url,feed)
         mirolib.tab_search(self,reg,title)
@@ -55,6 +57,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
         mirolib.wait_for_item_in_tab(self,reg,"Videos",item=title)
         reg.m.click(title)
+        time.sleep(2)
         mirolib.edit_item_type(self,reg,new_type)
         #locate item in audio tab and verify playback
         mirolib.wait_for_item_in_tab(self,reg,tab="Music",item=title)
