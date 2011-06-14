@@ -205,7 +205,7 @@ def open_ff():
         return "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
     elif config.get_os_name() == "lin":
         config.start_ff_on_linux()
-        return "firefox"
+        return "Firefox"
     else:
         print "no clue"
 
@@ -214,29 +214,25 @@ def browser_to_miro(self,reg,url):
 
     This has the expectation that the browser is configured to open the url with miro, .torrent or feed item.
     """
-    App.open(open_ff())
+    myFF = App.open(open_ff())
     if reg.t.exists("Firefox",45):
         click(reg.t.getLastMatch())
     shortcut("l")
     time.sleep(2)
     type(url + "\n")
-    time.sleep(20)
+    time.sleep(30)
+    myFF.close()
+    waitVanish("Firefox",10)
     close_ff()
 
 
 def close_ff():
-    App.close("Firefox")
-    time.sleep(3)
-    if exists("Firefox",3):
-        print "ff still here"
-        click(getLastMatch())
-        if config.get_os_name() == "osx":
+    for x in range(0,3):
+        if exists("Firefox",1):
+            print "ff is here"
+            click(getLastMatch())
             shortcut('w')
-        elif config.get_os_name() == "win":
-            shortcut('w')
-        else:
-            shortcut('q')
-    time.sleep(2)
+            time.sleep(2)
         
 def close_window():
     if config.get_os_name() == "win":
@@ -252,17 +248,6 @@ def toggle_radio(self,button):
     if noreg.t.exists (imagemap.Buttons[button +"_selected"]):
         click (imagemap.Buttons[(button)])   
  
-
-
-def cclick(self,img,ddir=getBundlePath()):
-    """Look through the image dir and click any image that matches the given name.
-
-    """                                    
-    for image in glob.glob(os.path.join(ddir, img+'*.png')):
-        print image
-        if exists(image,3):
-            click(image)
-            break
 
 
 def close_one_click_confirm(self):

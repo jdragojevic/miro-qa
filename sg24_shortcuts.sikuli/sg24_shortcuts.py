@@ -73,10 +73,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             reg.t.click("Download")
             time.sleep(4)
             type(item_url+"\n")
-            mirolib.wait_download_complete(self,reg,title)
+#            mirolib.wait_download_complete(self,reg,title)
             mirolib.wait_for_item_in_tab(self,reg,"Misc","detective")
             mirolib.delete_items(self,reg,title,"Misc")
-            mirolib.log_result("92","delte item shortcut verified")
+            mirolib.log_result("92","delete item shortcut verified")
             time.sleep(2)
 
         # remove playlist
