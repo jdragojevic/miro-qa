@@ -146,13 +146,13 @@ def write_log(log,testid,stat,error_info=""):
 def write_footer(log):
     f = open(log, 'a')
     f.write(FOOTER)
-    f.close
-    time.sleep(10)
-    
+    f.close()
     ts = time.strftime("%H%M%S", time.gmtime())
     fl = os.path.join(os.getcwd(),"last_run",ts+"_log.xml")
-    time.sleep(2)
-    shutil.move(log,fl)
+    if "WINDOWS" in str(Env.getOS()):
+        shutil.copy(log,fl)
+    else:
+        shutil.move(log,fl)
     
 def send_result(log):
     f = open(log)
