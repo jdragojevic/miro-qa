@@ -298,12 +298,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
         title1 = "The Joo"
-        title2 = "New York"
+        title2 = "York"
         title3 = "Accessing"
         mirolib.delete_feed(self,reg,feed)
         
         prefs.set_autodownload(self,reg,setting="Off")
-        time.sleep(2)      
+        time.sleep(2)
+        prefs.set_default_view(self,reg,setting="Standard")
+
         #add feed and download joo joo item
         mirolib.add_feed(self,reg,url,feed)
         mirolib.tab_search(self,reg,title1)
@@ -383,7 +385,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
         title1 = "The Joo"
-        title2 = "New York"
+        title2 = "York"
         title3 = "Accessing"
         mirolib.delete_feed(self,reg,feed)
         prefs.set_autodownload(self,reg,setting="Off")

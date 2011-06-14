@@ -595,7 +595,7 @@ def tab_search(self,reg,title,confirm_present=False):
         elif reg.m.exists(Pattern("item-context-button.png")):
             present=True
         else:
-            self.fail("Item not found in downloading tab",title)
+            self.fail("Item not found in downloading tab: "+title)
         return present
 
 def expand_item_details(self,reg):
@@ -847,7 +847,9 @@ def edit_item_type(self,reg,new_type):
     shortcut('i')
     time.sleep(2)
     click("Rating")
-    f = Region(getLastMatch().nearby(200))
+    f = Region(getLastMatch())
+    f.setW(200)
+    f.setH(100)
     f.find("Type")
     click(f.getLastMatch().right(50))
     if not f.exists(new_type,2):
