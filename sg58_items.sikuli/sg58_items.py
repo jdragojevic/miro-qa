@@ -140,12 +140,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
         mirolib.wait_for_item_in_tab(self,reg,"Music",item=title)
         reg.m.click(title)
-        mirolib.edit_item_metadata(self,reg,meta_field="about",meta_value="New description of earth eats")
-        mirolib.tab_search(self,reg,title)
-        mirolib.expand_item_details(self,reg)
-        if not reg.m.exists("New description"):
-            self.fail("can not verify description edited")       
-        #skip cleanup so you don't have to re-download for each subsequent metatdata edit  test.
+        mirolib.edit_item_metadata(self,reg,meta_field="about",meta_value="hoovercraft full of eels")
+        mirolib.tab_search(self,reg,"hoovercraft eels")
+        if not reg.m.exists(title):
+            self.fail("can not verify description edited")
+        mirolib.delete_feed(self,reg,feed)
+        
 
     def test_364(self):
         """http://litmus.pculture.org/show_test.cgi?id=364 edit item misc to video
@@ -188,7 +188,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
 
     def test_458(self):
-        """http://litmus.pculture.org/show_test.cgi?id=363 edit blank item description
+        """http://litmus.pculture.org/show_test.cgi?id=458 edit blank item description
 
         1. add TwoStupid feed
         2. download the Flip Faceitem
@@ -347,18 +347,25 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         #single click thumb starts download
         mirolib.tab_search(self,reg,title3)
-        click("thumb-default-video.png")
+        if reg.m.exists("thumb-default-video.png"):
+            print "using default thumb"
+            click(reg.m.getLastMatch())
+        else:
+            print "can't find thumb, best guess"
+            reg.m.find(title1)
+            click(reg.m.getLastMatch().left(50))
         if mirolib.confirm_download_started(self,reg,title=title3) == "in_progress":
             mirolib.log_result("122","normal view click starts download")
         else:
             self.fail("normal view double-click starts download, failed")
         #single click thumb starts playback
+        mirolib.click_podcast(self,reg,feed)
         mirolib.tab_search(self,reg,title1)
         if reg.m.exists("thumb-default-video.png"):
             print "using default thumb"
             click(reg.m.getLastMatch())
         elif reg.m.exists("thumb-joojoo.png"):
-            print "using default thumb"
+            print "found joo joo thumb"
             click(reg.m.getLastMatch())
         else:
             print "can't find thumb, best guess"
