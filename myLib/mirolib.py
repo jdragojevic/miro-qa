@@ -68,7 +68,7 @@ class AppRegions():
             click(libr.getLastMatch())
             mg = Region(libr.getLastMatch())
             if pr.exists(Pattern("miroguide_home.png").similar(.95),45):
-                sidex = pr.getLastMatch().getX()-25
+                sidex = pr.getLastMatch().getX()-20
             else:
                 print "using default side width"
                 sidex = 250
@@ -94,7 +94,7 @@ class AppRegions():
         #Mainview Region
         mainwidth = int((vbarx-sidex)+vbarw)
         #MainViewRegion = Region(sidex,topy+tbar_height,mainwidth,app_height-155) - old m
-        MainViewRegion = Region(sidex,topy+80,mainwidth,app_height)
+        MainViewRegion = Region(sidex,topy+70,mainwidth,app_height)
         MainViewRegion.setAutoWaitTimeout(30)
         regions.append(MainViewRegion)
         #Top Half of screen, width of Miro app Region
