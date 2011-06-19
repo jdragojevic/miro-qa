@@ -39,20 +39,23 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         gr.click(Pattern("guide_search.png"))
         type(feed2 +"\n")
         time.sleep(5)
-        reg.m.find("add_feed.png")
+        reg.m.find(Pattern("add_feed.png"))
         click(reg.m.getLastMatch())
         mirolib.click_sidebar_tab(self,reg,"Miro")
         gr.click(Pattern("guide_search.png"))
         type(feed + "\n")
         time.sleep(10)
-        reg.m.find("add_feed.png")
+        reg.m.find(Pattern("add_feed.png"))
         click(reg.m.getLastMatch())
         time.sleep(20)
         mirolib.click_last_podcast(self,reg)
         time.sleep(5)
     #2. Copy the url and attempt to add it
         reg.t.click("Sidebar")
-        reg.t.click("Copy")
+        tmpr = Region(reg.t.getLastMatch().below())
+        tmpr.setW(tmpr.getW()+200)
+        tmpr.click("Copy")
+        time.sleep(2)
         mirolib.shortcut("n")        
         time.sleep(2)
         type(Key.ENTER)
@@ -165,6 +168,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.cancel_all_downloads(self,reg)
         mirolib.add_feed(self,reg,url,feed)
         mirolib.download_all_items(self,reg)
+        time.sleep(2)
         mirolib.confirm_download_started(self,reg,"The Joo")
         mirolib.delete_feed(self,reg,feed)
         time.sleep(5)
@@ -191,7 +195,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
-        feedlist = ["America", "Earth"]
+        feedlist = ["Center", "Earth"]
 
         #1. Add the feed and start dl
         mirolib.add_feed(self,reg,url,feed)

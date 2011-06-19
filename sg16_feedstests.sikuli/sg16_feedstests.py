@@ -31,7 +31,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/feed1.rss"
-        feed = "Yaho"
+        feed = "Yahoo Media"
         term = "first test video"
         title = "Video"
        
@@ -62,7 +62,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             
             #1. add feed
             url = "http://pculture.org/feeds_test/feed1.rss"
-            feed = "Yaho"
+            feed = "Yahoo Media"
             term = "third test video"
             title = "Video 3"
             
@@ -192,7 +192,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
 
         ZIPPED_FEEDS = {"http://podcastle.org/feed/rss2":"PodCastle",
-                        "http://escapepod.org/feed/":"Escape",
+                      #  "http://escapepod.org/feed/":"Escape",
                         "http://pseudopod.org/feed/rss2":"Pseudopod",
                         }
         for url,feed in ZIPPED_FEEDS.iteritems():
