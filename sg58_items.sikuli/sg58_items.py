@@ -63,7 +63,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.wait_for_item_in_tab(self,reg,tab="Music",item=title)
         doubleClick(reg.m.getLastMatch())
         mirolib.verify_audio_playback(self,reg,title)
-        mirolib.log_result("652","test_361")
+       
         #cleanup
         mirolib.delete_feed(self,reg,feed)
 
@@ -179,7 +179,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             reg.s.waitVanish("Downloading",120)
         mirolib.wait_for_item_in_tab(self,reg,"Misc",item=title)
         x = reg.m.find(title)
-        y = reg.s.find("Videos")
+        reg.s.find("Music")
+        tmpr = Region(reg.s.getLastMatch().above())
+        tmpr.setW(tmpr.getW()+50)
+        y = tmpr.find("Videos")
         dragDrop(x,y)
         #locate item in video tab and verify playback
         mirolib.wait_for_item_in_tab(self,reg,tab="Videos",item=title)
@@ -453,7 +456,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         time.sleep(5)
         url = "http://participatoryculture.org/feeds_test/feed1.rss"
-        feed = "Yaho"
+        feed = "Yahoo Media"
         term = "fourth test"
         title = "Video 4"
         BAD_PASSW = {"auser":"apassw",
@@ -464,7 +467,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                      }
         auth_file = os.path.join(config.get_support_dir(),"httpauth")
         try:
-            mirolib.remove_http_auth_file()          
+            mirolib.remove_http_auth_file()
+            mirolib.quit_miro(self,reg)
+            mirolib.restart_miro()
             #add feed and download 4th item
             mirolib.add_feed(self,reg,url,feed)
             mirolib.tab_search(self,reg,term)
@@ -484,7 +489,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             else:
                 os.remove(auth_file)
         
-def test_647(self):
+    def test_647(self):
         """http://litmus.pculture.org/show_test.cgi?id=647 edit item metadata
 
         1. add Static List feed
@@ -530,6 +535,51 @@ def test_647(self):
         #cleanup
         mirolib.delete_feed(self,reg,feed)
        
+
+    def test_657(self):
+        """http://litmus.pculture.org/show_test.cgi?id=657 edit multiple fields
+
+        1. add Static List feed
+        2. download the Earth Eats item
+        3. Edit item metadata
+       
+
+        """
+        reg = mirolib.AppRegions()
+        time.sleep(5)
+        url = "http://ringtales.com/nyrss.xml"
+        feed = "The New"
+        title = "Duck" 
+
+        new_metadata_list = [["show","Animated Cartoons", "658"],
+                      ["episode_id","nya", "670"],
+                      ["season_no","25", "671"],
+                      ["episode_no","43", "672"],
+                      ["video_kind","Clip", "652"],
+                      ]
+        
+        #start clean
+        mirolib.delete_feed(self,reg,feed)
+        #add feed and download earth eats item
+        mirolib.add_feed(self,reg,url,feed)
+        mirolib.toggle_normal(reg)
+        mirolib.tab_search(self,reg,title)
+        if reg.m.exists("button_download.png",10):
+            click(reg.m.getLastMatch())
+        mirolib.wait_for_item_in_tab(self,reg,"Videos",item=title)
+        mirolib.click_podcast(self,reg,feed)
+        reg.m.click(title)
+        mirolib.edit_item_video_metadata_bulk(self,reg,new_metadata_list)
+        time.sleep(2)
+        click_sidebar_tab(self,reg,"Videos")
+        reg.mtb.click("Clips")
+        if reg.m.exists(title):
+            reg.mtb.click("All")
+        else:
+            self.fail("item not found in Clips filter")
+        #cleanup
+        mirolib.delete_feed(self,reg,feed)
+
                                      
  
 # Post the output directly to Litmus

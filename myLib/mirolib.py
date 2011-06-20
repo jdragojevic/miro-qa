@@ -326,14 +326,15 @@ def get_podcasts_region(reg):
     tmpr.find("Playlists")
     boty =  tmpr.getLastMatch().getY()
     height = (boty-topy)+50
-    width = reg.s.getW()
+    width = reg.s.getW()-10
     PodcastsRegion = Region(topx,topy, width, height)
     PodcastsRegion.setAutoWaitTimeout(20)
     return PodcastsRegion
     
 def get_playlists_region(reg):
     if not reg.s.exists("Playlists",1):
-        reg.s.click("Podcasts")
+        reg.s.click("Music")
+    time.sleep(2)
     reg.s.click("Playlists")
     PlaylistsRegion = Region(reg.s.getLastMatch().left(150).right(200).below())
     PlaylistsRegion.setAutoWaitTimeout(20)
@@ -450,7 +451,7 @@ def set_podcast_autodownload(self,reg,setting="Off"):
 
 def open_podcast_settings(self,reg):
     b = Region(reg.s.getX(),reg.m.getY()*2,reg.m.getW(), reg.m.getH())
-    b.find(Pattern("button_settings.png").exact())
+    b.find(Pattern("button_settings.png"))
     click(b.getLastMatch())
 
 def click_remove_podcast(self,reg):
@@ -633,7 +634,7 @@ def search_tab_search(self,reg,term,engine=None):
  
 
 def download_all_items(self,reg):
-    time.sleep(2)
+    time.sleep(5)
     toggle_normal(reg)
     if reg.m.exists(Pattern("button_download.png"),3):       
         mm = []
@@ -643,6 +644,7 @@ def download_all_items(self,reg):
             mm.append(f.next())     # access next match and add to mm
         for x in mm:
             click(x)
+            time.sleep(1)
     else:
         print "no badges found, maybe autodownloads in progress"
 
@@ -898,6 +900,53 @@ def edit_item_metadata(self,reg,meta_field,meta_value):
             type(Key.TAB)
             time.sleep(.5)
         type(Key.ENTER) #Save the changes
+
+def edit_item_video_metadata_bulk(self,reg,new_metadata_list):
+    """Given the field and new metadata value, edit a selected item, or mulitple items metadata.
+
+    """
+    metalist = ["show","episode_id","season_no","episode_no",
+                     "video_kind","cancel","ok"]
+    shortcut('i')
+    time.sleep(2)
+    find("Rating")
+    v = Region(getLastMatch().above(100).left(60))
+    v.click("Video")
+    
+    if exists("Show"):
+        top_tab = getLastMatch().right(200)
+        click(top_tab)
+        metar = Region(getLastMatch().below())
+        metar.setW(metar.getW()+300)
+    else:
+        self.fail("Can not find show field")
+    for meta_field,meta_value,req_id in new_metadata_list:
+        print meta_field,meta_value
+        for i in (i for i,x in enumerate(metalist) if x == meta_field):
+            rep = i
+            print rep,meta_field
+        for x in range(0,rep): #tab to the correct field
+            type(Key.TAB)
+            time.sleep(.5)
+        if meta_field == "video_kind": #need a space bar to open the text entry field
+            type(" ")
+            metar.click(meta_value)
+        else:
+            type(meta_value) #enter the new value
+            #go back to the top field, Show
+        if req_id:
+            log_result(req_id,"value edited in dialog")
+        click(top_tab)
+    ok_but = len(metalist)
+    for x in range(1,ok_but):
+        type(Key.TAB)
+        time.sleep(.5)
+    type(Key.ENTER) #Save the changes
+   
+
+
+
+
 
 def store_item_path(self,reg):
     """Get the items file path from the edit item dialog via clipboard and return it.

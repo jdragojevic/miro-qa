@@ -74,7 +74,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             #3. verify item metadata
             self.assertTrue(reg.m.exists(title))
             #verify the links
-            LINKS = {"absolute link": "google", "relative link": "appcast.xml","another relative": "pculture" }
+            LINKS = {"absolute link": "google", "relative link": "appcast.xml","another relative": "pculture.org" }
             for link, linkurl in LINKS.iteritems():
                 if reg.m.exists(link):
                     click(reg.m.getLastMatch())
@@ -94,7 +94,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                             self.fail("wrong link url")
                     else:
                         mirolib.close_ff()
-                        self.failUnless(linkurl in url.split('/'))            
+			url_parts = url.split('/')
+                        self.failUnless(linkurl in url_parts)            
         #cleanup
         finally:
             mirolib.delete_feed(self,reg,feed)

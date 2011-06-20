@@ -101,6 +101,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             if reg.m.exists("playlist folder",3):
                 mirolib.log_result("724","test_92")
             type("My Folder"+"\n")
+            time.sleep(3)
             p = mirolib.get_playlists_region(reg)
             p.click("My Folder")
             time.sleep(2)
