@@ -534,7 +534,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         time.sleep(5)
         url = "http://participatoryculture.org/feeds_test/feed1.rss"
-        feed = "Yahoo Media"
+        feed = "Media"
         term = "fourth test"
         title = "Video 4"
         BAD_PASSW = {"auser":"apassw",
