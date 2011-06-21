@@ -391,6 +391,7 @@ def add_watched_folder(self,reg,folder_path,show=True):
     reg.t.click("Watch")
     time.sleep(4)
     if show == True:
+        time.sleep(1)
         type(folder_path+"\n")
         time.sleep(10) #give it 10 seconds to add the feed
         click_last_podcast(self,reg)
@@ -583,6 +584,13 @@ def tab_search(self,reg,title,confirm_present=False):
         else:
             self.fail("Item not found in downloading tab: "+title)
         return present
+
+def clear_search(reg):
+    if reg.mtb.exists("tabsearch_clear.png",5):
+        print "found tabsearch_clear"
+        click(reg.mtb.getLastMatch())
+    
+
 
 def expand_item_details(self,reg):
     if reg.m.exists(Pattern("item_expand_details.png").exact()):
@@ -1096,7 +1104,7 @@ def type_a_path(self,reg,file_path):
         type(file_path +"\n")
     
 
-def log_result(result_id,runner_id):
+def log_result(result_id,runner_id,status="pass"):
     LOG_RESULT = """
     <result testid="%(testid)s"
     is_automated_result="0"
@@ -1114,7 +1122,7 @@ def log_result(result_id,runner_id):
     logfile = os.path.join(os.getcwd(),log)
     f = open(logfile, 'a')
     f.write(LOG_RESULT % {"testid": result_id,
-                     "status": "pass",
+                     "status": status,
                      "timestamp": time.strftime("%Y%m%d%H%M%S", time.gmtime()),
                      "msg": "executed as part of "+runner_id
                          })

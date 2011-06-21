@@ -170,9 +170,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #3. verify search saved
         mirolib.click_last_podcast(self,reg)
         self.assertTrue(reg.m.exists(term))
-##        mirolib.open_podcast_settings(self,reg)
-##        self.assertTrue(reg.m.exists("VOICE"))
-##        type(Key.ESC)
         
         #4. cleanup
         mirolib.click_remove_podcast(self,reg)
@@ -193,10 +190,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     
         feed = "TestData"
         term = "monkey"
-        folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
+        folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","WatchTest")
         #1. add feed
         mirolib.add_watched_folder(self,reg,folder_path)
-        if reg.s.exists("TestData"):
+        if reg.s.exists("WatchTest"):
             mirolib.log_result("678","test_721")
         #2. search
         mirolib.tab_search(self,reg,term)
@@ -235,7 +232,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
 
     def test_24(self):
-        """http://litmus.pculture.org/show_test.cgi?id=24 remember search.
+        """http://litmus.pculture.org/show_test.cgi?id=24 edit remembered search.
 
         1. Add 2-stupid-videos feed
         2. Perform a search
@@ -277,6 +274,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         mirolib.click_last_podcast(self,reg)
         mirolib.tab_search(self,reg,term2,confirm_present=True)
+        mirolib.clear_search(reg)
+        if reg.mtb.exists(term2.upper()):
+            mirolib.log_result("324","test_24",status="fail")
+        else:
+            mirolib.log_result("324","test_24")
+        
 
         #4. cleanup
         mirolib.delete_feed(self,reg,"stupid")

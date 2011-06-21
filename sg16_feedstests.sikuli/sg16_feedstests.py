@@ -5,20 +5,19 @@ import unittest
 import StringIO
 import time
 from sikuli.Sikuli import *
-
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(mycwd)
 sys.path.append(os.path.join(mycwd,'myLib'))
-import base_testcase
 import config
 import mirolib
 import prefs
 import testvars
+import base_testcase
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 16 - one-click subscribe tests.
 
     """
+    
     def test_74(self):
         """http://litmus.pculture.org/show_test.cgi?id=74 Feed search, saved search feed
 
@@ -50,7 +49,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
     def test_75(self):
         """http://litmus.pculture.org/show_test.cgi?id=75 Absolute and relative links.
-
         1. Feed 1
         2. View videos 3
         3. Click the links and verify they are opened
@@ -94,11 +92,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                             self.fail("wrong link url")
                     else:
                         mirolib.close_ff()
-			url_parts = url.split('/')
+                        url_parts = url.split('/')
                         self.failUnless(linkurl in url_parts)            
         #cleanup
         finally:
             mirolib.delete_feed(self,reg,feed)
+            
  
     def test_60(self):
         """http://litmus.pculture.org/show_test.cgi?id=60  Feed with no enclosures.
@@ -130,6 +129,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.assertFalse(reg.m.exists("Video 2",1))
         #cleanup
         mirolib.delete_feed(self,reg,feed)
+        
 
     def test_73(self):
         """http://litmus.pculture.org/show_test.cgi?id=73 Feed with Yahoo and RSS enclosures.
@@ -158,6 +158,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
        
         finally:#cleanup
             mirolib.delete_feed(self,reg,feed)
+            
 
     def test_69(self):
         """http://litmus.pculture.org/show_test.cgi?id=69 Add rss feed via browser.

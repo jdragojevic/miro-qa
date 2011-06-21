@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys
 import os
 import glob
@@ -216,14 +217,92 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.wait_for_item_in_tab(self,reg,"Videos",item=title)
         reg.m.click(title)
         mirolib.edit_item_metadata(self,reg,meta_field="about",meta_value="Blank description edited")
-        mirolib.expand_item_details(self,reg)
-        if not reg.m.exists("Blank description edited"):
-            self.fail("can not verify description edited")
+        mirolib.tab_search(self,reg,"blank description")
+        if reg.m.exists(title):
+            mirolib.log_result("656","test_458")           
         else:
-            mirolib.log_result("656","test_458")
+            mirolib.log_result("656","test_458",status="fail")
         #cleanup
         mirolib.delete_feed(self,reg,feed)
 
+
+    def test_653(self):
+        """http://litmus.pculture.org/show_test.cgi?id=653 edit album art
+
+        1. add watched folder
+        2. Edit artwork for 1 item
+        3. Edit artwork for multiple items
+        4. Cleanup
+        """
+        
+        reg = mirolib.AppRegions()
+        time.sleep(5)
+        folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","ArtTest")
+        title = "Banana"
+        title2 = "summer"
+        title3="deerhunter"
+        
+        #1. add watched folder
+        mirolib.add_watched_folder(self,reg,folder_path)
+        if reg.s.exists("Minsv"):
+            click(reg.s.getLastMatch())
+            mirolib.log_result("157","test_653")
+        art_file = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","album_art1.jpg")    
+        #add feed and download flip face item
+        mirolib.toggle_normal(reg)
+        mirolib.tab_search(self,reg,title)
+        reg.m.click(title)
+        mirolib.edit_item_metadata(self,reg,meta_field="art",meta_value=art_file)
+        ## Verify new image here:
+        
+        
+    def skiptest_728(self):
+        """http://litmus.pculture.org/show_test.cgi?id=647 edit metadata for mulitple items
+
+        1. add Static List feed
+        2. download the Earth Eats item
+        3. Edit item metadata
+       
+
+        """
+        reg = mirolib.AppRegions()
+        time.sleep(5)
+        url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
+        feed = "Static"
+        term = "Earth Eats"
+        title = "Mushroom" # item title updates when download completes
+        new_type = "Video"
+
+        edit_itemlist = [["name","Earth Day Everyday", "647"],
+                      ["artist","Oliver and Katerina", "648"],
+                      ["album","Barki Barks", "649"],
+                      ["genre","family", "650"],
+                      ["rating","5", "651"],
+                      ["year","2010" "655"],
+                      ["track_num","1", "673"],
+                      ["track_of","2", "673"],
+                      ]
+        
+        #start clean
+        mirolib.delete_feed(self,reg,feed)
+        #add feed and download earth eats item
+        mirolib.add_feed(self,reg,url,feed)
+        mirolib.toggle_normal(reg)
+        mirolib.tab_search(self,reg,term)
+        if reg.m.exists("button_download.png",10):
+            click(reg.m.getLastMatch())
+        mirolib.wait_for_item_in_tab(self,reg,"Music",item=title)
+        reg.m.click(title)
+        for x in edit_itemlist:
+            mirolib.edit_item_metadata(self,reg,meta_field=x[0],meta_value=x[1])
+            mirolib.log_result(x[2],"test_647")
+            time.sleep(2)
+            if not mirolib.tab_search(self,reg,"Earth Day",confirm_present=True) == True:
+                self.fail("new title not saved")
+        #cleanup
+        mirolib.delete_feed(self,reg,feed)
+
+        
 
     def test_441(self):
         """http://litmus.pculture.org/show_test.cgi?id=441 delete podcast item outside of miro
