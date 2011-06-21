@@ -162,8 +162,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         time.sleep(5)
         url = "http://vimeo.com/moogaloop_local.swf?clip_id=7335370&server=vimeo.com"
-        title = "swf"
-        new_type = "Video"
+        title = "mooga"
         #Set Global Preferences
         prefs.set_item_display(self,reg,option="video",setting="on")
         time.sleep(2)

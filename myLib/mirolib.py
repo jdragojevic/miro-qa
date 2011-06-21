@@ -725,6 +725,7 @@ def cancel_all_downloads(self,reg):
 def wait_for_item_in_tab(self,reg,tab,item):
     click_sidebar_tab(self,reg,tab)
     tab_search(self,reg,item)
+    toggle_normal(reg)
     for x in range(0,30):
         while not reg.m.exists(item):
             time.sleep(5)
