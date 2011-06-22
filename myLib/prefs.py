@@ -36,13 +36,22 @@ def open_tab(self,p,tab):
     """Open the specified tab by searching with-in the preferences region (p) for the icon.
 
     """
+    if exists("Preferences"):
+        pr = Region(getLastMatch().below())
+        pr.setX(pr.getX()-50)
+        pr.setW(pr.getW()+250)
+    else:
+        pr = Region(p)
     for x in testvars.PREF_PANEL.keys():
         if tab.lower() in x:
             pref_icon = testvars.PREF_PANEL[x]        
     print "going to tab: "+str(tab)
-    click(Pattern(pref_icon))
-    tab_loc = Region(getLastMatch())
-    return tab_loc
+    if pr.exists(Pattern(pref_icon),15) or pr.exists(tab.capitalize(),10):
+        tab_loc = Region(pr.getLastMatch())
+        click(tab_loc)
+        return tab_loc
+    else:
+        self.fail("preference tab not found")
 
 def set_default_view(self,reg,setting="Standard"):
     """Set the global podcast default view prefernce.
@@ -126,6 +135,31 @@ def set_item_display(self,reg,option,setting):
     if option == "video" :
         allset = check_the_box(search_reg=p1,phrase="Show videos",setting=setting)  
     save_prefs(self,reg,p,allset=allset)
+
+def remove_watched_folder(self,reg,folder):
+    """Sets the podcast display preference for video or music sections of the library.
+
+    """
+    p = open_prefs(self,reg)
+    allset = True
+    p1 = Region(open_tab(self,p,tab="Folders").below())
+    p1.setX(p1.getX()-250)
+    p1.setW(p1.getW()+800)
+    p1.highlight(1)
+    p1.find("Watch for")
+    p2 = Region(p1.getLastMatch().below())
+    p2.setW(p2.getW()+200)
+    
+
+    watched = folder.split('/')
+    while watched:
+        curr = watched.pop()
+        if p2.exists(curr):
+            print "found",curr
+            click(p2.getLastMatch())
+            p2.click("Remove")
+    save_prefs(self,reg,p,allset=allset)
+
 
 
 def set_preference_checkbox(self,reg,tab,option,setting):

@@ -10,6 +10,7 @@ sys.path.append(os.path.join(mycwd,'myLib'))
 import config
 import mirolib
 import testvars
+import prefs
 import base_testcase
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
@@ -186,11 +187,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         reg = mirolib.AppRegions()
-        print reg.s
+        
     
         feed = "TestData"
         term = "monkey"
         folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","WatchTest")
+        prefs.remove_watched_folder(self,reg,folder=folder_path)
         #1. add feed
         mirolib.add_watched_folder(self,reg,folder_path)
         if reg.s.exists("WatchTest"):
@@ -198,6 +200,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #2. search
         mirolib.tab_search(self,reg,term)
         mirolib.new_search_feed(self,reg,term,radio="Podcast",source=feed,watched=True)
+        prefs.remove_watched_folder(self,reg,folder=folder_path)
   
         
 

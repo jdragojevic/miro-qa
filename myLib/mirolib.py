@@ -671,7 +671,7 @@ def confirm_download_started(self,reg,title):
         downloaded = "downloaded"
         print "item already downloaded"
         type(Key.ESC)            
-    elif mr.exists("downloading now",5) or \
+    elif mr.exists("downloading now",3) or \
          mr.exists("message_already_external_dl.png",1):
         downloaded = "in_progress"
         print "item downloading"
@@ -682,7 +682,7 @@ def confirm_download_started(self,reg,title):
         type(Key.ESC)
     else:
         click_sidebar_tab(self,reg,"Downloading")
-        reg.mtb.click("download-pause.png")
+        reg.mtb.click(Pattern("download-pause.png"))
         if mr.exists(Pattern("badge_dl_error.png"),2):
             downlaoded = "errors"
         elif tab_search(self,reg,title,confirm_present=True) == True:
@@ -854,17 +854,18 @@ def edit_item_type(self,reg,new_type):
     time.sleep(2)
     click("button_ok.png")
 
-def edit_item_rating(self,reg,rating):
+def edit_item_rating(rating):
     """Change the item's metadata type, assumes item is selected.
 
     """
     click("Rating")
-    f = Region(getLastMatch().nearby(100))
-    click(f.getLastMatch().right(50))
-    if f.exists("None"):
-        click(f.getLastMatch())
+#    f = Region(getLastMatch().nearby(100))
+    click(getLastMatch().right(50))
+##    if f.exists("None"):
+##        click(f.getLastMatch())
     for x in range(0,int(rating)):
         type(Key.DOWN)
+    type(Key.Enter)
     click("button_ok.png")
 
 
@@ -883,7 +884,7 @@ def edit_item_metadata(self,reg,meta_field,meta_value):
         rep = i
 
     if meta_field == "rating":
-        edit_item_rating(reg,rating=meta_value)
+        edit_item_rating(rating=meta_value)
     elif config.get_os_name() == "osx" and rep > 6: #stupid but the tab gets stuck on the about field
         if meta_field == "art":
             click("Click to")
@@ -902,13 +903,15 @@ def edit_item_metadata(self,reg,meta_field,meta_value):
             type(" ")
             type(meta_value)
             type(Key.ENTER)
+            time.sleep(2)
+            click("button_ok.png")
         else:
             type(meta_value) #enter the new value
-        ok_but = len(metalist)
-        for x in range(rep+1,ok_but):
-            type(Key.TAB)
-            time.sleep(.5)
-        type(Key.ENTER) #Save the changes
+            ok_but = len(metalist)
+            for x in range(rep+1,ok_but):
+                type(Key.TAB)
+                time.sleep(.5)
+            type(Key.ENTER) #Save the changes
 
 def edit_item_video_metadata_bulk(self,reg,new_metadata_list):
     """Given the field and new metadata value, edit a selected item, or mulitple items metadata.
