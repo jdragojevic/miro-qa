@@ -59,6 +59,7 @@ class AppRegions():
         pr.setW(hw)
         pr.setH(hh)
         pr.setY(10)
+        sidex=250
         if pr.exists("Music",2) or \
            pr.exists("Videos",2):
             click(pr.getLastMatch())
@@ -69,9 +70,6 @@ class AppRegions():
             mg = Region(libr.getLastMatch())
             if pr.exists(Pattern("miroguide_home.png").similar(.95),45):
                 sidex = pr.getLastMatch().getX()-20
-            else:
-                print "using default side width"
-                sidex = 250
 
         pr.find("Music")
         topx =  int(pr.getLastMatch().getX())-55
