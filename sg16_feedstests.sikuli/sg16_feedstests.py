@@ -209,7 +209,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             #3. verify download started
             status = mirolib.confirm_download_started(self,reg,feed)
             if status == "in_progress":
-                mirolob.log_result("726","verified for feed: "+feed)
+                mirolib.log_result("726","verified for feed: "+feed)
             else:
                 self.verificationErrors.append("failed for feed: "+feed)
             #4. Cleanup
