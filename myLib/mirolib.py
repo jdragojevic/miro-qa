@@ -59,21 +59,25 @@ class AppRegions():
         pr.setW(hw)
         pr.setH(hh)
         pr.setY(10)
-        sidex=250
-        if pr.exists("Music",2) or \
-           pr.exists("Videos",2):
+        sidex=300  #I can get the actual value from the db.
+        topx = 50
+        topy = 30
+        if pr.exists("Music",5):
             click(pr.getLastMatch())
-        libr = Region(pr.getLastMatch().above(100).left(120).right(200))
+            topx =  int(pr.getLastMatch().getX())-55
+            topy = int(pr.getLastMatch().getY())-80
+        libr = Region(topx,topy,sidex+120,120)
+#        libr = Region(pr.getLastMatch().above(100).left(120).right(200))
         if libr.exists(Pattern("icon-guide.png"),5) or \
            libr.exists("Miro",3):
             click(libr.getLastMatch())
             mg = Region(libr.getLastMatch())
             if pr.exists(Pattern("miroguide_home.png").similar(.95),45):
                 sidex = pr.getLastMatch().getX()-20
-
-        pr.find("Music")
-        topx =  int(pr.getLastMatch().getX())-55
-        topy = int(pr.getLastMatch().getY())-80
+##
+##        pr.find("Music")
+##        topx =  int(pr.getLastMatch().getX())-55
+##        topy = int(pr.getLastMatch().getY())-80
          
         
         find("BottomCorner.png")

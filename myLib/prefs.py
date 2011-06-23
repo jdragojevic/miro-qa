@@ -37,11 +37,12 @@ def open_tab(self,p,tab):
 
     """
     if exists("Preferences"):
-        pr = Region(getLastMatch().below())
-        pr.setX(pr.getX()-50)
-        pr.setW(pr.getW()+250)
+        pr = Region(getLastMatch().below(150))
+        pr.setX(pr.getX()-250)
+        pr.setW(pr.getW()+500)
     else:
         pr = Region(p)
+    pr.highlight(5)
     for x in testvars.PREF_PANEL.keys():
         if tab.lower() in x:
             pref_icon = testvars.PREF_PANEL[x]        
@@ -51,7 +52,7 @@ def open_tab(self,p,tab):
         click(tab_loc)
         return tab_loc
     else:
-        self.fail("preference tab not found")
+        self.fail(tab+" tab not found")
 
 def set_default_view(self,reg,setting="Standard"):
     """Set the global podcast default view prefernce.
@@ -145,10 +146,10 @@ def remove_watched_folder(self,reg,folder):
     p1 = Region(open_tab(self,p,tab="Folders").below())
     p1.setX(p1.getX()-250)
     p1.setW(p1.getW()+800)
-    p1.highlight(1)
-    p1.find("Watch for")
+    p1.highlight(3)
+    p1.find("Watch")
     p2 = Region(p1.getLastMatch().below())
-    p2.setW(p2.getW()+200)
+    p2.setW(p1.getW())
     
 
     watched = folder.split('/')
