@@ -349,29 +349,21 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                      " ":"password",
                      "username": " "
                      }
-        auth_file = os.path.join(config.get_support_dir(),"httpauth")
-        try:
-            mirolib.remove_http_auth_file()
-            mirolib.quit_miro(self,reg)
-            mirolib.restart_miro()
-            #add feed and download 4th item
-            mirolib.add_feed(self,reg,url,feed)
-            mirolib.tab_search(self,reg,term)
-            reg.m.click("button_download.png")
-            for username, passw in BAD_PASSW.iteritems():
-                mirolib.http_auth(self,reg,username,passw)
-            mirolib.http_auth(self,reg,username="tester", passw="pcfdudes")
-            time.sleep(5)
-            mirolib.confirm_download_started(self,reg,title)
-            #cleanup
-            mirolib.delete_feed(self,reg,feed)
-            mirolib.quit_miro(self,reg)
-            
-        finally:
-            if not os.path.exists(auth_file):
-                self.fail("auth file not saved")
-            else:
-                os.remove(auth_file)
+        mirolib.remove_http_auth_file(self,reg)
+        #add feed and download 4th item
+        mirolib.add_feed(self,reg,url,feed)
+        mirolib.tab_search(self,reg,term)
+        reg.m.click("button_download.png")
+        for username, passw in BAD_PASSW.iteritems():
+            mirolib.http_auth(self,reg,username,passw)
+        mirolib.http_auth(self,reg,username="tester", passw="pcfdudes")
+        time.sleep(5)
+        mirolib.confirm_download_started(self,reg,title)
+        #cleanup
+        mirolib.delete_feed(self,reg,feed)
+        if mirolib.remove_http_auth_file(self,reg) == False:
+            self.fail("auth file not saved on filesystem")
+        
         
 
                                      

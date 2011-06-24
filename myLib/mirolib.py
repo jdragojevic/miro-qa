@@ -738,6 +738,7 @@ def wait_for_item_in_tab(self,reg,tab,item):
     toggle_normal(reg)
     for x in range(0,30):
         while not reg.m.exists(item):
+            print ". waiting",x*5,"seconds for item to appear in tab:",tab
             time.sleep(5)
     
 def wait_conversions_complete(self,reg,title,conv):
@@ -748,23 +749,9 @@ def wait_conversions_complete(self,reg,title,conv):
 
     """
     while reg.m.exists(title):
+        if reg.m.exists(Pattern("item-renderer-conversion-progress-left.png")):
+            waitVanish(reg.m.getLastMatch(),60)
         if reg.m.exists("Open log",5):
-            try:
-                click(reg.m.getLastMatch())
-                #save the error log to a file
-                if config.get_os_name() == "osx":
-                    time.sleep(10)
-                    shortcut("s",shift=True)
-                    wait("sys_save_as.png")
-                    type(os.getcwd+"\n")
-                    type(self.id()+"conv_"+conv+".log"+ "\n")
-                else:
-                    click("File")
-                    click("Save as")
-                    type(self.id()+"conv_"+conv+".log"+ "\n")
-                    click("Save")
-            finally:
-                self.verificationErrors.append("error in conversion see log. "+str(title)+": "+str(conv))
             sstatus = "fail"
         else:
             sstatus = "pass"
@@ -1065,14 +1052,18 @@ def http_auth(self,reg,username="tester",passw="pcfdudes"):
         mr.click("button_ok.png")
         time.sleep(3)
 
-def remove_http_auth_file():
+def remove_http_auth_file(self,reg):
     auth_file = os.path.join(config.get_support_dir(),"httpauth")
+    quit_miro(self,reg)
+    time.sleep(5)
     if os.path.exists(auth_file):
-        shortcut('q')
+        auth_saved = True
         os.remove(auth_file)
         restart_miro()
     else:
         print "no auth file found"
+        auth_saved = False
+    return auth_saved
 
 def convert_file(self,reg,out_format):
     if config.get_os_name() == "osx":

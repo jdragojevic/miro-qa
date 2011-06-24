@@ -36,7 +36,7 @@ def open_tab(self,p,tab):
     """Open the specified tab by searching with-in the preferences region (p) for the icon.
 
     """
-    if exists("Preferences"):
+    if exists("Preferences") and config.get_os_name() == "osx":
         pr = Region(getLastMatch().below(150))
         pr.setX(pr.getX()-250)
         pr.setW(pr.getW()+500)
@@ -47,7 +47,7 @@ def open_tab(self,p,tab):
         if tab.lower() in x:
             pref_icon = testvars.PREF_PANEL[x]        
     print "going to tab: "+str(tab)
-    if pr.exists(Pattern(pref_icon),15) or pr.exists(tab.capitalize(),10):
+    if pr.exists(Pattern(pref_icon),5) or pr.exists(tab.capitalize(),5):
         tab_loc = Region(pr.getLastMatch())
         click(tab_loc)
         return tab_loc

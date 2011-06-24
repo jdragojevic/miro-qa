@@ -147,7 +147,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             mirolib.log_result("698","test_441")
         else:
             click_podcast(self,reg,feed)
-        mirolib.tab_search(self,reg,term)
+        mirolib.tab_search(self,reg,title)
         reg.m.click(title)
         type(Key.DELETE)
 
