@@ -703,7 +703,8 @@ def wait_download_complete(self,reg,title,torrent=False):
     """
     if not confirm_download_started(self,reg,title) == "downloaded":
         if torrent == False:
-            reg.m.waitVanish(title,240)
+            if reg.m.exists(title):
+                reg.m.waitVanish(title,240)
         elif torrent == True:
     #break out if stop seeding button found for torrent
             for x in range(0,30):
@@ -719,7 +720,7 @@ def cancel_all_downloads(self,reg):
     """
     click_sidebar_tab(self,reg,"Music")
     time.sleep(2)
-    if reg.s.exists("Downloading",5):
+    if reg.s.exists("Downloading",2):
         click(reg.s.getLastMatch())
         time.sleep(3)
         reg.mtb.click("download-cancel.png")
