@@ -12,10 +12,13 @@ class Miro_unittest_testcase(unittest.TestCase):
 
     def setUp(self):
         self.verificationErrors = []
+        print "starting test: ",self.id
+        
 
 
 
     def tearDown(self):
         mirolib.handle_crash_dialog(self)
         type(Key.ESC)  #get rid of any leftover dialogs on teardown
+        print "finished test: ",self.id
         self.assertEqual([], self.verificationErrors)

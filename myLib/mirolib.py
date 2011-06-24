@@ -59,23 +59,25 @@ class AppRegions():
         pr.setW(hw)
         pr.setH(hh)
         pr.setY(10)
-        if pr.exists("Music",2) or \
-           pr.exists("Videos",2):
+        sidex=300  #I can get the actual value from the db.
+        topx = 50
+        topy = 30
+        if pr.exists("Music",5):
             click(pr.getLastMatch())
-        libr = Region(pr.getLastMatch().above(100).left(120).right(200))
+            topx =  int(pr.getLastMatch().getX())-55
+            topy = int(pr.getLastMatch().getY())-80
+        libr = Region(topx,topy,sidex+120,120)
+#        libr = Region(pr.getLastMatch().above(100).left(120).right(200))
         if libr.exists(Pattern("icon-guide.png"),5) or \
            libr.exists("Miro",3):
             click(libr.getLastMatch())
             mg = Region(libr.getLastMatch())
             if pr.exists(Pattern("miroguide_home.png").similar(.95),45):
                 sidex = pr.getLastMatch().getX()-20
-            else:
-                print "using default side width"
-                sidex = 250
-
-        pr.find("Music")
-        topx =  int(pr.getLastMatch().getX())-55
-        topy = int(pr.getLastMatch().getY())-80
+##
+##        pr.find("Music")
+##        topx =  int(pr.getLastMatch().getX())-55
+##        topy = int(pr.getLastMatch().getY())-80
          
         
         find("BottomCorner.png")
@@ -179,7 +181,12 @@ def restart_miro():
     else:
         App.open(open_miro())
     time.sleep(5)
-    wait("Miro",45)    
+    if exists(Pattern("icon-guide_active.png"),10) or \
+       exists(Pattern("icon-guide.png"),10) or \
+       exists("Miro",45):
+        print "miro started"
+    else:
+        print("can't confirm miro restarted")
     
 def cmd_ctrl():
     """Based on the operating systems, returns the correct key modifier for shortcuts.
@@ -701,7 +708,8 @@ def wait_download_complete(self,reg,title,torrent=False):
     """
     if not confirm_download_started(self,reg,title) == "downloaded":
         if torrent == False:
-            reg.m.waitVanish(title,240)
+            if reg.m.exists(title):
+                reg.m.waitVanish(title,240)
         elif torrent == True:
     #break out if stop seeding button found for torrent
             for x in range(0,30):
@@ -717,7 +725,7 @@ def cancel_all_downloads(self,reg):
     """
     click_sidebar_tab(self,reg,"Music")
     time.sleep(2)
-    if reg.s.exists("Downloading",5):
+    if reg.s.exists("Downloading",2):
         click(reg.s.getLastMatch())
         time.sleep(3)
         reg.mtb.click("download-cancel.png")
@@ -736,6 +744,7 @@ def wait_for_item_in_tab(self,reg,tab,item):
     toggle_normal(reg)
     for x in range(0,30):
         while not reg.m.exists(item):
+            print ". waiting",x*5,"seconds for item to appear in tab:",tab
             time.sleep(5)
     
 def wait_conversions_complete(self,reg,title,conv):
@@ -746,23 +755,9 @@ def wait_conversions_complete(self,reg,title,conv):
 
     """
     while reg.m.exists(title):
+        if reg.m.exists(Pattern("item-renderer-conversion-progress-left.png")):
+            waitVanish(reg.m.getLastMatch(),60)
         if reg.m.exists("Open log",5):
-            try:
-                click(reg.m.getLastMatch())
-                #save the error log to a file
-                if config.get_os_name() == "osx":
-                    time.sleep(10)
-                    shortcut("s",shift=True)
-                    wait("sys_save_as.png")
-                    type(os.getcwd+"\n")
-                    type(self.id()+"conv_"+conv+".log"+ "\n")
-                else:
-                    click("File")
-                    click("Save as")
-                    type(self.id()+"conv_"+conv+".log"+ "\n")
-                    click("Save")
-            finally:
-                self.verificationErrors.append("error in conversion see log. "+str(title)+": "+str(conv))
             sstatus = "fail"
         else:
             sstatus = "pass"
@@ -1063,14 +1058,18 @@ def http_auth(self,reg,username="tester",passw="pcfdudes"):
         mr.click("button_ok.png")
         time.sleep(3)
 
-def remove_http_auth_file():
+def remove_http_auth_file(self,reg):
     auth_file = os.path.join(config.get_support_dir(),"httpauth")
+    quit_miro(self,reg)
+    time.sleep(5)
     if os.path.exists(auth_file):
-        shortcut('q')
+        auth_saved = True
         os.remove(auth_file)
         restart_miro()
     else:
         print "no auth file found"
+        auth_saved = False
+    return auth_saved
 
 def convert_file(self,reg,out_format):
     if config.get_os_name() == "osx":

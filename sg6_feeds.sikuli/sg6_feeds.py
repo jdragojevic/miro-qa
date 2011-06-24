@@ -54,7 +54,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.t.click("Sidebar")
         tmpr = Region(reg.t.getLastMatch().below())
         tmpr.setW(tmpr.getW()+200)
-        tmpr.click("Copy")
+        tmpr.highlight(3)
+        if tmpr.exists("Copy") or tmpr.exists("URL"):
+            click(tmpr.getLastMatch())
         time.sleep(2)
         mirolib.shortcut("n")        
         time.sleep(2)

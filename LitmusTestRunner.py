@@ -23,6 +23,7 @@ import sg40_feed_folders
 import sg41_one_click
 import sg42_feedsearch
 import sg58_items
+import sg58_items2
 import sg72_conversions
 import sg89_prefs
 
@@ -173,7 +174,7 @@ def send_result(log):
 
 
 def set_build_id():
-#    build_id = "2011052499" #set custom build id here.
+#    build_id = "2011062299" #set custom build id here.
     build_id = time.strftime("%Y%m%d99", time.gmtime())
     return build_id
 
