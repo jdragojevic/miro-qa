@@ -689,7 +689,7 @@ def confirm_download_started(self,reg,title):
             downloaded = "in_progress"
         else:
         	downloaded = "item not located"
-        reg.mtb.click("download-resume.png")
+        reg.mtb.click(Pattern("download-resume.png"))
     return downloaded
 
 
@@ -865,7 +865,7 @@ def edit_item_rating(rating):
 ##        click(f.getLastMatch())
     for x in range(0,int(rating)):
         type(Key.DOWN)
-    type(Key.Enter)
+    type(Key.ENTER)
     click("button_ok.png")
 
 
