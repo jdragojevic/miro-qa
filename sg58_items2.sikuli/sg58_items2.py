@@ -18,9 +18,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 58 - Items - more tests.
 
     """
-    def setUp(self):
-        self.verificationErrors = []
-        setAutoWaitTimeout(60)
 
     def test_653(self):
         """http://litmus.pculture.org/show_test.cgi?id=653 edit album art
@@ -111,13 +108,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         2. download the Flip Faceitem
         3. restart miro
         4. delete the item
-        5. restart mior
+        5. restart miro
         6. verify item still deleted
         """
         reg = mirolib.AppRegions()
         remember = False
         try:
-            mirolib.set_preference_checkbox(self,reg,tab="General",option="When starting",setting="on")
+            prefs.set_preference_checkbox(self,reg,tab="General",option="When starting",setting="on")
             remember = True
         except:
             remember = False
@@ -143,10 +140,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             found_file = True
         mirolib.quit_miro(self,reg)
         mirolib.restart_miro()
-        if reg.m.exists("title"):
+        if remember == True and reg.m.exists("title",15):  #check the remember last tab setting
             mirolib.log_result("698","test_441")
         else:
-            click_podcast(self,reg,feed)
+            mirolib.click_podcast(self,reg,feed)
         mirolib.tab_search(self,reg,title)
         reg.m.click(title)
         type(Key.DELETE)

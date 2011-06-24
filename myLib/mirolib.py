@@ -181,7 +181,12 @@ def restart_miro():
     else:
         App.open(open_miro())
     time.sleep(5)
-    wait("Miro",45)    
+    if exists(Pattern("icon-guide_active.png"),10) or \
+       exists(Pattern("icon-guide.png"),10) or \
+       exists("Miro",45):
+        print "miro started"
+    else:
+        print("can't confirm miro restarted")
     
 def cmd_ctrl():
     """Based on the operating systems, returns the correct key modifier for shortcuts.
@@ -855,7 +860,7 @@ def edit_item_rating(rating):
 ##        click(f.getLastMatch())
     for x in range(0,int(rating)):
         type(Key.DOWN)
-    type(Key.Enter)
+    type(Key.ENTER)
     click("button_ok.png")
 
 
