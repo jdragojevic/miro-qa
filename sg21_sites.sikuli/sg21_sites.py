@@ -307,8 +307,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         keyDown(Key.SHIFT)
         p.click(site2)
         keyUp(Key.SHIFT)
-        if reg.m.exists("Delete All",3) or \
-           reg.m.exists(Pattern("button_mv_delete_all.png"),3):
+        if reg.m.exists("Delete All",5) or \
+           reg.m.exists(Pattern("button_mv_delete_all.png"),5):
             click(reg.m.getLastMatch())
         else:
             self.fail("Delete All button for multi-select not found")
