@@ -141,7 +141,7 @@ def write_log(log,testid,stat,error_info=""):
                      "timestamp": time.strftime("%Y%m%d%H%M%S", time.gmtime()),
                      "error_msg": error_info.lstrip('.')
                          })
-    f.close
+    f.close()
     time.sleep(3)
 
 def write_footer(log):
