@@ -1,6 +1,7 @@
 import os
 import time
 import glob
+import sqlite3
 import config
 import testvars
 from sikuli.Sikuli import *
@@ -48,44 +49,33 @@ class AppRegions():
         if exists("Music",120) or \
            exists("icon-audio.png",120) :
             print "miro launched"
-            
+
+
+    def get_sidebar_width():
+        conn = sqlite3.connect(os.path.join(config.get_support_dir(),'sqlitedb'))
+        c = conn.cursor()
+        for x in c.execute('''select tabs_width from global_state'''):
+            width = int(x[0])
+        return width
     
     def get_regions():
         regions = []
-        myscreen = Screen()
-        pr = Region(myscreen.getBounds())
-        hw = pr.getW()/3
-        hh = pr.getH()/3
-        pr.setW(hw)
-        pr.setH(hh)
-        pr.setY(10)
-        sidex=300  #I can get the actual value from the db.
+        sidebar_width = get_sidebar_width()  #I can get the actual value from the db.
         topx = 50
         topy = 30
+        pr = Region(topx,topy,sidebar_width+100,300)
         if pr.exists("Music",5):
-            click(pr.getLastMatch())
             topx =  int(pr.getLastMatch().getX())-55
             topy = int(pr.getLastMatch().getY())-80
-        libr = Region(topx,topy,sidex+120,120)
-#        libr = Region(pr.getLastMatch().above(100).left(120).right(200))
-        if libr.exists(Pattern("icon-guide.png"),5) or \
-           libr.exists("Miro",3):
-            click(libr.getLastMatch())
-            mg = Region(libr.getLastMatch())
-            if pr.exists(Pattern("miroguide_home.png").similar(.95),45):
-                sidex = pr.getLastMatch().getX()-20
-##
-##        pr.find("Music")
-##        topx =  int(pr.getLastMatch().getX())-55
-##        topy = int(pr.getLastMatch().getY())-80
-         
-        
+        sidex = topx+sidebar_width()
+
         find("BottomCorner.png")
         vbarx =  int(getLastMatch().getX())+30
         vbary = int(getLastMatch().getY())+10
         vbarw = getLastMatch().getW()
+        
 
-        sidebar_width = int(sidex-topx)
+        
         app_height = int(vbary-topy)
 #        tbar_height = 100
         
@@ -1128,7 +1118,7 @@ def log_result(result_id,runner_id,status="pass"):
                      "timestamp": time.strftime("%Y%m%d%H%M%S", time.gmtime()),
                      "msg": "executed as part of "+runner_id
                          })
-    f.close
+    f.close()
    
 def handle_crash_dialog(self,db=True,test=False):
     """Look for the crash dialog message and submit report.
