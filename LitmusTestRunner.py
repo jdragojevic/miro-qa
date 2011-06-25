@@ -185,7 +185,7 @@ def write_header(log):
                       "opsys": r,
                       "platform": v
                       })
-    f.close
+    f.close()
 
 
 
