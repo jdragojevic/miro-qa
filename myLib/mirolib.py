@@ -1128,7 +1128,7 @@ def log_result(result_id,runner_id,status="pass"):
                      "timestamp": time.strftime("%Y%m%d%H%M%S", time.gmtime()),
                      "msg": "executed as part of "+runner_id
                          })
-    f.close
+    f.close()
    
 def handle_crash_dialog(self,db=True,test=False):
     """Look for the crash dialog message and submit report.
