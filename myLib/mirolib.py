@@ -224,6 +224,8 @@ def browser_to_miro(self,reg,url):
     myFF = App.open(open_ff())
     if reg.t.exists("Firefox",45):
         click(reg.t.getLastMatch())
+    if config.get_os_name() == "osx":
+        time.sleep(20)  #because on my osx ff is way slow to launch.
     shortcut("l")
     time.sleep(2)
     type(url + "\n")
