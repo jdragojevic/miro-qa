@@ -75,7 +75,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                       ["album","Barki Barks", "649"],
                       ["genre","family", "650"],
                       ["rating","5", "651"],
-                      ["year","2010" "655"],
+                      ["year","2010","655"],
                       ["track_num","1", "673"],
                       ["track_of","2", "673"],
                       ]
@@ -285,7 +285,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         time.sleep(5)
         url = "http://ringtales.com/nyrss.xml"
         feed = "The New"
-        title = "Duck" 
+        title = "Cat" 
 
         new_metadata_list = [["show","Animated Cartoons", "658"],
                       ["episode_id","nya", "670"],
@@ -308,7 +308,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.edit_item_video_metadata_bulk(self,reg,new_metadata_list)
         time.sleep(2)
         mirolib.click_sidebar_tab(self,reg,"Videos")
-        reg.mtb.click("Clips")
+        mirolib.tab_search(self,reg,title)
+        reg.mtb.click("Clip")
         if reg.m.exists(title):
             reg.mtb.click("All")
         else:

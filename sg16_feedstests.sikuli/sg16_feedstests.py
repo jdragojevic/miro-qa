@@ -4,6 +4,8 @@ import glob
 import unittest
 import StringIO
 import time
+from urlparse import urlsplit
+
 from sikuli.Sikuli import *
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
@@ -72,7 +74,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             #3. verify item metadata
             self.assertTrue(reg.m.exists(title))
             #verify the links
-            LINKS = {"absolute link": "google", "relative link": "appcast.xml","another relative": "pculture.org" }
+            LINKS = {"absolute link": "google", "relative link": "appcast","another relative": "pculture" }
             for link, linkurl in LINKS.iteritems():
                 if reg.m.exists(link):
                     click(reg.m.getLastMatch())
@@ -83,19 +85,19 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                     time.sleep(2)
                     url = Env.getClipboard()
                     print url
-                    if link == "relative link":
-                        print linkurl
-                        if linkurl not in url.split('/'):
+                    mirolib.close_ff()
+                    baseurl = urlsplit(url).netloc
+                    if link == "relative link":  
+                        if linkurl not in baseurl.split('.'):
                             reg.s.find("Democracy",5)
                         else:
-                            mirolib.close_ff()
                             self.fail("wrong link url")
                     else:
-                        mirolib.close_ff()
-                        url_parts = url.split('/')
+                        url_parts = baseurl.split('.')
                         self.failUnless(linkurl in url_parts)            
         #cleanup
         finally:
+            mirolib.close_ff()
             mirolib.delete_feed(self,reg,feed)
             
  
@@ -111,22 +113,21 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         #1. add feed
         url = "http://pculture.org/feeds_test/no-enclosures.rss"
-        feed = "Yaho"
+        feed = "Yah"
         term = "first test video"
         title = "Video 1"
         
         #1. add feed
         mirolib.add_feed(self,reg,url,feed)
-        mirolib.download_all_items(self,reg)
         #2. search
         
         #3. verify item metadata
         self.assertTrue(reg.m.exists(title))
         self.assertTrue(reg.m.exists("This is")) #Description text
-        self.assertTrue(reg.m.exists("mike_tv.png"))
 
         mirolib.tab_search(self,reg,"Video 2",confirm_present=False)
-        self.assertFalse(reg.m.exists("Video 2",1))
+        if (reg.m.exists("Video 2",1)):
+            self.fail("video 2 found")
         #cleanup
         mirolib.delete_feed(self,reg,feed)
         
@@ -193,12 +194,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         reg = mirolib.AppRegions()
 
-        ZIPPED_FEEDS = {
-            #"http://podcastle.org/feed/rss2":"PodCastle",
-            "http://escapepod.org/feed/":"Escape",
-            "http://pseudopod.org/feed/rss2":"Pseudopod",
-                        }
-        for url,feed in ZIPPED_FEEDS.iteritems():
+        ZIPPED_FEEDS = [
+            #["http://podcastle.org/feed/rss2","PodCastle",],
+            ["http://escapepod.org/feed/","Escape","EP"],
+            ["http://pseudopod.org/feed/rss2","Pseudopod","Pseudopod"],
+            ]
+        for url,feed,item_id in ZIPPED_FEEDS:
            #1. add feed
             mirolib.add_feed(self,reg,url,feed)
             #2 verify items displayed
@@ -207,7 +208,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             else:
                 self.fail("download button not found, no items displayed?")
             #3. verify download started
-            status = mirolib.confirm_download_started(self,reg,feed)
+            status = mirolib.confirm_download_started(self,reg,item_id)
             if status == "in_progress":
                 mirolib.log_result("726","verified for feed: "+feed)
             else:

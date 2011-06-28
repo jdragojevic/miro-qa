@@ -15,7 +15,7 @@ import prefs
 import testvars
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
-    """Subgroup 6 - Feeds tests.
+    """Subgroup 40 - Feeds folders.
 
     """
  
