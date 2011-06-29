@@ -331,6 +331,7 @@ def get_sources_region(reg):
 def get_podcasts_region(reg):
     if not reg.s.exists("Podcasts",1):
         reg.s.click("Music")
+    time.sleep(3)
     reg.s.click("Podcasts")
     time.sleep(2)
     topx =  (reg.s.getLastMatch().getX())-10

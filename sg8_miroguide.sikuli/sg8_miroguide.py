@@ -36,7 +36,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
  
         try:
             mirolib.click_sidebar_tab(self,reg,"Miro")
-            reg.mtb.click(testvars.guide_search)
+            time.sleep(5)
+            gr = Region(reg.mtb)
+            gr.setH(300)
+            gr.click(Pattern("guide_search.png"))
             type("StupidVideos\n")
             time.sleep(5)
             reg.m.find(Pattern("add_feed.png"))
