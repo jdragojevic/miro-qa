@@ -30,7 +30,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         
         url = "http://pculture.org/feeds_test/feed1.rss"
-        feed = "Media"
+        feed = "Yah"
         term = "first test video"
         title = "Video"
        
@@ -60,7 +60,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             
             #1. add feed
             url = "http://pculture.org/feeds_test/feed1.rss"
-            feed = "Media"
+            feed = "Yah"
             term = "third test video"
             title = "Video 3"
             
