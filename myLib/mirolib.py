@@ -173,7 +173,9 @@ def quit_miro(self,reg=None):
         shortcut("q")
         while reg.m.exists("dialog_confirm_quit.png",5):
             reg.m.click("dialog_quit.png")
-        self.assertFalse(reg.s.exists("Music",10))
+        reg.t.waitVanish("Miro",20)
+        if reg.s.exists("Miro"):
+            self.fail("not shutdown")
 
 def restart_miro():
     if config.get_os_name() == "lin":
@@ -236,10 +238,13 @@ def browser_to_miro(self,reg,url):
 
 
 def close_ff():
+    myscreen = Screen()
+    ffr = Region(myscreen.getBounds())
+    ffr.setH(ffr.getH()/2)
     for x in range(0,3):
-        if exists("Firefox",1):
+        if ffr.exists("Firefox",1):
             print "ff is here"
-            click(getLastMatch())
+            click(ffr.getLastMatch())
             shortcut('w')
             time.sleep(2)
         
@@ -552,17 +557,17 @@ def click_sidebar_tab(self,reg,tab):
         myr = Region(reg.s)
         myr.setH(boty - reg.s.getY()) #height is top of sidebar to y position of video search
         if tab == "Misc": #drop the height to avoid Miro tab
-            myr.click("Music")
-            mry1 = Region(myr.getLastMatch().below(80))
+            myr.find("Videos")
+            mry1 = Region(myr.getLastMatch().below(250))
             mry1.click("Misc")
         elif tab == "Miro":
-            myr.click("Music")
+            myr.find("Music")
             mry1 = Region(myr.getLastMatch().above(100))
             mry1.click("Miro")
         else:
             myr.click(tab)
                 
-    if tab.lower() == "search" and active_tab == "search":
+    elif tab.lower() == "search" and active_tab == "search":
         print "should be on search already"
     else:
         reg.s.click(tab)
@@ -607,6 +612,8 @@ def expand_item_details(self,reg):
     
     
 def toggle_normal(reg):
+    print "toggling to normal view"
+    reg.mtb.setX(reg.mtb.getX()+100)
     if reg.mtb.exists(Pattern("list_view_active.png").similar(.98),1):
         click(reg.mtb.getLastMatch())
         time.sleep(2)
@@ -745,7 +752,7 @@ def wait_for_item_in_tab(self,reg,tab,item):
     tab_search(self,reg,item)
     toggle_normal(reg)
     for x in range(0,30):
-        while not reg.m.exists(item):
+        if not reg.m.exists(item):
             print ". waiting",x*5,"seconds for item to appear in tab:",tab
             time.sleep(5)
     

@@ -41,7 +41,7 @@ def get_os_name():
     else:
         print ("I don't know how to handle platform '%s'", Env.getOS())
 
-HEADER = """<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+HEADER="""<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <litmusresults action="submit" useragent="UberSikuliAgent/1.0 (machine foobar)" machinename="sikuli_machine">
    <testresults
    username="jed@pculture.org"
@@ -55,14 +55,12 @@ HEADER = """<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
    >
    """
 
-STORY = """
-    <result testid="%(testid)s"
+STORY ="""<result testid="%(testid)s"
     is_automated_result="0"
     resultstatus="%(status)s"
     exitstatus="0"
     timestamp="%(timestamp)s"
     >
-    
         <comment><![CDATA[ %(error_msg)s]]>
         </comment>
     </result>

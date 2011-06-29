@@ -163,7 +163,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib.AppRegions()
         time.sleep(5)
         url = "http://vimeo.com/moogaloop_local.swf?clip_id=7335370&server=vimeo.com"
-        title = "mooga"
+        title = "local"
         #Set Global Preferences
         prefs.set_item_display(self,reg,option="video",setting="on")
         time.sleep(2)
@@ -172,25 +172,30 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.tl.click("Download from")
         time.sleep(4)
         type(url)
-        time.sleep(2)
+        time.sleep(10)
         type("\n")
         if reg.s.exists("Downloading"):
             print "item dl started"
             reg.s.waitVanish("Downloading",120)
-        mirolib.wait_for_item_in_tab(self,reg,"Misc",item=title)
+            time.sleep(5)
+        mirolib.wait_for_item_in_tab(self,reg,tab="Misc",item=title)
         x = reg.m.find(title)
+        click(x)
         reg.s.find("Music")
         tmpr = Region(reg.s.getLastMatch().above())
-        tmpr.setW(tmpr.getW()+50)
+        tmpr.setW(tmpr.getW()+80)
+        tmpr.setX(tmpr.getX()-20)
         y = tmpr.find("Videos")
         dragDrop(x,y)
         #locate item in video tab and verify playback
-        mirolib.wait_for_item_in_tab(self,reg,tab="Videos",item=title)
-        doubleClick(reg.m.getLastMatch())
-        mirolib.verify_video_playback(self,reg)       
-        #cleanup
-        mirolib.delete_items(self,reg,title,"Videos")
-
+        click(y)
+        if reg.m.exists(title):
+            doubleClick(reg.m.getLastMatch())
+            mirolib.verify_video_playback(self,reg)
+            mirolib.delete_items(self,reg,title,"Videos")
+        else:
+            mirolib.delete_items(self,reg,title,"Videos")
+            self.fail("item not found in videos tab")
 
 
     def test_458(self):
