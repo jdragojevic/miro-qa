@@ -217,7 +217,8 @@ class LitmusRunner(unittest.TestCase):
             id_string = str(x)
             stat = byte_output[0]
             print byte_output
-            write_log(logfile,id_string,stat,byte_output)
+            if not "001setup" in id_string:
+                write_log(logfile,id_string,stat,byte_output)
             buf.truncate(0)
         time.sleep(3)
         write_footer(logfile)
