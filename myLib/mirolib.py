@@ -162,6 +162,31 @@ def shortcut(key,shift=False):
             print config.get_os_name()
             type(key,KEY_CTRL+KEY_SHIFT)
 
+
+def multi_select(self,region,item_list):
+    """Use the CTRL or CMD key as os appropriate to select items in a region.
+
+    Return a list of the items that we successfully selected.
+    """
+    selected_items = []
+    #press the ctrl / cmd key
+    if config.get_os_name() == "osx":
+            keyDown(Key.CMD)
+    else:
+        keyDown(Key.CTRL)
+    #select each item in the list if it is found
+    for x in item_list:
+        if region.exists(x):
+            region.click(x)
+            selected_items.append(x)           
+        
+    #release the ctrl /cmd key         
+    if config.get_os_name() == "osx":
+            keyUp(Key.CMD)
+    else:
+        keyUp(Key.CTRL)
+    return selected_items
+        
     
 
 def quit_miro(self,reg=None):
@@ -329,7 +354,7 @@ def get_sources_region(reg):
     return SourcesRegion
 
 def get_podcasts_region(reg):
-    if not reg.s.exists("Podcasts",1):
+    if not reg.s.exists("Podcasts",2):
         reg.s.click("Music")
     time.sleep(3)
     reg.s.click("Podcasts")
@@ -394,6 +419,7 @@ def click_podcast(self,reg,feed):
     time.sleep(3)
     p.find(feed)
     click(p.getLastMatch())
+    return Region(p.getLastMatch()).getCenter()
 
 def add_watched_folder(self,reg,folder_path,show=True):
     """Add a feed to miro, click on it in the sidebar.
@@ -438,6 +464,29 @@ def click_last_podcast(self,reg):
     reg.s.find("Playlists")
     click(reg.s.getLastMatch().above(35))
 
+
+def delete_all_podcasts(self,reg):
+    p = get_podcasts_region(reg)
+    time.sleep(5)
+    pody = p.getY()+50
+    top_podcast = Location(p.getX(),pody)
+    reg.s.find("Playlists")
+    if (reg.s.getLastMatch().getY() - pody) > 100:
+        click(reg.s.getLastMatch().above(35))
+        keyDown(Key.SHIFT)
+        click(top_podcast)
+        keyUp(Key.SHIFT)
+        if reg.m.exists("Delete",4) or reg.m.exists(Pattern("button_mv_delete_all.png"),4):
+            click(reg.m.getLastMatch())
+            time.sleep(2)
+            type(Key.ENTER)
+    
+        
+    
+
+
+    
+    
 def click_misc(reg):
     if not reg.s.exists("Music",1):
         reg.s.click("Videos")
@@ -597,7 +646,7 @@ def tab_search(self,reg,title,confirm_present=False):
         elif reg.m.exists(Pattern("item-context-button.png")):
             present=True
         else:
-            self.fail("Item not found in downloading tab: "+title)
+            self.fail("Item not found in tab: "+title)
         return present
 
 def clear_search(reg):
@@ -875,7 +924,7 @@ def edit_item_rating(rating):
 
 
 def edit_item_metadata(self,reg,meta_field,meta_value):
-    """Given the field and new metadata value, edit a selected item, or mulitple items metadata.
+    """Given the field and new metadata value, edit a selected item, or multiple items metadata.
 
     """
     metalist = ["name","artist","album","genre","track_num",
@@ -1099,7 +1148,9 @@ def convert_file(self,reg,out_format):
     
 
 def import_opml(self,reg,opml_path):
+    click_sidebar_tab(self,reg,"Music")
     reg.tl.click("Sidebar")
+    time.sleep(2)
     reg.tl.click("Import")
     time.sleep(2)
     type_a_path(self,reg,opml_path)

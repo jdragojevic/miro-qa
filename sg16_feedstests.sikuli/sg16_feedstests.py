@@ -126,7 +126,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.assertTrue(reg.m.exists("This is")) #Description text
 
         mirolib.tab_search(self,reg,"Video 2",confirm_present=False)
-        if (reg.m.exists("Video 2",1)):
+        if reg.m.exists("second test",1):
             self.fail("video 2 found")
         #cleanup
         mirolib.delete_feed(self,reg,feed)

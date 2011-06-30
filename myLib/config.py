@@ -83,5 +83,22 @@ def get_support_dir():
     else:
         print "no clue"
     return support_dir
+
+def get_video_dir():
+    if get_os_name() == "win":
+        ver = Env.getOSVersion()
+        wv = ver.split('.')[0]
+        if int(wv) < 6:
+            video_dir = os.path.join(os.getenv("HOME"),"My Documents","My Videos","Miro")
+        else:
+            video_dir = os.path.join(os.getenv("HOME"),"Videos","Miro")
+    elif get_os_name() == "lin":
+            video_dir = os.path.join(os.getenv("HOME"),"Videos","Miro")
+    elif get_os_name() == "osx":
+            video_dir = os.path.join(os.getenv("HOME"),"Movies","Miro")
+
+    else:
+        print "no clue"
+    return video_dir
     
     
