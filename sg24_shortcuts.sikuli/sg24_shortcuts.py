@@ -74,7 +74,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             time.sleep(2)
             
         #Download item and with shortcut key, delete item
-        def _delete_item(self)
+        def _delete_item(self):
             title = "detective"
             mirolib.wait_for_item_in_tab(self,reg,"Misc","detective")
             mirolib.delete_items(self,reg,title,"Misc")
