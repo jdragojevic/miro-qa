@@ -5,8 +5,6 @@ import time
 import subprocess
 from sikuli.Sikuli import *
 
-
-
 testlitmus = True
 
 

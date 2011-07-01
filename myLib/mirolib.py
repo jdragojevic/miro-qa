@@ -479,6 +479,10 @@ def expand_feed_folder(self,reg,feed):
         else:
             fr.click(Pattern("folder_closed.png").targetOffset(-4,0))
             time.sleep(3)
+            if exists(Pattern("folder_open.png").similar(.95)):
+                print "folder now expanded")
+            
+                      
     else:
         print feed,": not found"
 
