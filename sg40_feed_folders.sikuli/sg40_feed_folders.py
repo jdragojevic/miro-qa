@@ -60,8 +60,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         #expand all the folders
         for x in folder_list:
-            mirolib.click_podcast(self,reg,feed=x)
-            time.sleep(3)
+            mirolib.expand_feed_folders(self,reg,feed=x)
         #set the feeds region
         p = mirolib.get_podcasts_region(reg)
         #select multiple feeds for the folders

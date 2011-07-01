@@ -32,17 +32,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             print "***Warning: didn't find support dir***"
         #Delete Miro default video storage
         miro_video_dir = config.get_video_dir()
-        if os.path.exists(miro_support_dir):
-            shutil.rmtree(miro_support_dir)
+        if os.path.exists(miro_video_dir):
+            shutil.rmtree(miro_video_dir)
         else:
             print "***Warning: didn't find videos dir***"
         
-        
-        
             
-        
-
-        
 
     def test_4(self):
         """http://litmus.pculture.org/show_test.cgi?id=4 1st time install, specify a dir to search.

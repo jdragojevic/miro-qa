@@ -28,7 +28,18 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         reg = mirolib.AppRegions()
-        reg.s.click("Videos")
+
+        #start the download of the misc file for later delete
+        item_url =  "http://www.boatingsidekicks.com/fish-detective.swf"
+        if config.get_os_name() == "osx":
+            reg.tl.click("File")
+        else:
+            type('f',KEY_ALT)
+        reg.t.click("Download")
+        time.sleep(4)
+        type(item_url+"\n")
+        
+        
         def _delete_feed(self):
             feed_url = "stupidvideos.com/rss/rss.php?chart=new&format=yahoo"
             feed = "StupidVid"
@@ -63,21 +74,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             time.sleep(2)
             
         #Download item and with shortcut key, delete item
-        def _delete_item(self):
-            item_url =  "http://www.boatingsidekicks.com/fish-detective.swf"
+        def _delete_item(self)
             title = "detective"
-            if config.get_os_name() == "osx":
-                reg.tl.click("File")
-            else:
-                type('f',KEY_ALT)
-            reg.t.click("Download")
-            time.sleep(4)
-            type(item_url+"\n")
-#            mirolib.wait_download_complete(self,reg,title)
             mirolib.wait_for_item_in_tab(self,reg,"Misc","detective")
             mirolib.delete_items(self,reg,title,"Misc")
             mirolib.log_result("92","delete item shortcut verified")
-            time.sleep(2)
+            time.sleep(5)
 
         # remove playlist
         def _delete_playlist(self):
@@ -85,13 +87,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             if reg.m.exists("Enter a",3):
                 mirolib.log_result("723","test_92")
             time.sleep(4)
-            type("My Faves"+"\n")
+            type("FaveList"+"\n")
             p = mirolib.get_playlists_region(reg)
-            p.click("My Faves",2)
+            p.click("FaveList",2)
             time.sleep(2)
             mirolib.delete_current_selection(self,reg)
             time.sleep(2)
-            self.assertFalse(p.exists("My Faves",3))
+            self.assertFalse(p.exists("FaveList",3))
             mirolib.log_result("92","delte playlist shortcut verified")
     
         # remove playlist folder
@@ -100,14 +102,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             time.sleep(4)
             if reg.m.exists("playlist folder",3):
                 mirolib.log_result("724","test_92")
-            type("My Folder"+"\n")
+            type("SUPERPLAYS"+"\n")
             time.sleep(3)
             p = mirolib.get_playlists_region(reg)
-            p.click("My Folder")
+            p.click("SUPERPLAYS")
             time.sleep(2)
             mirolib.delete_current_selection(self,reg)
             time.sleep(2)
-            self.assertFalse(p.exists("My Folder",3))
+            self.assertFalse(p.exists("SUPERPLAYS",3))
             mirolib.log_result("92","delte playlist folder shortcut verified")
         try: 
             _delete_feed(self)

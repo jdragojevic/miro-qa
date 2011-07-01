@@ -354,10 +354,13 @@ def get_sources_region(reg):
     return SourcesRegion
 
 def get_podcasts_region(reg):
-    if not reg.s.exists("Podcasts",2):
+    if not reg.s.exists("Podcasts",3):
+        type(Key.ESC) #in case there's any dialog left overs blocking for some reason
         reg.s.click("Music")
-    time.sleep(3)
-    reg.s.click("Podcasts")
+        time.sleep(3)
+        reg.s.click("Podcasts")
+    else:
+        reg.s.click("Podcasts")
     time.sleep(2)
     topx =  (reg.s.getLastMatch().getX())-10
     topy =  reg.s.getLastMatch().getY()
@@ -463,6 +466,21 @@ def click_last_podcast(self,reg):
     time.sleep(5)
     reg.s.find("Playlists")
     click(reg.s.getLastMatch().above(35))
+
+
+def expand_feed_folder(self,reg,feed):
+    p = get_podcasts_region(reg)
+    if p.exists(feed):
+        fr = Region(p.getLastMatch().left(80))
+        fr.setY(fr.getY()-5)
+        fr.setH(fr.getH()+10)
+        if fr.exists(Pattern("folder_open.png").similar(.95)):
+            print "folder expanded"
+        else:
+            fr.click(Pattern("folder_closed.png").targetOffset(-4,0))
+            time.sleep(3)
+    else:
+        print feed,": not found"
 
 
 def delete_all_podcasts(self,reg):
