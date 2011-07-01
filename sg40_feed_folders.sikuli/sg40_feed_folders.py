@@ -43,24 +43,23 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
         reg = mirolib.AppRegions()
-        mirolib.delete_all_podcasts(self,reg)
+#        mirolib.delete_all_podcasts(self,reg)
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test.opml")
         opml_path2 = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test2.opml")
-        folder_list = ["Featured","Best Feeds","geeky", "fun"]
         feed_list =  ["Google", "Onion","two ronnies","Vimeo"]
         added_feeds = []
         new_folder = "multi folder"
 
-        #1. Add the feeds 
-        mirolib.import_opml(self,reg,opml_path)
-        time.sleep(15) #give a chance to add and update
-        mirolib.import_opml(self,reg,opml_path2)
-        time.sleep(15) #give a chance to add and update
-   
-        
+##        #1. Add the feeds 
+##        mirolib.import_opml(self,reg,opml_path)
+##        time.sleep(15) #give a chance to add and update
+##        mirolib.import_opml(self,reg,opml_path2)
+##        time.sleep(15) #give a chance to add and update
+##   
+##        
         #expand all the folders
-        for x in folder_list:
-            mirolib.expand_feed_folders(self,reg,feed=x)
+        mirolib.expand_feed_folder(self,reg,"GEEKY")
+        mirolib.expand_feed_folder(self,reg,"FUN")
         #set the feeds region
         p = mirolib.get_podcasts_region(reg)
         #select multiple feeds for the folders
@@ -103,7 +102,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
         reg = mirolib.AppRegions()
-
+        mirolib.delete_all_podcasts(self,reg)
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test.opml")
         feed = "Featured"
         folder = "geeky"

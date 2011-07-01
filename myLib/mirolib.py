@@ -42,7 +42,8 @@ class AppRegions():
         Note - order mattters, this would be better as a dict.
         """
         if open_miro() == "linux":
-            config.start_miro_on_linux()
+            if not exists("Miro",3):
+                config.start_miro_on_linux()
         else:
             App.open(open_miro())
         if exists("Music",120) or \
@@ -59,21 +60,25 @@ class AppRegions():
         pr.setW(hw)
         pr.setH(hh)
         pr.setY(10)
-        sidex=300  #I can get the actual value from the db.
+        sidebar_width = int(config.get_val_from_mirodb("global_state","tabs_width"))
+        
+        print sidebar_width
+#        sidex=300  #I can get the actual value from the db.
         topx = 50
         topy = 30
         if pr.exists("Music",5):
             click(pr.getLastMatch())
             topx =  int(pr.getLastMatch().getX())-55
             topy = int(pr.getLastMatch().getY())-80
-        libr = Region(topx,topy,sidex+120,120)
+        sidex = sidebar_width+topx
+#        libr = Region(topx,topy,sidex+120,120)
 #        libr = Region(pr.getLastMatch().above(100).left(120).right(200))
-        if libr.exists(Pattern("icon-guide.png"),5) or \
-           libr.exists("Miro",3):
-            click(libr.getLastMatch())
-            mg = Region(libr.getLastMatch())
-            if pr.exists(Pattern("miroguide_home.png").similar(.95),45):
-                sidex = pr.getLastMatch().getX()-20
+##        if libr.exists(Pattern("icon-guide.png"),5) or \
+##           libr.exists("Miro",3):
+##            click(libr.getLastMatch())
+##            mg = Region(libr.getLastMatch())
+##            if pr.exists(Pattern("miroguide_home.png").similar(.95),45):
+##                sidex = pr.getLastMatch().getX()-20
 ##
 ##        pr.find("Music")
 ##        topx =  int(pr.getLastMatch().getX())-55
@@ -85,7 +90,7 @@ class AppRegions():
         vbary = int(getLastMatch().getY())+10
         vbarw = getLastMatch().getW()
 
-        sidebar_width = int(sidex-topx)
+        
         app_height = int(vbary-topy)
 #        tbar_height = 100
         
@@ -471,21 +476,14 @@ def click_last_podcast(self,reg):
 def expand_feed_folder(self,reg,feed):
     p = get_podcasts_region(reg)
     if p.exists(feed):
-        fr = Region(p.getLastMatch().left(80))
-        fr.setY(fr.getY()-5)
-        fr.setH(fr.getH()+10)
-        if fr.exists(Pattern("folder_open.png").similar(.95)):
-            print "folder expanded"
-        else:
-            fr.click(Pattern("folder_closed.png").targetOffset(-4,0))
-            time.sleep(3)
-            if exists(Pattern("folder_open.png").similar(.95)):
-                print "folder now expanded")
-            
-                      
+        fr = Region(p.getLastMatch()).left()
+        fr.setY(fr.getY()-10)
+        fr.setH(fr.getH()+20)
+    if fr.exists(Pattern("folder_closed.png")):
+        click(fr.getLastMatch())
     else:
-        print feed,": not found"
-
+        print "not found"
+    
 
 def delete_all_podcasts(self,reg):
     p = get_podcasts_region(reg)

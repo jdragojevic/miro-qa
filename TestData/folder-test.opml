@@ -9,11 +9,11 @@
 </head>
 <body>
 	<outline type="rss" text="Featured Channel Previews from Miro" xmlUrl="http://feeds.miroguide.com/miroguide/featured" miro:autoDownload="off"/>
-	<outline text="geeky">
+	<outline text="GEEKY">
 		<outline type="rss" text="Make Magazine" xmlUrl="http://www.clearbits.net/feeds/creator/80-make-magazine" miro:autoDownload="off"/>
 		<outline type="rss" text="Google Tech Talks" xmlUrl="http://www.youtube.com/rss/user/googletechtalks/videos.rss" miro:autoDownload="off" miro:expiryTime="72"/>
 	</outline>
-	<outline text="fun">
+	<outline text="FUN">
 		<outline type="rss" text="two ronnies" xmlUrl="http://gdata.youtube.com/feeds/api/videos?vq=two%20ronnies&amp;alt=rss" miro:autoDownload="off"/>
 		<outline type="rss" text="Onion News Network (Video)" xmlUrl="http://feeds.theonion.com/OnionNewsNetwork" miro:autoDownload="off"/>
 		<outline type="rss" text="Les guignols" xmlUrl="http://www.vosflux.tv/emission/36/rss" miro:autoDownload="off"/>
