@@ -36,7 +36,8 @@ QUICK_TESTS = [['sg11_torrents.sikuli', 'test_419', 'test_719'],
                ['sg31_playback.sikuli', 'test_160'],
                ['sg42_feedsearch.sikuli', 'test_720'],
                ['sg58_items.sikuli', 'test_361'],
-               ['sg6_feeds.sikuli', 'test_338', 'test_117']              
+               ['sg6_feeds.sikuli', 'test_338', 'test_117'],
+               ['sg1_install.sikuli', 'test_4']
     ]
 
 
@@ -53,15 +54,24 @@ if qt == True:
         print sik_run_cmd
         p = subprocess.Popen(sik_run_cmd).communicate()
 else:
+    #get all the tests in the directory and make a list
+    sglist = []
+    alltests = glob.glob(os.path.join(os.getcwd(), '*.sikuli'))
+    for x in alltests:
+        sglist.append(os.path.basename(x))
+    #sort the list, then drop subgroup_1 install tests to the back of the list.
+    sglist.sort()
+    sg1index = sglist.index('sg1_install.sikuli')
+    sg1 = sglist.pop(int(sg1index))
+    sglist.append(sg1)
+      
     #Run all the subgroups:
     #To run all the tests in 1 subgroup:
     #java -jar $SIKULI_HOME/sikuli-script.jar sgxx_xxx.sikuli"
-    
-    for subgroup in glob.glob(os.path.join(os.getcwd(), '*.sikuli')):
+    for subgroup in sglist:
         jar_path = os.path.join(os.getenv("SIKULI_HOME"),"sikuli-script.jar")
         sik_run_cmd = ['java', '-jar', jar_path]
-        print os.path.basename(subgroup)
-        sik_run_cmd.append(os.path.basename(subgroup))
+        sik_run_cmd.append(subgroup)
         p = subprocess.Popen(sik_run_cmd).communicate()
         
 
