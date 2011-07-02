@@ -10,6 +10,7 @@ import StringIO
 from sikuli.Sikuli import *
 
 
+import sg1_install
 import sg2_search
 import sg6_feeds
 import sg8_miroguide
@@ -146,7 +147,7 @@ def write_footer(log):
     f = open(log, 'a')
     f.write(FOOTER)
     f.close()
-    ts = time.strftime("%H%M%S", time.gmtime())
+    ts = time.strftime("%d%m%H%M%S", time.gmtime())
     fl = os.path.join(os.getcwd(),"last_run",ts+"_log.xml")
     if "WINDOWS" in str(Env.getOS()):
         shutil.copy(log,fl)
