@@ -5,6 +5,7 @@ import glob
 import unittest
 import StringIO
 import time
+import subprocess
 from sikuli.Sikuli import *
 
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
@@ -36,6 +37,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             shutil.rmtree(miro_video_dir)
         else:
             print "***Warning: didn't find videos dir***"
+        #completely ditch preferences on linux
+        if config.get_os_name() == "lin":
+            unset_cmd = ["gconftool-2", "--recursive-unset", "/apps/miro"]
+            p = subprocess.Popen(unset_cmd).communicate()
+            
         
             
 
@@ -51,9 +57,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        mirolib.restart_miro()
-        reg = mirolib.AppRegions()
+        mirolib.restart_miro(confirm=False)   
         search_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
+        mirolib.first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",search_path="Everywhere",itunes="No")
+        reg = mirolib.AppRegions()
+        
        
 
         
