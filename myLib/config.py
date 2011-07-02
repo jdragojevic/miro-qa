@@ -101,12 +101,9 @@ def get_video_dir():
     return video_dir
 
 def get_val_from_mirodb(dbtable,dbfield):
-    stmt = 'from db_mod import MiroDatabase; MiroDatabase().get_value("%s","%s")' % (dbtable,dbfield)
-    print stmt
-    
+    stmt = 'from db_mod import MiroDatabase; MiroDatabase().get_value("%s","%s")' % (dbtable,dbfield)    
     db_cmd = ['python','-c',stmt]
     p = subprocess.Popen(db_cmd).communicate()
-    time.sleep(3)
     infile = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","dbval.pkl")
     pkl_file = open(infile, 'rb')
     dbvalue = pickle.load(pkl_file)
@@ -114,7 +111,12 @@ def get_val_from_mirodb(dbtable,dbfield):
         os.remove(infile)
     return dbvalue
     
-    
+
+def set_mirodb_value(dbtable,dbfield,dbval):
+    stmt = 'from db_mod import MiroDatabase; MiroDatabase().set_value("%s","%s","%s")' % (dbtable,dbfield,dbval)
+    db_cmd = ['python','-c',stmt]
+    p = subprocess.Popen(db_cmd).communicate()
+   
     
     
 

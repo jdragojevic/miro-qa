@@ -42,7 +42,7 @@ class AppRegions():
         Note - order mattters, this would be better as a dict.
         """
         if open_miro() == "linux":
-            if not exists("Miro",3):
+            if not exists("Music",3):
                 config.start_miro_on_linux()
         else:
             App.open(open_miro())
@@ -61,38 +61,18 @@ class AppRegions():
         pr.setH(hh)
         pr.setY(10)
         sidebar_width = int(config.get_val_from_mirodb("global_state","tabs_width"))
-        
-        print sidebar_width
-#        sidex=300  #I can get the actual value from the db.
         topx = 50
         topy = 30
         if pr.exists("Music",5):
             click(pr.getLastMatch())
             topx =  int(pr.getLastMatch().getX())-55
             topy = int(pr.getLastMatch().getY())-80
-        sidex = sidebar_width+topx
-#        libr = Region(topx,topy,sidex+120,120)
-#        libr = Region(pr.getLastMatch().above(100).left(120).right(200))
-##        if libr.exists(Pattern("icon-guide.png"),5) or \
-##           libr.exists("Miro",3):
-##            click(libr.getLastMatch())
-##            mg = Region(libr.getLastMatch())
-##            if pr.exists(Pattern("miroguide_home.png").similar(.95),45):
-##                sidex = pr.getLastMatch().getX()-20
-##
-##        pr.find("Music")
-##        topx =  int(pr.getLastMatch().getX())-55
-##        topy = int(pr.getLastMatch().getY())-80
-         
-        
+        sidex = sidebar_width+topx    
         find("BottomCorner.png")
         vbarx =  int(getLastMatch().getX())+30
         vbary = int(getLastMatch().getY())+10
         vbarw = getLastMatch().getW()
-
-        
         app_height = int(vbary-topy)
-#        tbar_height = 100
         
         #Sidebar Region
         SidebarRegion = Region(topx,topy,sidebar_width,app_height)
@@ -207,18 +187,22 @@ def quit_miro(self,reg=None):
         if reg.s.exists("Miro"):
             self.fail("not shutdown")
 
-def restart_miro():
+def restart_miro(confirm=True):
     if config.get_os_name() == "lin":
         config.start_miro_on_linux()
     else:
         App.open(open_miro())
-    time.sleep(5)
-    if exists(Pattern("icon-guide_active.png"),10) or \
-       exists(Pattern("icon-guide.png"),10) or \
-       exists("Miro",45):
-        print "miro started"
+    if confirm == True:
+        time.sleep(5)
+        if exists(Pattern("icon-guide_active.png"),10) or \
+           exists(Pattern("icon-guide.png"),10) or \
+           exists("Miro",45):
+            print "miro started"
+        else:
+            print("can't confirm miro restarted")
     else:
-        print("can't confirm miro restarted")
+        time.sleep(5) #give it 5 secs - probably waiting for 1st time dialog or other
+    
     
 def cmd_ctrl():
     """Based on the operating systems, returns the correct key modifier for shortcuts.
@@ -1185,6 +1169,76 @@ def type_a_path(self,reg,file_path):
             click(Pattern("type_a_filename.png"))
             time.sleep(2)
         type(file_path +"\n")
+
+
+
+def click_next(dR):
+    if dR.exists(Pattern("button_next.png").similar(.92)):
+        click(dR.getLastMatch())
+    else:
+        print "Next button not found"
+def click_finish(dR):
+    if dR.exists(Pattern("button_finish.png").similar(.90),2):
+        click(dR.getLastMatch())
+    else:
+        print "Finish button not found"
+
+
+def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",search_path="Everywhere",itunes="No"):
+    """Walk throught the first time startup dialog, specifying defaults.
+
+    """
+    if exists(Pattern("button_System_default.png").similar(.90),20):
+        print "In first time dialog"
+        dR = Region(getLastMatch().nearby(350))
+        dR.highlight(3)
+        
+    #Language Setting
+    print "setting lang"
+    if not lang == "Default":
+        click(getLastMatch())
+        for x in range(0,3):
+            if not exists(lang,3):
+                type(Key.PAGE_DOWN)
+        for x in range(0,4):
+            if not exists(lang,3):
+                type(Key.PAGE_UP)
+        click(lang)
+        time.sleep(2)        
+    click_next(dR)
+    
+    #Run on Startup
+    print "run at startup?"
+    if run_on_start == "Yes":
+        dR.click("Yes")
+    click_next(dR)
+    #Add itunes library
+    
+    if dR.exists("iTunes"): #if iTunes is installed on the system get the itunes option dialog
+        print "itunes?"
+        if itunes == "Yes":
+            dR.click("Yes")
+        click_next(dR)
+    
+    #Search for music and video files
+    print "search for files?"
+    if search == "Yes":
+        dR.click("Yes")
+        print "specifying search"
+        if not search_path == "Everywhere":
+            dR.click("Just")
+            dR.click("Choose")
+            type(search_path+"/n")
+    time.sleep(2)
+    click_finish(dR)
+    
+    
+
+    
+    
+    
+    
+    
     
 
 def log_result(result_id,runner_id,status="pass"):
