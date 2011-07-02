@@ -24,6 +24,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.verificationErrors = []
         print "starting test: ",self.shortDescription()
         mirolib.quit_miro(self)
+        if config.get_os_name() == "osx":
+            time.sleep(20)
 
         #Delete Miro support dir
         miro_support_dir = config.get_support_dir()
@@ -41,7 +43,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         if config.get_os_name() == "lin":
             unset_cmd = ["gconftool-2", "--recursive-unset", "/apps/miro"]
             p = subprocess.Popen(unset_cmd).communicate()
-            
+        #completely ditch preferences on osx
+        if config.get_os_name() == "osx":
+            plist_file = os.path.join(os.getenv("HOME"),"Library","Preferences","org.participatoryculture.Miro.plist")
+            if os.path.exists(plist_file):
+                os.remove(plist_file)
         
             
 
@@ -57,7 +63,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        mirolib.restart_miro(confirm=False)   
+        mirolib.restart_miro(confirm=False)
         search_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
         mirolib.first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",search_path="Everywhere",itunes="No")
         reg = mirolib.AppRegions()
