@@ -30,7 +30,6 @@ class MiroDatabase():
         database = self.get_db_location()
         conn = sqlite3.connect(database)
         stmt = "select "+field+" from " +table
-        print stmt
         c = conn.cursor()
         c.execute(stmt)
         myval = c.fetchone()[0]
@@ -46,18 +45,15 @@ class MiroDatabase():
         database = self.get_db_location()
         conn = sqlite3.connect(database)
         v = (val,)
-#        c = conn.cursor()
         conn.execute('update '+table+' set '+field+'=?',v)
-        conn.commit()
-        
+        conn.commit()       
         conn.close()
 
 
 if __name__ == '__main__':
-    print "running"
-##    md =  MiroDatabase()
+    md =  MiroDatabase()
 ##    md.set_value("global_state","tabs_width",300)
-##    md.get_value("global_state","tabs_width")
+    md.get_value("global_state","tabs_width")
 
 
 
