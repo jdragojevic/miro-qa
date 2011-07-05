@@ -89,7 +89,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                     baseurl = urlsplit(url).netloc
                     if link == "relative link":  
                         if linkurl not in baseurl.split('.'):
-                            reg.s.find("Democracy",5)
+                            reg.s.find("Democracy")
                         else:
                             self.fail("wrong link url")
                     else:
