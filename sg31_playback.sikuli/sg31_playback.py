@@ -32,7 +32,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         try:
             vid_path = os.path.join(mycwd,"TestData","monkey.flv")
             mirolib.shortcut('o')
-            mirolib.type_a_path(self,reg,vid_path)
+            mirolib.type_a_path(self,vid_path)
             time.sleep(3)
             self.assertTrue(exists(Pattern("playback_controls.png")))
             mirolib.shortcut("d")

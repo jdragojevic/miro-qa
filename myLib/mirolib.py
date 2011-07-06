@@ -55,10 +55,10 @@ class AppRegions():
         regions = []
         myscreen = Screen()
         pr = Region(myscreen.getBounds())
-        hw = pr.getW()/3
-        hh = pr.getH()/3
-        pr.setW(hw)
-        pr.setH(hh)
+##        hw = pr.getW()/2
+##        hh = pr.getH()/2
+##        pr.setW(hw)
+##        pr.setH(hh)
         pr.setY(10)
         sidebar_width = int(config.get_val_from_mirodb("global_state","tabs_width"))
         topx = 50
@@ -1157,17 +1157,20 @@ def import_opml(self,reg,opml_path):
     time.sleep(2)
     reg.tl.click("Import")
     time.sleep(2)
-    type_a_path(self,reg,opml_path)
+    type_a_path(self,opml_path)
     wait("imported",15)
     type(Key.ENTER)
 
-def type_a_path(self,reg,file_path):
+def type_a_path(self,file_path):
     if config.get_os_name() == "osx":
         type(file_path +"\n")     
     else:
         if not exists("Location",5):
             click(Pattern("type_a_filename.png"))
             time.sleep(2)
+        else:  #clear any text in the type box
+            for x in range(0,15):
+                type(Key.DELETE)
         type(file_path +"\n")
 
 
@@ -1225,10 +1228,17 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
     if search == "Yes":
         dR.click("Yes")
         print "specifying search"
-        if not search_path == "Everywhere":
+        if search_path == "Everywhere":
+            click_next(dR)
+            time.sleep(5)
+            waitVanish("parsed",900) #this can take a long time, giving 15 mins for search
+            
+        else:
             dR.click("Just")
-            dR.click("Choose")
-            type(search_path+"/n")
+            dR.click(Pattern("button_choose.png"))
+            type_a_path(self,search_path)
+            click_next(dR)
+            waitVanish("parsed",300)        
     time.sleep(2)
     click_finish(dR)
     
