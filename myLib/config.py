@@ -107,6 +107,7 @@ def get_val_from_mirodb(dbtable,dbfield):
     infile = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","dbval.pkl")
     pkl_file = open(infile, 'rb')
     dbvalue = pickle.load(pkl_file)
+    pkl_file.close()
     if os.path.exists(infile):
         os.remove(infile)
     return dbvalue
