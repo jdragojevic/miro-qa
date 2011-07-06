@@ -105,8 +105,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.delete_all_podcasts(self,reg)
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test.opml")
         feed = "Featured"
-        folder = "geeky"
-        feedlist = ["Google", "Make","geeky","Featured"]
+        folder = "GEEKY"
+        feedlist = ["Google", "Make","GEEKY","Featured"]
 
         #1. Add the feeds 
         mirolib.import_opml(self,reg,opml_path)
@@ -254,14 +254,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #1. Add the feeds 
         mirolib.import_opml(self,reg,opml_path)
         p = mirolib.get_podcasts_region(reg)
-        x = p.find("geeky")
+        x = p.find("GEEKY")
         y = p.find("Featured")
         dragDrop(x,y)
         time.sleep(2)
         p.click("Featured")
         ror = Region(p.getLastMatch().above(250))
         if not ror.exists("Make"):
-            self.fail("geeky folder not moved above 'Featured' podcast")
+            self.fail("GEEKY folder not moved above 'Featured' podcast")
 
         #Cleanup - select all the podcasts and delete
         mirolib.delete_all_podcasts(self,reg)

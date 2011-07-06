@@ -20,55 +20,76 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 1 - Install tests - going to delete preferences and database, and video storage before running each test case.
 
     """
-    def setUp(self):
-        self.verificationErrors = []
-        print "starting test: ",self.shortDescription()
-        mirolib.quit_miro(self)
-        if config.get_os_name() == "osx":
-            time.sleep(20)
-
-        #Delete Miro support dir
-        miro_support_dir = config.get_support_dir()
-        if os.path.exists(miro_support_dir):
-            shutil.rmtree(miro_support_dir)
-        else:
-            print "***Warning: didn't find support dir***"
-        #Delete Miro default video storage
-        miro_video_dir = config.get_video_dir()
-        if os.path.exists(miro_video_dir):
-            shutil.rmtree(miro_video_dir)
-        else:
-            print "***Warning: didn't find videos dir***"
-        #completely ditch preferences on linux
-        if config.get_os_name() == "lin":
-            unset_cmd = ["gconftool-2", "--recursive-unset", "/apps/miro"]
-            p = subprocess.Popen(unset_cmd).communicate()
-        #completely ditch preferences on osx
-        if config.get_os_name() == "osx":
-            plist_file = os.path.join(os.getenv("HOME"),"Library","Preferences","org.participatoryculture.Miro.plist")
-            if os.path.exists(plist_file):
-                os.remove(plist_file)
+            
         
             
-
     def test_4(self):
         """http://litmus.pculture.org/show_test.cgi?id=4 1st time install, specify a dir to search.
 
         Litmus Test Title:: 4 - 1st time install, specify a dir to search
         Description: 
-        1. Import 2 OPML file of some feeds and folders
-        2. select several feeds and add to new folder
-        3. confirm feeds in folders
-        4. Cleanup
+        1. Clean up Miro support and vidoes directories
+        2. Launch - walk through 1st tieme install dialog and search everywhere
         """
+        if exists("Miro",3) or \
+           exists("Music",3):
+            click(getLastMatch())
+        mirolib.quit_miro(self)
+        if config.get_os_name() == "osx":
+            time.sleep(20)
+        config.delete_database_and_prefs()
+        config.delete_miro_video_storage_dir()
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
         mirolib.restart_miro(confirm=False)
         search_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
-        mirolib.first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",search_path="Everywhere",itunes="No")
+        mirolib.first_time_startup_dialog(self,lang="Default",run_on_start="No",search="Yes",search_path=search_path,itunes="No")
         reg = mirolib.AppRegions()
+        time.sleep(10)
+        mirolib.click_sidebar_tab(self,reg,"Videos")
+        mirolib.tab_search(self,reg,title="Deerhunter",confirm_present=True)
+        mirolib.click_sidebar_tab(self,reg,"Music")
+        mirolib.tab_search(self,reg,title="Pancakes",confirm_present=True)
         
-       
+
+    def test_173(self):
+        """http://litmus.pculture.org/show_test.cgi?id=173 1st time install, search everywhere
+
+        Litmus Test Title:: 173 - 1st time install, search everywhere
+        Description: 
+        1. Clean up Miro support and vidoes directories
+        2. Launch - walk through 1st tieme install dialog and search everywhere
+        """
+        if exists("Miro",3) or \
+           exists("Music",3):
+            click(getLastMatch())
+        mirolib.quit_miro(self)
+        if config.get_os_name() == "osx":
+            time.sleep(20)
+        config.delete_database_and_prefs()
+        config.delete_miro_video_storage_dir()
+        setAutoWaitTimeout(testvars.timeout)
+        #set the search regions
+        mirolib.restart_miro(confirm=False)
+        search_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
+        mirolib.first_time_startup_dialog(self,lang="Default",run_on_start="No",search="Yes",search_path="Everywhere",itunes="No")
+        reg = mirolib.AppRegions()
+        time.sleep(10)
+        mirolib.click_sidebar_tab(self,reg,"Videos")
+        find(Pattern("sort_name_normal.png").exact())
+        doubleClick(getLastMatch().below(100))
+        mirolib.verify_video_playback(self,reg)
+##        mirolib.click_sidebar_tab(self,reg,"Music")            
+##        mirolib.toggle_normal(reg)
+##        find(Pattern("sort_name_normal.png").exact())
+##        doubleClick(getLastMatch().below(100))
+##        if reg.m.exists(Pattern("item_currently_playing.png")):
+##            click(reg.m.getLastMatch())
+##            shortcut("d")
+##            reg.m.waitVanish("item_currently_playing.png",20)
+##        else:
+##            self.fail("can not verify audio playback of imported files")
+    
 
         
         

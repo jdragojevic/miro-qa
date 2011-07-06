@@ -4,6 +4,7 @@ import os
 import time
 import subprocess
 import pickle
+import shutil
 from sikuli.Sikuli import *
 
 testlitmus = True
@@ -100,6 +101,46 @@ def get_video_dir():
         print "no clue"
     return video_dir
 
+
+
+def delete_database_and_prefs():
+        """Delete the miro support dir and preferences.
+
+        On Windows, delete the entire Support dir. On OSX delete Support dir + preferences plist.
+        On linux, delete Support dir, + unset gconf settings.
+        """
+        
+        miro_support_dir = get_support_dir()
+        if os.path.exists(miro_support_dir):
+            shutil.rmtree(miro_support_dir)
+        else:
+            print "***Warning: didn't find support dir***"
+        #completely ditch preferences on linux
+        if get_os_name() == "lin":
+            unset_cmd = ["gconftool-2", "--recursive-unset", "/apps/miro"]
+            p = subprocess.Popen(unset_cmd).communicate()
+        #completely ditch preferences on osx
+        if get_os_name() == "osx":
+            plist_file = os.path.join(os.getenv("HOME"),"Library","Preferences","org.participatoryculture.Miro.plist")
+            if os.path.exists(plist_file):
+                os.remove(plist_file)
+
+
+
+def delete_miro_video_storage_dir():
+        """Delete the Miro video storage directory.
+
+        """
+    
+        #Delete Miro default video storage
+        miro_video_dir = get_video_dir()
+        if os.path.exists(miro_video_dir):
+            shutil.rmtree(miro_video_dir)
+        else:
+            print "***Warning: didn't find videos dir***"
+
+
+
 def get_val_from_mirodb(dbtable,dbfield):
     stmt = 'from db_mod import MiroDatabase; MiroDatabase().get_value("%s","%s")' % (dbtable,dbfield)    
     db_cmd = ['python','-c',stmt]
@@ -107,6 +148,7 @@ def get_val_from_mirodb(dbtable,dbfield):
     infile = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","dbval.pkl")
     pkl_file = open(infile, 'rb')
     dbvalue = pickle.load(pkl_file)
+    pkl_file.close()
     if os.path.exists(infile):
         os.remove(infile)
     return dbvalue
