@@ -21,7 +21,7 @@ class MiroDatabase():
             if int(winver) < 6: #WinXP
                 mirodb = os.path.join(os.getenv("HOME"),"Application Data","Participatory Culture Foundation","Miro","Support","sqlitedb")
             else: #Vista or Windows7
-                mirodb = os.path.join(os.getenv("HOME"),"AppData","Roaming","Participatory Culture Foundation","Miro","Support","sqlitedb")
+                mirodb = os.path.join(os.getenv("USERPROFILE"),"AppData","Roaming","Participatory Culture Foundation","Miro","Support","sqlitedb")
             print mirodb
         else:
             print "no idea what is db"
