@@ -1192,6 +1192,7 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
         print "In first time dialog"
         dR = Region(getLastMatch().nearby(350))
         dR.highlight(3)
+        dR.setAutoWaitTimeout(30)
         
     #Language Setting
     print "setting lang"
@@ -1211,13 +1212,21 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
     print "run at startup?"
     if run_on_start == "Yes":
         dR.click("Yes")
+    elif run_on_start == "No":
+        dR.click("No")
+    else:
+        print "pref not set"
     click_next(dR)
     #Add itunes library
     
-    if dR.exists("iTunes"): #if iTunes is installed on the system get the itunes option dialog
+    if dR.exists("Note"): #if iTunes is installed on the system get the itunes option dialog
         print "itunes?"
         if itunes == "Yes":
             dR.click("Yes")
+        elif itunes == "No":
+            dR.click("No")
+        else:
+            print "pref not set"
         click_next(dR)
     
     #Search for music and video files
@@ -1229,6 +1238,10 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
             dR.click("Just")
             dR.click("Choose")
             type(search_path+"/n")
+    elif search == "No":
+        dR.click("No")
+    else:
+        print "pref not set"
     time.sleep(2)
     click_finish(dR)
     
