@@ -101,9 +101,35 @@ def get_video_dir():
         print "no clue"
     return video_dir
 
+def replace_database(db):
+    """Replace sqlitedb with a different one.
 
+    """
+    miro_support_dir = get_support_dir()
+    dbfile = os.path.join(miro_support_dir,"sqlitedb")
+    shutil.copy(db,dbfile)
 
-def delete_database_and_prefs():
+def reset_preferences():
+    datadir = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases")
+    if get_os_name() == "lin":
+        preffile = os.path.join(datadir,"linux_prefs")
+        reset_cmd = ["gconftool-2", "--load", preffile]
+        p = subprocess.Popen(reset_cmd).communicate()
+
+    elif get_os_name() == "osx":
+        preffile = os.path.join(datadir,"osx.plist")
+        plist_file = os.path.join(os.getenv("HOME"),"Library","Preferences","org.participatoryculture.Miro.plist")
+        shutil.copy(preffile,plist_file)
+    elif get_os_name() == "win":
+        preffile = os.path.join(datadir,"win_prefs.bin")
+        prefs = os.path.join(get_support_dir(),"preferences.bin")
+        shutil.copy(preffile,prefs)
+    else:
+        print "don't have prefs for this os"
+        
+    
+
+def delete_database_and_prefs(dbonly=False):
         """Delete the miro support dir and preferences.
 
         On Windows, delete the entire Support dir. On OSX delete Support dir + preferences plist.
@@ -111,21 +137,32 @@ def delete_database_and_prefs():
         """
         
         miro_support_dir = get_support_dir()
-        if os.path.exists(miro_support_dir):
-            shutil.rmtree(miro_support_dir)
+        if dbonly == True:
+            dbfile = os.path.join(miro_support_dir,"sqlitedb")
+            if os.path.exists(miro_support_dir):
+                shutil.rmtree(miro_support_dir)
         else:
-            print "***Warning: didn't find support dir***"
-        #completely ditch preferences on linux
-        if get_os_name() == "lin":
-            unset_cmd = ["gconftool-2", "--recursive-unset", "/apps/miro"]
-            p = subprocess.Popen(unset_cmd).communicate()
-        #completely ditch preferences on osx
-        if get_os_name() == "osx":
-            plist_file = os.path.join(os.getenv("HOME"),"Library","Preferences","org.participatoryculture.Miro.plist")
-            if os.path.exists(plist_file):
-                os.remove(plist_file)
+            if os.path.exists(miro_support_dir):
+                shutil.rmtree(miro_support_dir)
+            else:
+                print "***Warning: didn't find support dir***"
+            #completely ditch preferences on linux
+            if get_os_name() == "lin":
+                unset_cmd = ["gconftool-2", "--recursive-unset", "/apps/miro"]
+                p = subprocess.Popen(unset_cmd).communicate()
+            #completely ditch preferences on osx
+            if get_os_name() == "osx":
+                plist_file = os.path.join(os.getenv("HOME"),"Library","Preferences","org.participatoryculture.Miro.plist")
+                if os.path.exists(plist_file):
+                    os.remove(plist_file)
 
 
+def set_def_db_and_prefs():
+    db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","miro402_empty")
+    replace_database(db)
+    reset_preferences()
+    
+    
 
 def delete_miro_video_storage_dir():
         """Delete the Miro video storage directory.

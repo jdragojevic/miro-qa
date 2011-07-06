@@ -1220,9 +1220,10 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
     else:
         print "pref not set"
     click_next(dR)
-    #Add itunes library
     
-    if dR.exists("Note"): #if iTunes is installed on the system get the itunes option dialog
+    #Add itunes library
+    if not config.get_os_name() == "lin" and \
+       dR.exists("Note"): #if not linus and iTunes is installed on the system get the itunes option dialog
         print "itunes?"
         if itunes == "Yes":
             dR.click("Yes")
@@ -1234,39 +1235,52 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
     
     #Search for music and video files
     print "search for files?"
+    time.sleep(2)
     if search == "Yes":
         dR.click("Yes")
         print "specifying search"
         if search_path == "Everywhere":
+            print "search everywhere"
             click_next(dR)
             time.sleep(5)
-            waitVanish("parsed",900) #this can take a long time, giving 15 mins for search
-            
+            waitVanish("parsed",900) #this can take a long time, giving 15 mins for search            
         else:
+            print "specifying search dir"
             dR.click("Just")
-<<<<<<< HEAD
-            dR.click("Choose")
-            type(search_path+"/n")
-    elif search == "No":
-        dR.click("No")
-    else:
-        print "pref not set"
-=======
             dR.click(Pattern("button_choose.png"))
             type_a_path(self,search_path)
             click_next(dR)
             waitVanish("parsed",300)        
->>>>>>> 5a7a4953a1cc45e6964291838a0da66123a38f20
     time.sleep(2)
     click_finish(dR)
     
-    
+def corrupt_db_dialog(action="start_fresh",db=False):
+    """Handle the corrupt db dialog.
 
-    
-    
-    
-    
-    
+    'action' options are 'start_fresh', 'submit_crash' or 'quit'
+    'db' is 'True' (submit db with crash report) or 'False'
+    """
+    if exists(Pattern("button_start_fresh.png").similar(.90),20):
+        print "In corrupt db dialog"
+        dR = Region(getLastMatch().nearby(350))
+        dR.highlight(1)
+        dR.setAutoWaitTimeout(30)
+        if action == "quit":
+            type(Key.ENTER)
+        elif action == "start_fresh":
+            dR.click(Pattern("button_start_fresh.png"))
+            wait("Music")
+        elif action == "submit_crash":
+            dR.click("Submit Crash")
+            time.sleep(2)
+            if db == True:
+                type(Key.ENTER)
+            else:
+                dR.click(Pattern("button_dont_include_db.png"))
+            time.sleep(5)
+            dR.waitVanish("Sending")
+                
+            
     
 
 def log_result(result_id,runner_id,status="pass"):

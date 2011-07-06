@@ -91,7 +91,84 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 ##            self.fail("can not verify audio playback of imported files")
     
 
+
+    def test_460(self):
+        """http://litmus.pculture.org/show_test.cgi?id=460 upgrade corrupt db submit crash with db
+
+        Litmus Test Title:: 460 - upgrade with corrupted db submit crash report with db
+        Description: 
+        1. Replace Miro db with a corrupt database.
+        2. Launch miro and submit crash report with db
+        """
+        if exists("Miro",3) or \
+           exists("Music",3):
+            click(getLastMatch())
+        mirolib.quit_miro(self)
+        if config.get_os_name() == "osx":
+            time.sleep(20)
+        db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","corrupt_db")
+        config.replace_database(db)
+        setAutoWaitTimeout(testvars.timeout)
+        #set the search regions
+        mirolib.restart_miro(confirm=False)
+        mirolib.corrupt_db_dialog(action="submit_crash",db=True)
+
+
+
+    def test_461(self):
+        """http://litmus.pculture.org/show_test.cgi?id=461 upgrade corrupt db, submit crash no db
+
+        Litmus Test Title:: 461 - upgrade with corrupted db, submit crash no db
+        Description: 
+        1. Replace Miro db with a corrupt database.
+        2. Launch miro and submit crash report with db
+        """
+        if exists("Miro",3) or \
+           exists("Music",3):
+            click(getLastMatch())
+        mirolib.quit_miro(self)
+        if config.get_os_name() == "osx":
+            time.sleep(20)
+        db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","corrupt_db")
+        config.replace_database(db)
+        setAutoWaitTimeout(testvars.timeout)
+        #set the search regions
+        mirolib.restart_miro(confirm=False)
+        mirolib.corrupt_db_dialog(action="submit_crash",db=False)
         
+
+    def test_462(self):
+        """http://litmus.pculture.org/show_test.cgi?id=461 upgrade corrupt db, start fresh
+
+        Litmus Test Title:: 461 - upgrade with corrupted db, submit crash no db
+        Description: 
+        1. Replace Miro db with a corrupt database.
+        2. Launch miro and submit crash report with db
+        """
+        if exists("Miro",3) or \
+           exists("Music",3):
+            click(getLastMatch())
+        mirolib.quit_miro(self)
+        if config.get_os_name() == "osx":
+            time.sleep(20)
+        db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","corrupt_db")
+        config.replace_database(db)
+        setAutoWaitTimeout(testvars.timeout)
+        #set the search regions
+        mirolib.corrupt_db_dialog(action="quit")
+        time.sleep(5)
+        mirolib.restart_miro(confirm=False)
+        mirolib.corrupt_db_dialog(action="start_fresh")
+        
+        
+    def test_999reset(self):
+        """fake test to reset db and preferences.
+
+        """
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10)
         
 
 if __name__ == "__main__":
