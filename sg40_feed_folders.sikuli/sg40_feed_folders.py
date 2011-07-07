@@ -167,6 +167,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10)
         reg = mirolib.AppRegions()
 
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test2.opml")
@@ -246,6 +250,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10)
         reg = mirolib.AppRegions()
 
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test.opml")
@@ -265,8 +273,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         #Cleanup - select all the podcasts and delete
         mirolib.delete_all_podcasts(self,reg)
-        
-        
+
+     
+    def test_999reset(self):
+        """fake test to reset db and preferences.
+
+        """
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10)        
         
 
 if __name__ == "__main__":

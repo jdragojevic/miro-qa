@@ -72,7 +72,8 @@ def get_support_dir():
         ver = Env.getOSVersion()
         wv = ver.split('.')[0]
         if int(wv) < 6:
-            support_dir = os.path.join(os.getenv("HOME"),"Application Support","Participatory Culture Foundation","Miro","Support")
+            support_dir = os.path.join(os.getenv("USERPROFILE"),"Application Data","Participatory Culture Foundation","Miro","Support")
+            print support_dir
         else:
             support_dir = os.path.join(os.getenv("USERPROFILE"),"AppData","Roaming","Participatory Culture Foundation","Miro","Support")
     elif get_os_name() == "lin":
@@ -89,7 +90,7 @@ def get_video_dir():
         ver = Env.getOSVersion()
         wv = ver.split('.')[0]
         if int(wv) < 6:
-            video_dir = os.path.join(os.getenv("HOME"),"My Documents","My Videos","Miro")
+            video_dir = os.path.join(os.getenv("USERPROFILE"),"My Documents","My Videos","Miro")
         else:
             video_dir = os.path.join(os.getenv("USERPROFILE"),"Videos","Miro")
     elif get_os_name() == "lin":

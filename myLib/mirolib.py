@@ -1176,8 +1176,9 @@ def type_a_path(self,file_path):
 
 
 def click_next(dR):
-    if dR.exists(Pattern("button_next.png").similar(.92)):
-        click(dR.getLastMatch())
+    if dR.exists(Pattern("button_next.png").similar(.92)) or \
+    dR.exists(Pattern("button_next1.png")):
+         click(dR.getLastMatch())
     else:
         print "Next button not found"
 def click_finish(dR):
@@ -1191,9 +1192,12 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
     """Walk throught the first time startup dialog, specifying defaults.
 
     """
-    if exists(Pattern("button_System_default.png").similar(.90),20):
+    if exists("System default",45) or \
+       exists(Pattern("button_System_default.png").similar(.90),45):
         print "In first time dialog"
         dR = Region(getLastMatch().nearby(350))
+        dR.setY(dR.getY()+100)
+        dR.setH(dR.getH()-50)
         dR.highlight(3)
         dR.setAutoWaitTimeout(30)
         
@@ -1213,6 +1217,7 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
     
     #Run on Startup
     print "run at startup?"
+    time.sleep(3)
     if run_on_start == "Yes":
         dR.click("Yes")
     elif run_on_start == "No":
@@ -1222,20 +1227,19 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
     click_next(dR)
     
     #Add itunes library
-    if not config.get_os_name() == "lin" and \
-       dR.exists("Note"): #if not linus and iTunes is installed on the system get the itunes option dialog
+    time.sleep(3)
+    if config.get_os_name() == "osx"  or \
+       (config.get_os_name() == "win" and dR.exists("iTunes",3)):
         print "itunes?"
         if itunes == "Yes":
             dR.click("Yes")
-        elif itunes == "No":
-            dR.click("No")
         else:
-            print "pref not set"
+            dR.click("No")
         click_next(dR)
     
     #Search for music and video files
     print "search for files?"
-    time.sleep(2)
+    time.sleep(3)
     if search == "Yes":
         dR.click("Yes")
         print "specifying search"

@@ -80,6 +80,17 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         time.sleep(2)
         mirolib.restart_miro()
         self.assertTrue(exists("File"))
+
+    def test_999reset(self):
+        """fake test to reset db and preferences.
+
+        """
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10) 
+
+
    
 # Post the output directly to Litmus
 if __name__ == "__main__":

@@ -22,7 +22,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.verificationErrors = []
         setAutoWaitTimeout(60)
          
+    def test_999reset(self):
+        """fake test to reset db and preferences.
 
+        """
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10) 
 
     def test_361(self):
         """http://litmus.pculture.org/show_test.cgi?id=361 edit item video to audio.
