@@ -472,7 +472,7 @@ def expand_feed_folder(self,reg,feed):
 def delete_all_podcasts(self,reg):
     p = get_podcasts_region(reg)
     time.sleep(5)
-    pody = p.getY()+50
+    pody = p.getY()+40
     top_podcast = Location(p.getX(),pody)
     reg.s.find("Playlists")
     if (reg.s.getLastMatch().getY() - pody) > 100:

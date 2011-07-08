@@ -36,11 +36,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             mirolib.shortcut("l")
             time.sleep(2)
             type(url + "\n")
-            time.sleep(10)
+            time.sleep(20)
             find(testvars.one_click_badge)
             click(testvars.one_click_badge)
-            time.sleep(5)
-            mirolib.shortcut('w')
+            time.sleep(25)
             mirolib.close_ff()
                         
             #Start Miro    
@@ -72,7 +71,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.t.find("Subscribe")
         reg.t.click("Subscribe")
         time.sleep(4)
-	if reg.s.exists("revver"):
+        p = mirolib.get_sources_region(reg)
+	if p.exists("http://rev",3) or \
+           p.exists("revver",3):
             print "revver site added"
         else:
             self.fail("revver site not added to sidebar")                        

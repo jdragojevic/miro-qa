@@ -143,15 +143,15 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        folder = "Great Stuff"        
+        folder = "GREAT STUFF"        
         reg = mirolib.AppRegions()
         reg.t.click("Sidebar")
         reg.t.click("Folder")
         time.sleep(2)
         type(folder + "\n")
         time.sleep(10) #give it 10 seconds to add the folder
-        mirolib.click_podcast(self,reg,feed=folder)       
-        mirolib.delete_feed(self,reg,"Great")
+        mirolib.click_podcast(self,reg,folder)       
+        mirolib.delete_feed(self,reg,"GREAT")
 
 
 
