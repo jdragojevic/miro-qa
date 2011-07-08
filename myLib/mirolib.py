@@ -225,7 +225,7 @@ def open_ff():
     if config.get_os_name() == "osx":
         return "/Applications/Firefox.app"
     elif config.get_os_name() == "win":
-        return os.path.join(os.getenv("PROGRAMFILES"),"\Mozilla Firefox\\firefox.exe")
+        return os.path.join(os.getenv("PROGRAMFILES"),"Mozilla Firefox","firefox.exe")
     elif config.get_os_name() == "lin":
         config.start_ff_on_linux()
         return "Firefox"
