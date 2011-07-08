@@ -17,7 +17,7 @@ def open_miro():
     if config.get_os_name() == "osx":
         return "/Applications/Miro.app"
     elif config.get_os_name() == "win":
-        return os.path.join(os.getenv("PROGRAMFILES"),"\Participatory Culture Foundation\\Miro\\Miro.exe")
+        return os.path.join(os.getenv("PROGRAMFILES"),"Participatory Culture Foundation","Miro","Miro.exe")
     elif config.get_os_name() == "lin":
         print "trying to run on linux - make sure MIRONIGHTLYDIR is set"
         return "linux"
