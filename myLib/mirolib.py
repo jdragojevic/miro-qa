@@ -17,7 +17,7 @@ def open_miro():
     if config.get_os_name() == "osx":
         return "/Applications/Miro.app"
     elif config.get_os_name() == "win":
-        return "C:\\Program Files\\Participatory Culture Foundation\\Miro\\Miro.exe"
+        return os.path.join(os.getenv("PROGRAMFILES"),"Participatory Culture Foundation","Miro","Miro.exe")
     elif config.get_os_name() == "lin":
         print "trying to run on linux - make sure MIRONIGHTLYDIR is set"
         return "linux"
@@ -225,7 +225,7 @@ def open_ff():
     if config.get_os_name() == "osx":
         return "/Applications/Firefox.app"
     elif config.get_os_name() == "win":
-        return "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+        return os.path.join(os.getenv("PROGRAMFILES"),"Mozilla Firefox","firefox.exe")
     elif config.get_os_name() == "lin":
         config.start_ff_on_linux()
         return "Firefox"
