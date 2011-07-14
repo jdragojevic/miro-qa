@@ -27,7 +27,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Verify item played as audio item
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         #start the download of the misc file for later delete
         item_url =  "http://www.boatingsidekicks.com/fish-detective.swf"

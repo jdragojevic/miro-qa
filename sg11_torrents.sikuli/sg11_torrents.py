@@ -29,7 +29,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         
         item_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
         item_title = "Fameless"
@@ -56,7 +56,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         
         url = "http://www.clearbits.net/get/993-wurlitztraction---lucidity-cue.torrent"
         item_title = "Enough"

@@ -5,7 +5,6 @@ import unittest
 import StringIO
 import time
 from sikuli.Sikuli import *
-
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(mycwd)
 sys.path.append(os.path.join(mycwd,'myLib'))
@@ -19,6 +18,19 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 6 - Feeds tests.
 
     """
+
+    def test_001setup(self):
+        """Pre subgroup run cleanup and preferences check.
+
+        This isn't a real tests and is just meant to make sure the subgroup is starting with usual preferences settings and clean sidebar.
+        """
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10)
+
+        
+    
     def test_123(self):
         """http://litmus.pculture.org/show_test.cgi?id=123 add feed more than once.
 
@@ -30,7 +42,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
          4. Cleanup
         """       
         #set the search regions
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         feed = "EEVblog"
         feed2 = "TED"
         mirolib.click_sidebar_tab(self,reg,"Miro")
@@ -85,7 +97,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(testvars.timeout)
         
         #set the search regions
-        reg = mirolib.AppRegions()        
+        reg = mirolib._AppRegions()        
         url = "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi"
         feed = "my feed"
         mirolib.add_feed(self,reg,url,feed)
@@ -127,7 +139,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
     	setAutoWaitTimeout(testvars.timeout)   
         #set the search regions
-    	reg = mirolib.AppRegions()
+    	reg = mirolib._AppRegions()
 
     	url = "http://pculture.org/feeds_test/2stupidvideos.xml"
     	feed = "TwoStupid"
@@ -161,7 +173,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         setAutoWaitTimeout(testvars.timeout)   
         #set the search regions
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
@@ -191,7 +203,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        reg = mirolib.AppRegions()      
+        reg = mirolib._AppRegions()      
         prefs.set_autodownload(self,reg,setting="Off")
         prefs.set_default_view(self,reg,setting="Standard")
 
@@ -252,7 +264,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         FEEDS = {"my feed": "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi",
                  "recent posts": "http://blip.tv/rss?pagelen=1",

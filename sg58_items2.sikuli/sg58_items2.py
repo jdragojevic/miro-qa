@@ -19,6 +19,17 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
     """
 
+
+    def test_001setup(self):
+        """Pre subgroup run cleanup and preferences check.
+
+        This isn't a real tests and is just meant to make sure the subgroup is starting with usual preferences settings and clean sidebar.
+        """
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10)
+
     def test_653(self):
         """http://litmus.pculture.org/show_test.cgi?id=653 edit album art
 
@@ -28,7 +39,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         time.sleep(5)
         folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","ArtTest")
         title = "Pancakes"
@@ -62,8 +73,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
        
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         time.sleep(5)
+        prefs.set_item_display(self,reg,option="audio",setting="on")
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Earth Eats"
@@ -111,7 +123,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         5. restart miro
         6. verify item still deleted
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         remember = False
         try:
             prefs.set_preference_checkbox(self,reg,tab="General",option="When starting",setting="on")
@@ -176,7 +188,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. verify varios item click scenerios
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
@@ -234,8 +246,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
        
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         time.sleep(5)
+        prefs.set_item_display(self,reg,option="audio",setting="on")
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Earth Eats"
@@ -281,41 +294,45 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
        
 
         """
-        reg = mirolib.AppRegions()
-        time.sleep(5)
-        url = "http://ringtales.com/nyrss.xml"
-        feed = "The New"
-        title = "Cat" 
+        try:
+            reg = mirolib._AppRegions()
+            time.sleep(5)
+            url = "http://ringtales.com/nyrss.xml"
+            feed = "The New"
+            title = "Cat" 
 
-        new_metadata_list = [["show","Animated Cartoons", "658"],
-                      ["episode_id","nya", "670"],
-                      ["season_no","25", "671"],
-                      ["episode_no","43", "672"],
-                      ["video_kind","Clip", "652"],
-                      ]
+            new_metadata_list = [["show","Animated Cartoons", "658"],
+                          ["episode_id","nya", "670"],
+                          ["season_no","25", "671"],
+                          ["episode_no","43", "672"],
+                          ["video_kind","Clip", "652"],
+                          ]
+            
+            #start clean
+            mirolib.delete_feed(self,reg,feed)
+            #add feed and download earth eats item
+            mirolib.add_feed(self,reg,url,feed)
+            mirolib.toggle_normal(reg)
+            mirolib.tab_search(self,reg,title)
+            if reg.m.exists("button_download.png",10):
+                click(reg.m.getLastMatch())
+            mirolib.wait_for_item_in_tab(self,reg,"Videos",item=title)
+            mirolib.click_podcast(self,reg,feed)
+            mirolib.tab_search(self,reg,title)
+            reg.m.click(title)
+            mirolib.edit_item_video_metadata_bulk(self,reg,new_metadata_list)
+            time.sleep(2)
+            mirolib.click_sidebar_tab(self,reg,"Videos")
+            mirolib.tab_search(self,reg,title)
+            reg.mtb.click("Clip")
+            if reg.m.exists(title):
+                reg.mtb.click("All")
+            else:
+                self.fail("item not found in Clips filter")
         
-        #start clean
-        mirolib.delete_feed(self,reg,feed)
-        #add feed and download earth eats item
-        mirolib.add_feed(self,reg,url,feed)
-        mirolib.toggle_normal(reg)
-        mirolib.tab_search(self,reg,title)
-        if reg.m.exists("button_download.png",10):
-            click(reg.m.getLastMatch())
-        mirolib.wait_for_item_in_tab(self,reg,"Videos",item=title)
-        mirolib.click_podcast(self,reg,feed)
-        reg.m.click(title)
-        mirolib.edit_item_video_metadata_bulk(self,reg,new_metadata_list)
-        time.sleep(2)
-        mirolib.click_sidebar_tab(self,reg,"Videos")
-        mirolib.tab_search(self,reg,title)
-        reg.mtb.click("Clip")
-        if reg.m.exists(title):
-            reg.mtb.click("All")
-        else:
-            self.fail("item not found in Clips filter")
-        #cleanup
-        mirolib.delete_feed(self,reg,feed)
+        finally:
+            mirolib.quit_miro(self,reg)
+            config.set_def_db_and_prefs()
 
                                      
  

@@ -26,7 +26,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         feed = "Ryan"
         try:
             url = "http://ryanishungry.com/subscribe/"
@@ -60,7 +60,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. Verify site added
         4. Cleanup
         """       
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         
         site_url = "http://pculture.org/feeds_test/subscription-test-guide.html"

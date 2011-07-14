@@ -26,7 +26,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup - just remove from Library
         """
         
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         
         try:

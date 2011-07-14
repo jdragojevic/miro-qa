@@ -31,7 +31,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         pass
         
         #set the search regions
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         feed = "StupidVideos"
  
         try:

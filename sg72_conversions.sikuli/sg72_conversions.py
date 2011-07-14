@@ -33,7 +33,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         6. Cleanup
         """
 
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         # 1. Download youtube vidoe
         vid_url = "http://www.youtube.com/watch?v=baJ43ByylbM&feature=fvw"
         item_title = "Zoom"

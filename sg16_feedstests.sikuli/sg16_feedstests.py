@@ -1,25 +1,39 @@
 import sys
 import os
+import shutil
 import glob
 import unittest
 import StringIO
 import time
-from urlparse import urlsplit
-
+import subprocess
 from sikuli.Sikuli import *
+
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
+sys.path.append(mycwd)
 sys.path.append(os.path.join(mycwd,'myLib'))
+import base_testcase
 import config
 import mirolib
 import prefs
 import testvars
-import base_testcase
+
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
-    """Subgroup 16 - one-click subscribe tests.
+    """Subgroup 16 - Feeds tests.
 
     """
-    
+            
+    def test_001setup(self):
+        """fake test to reset db and preferences.
+
+        """
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10)
+            
+
+
     def test_74(self):
         """http://litmus.pculture.org/show_test.cgi?id=74 Feed search, saved search feed
 
@@ -29,7 +43,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         
         url = "http://pculture.org/feeds_test/feed1.rss"
         feed = "Yah"
@@ -49,6 +63,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #4. cleanup
         mirolib.delete_feed(self,reg,feed)
 
+
+
     def test_75(self):
         """http://litmus.pculture.org/show_test.cgi?id=75 Absolute and relative links.
         1. Feed 1
@@ -58,7 +74,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         try:
-            reg = mirolib.AppRegions()
+            reg = mirolib._AppRegions()
             
             #1. add feed
             url = "http://pculture.org/feeds_test/feed1.rss"
@@ -87,11 +103,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                     print url
                     mirolib.close_ff()
                     baseurl = urlsplit(url).netloc
-                    if link == "relative link":  
-                        if linkurl not in baseurl.split('.'):
+                    if link == "relative link" and config.get_os_name == "osx":  
                             reg.s.find("Democracy")
-                        else:
-                            self.fail("wrong link url")
                     else:
                         url_parts = baseurl.split('.')
                         self.failUnless(linkurl in url_parts)            
@@ -109,7 +122,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. Cleanup
 
         """
-        reg = mirolib.AppRegions()        
+        reg = mirolib._AppRegions()        
         
         #1. add feed
         url = "http://pculture.org/feeds_test/no-enclosures.rss"
@@ -141,7 +154,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         try:
-            reg = mirolib.AppRegions()
+            reg = mirolib._AppRegions()
             url = "http://pculture.org/feeds_test/feed3.rss"
             feed = "RSS 2"
             term = "first test video"
@@ -172,7 +185,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         """
         try:
-            reg = mirolib.AppRegions()
+            reg = mirolib._AppRegions()
             feed = "The AV"
             prefs.set_autodownload(self,reg,setting="Off")     
             url = "http://feeds.feedburner.com/theavclub/mainline"
@@ -183,6 +196,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #cleanup
             mirolib.delete_feed(self,reg,feed) 
 
+
     def test_726(self):
         """http://litmus.pculture.org/show_test.cgi?id=726 Feed with gzipped enclosures.
 
@@ -192,7 +206,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         ZIPPED_FEEDS = [
             #["http://podcastle.org/feed/rss2","PodCastle",],
@@ -216,15 +230,23 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             #4. Cleanup
             mirolib.delete_feed(self,reg,feed)
 
+ 
+    def test_999reset(self):
+        """fake test to reset db and preferences.
 
+        """
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10)
+        reg = mirolib._AppRegions()
+        
 
 if __name__ == "__main__":
     import LitmusTestRunner
-    print len(sys.argv)
     if len(sys.argv) > 1:
-        
         LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
     else:
         LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
-   
+
 

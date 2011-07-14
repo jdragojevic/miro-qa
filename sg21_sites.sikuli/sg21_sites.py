@@ -27,7 +27,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site_url = "http://www.youtube.com/watch?v=fgg2tpUVbXQ&feature=channel"
         site = "YouTube"
         
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         try:
             mirolib.add_source(self,reg,site_url,site)
             mirolib.click_source(self,reg,site)
@@ -53,7 +53,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         site_url = "http://blip.tv"
         site = "blip"
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         mirolib.add_source(self,reg,site_url,site)
         mirolib.click_source(self,reg,site)
@@ -64,7 +64,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.assertTrue(reg.s.exists("BLIP TV ROCKS"))
 
         mirolib.quit_miro(self,reg)
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         self.assertTrue(reg.s.exists("BLIP"))
         mirolib.delete_site(self,reg,"BLIP")
 
@@ -82,7 +82,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         site_url = "http://blip.tv"
         site = "blip"
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         mirolib.add_source(self,reg,site_url,site)
         mirolib.click_source(self,reg,site)
         time.sleep(10)
@@ -138,7 +138,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site_url = "http://clearbits.net"
         site = "ClearBits"
         feed = "ClearBits"
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         mirolib.add_source(self,reg,site_url,site)
         mirolib.click_source(self,reg,site)
         reg.m.click("Netlabel Music")
@@ -165,7 +165,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title = "Dragons"
                         
         setAutoWaitTimeout(60)
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         mirolib.cancel_all_downloads(self,reg)
 
         mirolib.add_source(self,reg,site_url,site)
@@ -205,7 +205,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             #            ".mka download":"Widow",
                          }
         setAutoWaitTimeout(20) 
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         mirolib.add_source(self,reg,site_url,site)
         mirolib.click_source(self,reg,site)
@@ -240,7 +240,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         alt_site = "Miro Guide"
         
         setAutoWaitTimeout(60)                
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         mirolib.add_source_from_tab(self,reg,site_url)
         mirolib.click_last_source(self,reg)
@@ -257,7 +257,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site_url = "http://pculture.org/feeds_test/header-test.php"
         site = "Header Test"
         setAutoWaitTimeout(60)                
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         mirolib.add_source(self,reg,site_url,site)
         mirolib.delete_site(self,reg,site)
@@ -274,7 +274,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site_url = "http://diziizle.net/"
         site = "diziizle"
         setAutoWaitTimeout(60)                
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         mirolib.add_source_from_tab(self,reg,site_url)
         mirolib.click_last_source(self,reg)
         reg.m.find(testvars.dizizle_logo)
@@ -298,7 +298,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site = "ClearBits"
         site2 = "Internet"
         setAutoWaitTimeout(60)
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         mirolib.add_source(self,reg,site_url,site)
         mirolib.add_source(self,reg,site_url2,site2)

@@ -27,7 +27,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
        
         setAutoWaitTimeout(60)
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         SEARCHES = {"blip": 'octopus', "YouTube": 'cosmicomics'}
         for engine, term in SEARCHES.iteritems():
@@ -48,7 +48,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         setAutoWaitTimeout(60)
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         searches = {"blip": "python", "YouTube": "cosmicomics"}
         for engine, term in searches.iteritems():

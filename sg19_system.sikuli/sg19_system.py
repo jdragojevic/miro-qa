@@ -28,7 +28,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
        
         setAutoWaitTimeout(60)
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
         mirolib.click_sidebar_tab(self,reg,"Search")
@@ -46,7 +46,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         print self.id()
         setAutoWaitTimeout(60)
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
         mirolib.click_sidebar_tab(self,reg,"Search")
@@ -63,7 +63,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         print self.id()
         setAutoWaitTimeout(60)
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         if config.get_os_name() == "osx":
             reg.tl.click("Dev")
         else:
@@ -81,7 +81,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. Quit Miro
         """
         print self.id()
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
 
         if config.get_os_name() == "osx":
             reg.tl.click("Dev")

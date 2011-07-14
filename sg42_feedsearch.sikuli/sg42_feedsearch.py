@@ -17,6 +17,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 42 - Feedsearch.
 
     """
+
+    def test_001setup(self):
+        """fake test to reset db and preferences.
+
+        """
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10)
+    
     def test_215(self):
         """http://litmus.pculture.org/show_test.cgi?id=215 Feed search, saved search feed
 
@@ -26,7 +36,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -57,7 +67,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
@@ -87,7 +97,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TwoStupid"
@@ -119,7 +129,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -154,7 +164,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -186,13 +196,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         
     
         feed = "TestData"
         term = "monkey"
         folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","WatchTest")
-        prefs.remove_watched_folder(self,reg,folder=folder_path)
         #1. add feed
         mirolib.add_watched_folder(self,reg,folder_path)
         if reg.s.exists("WatchTest"):
@@ -213,7 +222,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TwoStupid"
         term = "House"
@@ -243,7 +252,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TwoStupid"
@@ -278,11 +287,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.click_last_podcast(self,reg)
         mirolib.tab_search(self,reg,term2,confirm_present=True)
         mirolib.clear_search(reg)
-        if reg.mtb.exists(term2.upper()):
-            mirolib.log_result("324","test_24",status="fail")
-        else:
-            mirolib.log_result("324","test_24")
-        
+        time.sleep(3)
+        if not reg.mtb.exists(term2.upper()):
+            mirolib.log_result("324","test_24",status="pass")
+       
 
         #4. cleanup
         mirolib.delete_feed(self,reg,"stupid")

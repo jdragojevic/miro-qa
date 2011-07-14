@@ -28,7 +28,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         5. Restart Miro
         
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         #1. open preferences
         p = prefs.open_prefs(self,reg)
         #2. change language to croatian (hr)
@@ -77,6 +77,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             click(reg.s.getLastMatch())
             time.sleep(3)
         mirolib.shortcut('q')
+        while reg.m.exists("dialog_confirm_quit.png",5):
+            reg.m.click("dialog_quit.png")
         time.sleep(2)
         mirolib.restart_miro()
         self.assertTrue(exists("File"))

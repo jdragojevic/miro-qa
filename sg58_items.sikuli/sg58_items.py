@@ -22,7 +22,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.verificationErrors = []
         setAutoWaitTimeout(60)
          
-    def test_999reset(self):
+    def test_001setup(self):
         """fake test to reset db and preferences.
 
         """
@@ -40,7 +40,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Verify item played as audio item
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
@@ -85,7 +85,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Verify item played as video item
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -131,7 +131,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Verify item played as audio item
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -167,7 +167,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. cleanup
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         time.sleep(5)
         url = "http://vimeo.com/moogaloop_local.swf?clip_id=7335370&server=vimeo.com"
         title = "local"
@@ -214,7 +214,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TwoStupid"
@@ -249,7 +249,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. verify varios item click scenerios
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
@@ -348,7 +348,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
        
 
         """
-        reg = mirolib.AppRegions()
+        reg = mirolib._AppRegions()
         
         time.sleep(5)
         url = "http://participatoryculture.org/feeds_test/feed1.rss"
