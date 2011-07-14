@@ -6,13 +6,14 @@ from sikuli.Sikuli import *
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import mirolib
-import prefs
+import config
 
 class Miro_unittest_testcase(unittest.TestCase):
 
     def setUp(self):
         self.verificationErrors = []
         print "starting test: ",self.shortDescription()
+        config.set_image_dirs()
         
 
 

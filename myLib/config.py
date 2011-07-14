@@ -128,6 +128,28 @@ def reset_preferences():
     else:
         print "don't have prefs for this os"
         
+
+def delete_preferences():
+    #completely ditch preferences on linux
+    if get_os_name() == "lin":
+        unset_cmd = ["gconftool-2", "--recursive-unset", "/apps/miro"]
+        p= subprocess.Popen(unset_cmd).communicate()
+    #completely ditch preferences on osx
+    elif get_os_name() == "osx":
+        plist_file = os.path.join(os.getenv("HOME"),"Library","Preferences","org.participatoryculture.Miro.plist")
+        if os.path.exists(plist_file):
+            os.remove(plist_file)
+    elif get_os_name() == "win":
+        miro_support_dir = get_support_dir()
+        preffile = os.path.join(miro_support_dir,"preferences.bin")
+        if os.path.exists(preffile):
+            shutil.rmtree(preffile)
+    else:
+        print "don't know where preferences are"
+        
+        
+    
+
     
 
 def delete_database_and_prefs(dbonly=False):
@@ -162,6 +184,7 @@ def set_def_db_and_prefs():
     db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","miro402_empty")
     replace_database(db)
     reset_preferences()
+    time.sleep(5)
     
     
 
@@ -197,7 +220,10 @@ def set_mirodb_value(dbtable,dbfield,dbval):
     db_cmd = ['python','-c',stmt]
     p = subprocess.Popen(db_cmd).communicate()
    
-    
+def run_db_cmd(db_cmd):
+    stmt = 'from db_mod import MiroDatabase; MiroDatabase().run_cmd("%s")' % (db_cmd)
+    db_cmd = ['python','-c',stmt]
+    p = subprocess.Popen(db_cmd).communicate()    
     
 
 

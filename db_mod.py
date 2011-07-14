@@ -51,11 +51,20 @@ class MiroDatabase():
         conn.commit()       
         conn.close()
 
+    def run_db_cmd(self,db_cmd):
+        database = self.get_db_location()
+        conn = sqlite3.connect(database)
+        conn.execute(db_cmd)
+        conn.commit()       
+        conn.close()
+        
 
 if __name__ == '__main__':
     md =  MiroDatabase()
 ##    md.set_value("global_state","tabs_width",300)
-    md.get_value("global_state","tabs_width")
+    print md.get_value("global_state","tabs_width")
+##    md.run_db_cmd("delete from item_info_cache")
+   
 
 
 

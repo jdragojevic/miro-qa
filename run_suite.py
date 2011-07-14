@@ -59,11 +59,14 @@ else:
     alltests = glob.glob(os.path.join(os.getcwd(), '*.sikuli'))
     for x in alltests:
         sglist.append(os.path.basename(x))
-    #sort the list, then drop subgroup_1 install tests to the back of the list.
+    #sort the list, then drop subgroup_1 and subgroup 89 install tests to the back of the list.
     sglist.sort()
     sg1index = sglist.index('sg1_install.sikuli')
     sg1 = sglist.pop(int(sg1index))
     sglist.append(sg1)
+    sg89index = sglist.index('sg89_prefs.sikuli')
+    sg89 = sglist.pop(int(sg89index))
+    sglist.append(sg89)
       
     #Run all the subgroups:
     #To run all the tests in 1 subgroup:

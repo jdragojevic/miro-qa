@@ -1,3 +1,4 @@
+
 import os
 import time
 import glob
@@ -24,41 +25,43 @@ def open_miro():
     else:
         print config.get_os_name()
 
-class AppRegions():
-
-
-    def launch_miro():
-        """Open the Miro Application, the sets the region coords for searching.
-        
-        Uses the Miro Guides, Home icon, Bottom Corner, and VolumeBar to find coordinates.
-        Returns the:
-            
-        SidebarRegion (s) - miro sidebar 
-        MainViewRegion(m) - miro mainview
-        TopHalfRegion (t) - top 1/2 of whole screen
-        TopLeftRegion (tl) - top left of whole screen
-        MainTitleBarRegion (mtb) - miro mainview title bar region
-
-        Note - order mattters, this would be better as a dict.
-        """
-        if open_miro() == "linux":
-            if not exists("Music",3):
-                config.start_miro_on_linux()
-        else:
-            App.open(open_miro())
-        if exists("Music",120) or \
-           exists("icon-audio.png",120) :
-            print "miro launched"
-            
+def launch_miro():
+    """Open the Miro Application, the sets the region coords for searching.
     
-    def get_regions():
+    Uses the Miro Guides, Home icon, Bottom Corner, and VolumeBar to find coordinates.
+    Returns the:
+        
+    SidebarRegion (s) - miro sidebar 
+    MainViewRegion(m) - miro mainview
+    TopHalfRegion (t) - top 1/2 of whole screen
+    TopLeftRegion (tl) - top left of whole screen
+    MainTitleBarRegion (mtb) - miro mainview title bar region
+
+    Note - order mattters, this would be better as a dict.
+    """
+    if open_miro() == "linux":
+        if not exists("Music",3):
+            config.start_miro_on_linux()
+    else:
+        App.open(open_miro())
+    if exists("Music",60) or \
+       exists("icon-audio.png",60) :
+        print "miro launched"
+
+
+
+class MiroRegions():
+
+    def __init__(self):        
+        setAutoWaitTimeout(testvars.timeout)
+        launch_miro()
+        
+    def _get_regions(self):
+        config.set_image_dirs()
         regions = []
         myscreen = Screen()
         pr = Region(myscreen.getBounds())
-##        hw = pr.getW()/2
-##        hh = pr.getH()/2
-##        pr.setW(hw)
-##        pr.setH(hh)
+
         pr.setY(10)
         sidebar_width = int(config.get_val_from_mirodb("global_state","tabs_width"))
         topx = 50
@@ -80,7 +83,6 @@ class AppRegions():
         regions.append(SidebarRegion)                
         #Mainview Region
         mainwidth = int((vbarx-sidex)+vbarw)
-        #MainViewRegion = Region(sidex,topy+tbar_height,mainwidth,app_height-155) - old m
         MainViewRegion = Region(sidex,topy+70,mainwidth,app_height)
         MainViewRegion.setAutoWaitTimeout(30)
         regions.append(MainViewRegion)
@@ -98,25 +100,24 @@ class AppRegions():
         regions.append(MainTitleBarRegion)
         return regions
 
-    
-    config.set_image_dirs()
-    launch_miro()
-    setAutoWaitTimeout(testvars.timeout) 
-    miroRegions = get_regions()
-    s = miroRegions[0] #Sidebar Region
-    s.highlight(1)
-    m = miroRegions[1] #Mainview Region
-    m.highlight(1)
-    t= miroRegions[2] #top half screen
-#    t.highlight(5)
-    tl = miroRegions[3] #top left quarter
-#    tl.highlight(5)
-    mtb = miroRegions[4] #main title bar
-#    mtb.highlight(5)
-    mr = Region(mtb.above(50).below())
-    miroapp = App("Miro")
-      
+
+class _AppRegions():
+    def __init__(self):   
+        miroRegions = MiroRegions()._get_regions()
+        self.s = miroRegions[0] #Sidebar Region
+        self.s.highlight(1)
+        self.m = miroRegions[1] #Mainview Region
+        self.m.highlight(1)
+        self.t= miroRegions[2] #top half screen
+    #    t.highlight(5)
+        self.tl = miroRegions[3] #top left quarter
+    #    tl.highlight(5)
+        self.mtb = miroRegions[4] #main title bar
+    #    mtb.highlight(5)
+        self.mr = Region(self.mtb.above(50).below())
+        miroapp = App("Miro")     
         
+
 
 
 def shortcut(key,shift=False):
@@ -161,6 +162,7 @@ def multi_select(self,region,item_list):
         keyDown(Key.CTRL)
     #select each item in the list if it is found
     for x in item_list:
+        print x
         if region.exists(x):
             region.click(x)
             selected_items.append(x)           
@@ -175,17 +177,15 @@ def multi_select(self,region,item_list):
     
 
 def quit_miro(self,reg=None):
-    if reg == None:
-        shortcut("q")
-        time.sleep(10)
-    else:
-        click_sidebar_tab(self,reg,"Videos")
-        shortcut("q")
-        while reg.m.exists("dialog_confirm_quit.png",5):
-            reg.m.click("dialog_quit.png")
-        reg.t.waitVanish("Miro",20)
-        if reg.s.exists("Miro"):
-            self.fail("not shutdown")
+    if exists("Miro"):
+        click(getLastMatch())
+    shortcut("q")       
+    if exists("dialog_confirm_quit.png",15) or \
+          exists("Quit",5):
+        type(Key.ENTER)
+    waitVanish("Miro",45)
+    if exists("Miro"):
+        self.fail("not shutdown")
 
 def restart_miro(confirm=True):
     if config.get_os_name() == "lin":
@@ -202,6 +202,7 @@ def restart_miro(confirm=True):
             print("can't confirm miro restarted")
     else:
         time.sleep(5) #give it 5 secs - probably waiting for 1st time dialog or other
+        
     
     
 def cmd_ctrl():
@@ -364,10 +365,14 @@ def get_podcasts_region(reg):
     return PodcastsRegion
     
 def get_playlists_region(reg):
-    if not reg.s.exists("Playlists",1):
-        reg.s.click("Music")
-    time.sleep(2)
-    reg.s.click("Playlists")
+    reg.s.setY(reg.s.getY()+100)
+    if reg.s.exists("Playlists",3):
+        click(reg.s.getLastMatch())
+    else:
+        type(Key.ESC) 
+        reg.s.click("Podcasts")
+        time.sleep(2)
+        reg.s.click("Playlists")
     PlaylistsRegion = Region(reg.s.getLastMatch().left(150).right(200).below())
     PlaylistsRegion.setAutoWaitTimeout(20)
     return PlaylistsRegion     
@@ -403,13 +408,56 @@ def add_feed(self,reg,url,feed):
     time.sleep(10) #give it 10 seconds to add the feed
     click_podcast(self,reg,feed)
     time.sleep(3)
+
+def add_playlist(self,reg,playlist,style="menu"):
+    """Add a playlist miro using 1 of the following styles:
+
+    1. style='menu' uses the Playlist menu option
+    2. style='shortcut' uses the keyboard shortcut
+    3. style='context' uses right-click context menu
+    4. style='tab' uses the Playlists sidebar tab.
     
+    Verify the playlist is added by clicking on it.
+    """
+    if style == "menu":
+        reg.t.click("Playlists")
+        reg.t.find("Playlist Folder")
+        tmpr = Region(reg.t.getLastMatch().above())
+        tmpr.click("Playlist")        
+    elif style == "shortcut":
+        shortcut('p')
+    elif style == "context":  # assumes the context menu is already open on the item
+        reg.m.click("Add to Playlist")
+    elif style == "tab":
+        get_playlists_region(reg)
+        reg.m.find("Name")
+        click(reg.m.getLastMatch().right(150))
+        type(playlist+"\n")
+    else:
+        print "new playlist style must be one if 'menu','shortcut','context' or 'tab'."
+        
+    time.sleep(2)
+    type(playlist + "\n")
+    time.sleep(10) #give it 10 seconds to add the playlist
+    click_playlist(self,reg,playlist)
+    time.sleep(3)
+
+
 def click_podcast(self,reg,feed):
     """Find the podcast in the sidebar within podcast region and click on it.
     """
     p = get_podcasts_region(reg)
     time.sleep(3)
     p.find(feed)
+    click(p.getLastMatch())
+    return Region(p.getLastMatch()).getCenter()
+
+def click_playlist(self,reg,playlist):
+    """Find the podcast in the sidebar within podcast region and click on it.
+    """
+    p = get_playlists_region(reg)
+    time.sleep(3)
+    p.find(playlist)
     click(p.getLastMatch())
     return Region(p.getLastMatch()).getCenter()
 
@@ -1014,10 +1062,6 @@ def edit_item_video_metadata_bulk(self,reg,new_metadata_list):
     type(Key.ENTER) #Save the changes
    
 
-
-
-
-
 def store_item_path(self,reg):
     """Get the items file path from the edit item dialog via clipboard and return it.
 
@@ -1042,12 +1086,6 @@ def store_item_path(self,reg):
         filepath = Env.getClipboard()
         type(Key.ESC) #ESC to close the dialog
     return filepath
-            
-    
-
-        
-        
-    
         
     
 def verify_normalview_metadata(self,reg,metadata):
@@ -1176,12 +1214,22 @@ def type_a_path(self,file_path):
 
 
 def click_next(dR):
-    if dR.exists(Pattern("button_next.png").similar(.92)) or \
-    dR.exists(Pattern("button_next1.png")):
+    """Click the Next button in a dialog.
+
+    Needs the Dialog region (dR) set, see first_time_startup for example
+    """
+    print dR
+    if dR.exists(Pattern("button_next.png"),5) or \
+    dR.exists(Pattern("button_next1.png"),5):
          click(dR.getLastMatch())
     else:
         print "Next button not found"
+
 def click_finish(dR):
+    """Click the Finish button in a dialog.
+
+    Needs the Dialog region (dR) set, see first_time_startup for example
+    """
     if dR.exists(Pattern("button_finish.png").similar(.90),2):
         click(dR.getLastMatch())
     else:
@@ -1192,13 +1240,14 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
     """Walk throught the first time startup dialog, specifying defaults.
 
     """
-    if exists("System default",45) or \
-       exists(Pattern("button_System_default.png").similar(.90),45):
+    if exists(Pattern("button_System_default.png").similar(.90),45) or \
+       exists("System default",45) or \
+       exists("Language",5):
         print "In first time dialog"
-        dR = Region(getLastMatch().nearby(350))
-        dR.setY(dR.getY()+100)
-        dR.setH(dR.getH()-50)
-        dR.highlight(3)
+        dR = Region(getLastMatch())
+        dR.setX(dR.getX()-150)
+        dR.setH(dR.getH()+600)
+        dR.setW(dR.getW()+600)
         dR.setAutoWaitTimeout(30)
         
     #Language Setting
@@ -1276,7 +1325,7 @@ def corrupt_db_dialog(action="start_fresh",db=False):
             wait("Music")
         elif action == "submit_crash":
             dR.click("Submit Crash")
-            time.sleep(2)
+            time.sleep(5)
             if db == True:
                 type(Key.ENTER)
             else:

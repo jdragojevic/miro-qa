@@ -9,17 +9,18 @@ import platform
 import StringIO
 from sikuli.Sikuli import *
 
-
 import sg1_install
-import sg2_search
-import sg6_feeds
-import sg8_miroguide
 import sg11_torrents
 import sg16_feedstests
 import sg19_system
+import sg2_search
+import sg6_feeds
+import sg8_miroguide
 import sg21_sites
+import sg23_startup
 import sg24_shortcuts
 import sg31_playback
+import sg38_playlists
 import sg40_feed_folders
 import sg41_one_click
 import sg42_feedsearch
@@ -190,6 +191,7 @@ def write_header(log):
 
 class LitmusRunner(unittest.TestCase):
     def __init__(self,suite,litmus):
+        print suite
         params = []
         self.litmus = litmus
         if "Miro_Suite" in str(suite):
@@ -218,9 +220,12 @@ class LitmusRunner(unittest.TestCase):
             id_string = str(x)
             stat = byte_output[0]
             print byte_output
-            if "001setup" not in id_string or \
-               "999reset" not in id_string:
-                write_log(logfile,id_string,stat,byte_output)
+            if id_string == "001setup":
+                print "not logging setup result"
+            elif id_string == "999reset":
+                print "not logging cleanup result"
+            else:
+               write_log(logfile,id_string,stat,byte_output)
             buf.truncate(0)
         time.sleep(3)
         write_footer(logfile)
