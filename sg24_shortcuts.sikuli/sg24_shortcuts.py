@@ -83,18 +83,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         # remove playlist
         def _delete_playlist(self):
-            mirolib.shortcut("p")
-            if reg.m.exists("Enter a",3):
-                mirolib.log_result("723","test_92")
-            time.sleep(4)
-            type("FaveList"+"\n")
-            p = mirolib.get_playlists_region(reg)
-            p.click("FaveList",2)
-            time.sleep(2)
+            playlist = "FAVELIST"
+            mirolib.add_playlist(self,reg,playlist,style="shortcut")
+            mirolib.log_result("723","test_92")
             mirolib.delete_current_selection(self,reg)
-            time.sleep(2)
-            self.assertFalse(p.exists("FaveList",3))
-            mirolib.log_result("92","delte playlist shortcut verified")
+            time.sleep(3)
+            self.assertFalse(reg.s.exists(playlist))
+            mirolib.log_result("92","delete playlist shortcut verified")
     
         # remove playlist folder
         def _delete_playlist_folder(self):
@@ -110,7 +105,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             mirolib.delete_current_selection(self,reg)
             time.sleep(2)
             self.assertFalse(p.exists("SUPERPLAYS",3))
-            mirolib.log_result("92","delte playlist folder shortcut verified")
+            mirolib.log_result("92","delete playlist folder shortcut verified")
         try: 
             _delete_feed(self)
             _delete_site(self)
@@ -119,7 +114,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             _delete_playlist_folder(self)
             _delete_feed_folder(self)
         except FindFailed, debugging:
-            self.verificationErrors.append(debugging)
+            print debugging
         finally:
             mirolib.quit_miro(self)
             mirolib.log_result("96","test_92") #verifies quit shortcut test

@@ -44,7 +44,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         watched_feed = "TestData"
-        playlist = "MIXED List"
+        playlist = "MIX LIST"
         reg = mirolib._AppRegions()
         mirolib.click_sidebar_tab(self,reg,"Podcasts")
         mirolib.toggle_normal(reg)
@@ -52,12 +52,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.m.click("Lego")
         mirolib.tab_search(self,reg,watched_feed)
         reg.mr.click(Pattern("sort_name_normal.png"))
-        item_list = ["Pancakes","Deerhunter"]        
-        mirolib.multi_select(self,region=reg.m,item_list=item_list)
+        item_list = ["Lego","Pancake","Deerhunter"]        
+        selected_items = mirolib.multi_select(self,region=reg.m,item_list=item_list)
         mirolib.add_playlist(self,reg,playlist,style="shortcut")
-        item_list.append("Lego")
         mirolib.toggle_normal(reg)
-        for title in item_list:
+        for title in selected_items:
             mirolib.tab_search(self,reg,title,confirm_present=True)
 
    
@@ -78,7 +77,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.add_playlist(self,reg,playlist,style="menu")
         p = mirolib.get_playlists_region(reg)
         list_loc = mirolib.click_playlist(self,reg,playlist)
-        rightClick(list_loc)
+        rightClick(Location(list_loc))
         p.click("Remove")
         mirolib.remove_confirm(self,reg,"remove")
         time.sleep(2)
@@ -91,14 +90,18 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
 
     def test_221(self):
+        """http://litmus.pculture.org/show_test.cgi?id=221 rename playlist.
+
+        """
         playlist = "TAB LIST"
         reg = mirolib._AppRegions()
         mirolib.add_playlist(self,reg,playlist,style="tab")
         mirolib.log_result("708","test_221 - added playlist via Playlist top level tab")
-        p = mirolib.get_playlists_region(reg)
         list_loc = mirolib.click_playlist(self,reg,playlist)
-        rightClick(list_loc)
-        p.click("Rename")
+        print list_loc
+        rightClick(Location(list_loc))
+        type(Key.DOWN)
+        type(Key.ENTER)
         time.sleep(2)
         type("NEW NAME \n")
         mirolib.click_playlist(self,reg,playlist="NEW NAME")
@@ -118,10 +121,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         item_list = ["Pancakes","Horizon"]
         reg = mirolib._AppRegions()
         p = mirolib.get_podcasts_region(reg)
-        if not p.exists(watched_feed):
-            folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
-            mirolib.add_watched_folder(self,reg,folder_path)
-
         mirolib.click_sidebar_tab(self,reg,"Music")
         mirolib.tab_search(self,reg,playlist)
         reg.mtb.click(Pattern("button_save_as_playlist.png"))
@@ -133,9 +132,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         for title in item_list:
             mirolib.tab_search(self,reg,title,confirm_present=True)       
          
-
-
-
 
 # Post the output directly to Litmus
 if __name__ == "__main__":

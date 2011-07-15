@@ -25,12 +25,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         site_url = "http://www.youtube.com/watch?v=fgg2tpUVbXQ&feature=channel"
-        site = "YouTube"
+        site = "Hubble"
         
         reg = mirolib._AppRegions()
         try:
-            mirolib.add_source(self,reg,site_url,site)
-            mirolib.click_source(self,reg,site)
+            mirolib.add_source_from_tab(self,reg,site_url)
+            mirolib.click_last_source(self,reg)
             
             if reg.mtb.exists(Pattern("download_this_video.png")) or \
                       reg.mtb.exists("Download this"):

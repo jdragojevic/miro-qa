@@ -6,6 +6,7 @@ import unittest
 import StringIO
 import time
 import subprocess
+from urlparse import urlsplit
 from sikuli.Sikuli import *
 
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
@@ -186,7 +187,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         try:
             reg = mirolib._AppRegions()
-            feed = "The AV"
+            feed = "AV Club"
             prefs.set_autodownload(self,reg,setting="Off")     
             url = "http://feeds.feedburner.com/theavclub/mainline"
             mirolib.browser_to_miro(self,reg,url)

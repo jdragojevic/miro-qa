@@ -19,7 +19,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 1 - Install tests - going to delete preferences and database, and video storage before running each test case.
 
     """
-            
+
+
+    def setUp(self):
+        self.verificationErrors = []
+        print "starting test: ",self.shortDescription()
+        config.set_image_dirs()
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10)        
         
             
     def test_236(self):
@@ -35,8 +44,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
         mirolib.add_watched_folder(self,reg,folder_path)
         mirolib.quit_miro(self)
-        if config.get_os_name() == "osx":
-            time.sleep(20)
         config.delete_preferences()
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions 
@@ -57,12 +64,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         1. delete movies dir, launch miro
         2. 
         """
-        if exists("Miro",3) or \
-           exists("Music",3):
-            click(getLastMatch())
-        mirolib.quit_miro(self)
-        config.set_def_db_and_prefs()
-        mirolib.restart_miro(confirm=True)
         mirolib.quit_miro(self)
         config.delete_miro_video_storage_dir()
         setAutoWaitTimeout(testvars.timeout)

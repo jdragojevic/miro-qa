@@ -161,10 +161,12 @@ def multi_select(self,region,item_list):
     else:
         keyDown(Key.CTRL)
     #select each item in the list if it is found
+    time.sleep(2)
     for x in item_list:
         print x
         if region.exists(x):
             region.click(x)
+            time.sleep(2)
             selected_items.append(x)           
         
     #release the ctrl /cmd key         
@@ -177,15 +179,14 @@ def multi_select(self,region,item_list):
     
 
 def quit_miro(self,reg=None):
-    if exists("Miro"):
+    if exists("Miro",10):
         click(getLastMatch())
     shortcut("q")       
-    if exists("dialog_confirm_quit.png",15) or \
+    if exists("dialog_confirm_quit.png",10) or \
           exists("Quit",5):
         type(Key.ENTER)
     waitVanish("Miro",45)
-    if exists("Miro"):
-        self.fail("not shutdown")
+  
 
 def restart_miro(confirm=True):
     if config.get_os_name() == "lin":
@@ -365,15 +366,17 @@ def get_podcasts_region(reg):
     return PodcastsRegion
     
 def get_playlists_region(reg):
-    reg.s.setY(reg.s.getY()+100)
-    if reg.s.exists("Playlists",3):
-        click(reg.s.getLastMatch())
+    tmps = Region(reg.s)
+    tmps.setY(reg.s.getY()+75)
+    tmps.highlight(2)
+    if tmps.exists("Playlists",3):
+        click(tmps.getLastMatch())
     else:
         type(Key.ESC) 
-        reg.s.click("Podcasts")
+        tmps.click("Sources")
         time.sleep(2)
-        reg.s.click("Playlists")
-    PlaylistsRegion = Region(reg.s.getLastMatch().left(150).right(200).below())
+        tmps.click("Playlists")
+    PlaylistsRegion = Region(tmps.getLastMatch().left(180).right(300).below())
     PlaylistsRegion.setAutoWaitTimeout(20)
     return PlaylistsRegion     
 	
@@ -420,9 +423,11 @@ def add_playlist(self,reg,playlist,style="menu"):
     Verify the playlist is added by clicking on it.
     """
     if style == "menu":
-        reg.t.click("Playlists")
-        reg.t.find("Playlist Folder")
-        tmpr = Region(reg.t.getLastMatch().above())
+        tmpt = Region(reg.t)
+        tmpt.setH(reg.t.getH()/4)
+        tmpt.click("Playlists")
+        tmpt.find("Playlist Folder")
+        tmpr = Region(tmpt.getLastMatch().above())
         tmpr.click("Playlist")        
     elif style == "shortcut":
         shortcut('p')
@@ -432,7 +437,6 @@ def add_playlist(self,reg,playlist,style="menu"):
         get_playlists_region(reg)
         reg.m.find("Name")
         click(reg.m.getLastMatch().right(150))
-        type(playlist+"\n")
     else:
         print "new playlist style must be one if 'menu','shortcut','context' or 'tab'."
         
@@ -1177,7 +1181,7 @@ def convert_file(self,reg,out_format):
         reg.t.click("Convert")
     else:
        type('c',KEY_ALT)
-    find("Conversion Folder")
+    reg.mtb.find("Folder")
     tmpr = Region(getLastMatch().above())
     tmpr.setX(tmpr.getX()-50)
     tmpr.setW(tmpr.getW()+100)
@@ -1230,7 +1234,8 @@ def click_finish(dR):
 
     Needs the Dialog region (dR) set, see first_time_startup for example
     """
-    if dR.exists(Pattern("button_finish.png").similar(.90),2):
+    if dR.exists(Pattern("button_finish.png"),5) or \
+       dR.exists(Pattern("button_finish1.png"),5):
         click(dR.getLastMatch())
     else:
         print "Finish button not found"
@@ -1245,13 +1250,15 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
        exists("Language",5):
         print "In first time dialog"
         dR = Region(getLastMatch())
-        dR.setX(dR.getX()-150)
+        dR.setX(dR.getX()-200)
+        dR.setY(dR.getY()-20)
         dR.setH(dR.getH()+600)
         dR.setW(dR.getW()+600)
-        dR.setAutoWaitTimeout(30)
+        dR.highlight(2)
+        dR.setAutoWaitTimeout(15)
         
     #Language Setting
-    print "setting lang"
+    print "setting lang:",lang
     if not lang == "Default":
         click(getLastMatch())
         for x in range(0,3):
@@ -1265,7 +1272,7 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
     click_next(dR)
     
     #Run on Startup
-    print "run at startup?"
+    print "run at startup? ",run_on_start
     time.sleep(3)
     if run_on_start == "Yes":
         dR.click("Yes")
@@ -1279,7 +1286,7 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
     time.sleep(3)
     if config.get_os_name() == "osx"  or \
        (config.get_os_name() == "win" and dR.exists("iTunes",3)):
-        print "itunes?"
+        print "itunes? ",iTunes
         if itunes == "Yes":
             dR.click("Yes")
         else:
@@ -1287,18 +1294,18 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
         click_next(dR)
     
     #Search for music and video files
-    print "search for files?"
+    print "search for files? ",search
     time.sleep(3)
     if search == "Yes":
         dR.click("Yes")
         print "specifying search"
         if search_path == "Everywhere":
-            print "search everywhere"
+            print "searching everywhere"
             click_next(dR)
             time.sleep(5)
             waitVanish("parsed",900) #this can take a long time, giving 15 mins for search            
         else:
-            print "specifying search dir"
+            print "searching specific dir: ",search_path
             dR.click("Just")
             dR.click(Pattern("button_choose.png"))
             type_a_path(self,search_path)

@@ -18,7 +18,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 11 - Torrent tests.
 
     """
-      
+
+    def test_001setup(self):
+        mirolib.quit_miro(self)
+        config.set_def_db_and_prefs()
+        mirolib.restart_miro(confirm=False)
+        time.sleep(10)
 
     def test_419(self):
         """http://litmus.pculture.org/show_test.cgi?id=419 external torrent dl.

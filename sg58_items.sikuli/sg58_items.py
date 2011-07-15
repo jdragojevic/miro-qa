@@ -18,18 +18,20 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 58 - Items.
 
     """
-    def setUp(self):
-        self.verificationErrors = []
-        setAutoWaitTimeout(60)
+
          
-    def test_001setup(self):
+    def setUp(self):
         """fake test to reset db and preferences.
 
         """
+        
+        self.verificationErrors = []
+        print "starting test: ",self.shortDescription()
+        config.set_image_dirs()
         mirolib.quit_miro(self)
         config.set_def_db_and_prefs()
         mirolib.restart_miro(confirm=False)
-        time.sleep(10) 
+        time.sleep(10)
 
     def test_361(self):
         """http://litmus.pculture.org/show_test.cgi?id=361 edit item video to audio.

@@ -21,15 +21,17 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 1 - Install tests - going to delete preferences and database, and video storage before running each test case.
 
     """
-            
-    def test_001setup(self):
-        """fake test to reset db and preferences.
 
-        """
+    def setUp(self):
+        self.verificationErrors = []
+        print "starting test: ",self.shortDescription()
+        config.set_image_dirs()
         mirolib.quit_miro(self)
         config.set_def_db_and_prefs()
         mirolib.restart_miro(confirm=False)
         time.sleep(10)
+        
+
             
     def test_4(self):
         """http://litmus.pculture.org/show_test.cgi?id=4 1st time install, specify a dir to search.
@@ -211,8 +213,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.quit_miro(self)
         config.set_def_db_and_prefs()
         mirolib.restart_miro(confirm=False)
-        time.sleep(10)
-        reg = mirolib._AppRegions()
         
 
 if __name__ == "__main__":
