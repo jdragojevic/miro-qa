@@ -21,15 +21,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
          
     def setUp(self):
-        """fake test to reset db and preferences.
-
-        """
-        
         self.verificationErrors = []
         print "starting test: ",self.shortDescription()
         config.set_image_dirs()
         mirolib.quit_miro(self)
         config.set_def_db_and_prefs()
+        config.delete_miro_video_storage_dir()
         mirolib.restart_miro(confirm=False)
         time.sleep(10)
 

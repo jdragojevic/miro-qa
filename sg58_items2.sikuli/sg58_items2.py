@@ -20,13 +20,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """
 
 
-    def test_001setup(self):
-        """Pre subgroup run cleanup and preferences check.
-
-        This isn't a real tests and is just meant to make sure the subgroup is starting with usual preferences settings and clean sidebar.
-        """
+    def setUp(self):
+        self.verificationErrors = []
+        print "starting test: ",self.shortDescription()
+        config.set_image_dirs()
         mirolib.quit_miro(self)
         config.set_def_db_and_prefs()
+        config.delete_miro_video_storage_dir()
         mirolib.restart_miro(confirm=False)
         time.sleep(10)
 
@@ -89,7 +89,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                       ["rating","5", "651"],
                       ["year","2010","655"],
                       ["track_num","1", "673"],
-                      ["track_of","2", "673"],
+                      ["track_of","2", "673"]
                       ]
         
         #start clean
@@ -104,8 +104,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.m.click(title)
         for x in edit_itemlist:
             mirolib.edit_item_metadata(self,reg,meta_field=x[0],meta_value=x[1])
-            mirolib.log_result(x[2],"test_647")
-            time.sleep(2)
+            try:
+                mirolib.log_result(x[2],"test_647")
+            finally:
+                time.sleep(2)
         if not mirolib.tab_search(self,reg,"Earth Day",confirm_present=True) == True:
             self.fail("new title not saved")
         #cleanup
