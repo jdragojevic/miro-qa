@@ -1286,7 +1286,7 @@ def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",
     time.sleep(3)
     if config.get_os_name() == "osx"  or \
        (config.get_os_name() == "win" and dR.exists("iTunes",3)):
-        print "itunes? ",iTunes
+        print "itunes? ",itunes
         if itunes == "Yes":
             dR.click("Yes")
         else:
