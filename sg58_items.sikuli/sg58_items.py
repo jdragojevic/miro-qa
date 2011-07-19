@@ -64,6 +64,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
         mirolib.wait_for_item_in_tab(self,reg,"Videos",item=title)
         reg.m.click(title)
+        mirolib.click_sidebar_tab(self,reg,"Videos") #stupid workaround for bug, not recognizing selected item after search.
         time.sleep(2)
         mirolib.edit_item_type(self,reg,new_type)
         #locate item in audio tab and verify playback
@@ -108,6 +109,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
         mirolib.wait_for_item_in_tab(self,reg,"Music",item=title)
         reg.m.click(title)
+        mirolib.click_sidebar_tab(self,reg,"Music") #stupid workaround for bug, not recognizing selected item after search.
         mirolib.edit_item_type(self,reg,new_type)
         #locate item in audio tab and verify playback
         mirolib.wait_for_item_in_tab(self,reg,tab="Video",item=title)
@@ -150,6 +152,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
         mirolib.wait_for_item_in_tab(self,reg,"Music",item=title)
         reg.m.click(title)
+        mirolib.click_sidebar_tab(self,reg,"Music") #stupid workaround for bug, not recognizing selected item after search.
         mirolib.edit_item_metadata(self,reg,meta_field="about",meta_value="hoovercraft full of eels")
         mirolib.tab_search(self,reg,"hoovercraft eels")
         if not reg.m.exists(title):
