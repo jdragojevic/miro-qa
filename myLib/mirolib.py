@@ -695,6 +695,7 @@ def tab_search(self,reg,title,confirm_present=False):
         print "can not find the search box"
     time.sleep(2)
     type(title.upper())
+    time.sleep(3)
     if confirm_present != False:
         toggle_normal(reg)
         if reg.m.exists(title,5):
