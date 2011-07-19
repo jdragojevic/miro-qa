@@ -50,7 +50,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(60)
         reg = mirolib._AppRegions()
 
-        searches = {"blip": "python", "YouTube": "cosmicomics"}
+        searches = {"blip": "python", "YouTube": "cosmicomics", "Revver": "beiber", "Yahoo": "Canada", "DailyMotion": "Russia", "Metavid": "africa", "Mininova": "vancouver", "Video": "toronto"}
         for engine, term in searches.iteritems():
         	mirolib.click_sidebar_tab(self,reg,"search")
                 mirolib.search_tab_search(self,reg,term,engine)
