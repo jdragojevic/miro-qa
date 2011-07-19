@@ -91,7 +91,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             #3. verify item metadata
             self.assertTrue(reg.m.exists(title))
             #verify the links
-            LINKS = {"absolute link": "google", "relative link": "appcast","another relative": "pculture" }
+            LINKS = {"absolute link": "google", "relative link": "orim_avatar","another relative": "pculture" }
             for link, linkurl in LINKS.iteritems():
                 if reg.m.exists(link):
                     click(reg.m.getLastMatch())
@@ -104,11 +104,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                     print url
                     mirolib.close_ff()
                     baseurl = urlsplit(url).netloc
-                    if link == "relative link" and config.get_os_name == "osx":  
-                            reg.s.find("Democracy")
-                    else:
-                        url_parts = baseurl.split('.')
-                        self.failUnless(linkurl in url_parts)            
+                    url_parts = baseurl.split('.')
+                    self.failUnless(linkurl in url_parts)            
         #cleanup
         finally:
             mirolib.close_ff()
