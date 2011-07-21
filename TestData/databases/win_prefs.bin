@@ -1,7 +1,7 @@
 (dp1
 S'windowdimensions'
 p2
-S'9,16,1180,780'
+S'9,17,1180,780'
 p3
 sS'musicTabClicked'
 p4
@@ -10,19 +10,26 @@ sS'language'
 p5
 S'system'
 p6
-sS'LastSearchEngine'
+sS'ChannelAutoDefault'
 p7
-S'all'
+S'off'
 p8
-sS'DisabledExtensions'
+sS'LastSearchEngine'
 p9
-(lp10
-S'Watch History'
+S'all'
+p10
+sS'DisabledExtensions'
 p11
+(lp12
+S'Watch History'
+p13
 asS'startupTasksDone'
-p12
+p14
+I01
+sS'showPodcastsInMusic'
+p15
 I01
 sS'windowmaximized'
-p13
+p16
 I00
 s.
