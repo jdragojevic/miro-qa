@@ -182,6 +182,9 @@ def set_preference_checkbox(self,reg,tab,option,setting):
     save_prefs(self,reg,p,allset=allset)
 
 def check_the_box(search_reg,phrase,setting):
+    if search_reg == "screen":
+        myscreen = Screen()
+        search_reg = Region(myscreen.getBounds())
     print phrase,setting
     allset = False
     search_reg.find(phrase)

@@ -1,0 +1,61 @@
+
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" 
+   xmlns:html="http://www.w3.org/1999/html" 
+   xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+<channel>
+   <title>Short Cats</title>
+   <description>RSS of Short Cats</description>
+   <generator>item_to_rss.py 0.5 February 1st, 2010</generator>
+
+<item>
+   <title>Cat Tongue Show</title>
+   <description>A cute kitty is so sleepy that you can play with his tongue without him caring.</description>
+   <pubDate>Mon, 25 Jul 2011 09:32 GMT</pubDate>
+   <enclosure url="http://videos.stupidvideos.com/2/00/36/58/67/365867.flv" length="0" type="video/x-flv" />
+</item>
+
+<item>
+   <title>Cat Enjoys The Conversation</title>
+   <description>Just hanging out and having a talk.</description>
+   <pubDate>Mon, 25 Jul 2011 09:32 GMT</pubDate>
+   <enclosure url="http://videos.stupidvideos.com/2/00/36/60/34/366034.flv" length="0" type="video/x-flv" />
+</item>
+
+<item>
+   <title>Sideways Walking Cat</title>
+   <description>A kitten doesn&amp;#039;t become a cat until it can walk straight, this kitten has a long way to go.</description>
+   <pubDate>Mon, 25 Jul 2011 09:32 GMT</pubDate>
+   <enclosure url="http://videos.stupidvideos.com/2/00/36/59/03/365903.flv" length="0" type="video/x-flv" />
+</item>
+
+<item>
+   <title>Extreme Cats Breaks In</title>
+   <description>This cat is so extreme to the max that it doesn&amp;#039;t need a door to get inside.</description>
+   <pubDate>Mon, 25 Jul 2011 09:32 GMT</pubDate>
+   <enclosure url="http://videos.stupidvideos.com/2/00/36/53/59/365359.flv" length="0" type="video/x-flv" />
+</item>
+
+<item>
+   <title>Arts and Cats</title>
+   <description>&lt;p&gt;by&amp;nbsp;Mike Twohy&lt;&#x2F;p&gt;</description>
+   <pubDate>Mon, 25 Jul 2011 09:32 GMT</pubDate>
+   <enclosure url="http://traffic.libsyn.com/thenewyorker/artsandcats_wm.m4v" length="2977064" type="video/x-m4v" />
+</item>
+
+<item>
+   <title>What Cats Think</title>
+   <description>&lt;p&gt;by&amp;nbsp;Peter Mueller&lt;&#x2F;p&gt;</description>
+   <pubDate>Mon, 25 Jul 2011 09:32 GMT</pubDate>
+   <enclosure url="http://traffic.libsyn.com/thenewyorker/whatcatsthink_wm.m4v" length="4826538" type="video/x-m4v" />
+</item>
+
+<item>
+   <title>New, Improved Cat</title>
+   <description>&lt;p&gt;by&amp;nbsp;Mick Stevens&lt;&#x2F;p&gt;</description>
+   <pubDate>Mon, 25 Jul 2011 09:32 GMT</pubDate>
+   <enclosure url="http://traffic.libsyn.com/thenewyorker/newimprovedcat_wm.m4v" length="2119133" type="video/x-m4v" />
+</item>
+
+</channel>
+</rss>

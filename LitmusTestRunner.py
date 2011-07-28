@@ -19,6 +19,7 @@ import sg8_miroguide
 import sg21_sites
 import sg23_startup
 import sg24_shortcuts
+import sg26_sidebar_tabs
 import sg31_playback
 import sg38_playlists
 import sg40_feed_folders
