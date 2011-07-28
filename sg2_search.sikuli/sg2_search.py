@@ -60,11 +60,39 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                 else:
                     saved_search = engine +" for"
                 mirolib.click_podcast(self,reg,saved_search)
+             	mirolib.shortcut("r")
+    	    	mirolib.get_podcasts_region(reg)
+        for x in searches.keys():
+            mirolib.tab_search(self,reg,x,confirm_present=True)
                 
                 #FIXME verify feed has items
         #cleanup
         for x in searches.keys():
             mirolib.delete_feed(self,reg,x)
+          
+ def test_80(self):
+
+	"""http://litmus.pculture.org/show_test.cgi?id=80 Search - New Search Channel: URL"
+	1.Select Sidebar -> New Search Podcast
+	2.Enter the search term: MP3
+	3.Select the URL radio button and enter, http://www.ubu.com in the text box
+	4.Click Create Podcast
+	5.In the warning dialog - click Yes.
+	"""
+
+        reg = mirolib._AppRegions()
+        site_url = "http://www.ubu.com"
+        reg.t.click("Sidebar")
+        reg.t.click("NewSearchPod.png")
+        type("Searchfor.png","mp3")
+        click("URL-RadioButton.png")
+        type("URL-RadioChecked.png", site_url)
+        click("CreatePodcast.png")
+        click("Load_Podcast_Yes.png")
+      
+        mirolib.click_sidebar_tab(self,reg,"Podcasts")
+        mirolib.tab_search(self,reg,"mp3",confirm_present=True)
+  	mirolib.delete_feed(self,reg,"mp3")
 
    
 # Post the output directly to Litmus
