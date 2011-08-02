@@ -1,4 +1,3 @@
-
 import os
 import time
 import glob
@@ -934,7 +933,8 @@ def new_search_feed(self,reg,term,radio,source,defaults=False,watched=False):
         f.click(radio)
         click(f.getLastMatch().right(150))
         time.sleep(2)
-        if radio == "url":
+        if radio == "URL":
+            type(Key.TAB)
             type(source)
         else:     
             if not f.exists(source,2):
