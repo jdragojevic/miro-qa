@@ -72,7 +72,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
           
  def test_80(self):
 
-	"""http://litmus.pculture.org/show_test.cgi?id=80 Search - New Search Channel: URL"
+	"""http://litmus.pculture.org/show_test.cgi?id=80 Search - New Search Channel: URL
 	1.Select Sidebar -> New Search Podcast
 	2.Enter the search term: MP3
 	3.Select the URL radio button and enter, http://www.ubu.com in the text box
@@ -81,19 +81,40 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 	"""
 
         reg = mirolib._AppRegions()
-        site_url = "http://www.ubu.com"
-        reg.t.click("Sidebar")
-        reg.t.click("NewSearchPod.png")
-        type("Searchfor.png","mp3")
-        click("URL-RadioButton.png")
-        type("URL-RadioChecked.png", site_url)
-        click("CreatePodcast.png")
+        source = "http://www.ubu.com"
+        term =  "mp3"
+        radio = "URL"
+        mirolib.new_search_feed(self,reg,term,radio,source,defaults=False,watched=False)
         click("Load_Podcast_Yes.png")
-      
+       
         mirolib.click_sidebar_tab(self,reg,"Podcasts")
-        mirolib.tab_search(self,reg,"mp3",confirm_present=True)
-  	mirolib.delete_feed(self,reg,"mp3")
+        mirolib.tab_search(self,reg,term,confirm_present=True)
+        mirolib.delete_feed(self,reg,term)  
 
+ def test_79(self):
+        """http://litmus.pculture.org/show_test.cgi?id=79 Search - New Search Podcast: Engine
+	Steps to Perform:
+
+ 	1.  Select Sidebar -> New Search Podcast
+ 	2.  Enter a search term
+ 	3.  Select the Search Engine radio button
+ 	4.  Select a search engine from the pulldown menu
+ 	5.  Select Create Podcast
+	"""
+
+        reg = mirolib._AppRegions()
+        source_array = { "Yahoo": "Canada", "DailyMotion": "Ontario", "Video": "toronto"}
+        radio = "Search"
+        for source, term in source_array.iteritems():
+            mirolib.new_search_feed(self,reg,term,radio,source,defaults=False,watched=False)
+            mirolib.click_podcast(self,reg,source)
+            mirolib.shortcut("r")
+            mirolib.confirm_download_started(self,reg,term)  
+
+        #FIXME verify feed has items
+        #cleanup
+        for x in source_array.keys():
+            mirolib.delete_feed(self,reg,x)
    
 # Post the output directly to Litmus
 if __name__ == "__main__":
