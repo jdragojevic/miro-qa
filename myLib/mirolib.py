@@ -43,8 +43,8 @@ def launch_miro():
             config.start_miro_on_linux()
     else:
         App.open(open_miro())
-    if exists("Music",60) or \
-       exists("icon-audio.png",60) :
+    if exists("Music",20) or \
+       exists("icon-audio.png",20) :
         print "miro launched"
 
 
@@ -104,15 +104,15 @@ class _AppRegions():
     def __init__(self):   
         miroRegions = MiroRegions()._get_regions()
         self.s = miroRegions[0] #Sidebar Region
-        self.s.highlight(1)
+#        self.s.highlight(1)
         self.m = miroRegions[1] #Mainview Region
-        self.m.highlight(1)
+#        self.m.highlight(1)
         self.t= miroRegions[2] #top half screen
-    #    t.highlight(5)
+#        t.highlight(5)
         self.tl = miroRegions[3] #top left quarter
-    #    tl.highlight(5)
+#        tl.highlight(5)
         self.mtb = miroRegions[4] #main title bar
-    #    mtb.highlight(5)
+ #       self.mtb.highlight(5)
         self.mr = Region(self.mtb.above(50).below())
         miroapp = App("Miro")     
         
@@ -184,7 +184,7 @@ def quit_miro(self,reg=None):
     if exists("dialog_confirm_quit.png",10) or \
           exists("Quit",5):
         type(Key.ENTER)
-    waitVanish("Miro",45)
+    waitVanish("Miro",30)
   
 
 def restart_miro(confirm=True):
@@ -718,16 +718,41 @@ def expand_item_details(self,reg):
     
     
 def toggle_normal(reg):
+    """toggle to the normal view.
+
+    """
     print "toggling to normal view"
-    reg.mtb.setX(reg.mtb.getX()+100)
-    if reg.mtb.exists(Pattern("list_view_active.png").similar(.98),1):
-        click(reg.mtb.getLastMatch())
-        time.sleep(2)
+    # Find the search box to set the area.
+    
+    if reg.mtb.exists("tabsearch_clear.png",5): # this should always be found on gtk
+        treg = Region(reg.mtb.getLastMatch().left(350))
+    elif reg.mtb.exists("tabsearch_inactive.png",5):
+        treg = Region(reg.mtb.getLastMatch().left(350))
+    treg.setH(treg.getH()+14)
+    treg.setY(treg.getY()-8)
+
+    
+    if treg.exists(Pattern("standard-view.png").similar(.91),3):
+        click(treg.getLastMatch())
+ 
 
 def toggle_list(reg):
-    if reg.mtb.exists(Pattern("normal_view_active.png").similar(.98),1):
-        click(reg.mtb.getLastMatch())
-        time.sleep(2)
+    """toggle to the list view.
+
+    """
+    print "toggling to list view"
+    # Find the search box to set the area.
+    
+    if reg.mtb.exists("tabsearch_clear.png",5): # this should always be found on gtk
+        treg = Region(reg.mtb.getLastMatch().left(350))
+    elif reg.mtb.exists("tabsearch_inactive.png",5):
+        treg = Region(reg.mtb.getLastMatch().left(350))
+    treg.setH(treg.getH()+14)
+    treg.setY(treg.getY()-8)
+    if treg.exists(Pattern("list-view.png").similar(.91),3):
+        click(treg.getLastMatch())
+ 
+
 
 def search_tab_search(self,reg,term,engine=None):
     """perform a search in the search tab.

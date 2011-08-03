@@ -52,16 +52,18 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         searches = {"blip": "python", "YouTube": "cosmicomics", "Revver": "beiber", "Yahoo": "Canada", "DailyMotion": "Russia", "Metavid": "africa", "Mininova": "vancouver", "Video": "toronto"}
         for engine, term in searches.iteritems():
-        	mirolib.click_sidebar_tab(self,reg,"search")
-                mirolib.search_tab_search(self,reg,term,engine)
-                reg.mtb.click("button_save_as_podcast.png")
-                if engine == "blip":
-                    saved_search = engine
-                else:
-                    saved_search = engine +" for"
-                mirolib.click_podcast(self,reg,saved_search)
-             	mirolib.shortcut("r")
-    	    	mirolib.get_podcasts_region(reg)
+            mirolib.click_sidebar_tab(self,reg,"search")
+            mirolib.toggle_normal(reg)
+            mirolib.toggle_list(reg)
+            mirolib.search_tab_search(self,reg,term,engine)
+            reg.mtb.click("button_save_as_podcast.png")
+            if engine == "blip":
+                saved_search = engine
+            else:
+                saved_search = engine +" for"
+            mirolib.click_podcast(self,reg,saved_search)
+            mirolib.shortcut("r")
+            mirolib.get_podcasts_region(reg)
         for x in searches.keys():
             mirolib.tab_search(self,reg,x,confirm_present=True)
                 
@@ -69,16 +71,17 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #cleanup
         for x in searches.keys():
             mirolib.delete_feed(self,reg,x)
-          
- def test_80(self):
 
-	"""http://litmus.pculture.org/show_test.cgi?id=80 Search - New Search Channel: URL
-	1.Select Sidebar -> New Search Podcast
-	2.Enter the search term: MP3
-	3.Select the URL radio button and enter, http://www.ubu.com in the text box
-	4.Click Create Podcast
-	5.In the warning dialog - click Yes.
-	"""
+
+    def test_80(self):
+
+        """http://litmus.pculture.org/show_test.cgi?id=80 Search - New Search Channel: URL
+        1.Select Sidebar -> New Search Podcast
+        2.Enter the search term: MP3
+        3.Select the URL radio button and enter, http://www.ubu.com in the text box
+        4.Click Create Podcast
+        5.In the warning dialog - click Yes.
+        """
 
         reg = mirolib._AppRegions()
         source = "http://www.ubu.com"
@@ -91,16 +94,17 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.tab_search(self,reg,term,confirm_present=True)
         mirolib.delete_feed(self,reg,term)  
 
- def test_79(self):
-        """http://litmus.pculture.org/show_test.cgi?id=79 Search - New Search Podcast: Engine
-	Steps to Perform:
 
- 	1.  Select Sidebar -> New Search Podcast
- 	2.  Enter a search term
- 	3.  Select the Search Engine radio button
- 	4.  Select a search engine from the pulldown menu
- 	5.  Select Create Podcast
-	"""
+    def test_79(self):
+        """http://litmus.pculture.org/show_test.cgi?id=79 Search - New Search Podcast: Engine
+        Steps to Perform:
+
+        1.  Select Sidebar -> New Search Podcast
+        2.  Enter a search term
+        3.  Select the Search Engine radio button
+        4.  Select a search engine from the pulldown menu
+        5.  Select Create Podcast
+        """
 
         reg = mirolib._AppRegions()
         source_array = { "Yahoo": "Canada", "DailyMotion": "Ontario", "Video": "toronto"}
