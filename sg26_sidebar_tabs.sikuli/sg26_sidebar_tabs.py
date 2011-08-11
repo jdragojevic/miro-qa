@@ -53,7 +53,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("item_play_unplayed.png"):
             find(Pattern("sort_name_normal.png").exact())
             doubleClick(getLastMatch().below(100))
-            waitExists(Pattern("playback_bar_video.png"))
+            wait(Pattern("playback_bar_video.png"))
         else:
             self.fail("no unplayed badges found")
         if exists(Pattern("playback_bar_video.png")):
