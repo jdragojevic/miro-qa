@@ -88,8 +88,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         term =  "mp3"
         radio = "URL"
         mirolib.new_search_feed(self,reg,term,radio,source,defaults=False,watched=False)
-        click("Load_Podcast_Yes.png")
-       
+        if exists("compatible",30):
+            type(Key.ENTER)       
         mirolib.click_sidebar_tab(self,reg,"Podcasts")
         mirolib.tab_search(self,reg,term,confirm_present=True)
         mirolib.delete_feed(self,reg,term)  
