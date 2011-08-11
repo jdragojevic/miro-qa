@@ -1207,10 +1207,10 @@ def convert_file(self,reg,out_format):
         reg.t.click("Convert")
     else:
        type('c',KEY_ALT)
-    reg.mtb.find("Folder")
+    find("Folder")
     tmpr = Region(getLastMatch().above())
-    tmpr.setX(tmpr.getX()-50)
-    tmpr.setW(tmpr.getW()+100)
+    tmpr.setX(tmpr.getX()-100)
+    tmpr.setW(tmpr.getW()+150)
     if out_format == "MP3":
         tmpr.find("Theora")
         click(tmpr.getLastMatch().above(80))
