@@ -86,12 +86,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib._AppRegions()
         source = "http://www.ubu.com"
         term =  "mp3"
+        search_term = "Gertrude"
         radio = "URL"
         mirolib.new_search_feed(self,reg,term,radio,source,defaults=False,watched=False)
-        if exists("compatible",30):
-            type(Key.ENTER)       
+        if exists("compatible",45):
+            type(Key.ENTER)
+        time.sleep(30)  # scraping takes a while - need to wait before confirming element present.
         mirolib.click_sidebar_tab(self,reg,"Podcasts")
-        mirolib.tab_search(self,reg,term,confirm_present=True)
+        mirolib.tab_search(self,reg,search_term,confirm_present=True)
         mirolib.delete_feed(self,reg,term)  
 
 
