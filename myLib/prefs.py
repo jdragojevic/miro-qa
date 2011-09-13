@@ -42,7 +42,7 @@ def open_tab(self,p,tab):
         pr.setW(pr.getW()+500)
     else:
         pr = Region(p)
-    pr.highlight(1)
+    pr.highlight(5)
     for x in testvars.PREF_PANEL.keys():
         if tab.lower() in x:
             pref_icon = testvars.PREF_PANEL[x]        
@@ -102,25 +102,19 @@ def set_autodownload(self,reg,setting="Off"):
 
     if r.exists("download setting",2):
         print "found download setting"
-    else:
-        r.find("Auto-download",2):
+    elif r.exists("Auto-download",2):
         print "found auto-download"
-
-        
     click(r.getLastMatch())
-    r1 = Location(r.getLastMatch().getX(),r.getLastMatch.getY()+200)
-    r2 = Region(int(r1.getX()-100),int(r1.getY())+50,150,150)
- 
+    r1 = Region(r.getLastMatch().right(200))
+    r1a = Location(r1.getCenter())
+    r2 = Region(int(r1a.getX()-100),int(r1a.getY())+50,150,150)
+    r2.highlight(1)
 
-##    if r1.exists(setting):
-##        allset = True
-##    else:
-    print "clicking field"
-    r1.click()
-    r2.highlight(10)
-    print "clicking setting"
-    r2.click(setting)
-           
+    if r1.exists(setting):
+        allset = True
+    else:
+        click(r1a)
+        r2.click(setting)
     save_prefs(self,reg,p=p,allset=allset)
 
 def set_item_display(self,reg,option,setting):
