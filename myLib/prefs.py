@@ -105,7 +105,7 @@ def set_autodownload(self,reg,setting="Off"):
     elif r.exists("Auto-download",2):
         print "found auto-download"
     else:
-        self.fail("Autodownload setting not found, can not set preference')
+        self.fail("Autodownload setting not found, can not set preference")
     click(r.getLastMatch())
     r1 = Region(r.getLastMatch().right(200))
     r1a = Location(r1.getCenter())
