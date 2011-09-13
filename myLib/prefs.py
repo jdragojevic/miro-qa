@@ -104,11 +104,13 @@ def set_autodownload(self,reg,setting="Off"):
         print "found download setting"
     elif r.exists("Auto-download",2):
         print "found auto-download"
+    else:
+        self.fail("Autodownload setting not found, can not set preference')
     click(r.getLastMatch())
     r1 = Region(r.getLastMatch().right(200))
     r1a = Location(r1.getCenter())
-    r2 = Region(int(r1a.getX()-100),int(r1a.getY())+50,150,150)
-    r2.highlight(1)
+    r2 = Region(int(r1a.getX()-100),int(r1a.getY())-130,150,180)
+    r2.highlight(5)
 
     if r1.exists(setting):
         allset = True
