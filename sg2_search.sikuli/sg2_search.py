@@ -12,9 +12,10 @@ import config
 import base_testcase
 import mirolib
 import testvars
+import prefs
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
-    """Subgroup 2 - one-click subscribe tests.
+    """Subgroup 2 - remember last search
 
     """             
     def test_82(self):
@@ -49,25 +50,29 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(60)
         reg = mirolib._AppRegions()
+        prefs.set_autodownload(self,reg,setting="Off")
 
-        searches = {"blip": "python", "YouTube": "cosmicomics", "Revver": "beiber", "Yahoo": "Canada", "DailyMotion": "Russia", "Metavid": "africa", "Mininova": "vancouver", "Video": "toronto"}
+        searches = {"blip": "python", "YouTube": "cosmicomics", "Revver": "Beiber", "Yahoo": "Canada", "DailyMotion": "Russia", "Metavid": "africa", "Mininova": "Creative Commons", "Video": "Toronto"}
         for engine, term in searches.iteritems():
             mirolib.click_sidebar_tab(self,reg,"search")
-            mirolib.toggle_normal(reg)
-            mirolib.toggle_list(reg)
             mirolib.search_tab_search(self,reg,term,engine)
             reg.mtb.click("button_save_as_podcast.png")
             if engine == "blip":
                 saved_search = engine
             else:
                 saved_search = engine +" for"
+            time.sleep(10) #give some time for everything to load up
             mirolib.click_podcast(self,reg,saved_search)
             mirolib.shortcut("r")
-            mirolib.get_podcasts_region(reg)
-        for x in searches.keys():
-            mirolib.tab_search(self,reg,x,confirm_present=True)
-                
-                #FIXME verify feed has items
+            
+        mirolib.get_podcasts_region(reg)
+        
+        for k,v in searches.iteritems():
+            mirolib.tab_search(self,reg,v)
+            try:
+                self.assertTrue(reg.m.exists(k))
+            except:
+                 mirolib.log_result("322","test 322, failed for " +k+": "+v,status="fail")
         #cleanup
         for x in searches.keys():
             mirolib.delete_feed(self,reg,x)
@@ -109,17 +114,25 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
 
         reg = mirolib._AppRegions()
-        source_array = { "Yahoo": "Canada", "DailyMotion": "Ontario", "Video": "toronto"}
+        prefs.set_autodownload(self,reg,setting="Off")
+        searches = { "Yahoo": "Canada", "DailyMotion": "Ontario", "YouTube": "toronto"}
         radio = "Search"
-        for source, term in source_array.iteritems():
+        for source, term in searches.iteritems():
             mirolib.new_search_feed(self,reg,term,radio,source,defaults=False,watched=False)
+            time.sleep(10) #give some time for everything to load up
             mirolib.click_podcast(self,reg,source)
-            mirolib.shortcut("r")
-            mirolib.confirm_download_started(self,reg,term)  
 
         #FIXME verify feed has items
+        mirolib.get_podcasts_region(reg)
+        for k,v in searches.iteritems():
+            mirolib.tab_search(self,reg,v)
+            try:
+                self.assertTrue(reg.m.exists(k))
+            except:
+                 mirolib.log_result("79","test_79, failed for " +k+": "+v,status="fail")
+        
         #cleanup
-        for x in source_array.keys():
+        for x in searches.keys():
             mirolib.delete_feed(self,reg,x)
    
 # Post the output directly to Litmus
