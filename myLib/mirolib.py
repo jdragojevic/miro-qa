@@ -421,12 +421,15 @@ def add_playlist(self,reg,playlist,style="menu"):
     Verify the playlist is added by clicking on it.
     """
     if style == "menu":
-        tmpt = Region(reg.t)
-        tmpt.setH(reg.t.getH()/4)
-        tmpt.click("Playlists")
-        tmpt.find("Playlist Folder")
-        tmpr = Region(tmpt.getLastMatch().above())
-        tmpr.click("Playlist")        
+        find("Sidebar")
+        mmr = Region(getLastMatch().right())
+        print mmr
+        mmr.setH(mmr.getH()*8)
+        mmr.setW(mmr.getW()*4)
+        print mmr
+        mmr.click("Playlists")
+        type(Key.DOWN)
+        type(Key.ENTER)
     elif style == "shortcut":
         shortcut('p')
     elif style == "context":  # assumes the context menu is already open on the item
@@ -574,7 +577,7 @@ def open_podcast_settings(self,reg):
     click(b.getLastMatch())
 
 def click_remove_podcast(self,reg):
-    click("button_remove_podcast.png")
+    reg.m.click(Pattern("button_remove_podcast.png"))
 
 def change_podcast_settings(self,reg,option,setting):
     find("Expire Items")
