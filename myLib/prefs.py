@@ -98,7 +98,7 @@ def set_autodownload(self,reg,setting="Off"):
     allset = False
     p = open_prefs(self,reg)
     r = Region(open_tab(self,p,tab="Podcasts")).right(400).below(300)
-    r.setY(r.getY()+100)
+#    r.setY(r.getY()+100)
 
     if r.exists("download setting",2):
         print "found download setting"
