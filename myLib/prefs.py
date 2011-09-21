@@ -125,15 +125,15 @@ def set_item_display(self,reg,option,setting):
     """
     p = open_prefs(self,reg)
     allset = False
-    p1 = Region(open_tab(self,p,tab="Podcasts").right(600).below(300))
-    p1.setX(p1.getX()-250)
-    p1.highlight(3)
+    
+##    p1.setX(p1.getX()-250)
+##    p1.highlight(3)
     
     if option == "audio":
-       allset = check_the_box(search_reg=p1,phrase="Show audio",setting=setting)
+       allset = check_the_box(search_reg=p, phrase="Show audio", setting=setting)
         
     if option == "video" :
-        allset = check_the_box(search_reg=p1,phrase="Show videos",setting=setting)  
+        allset = check_the_box(search_reg=p, phrase="Show videos", setting=setting)  
     save_prefs(self,reg,p,allset=allset)
 
 def remove_watched_folder(self,reg,folder):
