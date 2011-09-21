@@ -321,7 +321,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.t.click("Add Podcast")
         time.sleep(2)
         type(url + "\n")
-        if exists("compatible",45):
+        if exists("anyway",45):
             type(Key.ENTER)
         mirolib.click_last_podcast(self, reg)
         type(Key.DELETE)
