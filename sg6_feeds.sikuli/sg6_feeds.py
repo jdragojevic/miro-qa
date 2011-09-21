@@ -300,6 +300,34 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #4. Cleanup
         type(Key.DELETE)
         mirolib.remove_confirm(self,reg,action="remove")
+
+
+    def test_641(self):
+        """http://litmus.pculture.org/show_test.cgi?id=641, delete with invalid url.
+       
+            Litmus Test Title:: 641 - Deleting podcast with invalid urls
+            Steps to Perform:
+            1. Select "Add podcast" from Sidebar menu.
+            2. Enter URL http://subscribe.getmiro.com/?url1=http%3A%2F%2Fparticipatoryculture.org%2Ffeeds_test%2Ffeed1.rss
+            3. Click "Create Podcast" button
+            4. Click "Yes" in "This podcast is not compatible with Miro" window
+            5. While the podcast is downloading, right click on it and select "Remove" option.
+        """
+
+        reg = mirolib._AppRegions()
+        url = "http://subscribe.getmiro.com/?url1=http%3A%2F%2Fparticipatoryculture.org%2Ffeeds_test%2Ffeed1.rss"
+        prefs.set_autodownload(self,reg,setting="All")
+        reg.t.click("Sidebar")
+        reg.t.click("Add Podcast")
+        time.sleep(2)
+        type(url + "\n")
+        if exists("anyway",45):
+            type(Key.ENTER)
+        mirolib.click_last_podcast(self, reg)
+        type(Key.DELETE)
+        mirolib.remove_confirm(self,reg,"remove")
+        prefs.set_autodownload(self,reg,setting="Off")
+
         
 
 if __name__ == "__main__":

@@ -134,16 +134,21 @@ def set_litmus_os():
 
 
 def write_log(log,testid,stat,error_info=""):
-    f = open(log, 'a')
- 
-    
-    f.write(STORY % {"testid": set_test_id(testid),
-                     "status": set_status(stat),
-                     "timestamp": time.strftime("%Y%m%d%H%M%S", time.gmtime()),
-                     "error_msg": error_info.lstrip('.')
-                         })
-    f.close()
-    time.sleep(3)
+    tid = set_test_id(testid)
+    status = set_status(stat)
+    if status == "pass":
+        error_comment = ""
+    else:
+        error_comment = error_info.split("----------------------------------------------------------------------")[1]
+    if not tid == "001setup" or tid == "999reset":
+        f = open(log, 'a')
+        f.write(STORY % {"testid": tid,
+                         "status": status,
+                         "timestamp": time.strftime("%Y%m%d%H%M%S", time.gmtime()),
+                         "error_msg": error_comment
+                             })
+        f.close()
+        time.sleep(3)
 
 def write_footer(log):
     f = open(log, 'a')
@@ -220,13 +225,7 @@ class LitmusRunner(unittest.TestCase):
             byte_output = buf.getvalue()
             id_string = str(x)
             stat = byte_output[0]
-            print byte_output
-            if id_string == "001setup":
-                print "not logging setup result"
-            elif id_string == "999reset":
-                print "not logging cleanup result"
-            else:
-               write_log(logfile,id_string,stat,byte_output)
+            write_log(logfile,id_string,stat,byte_output)
             buf.truncate(0)
         time.sleep(3)
         write_footer(logfile)

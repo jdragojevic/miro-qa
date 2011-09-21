@@ -82,15 +82,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title = "Mushroom" # item title updates when download completes
         new_type = "Video"
 
-        edit_itemlist = [["name","Earth Day Everyday", "647"],
-                      ["artist","Oliver and Katerina", "648"],
-                      ["album","Barki Barks", "649"],
-                      ["genre","family", "650"],
-                      ["rating","5", "651"],
-                      ["year","2010","655"],
-                      ["track_num","1", "673"],
-                      ["track_of","2", "673"]
-                      ]
+        edit_itemlist = [
+            ["name", "Earth Day Everyday", "647"],
+            ["artist", "Oliver and Katerina", "648"],
+            ["album", "Barki Barks", "649"],
+            ["genre", "family", "650"],
+            ["track_num" ,"1", "673"],
+            ["track_of" ,"2", "673"],
+            ["year", "2010", "655"],
+            ["rating", "5", "651"],
+            ]
         
         #start clean
         mirolib.delete_feed(self,reg,feed)
@@ -303,12 +304,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             feed = "The New"
             title = "Cat" 
 
-            new_metadata_list = [["show","Animated Cartoons", "658"],
-                          ["episode_id","nya", "670"],
-                          ["season_no","25", "671"],
-                          ["episode_no","43", "672"],
-                          ["video_kind","Clip", "652"],
-                          ]
+            new_metadata_list = [
+                ["show","Animated Cartoons", "658"],
+                ["episode_id","nya", "670"],
+                ["season_no","25", "671"],
+                ["episode_no","43", "672"],
+                ["video_kind","Clip", "652"],
+                ]
             
             #start clean
             mirolib.delete_feed(self,reg,feed)

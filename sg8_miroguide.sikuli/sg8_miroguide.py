@@ -32,7 +32,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         #set the search regions
         reg = mirolib._AppRegions()
-        feed = "StupidVideos"
+        feed = "Studio"
+        search = "Studio sketch"
  
         try:
             mirolib.click_sidebar_tab(self,reg,"Miro")
@@ -40,7 +41,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             gr = Region(reg.mtb)
             gr.setH(300)
             gr.click(Pattern("guide_search.png"))
-            type("StupidVideos\n")
+            type(search +"\n")
             time.sleep(5)
             reg.m.find(Pattern("add_feed.png"))
             click(reg.m.getLastMatch())
@@ -49,7 +50,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                         
         finally:
             #4. cleanup
-            mirolib.delete_feed(self,reg,"StupidVideos") 
+            mirolib.delete_feed(self,reg,feed) 
 
     
 # Post the output directly to Litmus
