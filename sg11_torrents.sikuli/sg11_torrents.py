@@ -9,7 +9,8 @@ mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(os.getcwd(),'myLib'))
 import base_testcase
 import config
-import mirolib
+import mirolib 
+import miro_regions
 import testvars
 
 
@@ -34,7 +35,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         
         item_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
         item_title = "Fameless"
@@ -61,7 +62,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         
         url = "http://www.clearbits.net/get/993-wurlitztraction---lucidity-cue.torrent"
         item_title = "Enough"
@@ -84,8 +85,8 @@ if __name__ == "__main__":
     print len(sys.argv)
     print sys.argv
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
    
 

@@ -8,7 +8,8 @@ from sikuli.Sikuli import *
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import config
-import mirolib
+import mirolib 
+import miro_regions
 import testvars
 import base_testcase
 
@@ -29,7 +30,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         config.set_def_db_and_prefs()
         mirolib.restart_miro(confirm=False)
         time.sleep(10)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         feed = "TestData"
         folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
         mirolib.add_watched_folder(self,reg,folder_path)
@@ -45,7 +46,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         watched_feed = "TestData"
         playlist = "MIX LIST"
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         mirolib.click_sidebar_tab(self,reg,"Podcasts")
         mirolib.toggle_normal(reg)
         mirolib.tab_search(self,reg,"Lego")
@@ -73,7 +74,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         playlist = "EMPTY LIST"
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         mirolib.add_playlist(self,reg,playlist,style="menu")
         p = mirolib.get_playlists_region(reg)
         list_loc = mirolib.click_playlist(self,reg,playlist)
@@ -94,7 +95,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         playlist = "TAB LIST"
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         mirolib.add_playlist(self,reg,playlist,style="tab")
         mirolib.log_result("708","test_221 - added playlist via Playlist top level tab")
         list_loc = mirolib.click_playlist(self,reg,playlist)
@@ -119,7 +120,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         watched_feed = "TestData"
         playlist = "Johnson"
         item_list = ["Pancakes","Horizon"]
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         p = mirolib.get_podcasts_region(reg)
         mirolib.click_sidebar_tab(self,reg,"Music")
         mirolib.tab_search(self,reg,playlist)
@@ -138,8 +139,8 @@ if __name__ == "__main__":
     import LitmusTestRunner
     print len(sys.argv)
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
    
 

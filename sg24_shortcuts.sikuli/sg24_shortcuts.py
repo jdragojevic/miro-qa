@@ -8,7 +8,8 @@ from sikuli.Sikuli import *
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import config
-import mirolib
+import mirolib 
+import miro_regions
 import testvars
 import base_testcase
 
@@ -27,7 +28,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Verify item played as audio item
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         #start the download of the misc file for later delete
         item_url =  "http://www.boatingsidekicks.com/fish-detective.swf"
@@ -126,8 +127,8 @@ if __name__ == "__main__":
     import LitmusTestRunner
     print len(sys.argv)
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
    
 

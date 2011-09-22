@@ -8,7 +8,8 @@ from sikuli.Sikuli import *
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import config
-import mirolib
+import mirolib 
+import miro_regions
 import testvars
 import prefs
 import base_testcase
@@ -36,7 +37,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -67,7 +68,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
@@ -97,7 +98,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TwoStupid"
@@ -129,7 +130,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -164,7 +165,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -196,7 +197,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         
     
         feed = "TestData"
@@ -222,7 +223,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TwoStupid"
         term = "House"
@@ -252,7 +253,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TwoStupid"
@@ -303,8 +304,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 if __name__ == "__main__":
     import LitmusTestRunner
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
    
 

@@ -30,15 +30,15 @@ if os.getenv("SIKULI_HOME") == None:
 JAR_PATH = os.path.join(os.getenv("SIKULI_HOME"),"sikuli-script.jar")
 RESULTS_DIR = os.path.join(os.getenv("PCF_TEST_HOME"), "Miro", "last_run")
 QUICK_TESTS = [['sg11_torrents.sikuli', 'test_419', 'test_719'],
-##               ['sg2_search.sikuli', 'test_82'],
-##               ['sg19_system.sikuli', 'test_55'],
-##               ['sg_21_sites.sikuli', 'test_182', 'test_143'],
-##               ['sg24_shortcuts.sikuli', 'test_92'],
-##               ['sg31_playback.sikuli', 'test_160'],
-##               ['sg42_feedsearch.sikuli', 'test_720'],
-##               ['sg58_items.sikuli', 'test_361'],
-##               ['sg6_feeds.sikuli', 'test_338', 'test_117'],
-##               ['sg1_install.sikuli', 'test_4']
+               ['sg2_search.sikuli', 'test_82'],
+               ['sg19_system.sikuli', 'test_55'],
+               ['sg_21_sites.sikuli', 'test_182', 'test_143'],
+               ['sg24_shortcuts.sikuli', 'test_92'],
+               ['sg31_playback.sikuli', 'test_160'],
+               ['sg42_feedsearch.sikuli', 'test_720'],
+               ['sg58_items.sikuli', 'test_361'],
+               ['sg6_feeds.sikuli', 'test_338', 'test_117'],
+               ['sg1_install.sikuli', 'test_4']
     ]
 
 

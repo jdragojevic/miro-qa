@@ -8,7 +8,8 @@ from sikuli.Sikuli import *
 
 sys.path.append(os.path.join(os.getcwd(),'myLib'))
 import config
-import mirolib
+import mirolib 
+import miro_regions 
 import prefs
 import testvars
 import base_testcase
@@ -28,7 +29,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         5. Restart Miro
         
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         #1. open preferences
         p = prefs.open_prefs(self,reg)
         #2. change language to croatian (hr)
@@ -99,8 +100,8 @@ if __name__ == "__main__":
     import LitmusTestRunner
     print len(sys.argv)
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
  
 

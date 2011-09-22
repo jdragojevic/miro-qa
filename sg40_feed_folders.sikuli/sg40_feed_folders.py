@@ -10,7 +10,8 @@ mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import base_testcase
 import config
-import mirolib
+import mirolib 
+import miro_regions
 import prefs
 import testvars
 
@@ -42,7 +43,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         mirolib.delete_all_podcasts(self,reg)
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test.opml")
         opml_path2 = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test2.opml")
@@ -101,7 +102,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         mirolib.delete_all_podcasts(self,reg)
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test.opml")
         feed = "Featured"
@@ -144,7 +145,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
         folder = "GREAT STUFF"        
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         reg.t.click("Sidebar")
         reg.t.click("Folder")
         time.sleep(2)
@@ -171,7 +172,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         config.set_def_db_and_prefs()
         mirolib.restart_miro(confirm=False)
         time.sleep(10)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test2.opml")
         folder = "Best Feeds"
@@ -211,7 +212,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         new_name1 = "INCREDIBLE"
         new_name2 = "ThisSux"
         
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         reg.t.click("Sidebar")
         reg.t.click("Folder")
         time.sleep(2)
@@ -254,7 +255,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         config.set_def_db_and_prefs()
         mirolib.restart_miro(confirm=False)
         time.sleep(10)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test.opml")
 
@@ -288,8 +289,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 if __name__ == "__main__":
     import LitmusTestRunner
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
 
 

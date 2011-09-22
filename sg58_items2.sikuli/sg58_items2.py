@@ -9,7 +9,8 @@ from sikuli.Sikuli import *
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import config
-import mirolib
+import mirolib 
+import miro_regions
 import prefs
 import testvars
 import base_testcase
@@ -39,7 +40,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         time.sleep(5)
         folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","ArtTest")
         title = "Pancakes"
@@ -73,7 +74,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
        
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         time.sleep(5)
         prefs.set_item_display(self,reg,option="audio",setting="on")
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
@@ -126,7 +127,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         5. restart miro
         6. verify item still deleted
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         remember = False
         try:
             prefs.set_preference_checkbox(self,reg,tab="General",option="When starting",setting="on")
@@ -191,7 +192,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. verify varios item click scenerios
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
@@ -249,7 +250,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
        
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         time.sleep(5)
         prefs.set_item_display(self,reg,option="audio",setting="on")
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
@@ -298,7 +299,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         try:
-            reg = mirolib._AppRegions()
+            reg = miro_regions.MiroRegions()
             time.sleep(5)
             url = "http://ringtales.com/nyrss.xml"
             feed = "The New"
@@ -345,7 +346,7 @@ if __name__ == "__main__":
     import LitmusTestRunner
     print len(sys.argv)
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
    

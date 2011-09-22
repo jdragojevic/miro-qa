@@ -145,10 +145,6 @@ def delete_preferences():
             os.remove(preffile)
     else:
         print "don't know where preferences are"
-        
-        
-    
-
     
 
 def delete_database_and_prefs(dbonly=False):

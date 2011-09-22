@@ -196,10 +196,10 @@ def write_header(log):
 
 
 class LitmusRunner(unittest.TestCase):
-    def __init__(self,suite,litmus):
+    def __init__(self,suite):
         print suite
         params = []
-        self.litmus = litmus
+        self.litmus = True
         if "Miro_Suite" in str(suite):
             self.suite = unittest.TestLoader().loadTestsFromTestCase(suite)
         else:

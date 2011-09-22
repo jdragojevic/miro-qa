@@ -10,7 +10,8 @@ mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import config
 import base_testcase
-import mirolib
+import mirolib 
+import miro_regions
 import testvars
 import prefs
 
@@ -28,7 +29,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
        
         setAutoWaitTimeout(60)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         SEARCHES = {"blip": 'octopus', "YouTube": 'cosmicomics'}
         for engine, term in SEARCHES.iteritems():
@@ -49,7 +50,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         setAutoWaitTimeout(60)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         prefs.set_autodownload(self,reg,setting="Off")
 
         searches = {"blip": "python", "YouTube": "cosmicomics", "Revver": "Beiber", "Yahoo": "Canada", "DailyMotion": "Russia", "Metavid": "africa", "Mininova": "Creative Commons", "Video": "Toronto"}
@@ -88,7 +89,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         5.In the warning dialog - click Yes.
         """
 
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         source = "http://www.ubu.com"
         term =  "mp3"
         search_term = "Gertrude"
@@ -113,7 +114,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         5.  Select Create Podcast
         """
 
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         prefs.set_autodownload(self,reg,setting="Off")
         searches = { "Yahoo": "Canada", "DailyMotion": "Ontario", "YouTube": "toronto"}
         radio = "Search"
@@ -140,9 +141,9 @@ if __name__ == "__main__":
     import LitmusTestRunner
     print len(sys.argv)
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
    
 
 

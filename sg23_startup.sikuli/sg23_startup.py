@@ -11,7 +11,8 @@ mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import base_testcase
 import config
-import mirolib
+import mirolib 
+import miro_regions
 import prefs
 import testvars
 
@@ -40,7 +41,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         2. Launch - walk through 1st tieme install dialog and search everywhere
         """
 
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
         mirolib.add_watched_folder(self,reg,folder_path)
         mirolib.quit_miro(self)
@@ -51,7 +52,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         mirolib.first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",search_path=None,itunes="No")    
         waitVanish("Preparing")
         time.sleep(10)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         mirolib.click_sidebar_tab(self,reg,"Videos")
         mirolib.tab_search(self,reg,title="Deerhunter",confirm_present=True)
 
@@ -69,7 +70,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
         mirolib.restart_miro(confirm=True)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
 
 
@@ -87,8 +88,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 if __name__ == "__main__":
     import LitmusTestRunner
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
 
 

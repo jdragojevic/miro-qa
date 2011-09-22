@@ -8,7 +8,8 @@ from sikuli.Sikuli import *
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import config
-import mirolib
+import mirolib 
+import miro_regions
 import testvars
 import base_testcase
 
@@ -28,7 +29,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
        
         setAutoWaitTimeout(60)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
         mirolib.click_sidebar_tab(self,reg,"Search")
@@ -46,7 +47,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         print self.id()
         setAutoWaitTimeout(60)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
         mirolib.click_sidebar_tab(self,reg,"Search")
@@ -63,7 +64,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         print self.id()
         setAutoWaitTimeout(60)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         if config.get_os_name() == "osx":
             reg.tl.click("Dev")
         else:
@@ -81,7 +82,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. Quit Miro
         """
         print self.id()
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         if config.get_os_name() == "osx":
             reg.tl.click("Dev")
@@ -97,7 +98,7 @@ if __name__ == "__main__":
     import LitmusTestRunner
     print len(sys.argv)
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
    

@@ -8,7 +8,8 @@ from sikuli.Sikuli import *
 mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
 sys.path.append(os.path.join(mycwd,'myLib'))
 import config
-import mirolib
+import mirolib 
+import miro_regions
 import testvars
 import base_testcase
 
@@ -27,7 +28,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site_url = "http://www.youtube.com/watch?v=fgg2tpUVbXQ&feature=channel"
         site = "Hubble"
         
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         try:
             mirolib.add_source_from_tab(self,reg,site_url)
             mirolib.click_last_source(self,reg)
@@ -53,7 +54,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         site_url = "http://blip.tv"
         site = "blip"
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         mirolib.add_source(self,reg,site_url,site)
         mirolib.click_source(self,reg,site)
@@ -64,7 +65,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         self.assertTrue(reg.s.exists("BLIP TV ROCKS"))
 
         mirolib.quit_miro(self,reg)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         self.assertTrue(reg.s.exists("BLIP"))
         mirolib.delete_site(self,reg,"BLIP")
 
@@ -82,7 +83,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         site_url = "http://blip.tv"
         site = "blip"
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         mirolib.add_source(self,reg,site_url,site)
         mirolib.click_source(self,reg,site)
         time.sleep(10)
@@ -138,7 +139,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site_url = "http://clearbits.net"
         site = "ClearBits"
         feed = "ClearBits"
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         mirolib.add_source(self,reg,site_url,site)
         mirolib.click_source(self,reg,site)
         reg.m.click("Netlabel Music")
@@ -165,7 +166,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title = "Dragons"
                         
         setAutoWaitTimeout(60)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         mirolib.cancel_all_downloads(self,reg)
 
         mirolib.add_source(self,reg,site_url,site)
@@ -205,7 +206,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             #            ".mka download":"Widow",
                          }
         setAutoWaitTimeout(20) 
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         mirolib.add_source(self,reg,site_url,site)
         mirolib.click_source(self,reg,site)
@@ -240,7 +241,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         alt_site = "Miro Guide"
         
         setAutoWaitTimeout(60)                
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         mirolib.add_source_from_tab(self,reg,site_url)
         mirolib.click_last_source(self,reg)
@@ -257,7 +258,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site_url = "http://pculture.org/feeds_test/header-test.php"
         site = "Header Test"
         setAutoWaitTimeout(60)                
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         mirolib.add_source(self,reg,site_url,site)
         mirolib.delete_site(self,reg,site)
@@ -274,7 +275,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site_url = "http://diziizle.net/"
         site = "diziizle"
         setAutoWaitTimeout(60)                
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         mirolib.add_source_from_tab(self,reg,site_url)
         mirolib.click_last_source(self,reg)
         reg.m.find(testvars.dizizle_logo)
@@ -298,7 +299,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         site = "ClearBits"
         site2 = "Internet"
         setAutoWaitTimeout(60)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         mirolib.add_source(self,reg,site_url,site)
         mirolib.add_source(self,reg,site_url2,site2)
@@ -328,9 +329,9 @@ if __name__ == "__main__":
     import LitmusTestRunner
     print len(sys.argv)
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
    
 
 

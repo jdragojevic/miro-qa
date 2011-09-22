@@ -14,7 +14,8 @@ sys.path.append(mycwd)
 sys.path.append(os.path.join(mycwd,'myLib'))
 import base_testcase
 import config
-import mirolib
+import mirolib 
+import miro_regions
 import prefs
 import testvars
 
@@ -44,7 +45,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         
         url = "http://pculture.org/feeds_test/feed1.rss"
         feed = "Yah"
@@ -75,7 +76,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         try:
-            reg = mirolib._AppRegions()
+            reg = miro_regions.MiroRegions()
             
             #1. add feed
             url = "http://pculture.org/feeds_test/feed1.rss"
@@ -120,7 +121,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. Cleanup
 
         """
-        reg = mirolib._AppRegions()        
+        reg = miro_regions.MiroRegions()        
         
         #1. add feed
         url = "http://pculture.org/feeds_test/no-enclosures.rss"
@@ -152,7 +153,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         try:
-            reg = mirolib._AppRegions()
+            reg = miro_regions.MiroRegions()
             url = "http://pculture.org/feeds_test/feed3.rss"
             feed = "RSS 2"
             term = "first test video"
@@ -183,7 +184,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         """
         try:
-            reg = mirolib._AppRegions()
+            reg = miro_regions.MiroRegions()
             feed = "AV Club"
             prefs.set_autodownload(self,reg,setting="Off")     
             url = "http://feeds.feedburner.com/theavclub/mainline"
@@ -204,7 +205,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         ZIPPED_FEEDS = [
             #["http://podcastle.org/feed/rss2","PodCastle",],
@@ -237,14 +238,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         config.set_def_db_and_prefs()
         mirolib.restart_miro(confirm=False)
         time.sleep(10)
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         
 
 if __name__ == "__main__":
     import LitmusTestRunner
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
 
 

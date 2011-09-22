@@ -10,7 +10,8 @@ sys.path.append(mycwd)
 sys.path.append(os.path.join(mycwd,'myLib'))
 import base_testcase
 import config
-import mirolib
+import mirolib 
+import miro_regions
 import prefs
 import testvars
 
@@ -42,7 +43,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
          4. Cleanup
         """       
         #set the search regions
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         feed = "EEVblog"
         feed2 = "TED"
         mirolib.click_sidebar_tab(self,reg,"Miro")
@@ -97,7 +98,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(testvars.timeout)
         
         #set the search regions
-        reg = mirolib._AppRegions()        
+        reg = miro_regions.MiroRegions()        
         url = "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi"
         feed = "my feed"
         mirolib.add_feed(self,reg,url,feed)
@@ -139,7 +140,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
     	setAutoWaitTimeout(testvars.timeout)   
         #set the search regions
-    	reg = mirolib._AppRegions()
+    	reg = miro_regions.MiroRegions()
 
     	url = "http://pculture.org/feeds_test/2stupidvideos.xml"
     	feed = "TwoStupid"
@@ -173,7 +174,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         setAutoWaitTimeout(testvars.timeout)   
         #set the search regions
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
@@ -203,7 +204,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        reg = mirolib._AppRegions()      
+        reg = miro_regions.MiroRegions()      
         prefs.set_autodownload(self,reg,setting="Off")
         prefs.set_default_view(self,reg,setting="Standard")
 
@@ -264,7 +265,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
 
         FEEDS = {"my feed": "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi",
                  "recent posts": "http://blip.tv/rss?pagelen=1",
@@ -314,7 +315,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             5. While the podcast is downloading, right click on it and select "Remove" option.
         """
 
-        reg = mirolib._AppRegions()
+        reg = miro_regions.MiroRegions()
         url = "http://subscribe.getmiro.com/?url1=http%3A%2F%2Fparticipatoryculture.org%2Ffeeds_test%2Ffeed1.rss"
         prefs.set_autodownload(self,reg,setting="All")
         reg.t.click("Sidebar")
@@ -333,8 +334,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 if __name__ == "__main__":
     import LitmusTestRunner
     if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
     else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite,config.testlitmus).litmus_test_run()
+        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
 
 

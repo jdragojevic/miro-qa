@@ -13,9 +13,6 @@ class Miro_unittest_testcase(unittest.TestCase):
     def setUp(self):
         self.verificationErrors = []
         print "starting test: ",self.shortDescription()
-        config.set_image_dirs()
-        
-
 
 
     def tearDown(self):
