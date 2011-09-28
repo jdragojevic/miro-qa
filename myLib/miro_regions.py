@@ -27,5 +27,5 @@ class MiroRegions(object):
         self.tl = reg["TopLeftRegion"]
         self.mtb = reg["MainTitleBarRegion"]
         self.mr = reg["MainAndHeaderRegion"]
-        miroapp = App("Miro")
+        self.miroapp = App("Miro")
 
