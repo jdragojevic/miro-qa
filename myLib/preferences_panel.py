@@ -2,7 +2,7 @@
 
 from sikuli.Sikuli import *
 from miro_app import MiroApp
-
+import config
 
 
 class PreferencesPanel(MiroApp):
@@ -23,7 +23,9 @@ class PreferencesPanel(MiroApp):
 
 
     _CLOSE_BUTTON = Pattern("button_close.png")
-    _PREFS_CHECKBOX = Pattern("prefs_checkbox.png")
+    _PREFS_CHECKBOX_CHECKED = Pattern("prefs_checkbox.png")
+    _PREFS_CHECKBOX_NOT_CHECKED = Pattern("prefs_checkbox_unchecked.png")
+
     _OPTION_EXPAND = Pattern("prefs_expand_option.png")
     _OPTION_LEFT_SIDE = Pattern("prefs_option_left_side.png")
 
@@ -32,10 +34,12 @@ class PreferencesPanel(MiroApp):
     def preference_panel_regions(self):
         find(self._PREF_HEADING)
         heading = Region(getLastMatch())
-        tr = Region(getLastMatch().left(200))
+	tr = Region(getLastMatch().left(200))
         tr.find(self._GENERAL_TAB)
         trr = Region(tr.getLastMatch())
-        heading.setX(heading.getX() - trr.getW())
+	leftx =  trr.getW() + 10
+        heading.setX(heading.getX() - (leftx))
+	heading.setW(heading.getW() + 2*leftx)
         settings = heading.below()
         return (heading, settings)
             
@@ -98,15 +102,11 @@ class PreferencesPanel(MiroApp):
         valid_settings = ['on', 'off']
         if setting not in valid_settings:
             raise Exception("valid setting value not proviced, must be 'on' or 'off'")
-        
-        _, settings_region = self.preference_panel_regions()
         self.check_the_box(option, setting)
         
 
     def check_the_box(self, phrase, setting):
         _, sr = self.preference_panel_regions()
-
-
         found = False
         for x in phrase:
             if not found and sr.exists(x, 1):
@@ -114,19 +114,14 @@ class PreferencesPanel(MiroApp):
                 found = True
             else:
                 raise Exception("Can't find the preference field %s" % phrase)
-
-        print sr_loc
-        sr1 = Region(sr.getX(), sr_loc.getY()-15, 400, 30) #location of associated checkbox
-#        sr1 = Region(sr.getX(), sr_loc.getY()-15, sr_loc.getX()-sr.getX(), 30) #location of associated checkbox
-        print sr1
-        sr1.click(Pattern(self._PREFS_CHECKBOX))
-        
-##        if setting == "off":
-##            if sr1.exists(Pattern(self._PREFS_CHECKBOX)):
-##                click(sr1.getLastMatch())
-##        if setting == "on":
-##            if not sr1.exists(Pattern(self._PREFS_CHECKBOX)):
-##                click(sr1.getLastMatch())
+        sr1 = Region(sr.getX(), sr_loc.getY()-10, sr.getW(), 30) #location of associated checkbox
+      	           
+        if setting == "off":
+            if sr1.exists(self._PREFS_CHECKBOX_CHECKED):
+               click(sr1.getLastMatch())
+        if setting == "on":
+            if sr1.exists(self._PREFS_CHECKBOX_NOT_CHECKED):
+                sr1.click(sr1.getLastMatch())
         
 
 

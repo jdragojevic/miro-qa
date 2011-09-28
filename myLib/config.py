@@ -16,6 +16,7 @@ def get_img_path():
     """
     proj_dir = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
     img_dir = "Images_"+get_os_name()
+    print img_dir
     img_path = os.path.join(proj_dir,img_dir)
     return img_path
 
@@ -34,7 +35,8 @@ def set_image_dirs():
     for x in os.listdir(app_image_dir):
         dirx = os.path.join(app_image_dir,x)
         if dirx not in list(getImagePath()):
-            addImagePath(dirx)    
+            addImagePath(dirx)
+      
     
 
 def miro_images():

@@ -24,7 +24,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         5. Restart Miro
         
         """
-        config.set_image_dirs()
         reg = MiroRegions()
         miro = MiroApp(reg)
         #1. open preferences

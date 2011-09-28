@@ -7,7 +7,7 @@ class PrefGeneralTab(PreferencesPanel):
     """
 
     _RUN_ON_LOGIN = ["Automatically"]
-    _REMEMBER_SCREEN_ON_STARTUP = ["When starting"]
+    _REMEMBER_SCREEN_ON_STARTUP = ["remember"]
     _WARN_ON_QUIT_WITH_DOWNLOADS = ["downloads in"]
     _WARN_ON_QUIT_WITH_CONVERSIONS = ["conversions in"]
     _SHOW_VIDEOS = ["Show videos"]

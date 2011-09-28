@@ -15,7 +15,6 @@ class MiroApp(object):
 
     os_name = config.get_os_name()
     
-    
     def miro_focus(self,reg):
         reg.miroapp.focus()
         
@@ -35,7 +34,7 @@ class MiroApp(object):
             sc = menu[0].lower()
         #Open the Preferences Menu based on the os with keyboard navigation
         if config.get_os_name() == "osx":
-            mirolib.shortcut(',')
+            self.shortcut(',')
         else:
             myscreen = Screen()
             pr = Region(myscreen.getBounds())
@@ -45,7 +44,7 @@ class MiroApp(object):
 
         
 
-    def shortcut(key,shift=False):
+    def shortcut(self, key, shift=False):
         """Keyboard press of the correct shortcut key
 
         for os x = cmd + key
