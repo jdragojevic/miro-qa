@@ -12,7 +12,7 @@ class PrefGeneralTab(PreferencesPanel):
     _WARN_ON_QUIT_WITH_CONVERSIONS = ["conversions in"]
     _SHOW_VIDEOS = ["Show videos"]
     _SHOW_AUDIO =  ["Show audio"]
-    _DEFAULT_LANG = ["Display in"]
+    _DEFAULT_LANG = ["Display"]
     _TRAY_ICON = ["Enable tray"]
 
     def automatically_run_on_login(self, setting):
@@ -38,3 +38,18 @@ class PrefGeneralTab(PreferencesPanel):
     def show_audio_in_music(self, setting):
         option = self._SHOW_AUDIO
         self.set_preference_checkbox(option, setting)
+
+    def change_default_language(self, setting):
+        option = self._DEFAULT_LANG
+        self.select_menu_value(option, setting, menu_width=140, yoffset="top", multipage=True)
+
+    def change_to_english_language(self, from_lang):
+        option = [from_lang]
+        self.select_menu_value(option, setting="English", menu_width=140, yoffset="top", multipage=True)
+
+    def enable_tray_icon(self, setting):
+        option = self._TRAY_ICON
+        self.set_preference_checkbox(option, setting)
+        
+        
+    

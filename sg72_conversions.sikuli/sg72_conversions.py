@@ -12,7 +12,7 @@ import base_testcase
 import config
 import mirolib 
 import miro_regions
-import prefs
+
 import testvars
 
 

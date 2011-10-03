@@ -29,3 +29,8 @@ class MiroRegions(object):
         self.mr = reg["MainAndHeaderRegion"]
         self.miroapp = App("Miro")
 
+        myscreen = Screen()
+        sr = Region(myscreen.getBounds())
+        self.screen_height = sr.getH()
+        self.screen_width = sr.getW()
+

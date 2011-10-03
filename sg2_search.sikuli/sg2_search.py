@@ -13,7 +13,7 @@ import base_testcase
 import mirolib 
 import miro_regions
 import testvars
-import prefs
+
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 2 - remember last search

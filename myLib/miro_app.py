@@ -12,38 +12,52 @@ class MiroApp(object):
     """Tabs and dialogs inherit from MiroApp.
 
     """
+    def __init__(self, reg):
+        '''
+        Constructor
+        '''
 
-    os_name = config.get_os_name()
-    
-    def miro_focus(self,reg):
-        reg.miroapp.focus()
+        self.os_name = config.get_os_name()
+        self.SYS_TEXT_ENTRY_BUTTON = Pattern('type_a_filename.png')
+
+    def screen_region(self):
+        myscreen = Screen()
+        screen_region = Region(myscreen.getBounds())
+        return screen_region
         
+    
+    def miro_focus(self, reg):
+        reg.miroapp.focus()
 
-    def open_prefs(self, reg, lang='en', menu=None, option=None):
-        """OS specific handling for Preferences menu, since it differs on osx and windows.
+
+    def find_element(self, elements, region=None):
+        """given a list of element locate the first instance return it's region.
 
         """
-        if reg.s.exists("icon-search.png",3) or \
-           reg.s.exists("icon-video.png",3):
-            click(reg.s.getLastMatch())
-        time.sleep(3)
-        if lang == 'en':
-            option = 'Preferences'
-            sc = 'f'
-        else:
-            sc = menu[0].lower()
-        #Open the Preferences Menu based on the os with keyboard navigation
-        if config.get_os_name() == "osx":
-            self.shortcut(',')
-        else:
-            myscreen = Screen()
-            pr = Region(myscreen.getBounds())
-            type(sc,KEY_ALT)
-            reg.s.click(option)
-            time.sleep(2)
+        if region == None:
+                region = self.screen_region()
+        for x in elements:
+            if region.exists(x, 3): break 
+            else:
+                raise ("Can't find: %s" % elements)
+        element_region = Region(region.getLastMatch())
+        return element_region
 
-        
+    def click_element(self, elements, region=None):
+        """given a list of element locate the first instance and click.
 
+        """
+        if region == None:
+            region = self.screen_region()
+        for x in elements:
+            if region.exists(x, 3): break 
+            else:
+                raise ("Can't find: %s" % elements)
+        click(region.getLastMatch())
+
+
+
+    
     def shortcut(self, key, shift=False):
         """Keyboard press of the correct shortcut key
 
@@ -71,7 +85,62 @@ class MiroApp(object):
             else:
                 print config.get_os_name()
                 type(key,KEY_CTRL+KEY_SHIFT)
+        
+    def quit_miro(self, reg):
+        if exists("Miro",10):
+            click(getLastMatch())
+        self.shortcut("q")       
+        if exists("dialog_confirm_quit.png",10) or \
+              exists("Quit",5):
+            type(Key.ENTER)
+        waitVanish("Miro",30)
+      
 
+    def restart_miro(self):
+        if self.os_name == "lin":
+            config.start_miro_on_linux()
+        else:
+            App.open(open_miro())
+        wait
+        ("Miro",30)
+
+        
+    def open_prefs(self, reg, menu=None, option=None):
+        """OS specific handling for Preferences menu, since it differs on osx and windows.
+
+        """
+        if reg.s.exists("icon-search.png",3) or \
+           reg.s.exists("icon-video.png",3):
+            click(reg.s.getLastMatch())
+        time.sleep(3)
+        if menu == None:
+            option = 'Preferences'
+            sc = 'f'
+        else:
+            sc = menu[0].lower()
+        #Open the Preferences Menu based on the os with keyboard navigation
+        if config.get_os_name() == "osx":
+            self.shortcut(',')
+        else:
+            myscreen = Screen()
+            pr = Region(myscreen.getBounds())
+            type(sc,KEY_ALT)
+            reg.s.click(option)
+            time.sleep(2)
+
+    def type_a_path(self,file_path):
+        if config.get_os_name() == "osx":
+            type(file_path +"\n")     
+        else:
+            if not exists("Location",5):
+                click(self._SYS_TEXT_ENTRY_BUTTON)
+                time.sleep(2)
+            else:  #clear any text in the type box
+                for x in range(0,15):
+                    type(Key.DELETE)
+            type(file_path +"\n")
+
+#####################KEEPERS ABOVE THIS LINE ##############################################
 
     def multi_select(self,region,item_list):
         """Use the CTRL or CMD key as os appropriate to select items in a region.
@@ -105,29 +174,13 @@ class MiroApp(object):
     def quit_miro(self,reg=None):
         if exists("Miro",10):
             click(getLastMatch())
-        shortcut("q")       
+        self.shortcut("q")       
         if exists("dialog_confirm_quit.png",10) or \
               exists("Quit",5):
             type(Key.ENTER)
         waitVanish("Miro",30)
       
-
-    def restart_miro(confirm=True):
-        if config.get_os_name() == "lin":
-            config.start_miro_on_linux()
-        else:
-            App.open(open_miro())
-        if confirm == True:
-            time.sleep(5)
-            if exists(Pattern("icon-guide_active.png"),10) or \
-               exists(Pattern("icon-guide.png"),10) or \
-               exists("Miro",45):
-                print "miro started"
-            else:
-                print("can't confirm miro restarted")
-        else:
-            time.sleep(5) #give it 5 secs - probably waiting for 1st time dialog or other
-            
+           
         
         
     def cmd_ctrl():
@@ -211,7 +264,7 @@ class MiroApp(object):
         if exists("sys_open_alert.png",30):
             click("sys_ok_button.png")
 
-    def remove_confirm(self,reg,action="remove"):
+    def remove_confirm(self, reg, action="remove"):
         """If the remove confirmation is displayed, remove or cancel.
 
         action = (remove_feed, remove_item or cancel)
@@ -267,7 +320,7 @@ class MiroApp(object):
         SourcesRegion.setAutoWaitTimeout(20)
         return SourcesRegion
 
-    def get_podcasts_region(reg):
+    def get_podcasts_region(self, reg):
         if not reg.s.exists("Podcasts",3):
             type(Key.ESC) #in case there's any dialog left overs blocking for some reason
             reg.s.click("Music")
@@ -304,7 +357,7 @@ class MiroApp(object):
         return PlaylistsRegion     
             
         
-    def delete_site(self,reg,site):
+    def delete_site(self, reg, site):
         """Delete the video feed from the sidebar.
         feed = the feed name exact text that is displayed in the sidebar.
         m = Mainview Region, calculate in the testcase on launch.
@@ -317,11 +370,11 @@ class MiroApp(object):
             click(p.getLastMatch())
             time.sleep(2)
             type(Key.DELETE)
-            remove_confirm(self,reg,"remove")
+            self.remove_confirm(reg, "remove")
         else:
             print "site not present: ",site
 
-    def add_feed(self,reg,url,feed):
+    def add_feed(self, reg, url, feed):
         """Add a feed to miro, click on it in the sidebar.
         
         Verify the feed is added by clicking on the feed and verify the feed name is present
@@ -332,10 +385,10 @@ class MiroApp(object):
         time.sleep(2)
         type(url + "\n")
         time.sleep(10) #give it 10 seconds to add the feed
-        click_podcast(self,reg,feed)
+        self.click_podcast(reg, feed)
         time.sleep(3)
 
-    def add_playlist(self,reg,playlist,style="menu"):
+    def add_playlist(self, reg, playlist, style="menu"):
         """Add a playlist miro using 1 of the following styles:
 
         1. style='menu' uses the Playlist menu option
@@ -369,20 +422,20 @@ class MiroApp(object):
         time.sleep(2)
         type(playlist + "\n")
         time.sleep(10) #give it 10 seconds to add the playlist
-        click_playlist(self,reg,playlist)
+        self.click_playlist(reg, playlist)
         time.sleep(3)
 
 
-    def click_podcast(self,reg,feed):
+    def click_podcast(self, reg, feed):
         """Find the podcast in the sidebar within podcast region and click on it.
         """
-        p = get_podcasts_region(reg)
+        p = self.get_podcasts_region(reg)
         time.sleep(3)
         p.find(feed)
         click(p.getLastMatch())
         return Region(p.getLastMatch()).getCenter()
 
-    def click_playlist(self,reg,playlist):
+    def click_playlist(self, reg, playlist):
         """Find the podcast in the sidebar within podcast region and click on it.
         """
         p = get_playlists_region(reg)
@@ -391,7 +444,7 @@ class MiroApp(object):
         click(p.getLastMatch())
         return Region(p.getLastMatch()).getCenter()
 
-    def add_watched_folder(self,reg,folder_path,show=True):
+    def add_watched_folder(self, reg, folder_path, show=True):
         """Add a feed to miro, click on it in the sidebar.
         
         Verify the feed is added by clicking on the feed and verify the feed name is present
@@ -405,7 +458,7 @@ class MiroApp(object):
             time.sleep(1)
             type(folder_path+"\n")
             time.sleep(10) #give it 10 seconds to add the feed
-            click_last_podcast(self,reg)
+            self.click_last_podcast(reg)
         else:
             type(folder_path)
             reg.m.click("Show in")
@@ -413,7 +466,7 @@ class MiroApp(object):
             type(Key.TAB)
             type(Key.ENTER)
         
-    def click_last_source(self,reg):
+    def click_last_source(self, reg):
         """Based on the position of the Playlists tab, click on the last podcast in the list.
 
         This is useful if the title isn't displayed completely or you have other chars to don't work for text recognition.
@@ -424,19 +477,19 @@ class MiroApp(object):
         click(p.getLastMatch().above(38))
 
 
-    def click_last_podcast(self,reg):
+    def click_last_podcast(self, reg):
         """Based on the position of the Playlists tab, click on the last podcast in the list.
 
         This is useful if the title isn't displayed completely or you have other chars to don't work for text recognition.
         """
-        p = get_podcasts_region(reg)
+        p = self.get_podcasts_region(reg)
         time.sleep(5)
         reg.s.find("Playlists")
         click(reg.s.getLastMatch().above(35))
 
 
-    def expand_feed_folder(self,reg,feed):
-        p = get_podcasts_region(reg)
+    def expand_feed_folder(self, reg, feed):
+        p = self.get_podcasts_region(reg)
         if p.exists(feed):
             fr = Region(p.getLastMatch()).left()
             fr.setY(fr.getY()-10)
@@ -447,8 +500,8 @@ class MiroApp(object):
             print "not found"
         
 
-    def delete_all_podcasts(self,reg):
-        p = get_podcasts_region(reg)
+    def delete_all_podcasts(self, reg):
+        p = self.get_podcasts_region(reg)
         time.sleep(5)
         pody = p.getY()+40
         top_podcast = Location(p.getX(),pody)
@@ -477,7 +530,7 @@ class MiroApp(object):
         p.click("Misc")
         
 
-    def set_podcast_autodownload(self,reg,setting="Off"):
+    def set_podcast_autodownload(self, reg, setting="Off"):
         """Set the feed autodownload setting using the button at the bottom of the mainview.
 
         """
@@ -496,15 +549,15 @@ class MiroApp(object):
                    b.click("button_autodownload.png")
                    time.sleep(2)
 
-    def open_podcast_settings(self,reg):
+    def open_podcast_settings(self, reg):
         b = Region(reg.s.getX(),reg.m.getY()*2,reg.m.getW(), reg.m.getH())
         b.find(Pattern("button_settings.png"))
         click(b.getLastMatch())
 
-    def click_remove_podcast(self,reg):
+    def click_remove_podcast(self, reg):
         reg.m.click(Pattern("button_remove_podcast.png"))
 
-    def change_podcast_settings(self,reg,option,setting):
+    def change_podcast_settings(self, reg, option, setting):
         find("Expire Items")
         p1 = Region(getLastMatch().nearby(800))
         p1.find(option)
@@ -522,49 +575,49 @@ class MiroApp(object):
         time.sleep(2)
         p1.click("button_done.png")
 
-    def click_source(self,reg,website):
+    def click_source(self, reg, website):
             p = get_sources_region(reg)
             p.find(website)
             click(p.getLastMatch())
             
 
-    def delete_feed(self,reg,feed):
+    def delete_feed(self, reg, feed):
         """Delete the video feed from the sidebar.
         feed = the feed name exact text that is displayed in the sidebar.
         m = Mainview Region, calculate in the testcase on launch.
         s = Sideview Region, calculated in the testcase on launch.
 
         """ 
-        p = get_podcasts_region(reg)
+        p = self.get_podcasts_region(reg)
         
         if p.exists(feed,4):
             click(p.getLastMatch())
             type(Key.DELETE)
-            remove_confirm(self,reg,"remove")
-    ##        p = get_podcasts_region(reg)
+            self.remove_confirm(reg, "remove")
+    ##        p = self.get_podcasts_region(reg)
     ##        self.assertFalse(p.exists(feed,5))
 
-    def delete_items(self,reg,title,item_type):
+    def delete_items(self, reg, title,item_type):
         """Remove video audio music other items from the library.
 
         """
         type(Key.ESC)
-        click_sidebar_tab(self,reg,item_type)
-        tab_search(self,reg,title)
+        self.click_sidebar_tab(reg, item_type)
+        self.tab_search(reg, title)
         if reg.m.exists(title,10):
             click(reg.m.getLastMatch())
             type(Key.DELETE)
-            remove_confirm(self,reg,"delete_item")
+            self(reg, "delete_item")
 
-    def delete_current_selection(self,reg):
+    def delete_current_selection(self, reg):
         """Wherever you are, remove what is currently selected.
 
         """
         type(Key.DELETE)
-        remove_confirm(self,reg,"remove")
+        self.remove_confirm(reg, "remove")
 
 
-    def click_sidebar_tab(self,reg,tab):
+    def click_sidebar_tab(self, reg, tab):
         """Click any default tab in the sidebar.
 
         assumes the tab image file is an os-speicific image, and then verifies
@@ -604,7 +657,7 @@ class MiroApp(object):
         else:
             reg.s.click(tab)
 
-    def tab_search(self,reg,title,confirm_present=False):
+    def tab_search(self, reg, title, confirm_present=False):
         """enter text in the search box.
 
         """
@@ -623,7 +676,7 @@ class MiroApp(object):
         type(title.upper())
         time.sleep(3)
         if confirm_present != False:
-            toggle_normal(reg)
+            self.toggle_normal(reg)
             if reg.m.exists(title,5):
                 present=True
             elif reg.m.exists(Pattern("item-context-button.png")):
@@ -632,19 +685,19 @@ class MiroApp(object):
                 self.fail("Item not found in tab: "+title)
             return present
 
-    def clear_search(reg):
+    def clear_search(self, reg):
         if reg.mtb.exists("tabsearch_clear.png",5):
             print "found tabsearch_clear"
             click(reg.mtb.getLastMatch())
         
 
 
-    def expand_item_details(self,reg):
+    def expand_item_details(self, reg):
         if reg.m.exists(Pattern("item_expand_details.png").exact()):
             click(reg.m.getLastMatch())
         
         
-    def toggle_normal(reg):
+    def toggle_normal(self, reg):
         """toggle to the normal view.
 
         """
@@ -663,7 +716,7 @@ class MiroApp(object):
             click(treg.getLastMatch())
      
 
-    def toggle_list(reg):
+    def toggle_list(self, reg):
         """toggle to the list view.
 
         """
@@ -681,7 +734,7 @@ class MiroApp(object):
      
 
 
-    def search_tab_search(self,reg,term,engine=None):
+    def search_tab_search(self, reg, term, engine=None):
         """perform a search in the search tab.
 
         Requires: search term (term), search engine(engine) and MainViewTopRegion (mtb)
@@ -715,9 +768,9 @@ class MiroApp(object):
             type("\n")
      
 
-    def download_all_items(self,reg):
+    def download_all_items(self, reg):
         time.sleep(5)
-        toggle_normal(reg)
+        self.toggle_normal(reg)
         if reg.m.exists(Pattern("button_download.png"),3):       
             mm = []
             f = reg.m.findAll("button_download.png") # find all matches
@@ -732,7 +785,7 @@ class MiroApp(object):
 
 
       
-    def confirm_download_started(self,reg,title):
+    def confirm_download_started(self, reg,title):
         """Verifies file download started.
 
         Handles and already download(ed / ing) messages
@@ -755,11 +808,11 @@ class MiroApp(object):
             downloaded = "failed"
             type(Key.ESC)
         else:
-            click_sidebar_tab(self,reg,"Downloading")
+            self.click_sidebar_tab(reg, "Downloading")
             reg.mtb.click(Pattern("download-pause.png"))
             if mr.exists(Pattern("badge_dl_error.png"),2):
                 downlaoded = "errors"
-            elif tab_search(self,reg,title,confirm_present=True) == True:
+            elif self.tab_search(reg,title,confirm_present=True) == True:
                 downloaded = "in_progress"
             else:
                     downloaded = "item not located"
@@ -767,13 +820,13 @@ class MiroApp(object):
         return downloaded
 
 
-    def wait_download_complete(self,reg,title,torrent=False):
+    def wait_download_complete(self, reg, title, torrent=False):
         """Wait for a download to complete before continuing test.
 
         provide title - to verify item present itemtitle_'title'.png
 
         """
-        if not confirm_download_started(self,reg,title) == "downloaded":
+        if not self.confirm_download_started(reg, title) == "downloaded":
             if torrent == False:
                 if reg.m.exists(title):
                     reg.m.waitVanish(title,240)
@@ -783,14 +836,14 @@ class MiroApp(object):
                     while not reg.m.exists("item_stop_seeding.png"):
                         time.sleep(5)
                     
-    def cancel_all_downloads(self,reg):
+    def cancel_all_downloads(self, reg):
         """Cancel all in progress downloads.
         
         If the tab exists, cancel all dls and seeding.
         Click off downloads tab and confirm tab disappears.
         
         """
-        click_sidebar_tab(self,reg,"Music")
+        self.click_sidebar_tab(reg,"Music")
         time.sleep(2)
         if reg.s.exists("Downloading",2):
             click(reg.s.getLastMatch())
@@ -805,16 +858,16 @@ class MiroApp(object):
                 for x in mm:
                     click(x)    
                     
-    def wait_for_item_in_tab(self,reg,tab,item):
-        click_sidebar_tab(self,reg,tab)
-        tab_search(self,reg,item)
-        toggle_normal(reg)
+    def wait_for_item_in_tab(self, reg, tab, item):
+        self.click_sidebar_tab(reg, tab)
+        self.tab_search(reg, item)
+        self.toggle_normal(reg)
         for x in range(0,30):
             if not reg.m.exists(item):
                 print ". waiting",x*5,"seconds for item to appear in tab:",tab
                 time.sleep(5)
         
-    def wait_conversions_complete(self,reg,title,conv):
+    def wait_conversions_complete(self, reg, title, conv):
         """Waits for a conversion to complete.
 
         Catches the status and copies the log to a more identifyable name.
@@ -836,7 +889,7 @@ class MiroApp(object):
             return sstatus
 
 
-    def add_source(self,reg,site_url,site,alt_site=None):
+    def add_source(self, reg, site_url, site, alt_site=None):
         reg.tl.click("Sidebar")
         reg.tl.click("Add Source")
         time.sleep(2)
@@ -852,13 +905,13 @@ class MiroApp(object):
         click(p.getLastMatch())
 
 
-    def add_source_from_tab(self,reg,site_url):
+    def add_source_from_tab(self, reg, site_url):
         p = get_sources_region(reg)
         reg.m.find("URL")
         click(reg.m.getLastMatch().right(150))
         type(site_url+"\n")
         
-    def new_search_feed(self,reg,term,radio,source,defaults=False,watched=False):
+    def new_search_feed(self, reg, term, radio, source, defaults=False, watched=False):
         reg.t.click("Sidebar")
         reg.t.click("New Search")
         if defaults == True:
@@ -867,7 +920,7 @@ class MiroApp(object):
         elif watched == True:
             if reg.m.exists(source):
                 self.fail
-            handle_crash_dialog(self,db=True,test=False)   
+            self.handle_crash_dialog(db=True, test=False)   
             type(Key.ESC)   
         else:
             type(term)
@@ -898,7 +951,7 @@ class MiroApp(object):
             f.click("Create")
 
 
-    def edit_item_type(self,reg,new_type):
+    def edit_item_type(self, reg, new_type):
         """Change the item's metadata type, assumes item is selected.
 
         """
@@ -917,7 +970,7 @@ class MiroApp(object):
         time.sleep(2)
         click("button_ok.png")
 
-    def edit_item_rating(rating):
+    def edit_item_rating(self, rating):
         """Change the item's metadata type, assumes item is selected.
 
         """
@@ -932,7 +985,7 @@ class MiroApp(object):
         click("button_ok.png")
 
 
-    def edit_item_metadata(self,reg,meta_field,meta_value):
+    def edit_item_metadata(self, reg, meta_field, meta_value):
         """Given the field and new metadata value, edit a selected item, or multiple items metadata.
 
         """
@@ -976,13 +1029,13 @@ class MiroApp(object):
                     time.sleep(.5)
                 type(Key.ENTER) #Save the changes
 
-    def edit_item_video_metadata_bulk(self,reg,new_metadata_list):
+    def edit_item_video_metadata_bulk(self, reg, new_metadata_list):
         """Given the field and new metadata value, edit a selected item, or mulitple items metadata.
 
         """
         metalist = ["show","episode_id","season_no","episode_no",
                          "video_kind","cancel","ok"]
-        shortcut('i')
+        self.shortcut('i')
         time.sleep(2)
         find("Rating")
         v = Region(getLastMatch().above(100).left(60))
@@ -1019,7 +1072,7 @@ class MiroApp(object):
         type(Key.ENTER) #Save the changes
        
 
-    def store_item_path(self,reg):
+    def store_item_path(self, reg):
         """Get the items file path from the edit item dialog via clipboard and return it.
 
         """
@@ -1045,26 +1098,29 @@ class MiroApp(object):
         return filepath
             
         
-    def verify_normalview_metadata(self,reg,metadata):
+    def verify_normalview_metadata(self, reg, metadata):
         i = reg.mtb.below(300)
         for k,v in metadata.iteritems():
             self.assertTrue(i.exists(v,3))   
 
-    def verify_audio_playback(self,reg,title):
-        toggle_normal(reg)
-        self.assertTrue(reg.m.exists("item_currently_playing.png"))
+    def verify_audio_playback(self, reg, title):
+        self.toggle_normal(reg)
+        if reg.m.exists("item_currently_playing.png"):
+            playback = True
+        else:
+            raise "Playback not started"
         reg.m.click(title)
-        shortcut("d")
+        self.shortcut("d")
         reg.m.waitVanish("item_currently_playing.png",20)
-        log_result("102","stop audio playback shortcut verified.")
+        self.log_result("102","stop audio playback shortcut verified.")
 
-    def verify_video_playback(self,reg):
+    def verify_video_playback(self, reg):
         find(Pattern("playback_bar_video.png"))
-        shortcut("d")
+        self.shortcut("d")
         waitVanish(Pattern("playback_bar_video.png"),20)
-        log_result("102","stop video playback shortcut verified.")
+        self.log_result("102","stop video playback shortcut verified.")
 
-    def count_images(self,reg,img,region="screen",num_expected=None):
+    def count_images(self, reg, img, region="screen", num_expected=None):
         """Counts the number of images present on the screen.
 
         It will either confirms that it is the expected value.
@@ -1105,10 +1161,10 @@ class MiroApp(object):
         return len(mm)
 
 
-    def http_auth(self,reg,username="tester",passw="pcfdudes"):
+    def http_auth(self, reg, username="tester", passw="pcfdudes"):
         mr = Region(reg.mtb.above(100).below())
         if not mr.exists("Username",30):
-            self.fail("http auth dialog not found")
+            raise("http auth dialog not found")
         else:
             type(username)
             type(Key.TAB)
@@ -1116,21 +1172,21 @@ class MiroApp(object):
             mr.click("button_ok.png")
             time.sleep(3)
 
-    def remove_http_auth_file(self,reg):
+    def remove_http_auth_file(self, reg):
         auth_file = os.path.join(config.get_support_dir(),"httpauth")
-        quit_miro(self,reg)
+        self.quit_miro(reg)
         time.sleep(5)
         if os.path.exists(auth_file):
             auth_saved = True
             os.remove(auth_file)
-            restart_miro()
+            self.restart_miro()
         else:
             print "no auth file found"
             auth_saved = False
         return auth_saved
 
-    def convert_file(self,reg,out_format):
-        if config.get_os_name() == "osx":
+    def convert_file(self, reg, out_format):
+        if self.os_name == "osx":
             reg.t.click("Convert")
         else:
            type('c',KEY_ALT)
@@ -1146,31 +1202,17 @@ class MiroApp(object):
             click(tmpr.getLastMatch())
         
 
-    def import_opml(self,reg,opml_path):
-        click_sidebar_tab(self,reg,"Music")
+    def import_opml(self, reg, opml_path):
+        self.click_sidebar_tab(reg, "Music")
         reg.tl.click("Sidebar")
         time.sleep(2)
         reg.tl.click("Import")
         time.sleep(2)
-        type_a_path(self,opml_path)
+        self.type_a_path(self,opml_path)
         wait("imported",15)
         type(Key.ENTER)
 
-    def type_a_path(self,file_path):
-        if config.get_os_name() == "osx":
-            type(file_path +"\n")     
-        else:
-            if not exists("Location",5):
-                click(Pattern("type_a_filename.png"))
-                time.sleep(2)
-            else:  #clear any text in the type box
-                for x in range(0,15):
-                    type(Key.DELETE)
-            type(file_path +"\n")
-
-
-
-    def click_next(dR):
+    def click_next(self, dR):
         """Click the Next button in a dialog.
 
         Needs the Dialog region (dR) set, see first_time_startup for example
@@ -1182,7 +1224,7 @@ class MiroApp(object):
         else:
             print "Next button not found"
 
-    def click_finish(dR):
+    def click_finish(self, dR):
         """Click the Finish button in a dialog.
 
         Needs the Dialog region (dR) set, see first_time_startup for example
@@ -1194,7 +1236,12 @@ class MiroApp(object):
             print "Finish button not found"
 
 
-    def first_time_startup_dialog(self,lang="Default",run_on_start="No",search="No",search_path="Everywhere",itunes="No"):
+    def first_time_startup_dialog(self,
+                                  lang="Default",
+                                  run_on_start="No",
+                                  search="No",
+                                  search_path="Everywhere",
+                                  itunes="No"):
         """Walk throught the first time startup dialog, specifying defaults.
 
         """
@@ -1222,7 +1269,7 @@ class MiroApp(object):
                     type(Key.PAGE_UP)
             click(lang)
             time.sleep(2)        
-        click_next(dR)
+        self.click_next(dR)
         
         #Run on Startup
         print "run at startup? ",run_on_start
@@ -1233,7 +1280,7 @@ class MiroApp(object):
             dR.click("No")
         else:
             print "pref not set"
-        click_next(dR)
+        self.click_next(dR)
         
         #Add itunes library
         time.sleep(3)
@@ -1244,7 +1291,7 @@ class MiroApp(object):
                 dR.click("Yes")
             else:
                 dR.click("No")
-            click_next(dR)
+            self.click_next(dR)
         
         #Search for music and video files
         print "search for files? ",search
@@ -1254,7 +1301,7 @@ class MiroApp(object):
             print "specifying search"
             if search_path == "Everywhere":
                 print "searching everywhere"
-                click_next(dR)
+                self.click_next(dR)
                 time.sleep(5)
                 waitVanish("parsed",900) #this can take a long time, giving 15 mins for search            
             else:
@@ -1262,12 +1309,12 @@ class MiroApp(object):
                 dR.click("Just")
                 dR.click(Pattern("button_choose.png"))
                 type_a_path(self,search_path)
-                click_next(dR)
+                self.click_next(dR)
                 waitVanish("parsed",300)        
         time.sleep(2)
-        click_finish(dR)
+        self.click_finish(dR)
         
-    def corrupt_db_dialog(action="start_fresh",db=False):
+    def corrupt_db_dialog(self, action="start_fresh", db=False):
         """Handle the corrupt db dialog.
 
         'action' options are 'start_fresh', 'submit_crash' or 'quit'
@@ -1296,7 +1343,7 @@ class MiroApp(object):
                 
         
 
-    def log_result(result_id,runner_id,status="pass"):
+    def log_result(self, result_id, runner_id, status="pass"):
         LOG_RESULT = """
         <result testid="%(testid)s"
         is_automated_result="0"
@@ -1320,7 +1367,7 @@ class MiroApp(object):
                              })
         f.close
        
-    def handle_crash_dialog(self,db=True,test=False):
+    def handle_crash_dialog(self, db=True, test=False):
         """Look for the crash dialog message and submit report.
         
         """
@@ -1344,9 +1391,7 @@ class MiroApp(object):
             print "miro crashed"
             type(Key.ESC) # close any leftover dialogs
             time.sleep(20) #give it some time to send the report before shutting down.
-    #        quit_miro(self)
-
-            self.fail("Got a crash report - check bogon")
+            raise Exception("Got a crash report - check bogon")
             
 
         

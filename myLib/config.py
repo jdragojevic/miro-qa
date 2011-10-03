@@ -16,7 +16,6 @@ def get_img_path():
     """
     proj_dir = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
     img_dir = "Images_"+get_os_name()
-    print img_dir
     img_path = os.path.join(proj_dir,img_dir)
     return img_path
 

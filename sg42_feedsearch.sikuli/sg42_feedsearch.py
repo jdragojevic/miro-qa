@@ -11,7 +11,7 @@ import config
 import mirolib 
 import miro_regions
 import testvars
-import prefs
+
 import base_testcase
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):

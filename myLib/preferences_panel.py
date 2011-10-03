@@ -1,13 +1,10 @@
 # All actions on the preferences panel
 
+import time
 from sikuli.Sikuli import *
 from miro_app import MiroApp
-import config
 
-
-class PreferencesPanel(MiroApp):
-
-    _PREF_HEADING = Pattern("pref_heading.png")
+class PreferencesPanel(object):
 
     _GENERAL_TAB = "General"
     _PODCASTS_TAB = "Podcasts"
@@ -28,30 +25,38 @@ class PreferencesPanel(MiroApp):
 
     _OPTION_EXPAND = Pattern("prefs_expand_option.png")
     _OPTION_LEFT_SIDE = Pattern("prefs_option_left_side.png")
+    
+    def __init__(self):
+        PREF_HEADING = Pattern("pref_heading.png")
+        
+        def preference_panel_regions():
+            find(PREF_HEADING)
+            heading = Region(getLastMatch())
+            gtw = heading.getW()/10
+            heading.setX(heading.getX() - gtw)
+            heading.setW(heading.getW() + gtw*2)
+            heading.setH(heading.getH() + 30)
+            heading.setAutoWaitTimeout(10)
+            settings = Region(heading.below())
+            settings.setAutoWaitTimeout(10)
+            return (heading, settings)
+        
 
+        def screen_region():
+            myscreen = Screen()
+            screen = Region(myscreen.getBounds())
+            return screen
+        
+        self.hr, self.sr = preference_panel_regions()
+        self.screen = screen_region()        
 
-
-    def preference_panel_regions(self):
-        find(self._PREF_HEADING)
-        heading = Region(getLastMatch())
-	tr = Region(getLastMatch().left(200))
-        tr.find(self._GENERAL_TAB)
-        trr = Region(tr.getLastMatch())
-	leftx =  trr.getW() + 10
-        heading.setX(heading.getX() - (leftx))
-	heading.setW(heading.getW() + 2*leftx)
-        settings = heading.below()
-        return (heading, settings)
             
-
-            
-    def open_tab(self,tab):
+    def open_tab(self, tab):
         """Open of of the preferences panel tabs.
 
         Valid values are ['General', 'Podcasts', 'Downloads', 'Folders', 'Diskspace',
                           'Playback', 'Sharing', 'Conversions', 'Stores' 'Extensions']
         """
-        print "opening tab"
         pref_tabs = {"General":             self._GENERAL_TAB, \
                      "Podcasts":            self._PODCASTS_TAB, \
                      "Downloads":           self._DOWNLOADS_TAB, \
@@ -70,22 +75,20 @@ class PreferencesPanel(MiroApp):
                                     
         #Open the specified tab by searching within the preferences region (p) for the icon.
         print "going to the %s tab" % tab
-
-        heading, settings = self.preference_panel_regions()
-        heading.click(pref_tabs[tab])
-        return settings
+        self.hr.click(pref_tabs[tab])
+        time.sleep(5)
+        
 
         
 
     def close_prefs(self):
-        _, sr = self.preference_panel_regions()
-        
+               
         if self.os_name == "osx":
             type(Key.ESC)
         else:
-            if sr.exists(self._CLOSE_BUTTON,3) or \
-               sr.exists("Close",3):
-                click(sr.getLastMatch())
+            if self.sr.exists(self._CLOSE_BUTTON,3) or \
+               self.sr.exists("Close",3):
+                click(self.sr.getLastMatch())
         #restore focus back to Miro
         if self.os_name == "lin":
             click("Miro")
@@ -106,16 +109,15 @@ class PreferencesPanel(MiroApp):
         
 
     def check_the_box(self, phrase, setting):
-        _, sr = self.preference_panel_regions()
         found = False
         for x in phrase:
-            if not found and sr.exists(x, 1):
-                sr_loc = Region(sr.getLastMatch())
+            if not found and self.sr.exists(x, 1):
+                sr_loc = Region(self.sr.getLastMatch())
                 found = True
             else:
                 raise Exception("Can't find the preference field %s" % phrase)
-        sr1 = Region(sr.getX(), sr_loc.getY()-10, sr.getW(), 30) #location of associated checkbox
-      	           
+        sr1 = Region(self.sr.getX(), sr_loc.getY()-10, self.sr.getW(), 30) #location of associated checkbox
+                   
         if setting == "off":
             if sr1.exists(self._PREFS_CHECKBOX_CHECKED):
                click(sr1.getLastMatch())
@@ -125,54 +127,63 @@ class PreferencesPanel(MiroApp):
         
 
 
-    def select_menu_value(self, option, setting, width=120, yoffset=200, multipage = False):
+    def select_menu_value(self, option, setting, menu_width, yoffset=200, multipage = False):
         """For preference settings that have a pull-down menu.
 
         To account for variations in finding text in various os - option
         is a list of strings to search.
         
         """
-
-        _, sr = self.preference_panel_regions()
-
+    
         #Locate the preference setting in the panel or fail.
-        for x in options:
-            if sr.exists(x, 3): break 
-            else:
-                raise Exception("Can't find the preference field")
+        for x in option:
+            if self.sr.exists(x, 3): break
+        else:
+            raise Exception("Can't find the preference field %s" % x)
+        sr_loc = Region(self.sr.getLastMatch())
+        sr1 = Region(self.sr.getX(), sr_loc.getY()-10, self.sr.getW(), 30)
 
         #Set the pull-down menu region
         if multipage == True: #will need to page up and down to locate option.
             pgs = 3
         else:
-            pgs = 1
-        
-        sr1 = Region(sr.getLastMatch().right(200))
-        menu_pos = Location(sr1.find(self._OPTION_EXPAND))
-        rmx = menu_pos.getX()
-        rmy = menu_pos.getY()
-        mr = Region(rmx-width,rmy-yoffset,width,yoffset*2)
+            pgs = 1      
+        menu_pos = Region(sr1.find(self._OPTION_EXPAND))
+        print menu_pos
+        rmx = menu_pos.getX() - menu_width
+        sr = self.sr
+        if yoffset == "top":
+            sr = self.screen
+            rmy = 0
+            rmh = sr.getH()
+        else:
+            rmy = menu_pos.getY() - yoffset
+            rmh = yoffset*2+10
+            
+        mr = Region(rmx, rmy, menu_width, rmh)
+        mr.setAutoWaitTimeout(5)
         mr.highlight(1)
-        if mr.exists(new_setting):
+        if mr.exists(setting):
             print "pref already set"
         else: #Locate the setting value in the menu.
             click(menu_pos)
             value_found = False
             for x in range(0,pgs):
-                if not mr.exists(setting,1):
-                    type(Key.PAGE_DOWN)
+                print mr
+                if mr.exists(setting):
+                    value_found = True        
                 else:
-                    value_found = True
-                   
+                     type(Key.PAGE_DOWN)              
             if pgs > 1 and value_found == False:
                     for x in range(0,pgs*2):
-                        if not exists(setting,1):
-                            type(Key.PAGE_UP)
-                        else:
+                        if mr.exists(setting,1):
                             value_found = True
+                        else:
+                            type(Key.PAGE_UP)
+                            
             #Click the found value or fail if value wasn't found.
             if value_found == True:
-                click(mr.getLastMatch())
+                mr.click(setting)
             else:
                 raise Exception("Can't find the preference value")
 
@@ -194,117 +205,4 @@ class PreferencesPanel(MiroApp):
         """
         pass
                                      
-                                       
-
-
-##def set_default_view(self,reg,setting="Standard"):
-##        """Set the global podcast default view prefernce.
-##
-##        Setting can be "Standard" or "List"
-##        """
-##        allset = False
-##        p = open_prefs(self,reg)
-##        r = Region(open_tab(self,p,tab="Podcasts")).right(400).below(300)
-##        ry = r.getY()+100
-##        r.setY(ry)
-##        r.highlight(3)
-##        new_setting = setting.capitalize()
-##
-##        if r.exists("Defau",2):
-##            print "found Default"
-##        elif r.exists("Default view",2):
-##            print "found Default view"
-##
-##
-##        r1 = Region(r.getLastMatch().right(200))
-##        r2 = Region(r1.nearby(150))
-##        r2.highlight(1)
-##
-##        
-##        if r2.exists(new_setting):
-##            allset = True
-##        else:
-##            if new_setting == "Standard":
-##                r2.click("List")
-##                r2.click("Standard")
-##            elif new_setting == "List":
-##                r2.click("Standard")
-##                r2.click("List")
-##        save_prefs(self,reg,p=p,allset=allset)
-##
-##
-##def set_autodownload(self,reg,setting="Off"):
-##        """Set the global autodownload prefernce setting.
-##
-##        Setting can be "Off, New, or All"
-##        """
-##        allset = False
-##        p = open_prefs(self,reg)
-##        r = Region(open_tab(self,p,tab="Podcasts")).right(400).below(300)
-##    #    r.setY(r.getY()+100)
-##
-##        if r.exists("download setting",2):
-##            print "found download setting"
-##        elif r.exists("Auto-download",2):
-##            print "found auto-download"
-##        else:
-##            self.fail("Autodownload setting not found, can not set preference")
-##        click(r.getLastMatch())
-##        r1 = Region(r.getLastMatch().right(200))
-##        r1a = Location(r1.getCenter())
-##        r2 = Region(int(r1a.getX()-100),int(r1a.getY())-130,150,180)
-##        r2.highlight(5)
-##
-##        if r1.exists(setting):
-##            allset = True
-##        else:
-##            click(r1a)
-##            r2.click(setting)
-##        save_prefs(self,reg,p=p,allset=allset)
-##
-##    def set_item_display(self,reg,option,setting):
-##        """Sets the podcast display preference for video or music sections of the library.
-##
-##        """
-##        p = open_prefs(self,reg)
-##        allset = False
-##        
-##    ##    p1.setX(p1.getX()-250)
-##    ##    p1.highlight(3)
-##        
-##        if option == "audio":
-##           allset = check_the_box(search_reg=p, phrase="Show audio", setting=setting)
-##            
-##        if option == "video" :
-##            allset = check_the_box(search_reg=p, phrase="Show videos", setting=setting)  
-##        save_prefs(self,reg,p,allset=allset)
-##
-##    def remove_watched_folder(self,reg,folder):
-##        """Sets the podcast display preference for video or music sections of the library.
-##
-##        """
-##        p = open_prefs(self,reg)
-##        allset = True
-##        p1 = Region(open_tab(self,p,tab="Folders").below())
-##        p1.setX(p1.getX()-250)
-##        p1.setW(p1.getW()+800)
-##        p1.highlight(3)
-##        p1.find("Watch")
-##        p2 = Region(p1.getLastMatch().below())
-##        p2.setW(p1.getW())
-##        
-##
-##        watched = folder.split('/')
-##        while watched:
-##            curr = watched.pop()
-##            if p2.exists(curr):
-##                print "found",curr
-##                click(p2.getLastMatch())
-##                p2.click("Remove")
-##        save_prefs(self,reg,p,allset=allset)
-##
-##
-##
-
-
-        
+                                    

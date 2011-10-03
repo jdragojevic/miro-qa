@@ -11,7 +11,7 @@ sys.path.append(os.path.join(mycwd,'myLib'))
 import config
 import mirolib 
 import miro_regions
-import prefs
+
 import testvars
 import base_testcase
 

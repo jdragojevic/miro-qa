@@ -29,10 +29,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #1. open preferences
         miro.open_prefs(reg)
         prefs = PrefGeneralTab()
-        prefs.automatically_run_on_login("on")
-        prefs.remember_last_screen_on_startup("on")
-        prefs.show_audio_in_music("off")
-        prefs.show_videos_in_videos("off")
+        prefs.change_default_language(self, "Croatian")
+        miro.restart()
+        
+        miro.open_prefs(reg, menu="Datoteka", option="Postavke")
+        prefs = PrefGeneralTab()
+        prefs.change_to_english_language(from_lang="Croatian")
         prefs.close_prefs()
         
 
