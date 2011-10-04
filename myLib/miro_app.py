@@ -3,6 +3,7 @@ import time
 import glob
 import config
 import testvars
+import testsetup
 from sikuli.Sikuli import *
 from miro_regions import MiroRegions
 
@@ -100,9 +101,8 @@ class MiroApp(object):
         if self.os_name == "lin":
             config.start_miro_on_linux()
         else:
-            App.open(open_miro())
-        wait
-        ("Miro",30)
+            App.open(testsetup.launch_cmd())
+        wait("Miro",30)
 
         
     def open_prefs(self, reg, menu=None, option=None):
