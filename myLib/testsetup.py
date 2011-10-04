@@ -1,5 +1,6 @@
 import config
 from sikuli.Sikuli import *
+import os
 
 timeout = 30
 
