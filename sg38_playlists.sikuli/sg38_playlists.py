@@ -1,18 +1,11 @@
 import sys
-import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
-import config
-import mirolib 
-import miro_regions
-import testvars
 import base_testcase
-
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 38 - Playlists tests.
@@ -25,15 +18,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         self.verificationErrors = []
         print "starting test: ",self.shortDescription()
-        config.set_image_dirs()
-        mirolib.quit_miro(self)
-        config.set_def_db_and_prefs()
-        mirolib.restart_miro(confirm=False)
+        myLib.config.set_image_dirs()
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
+        miro.restart_miro()
         time.sleep(10)
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         feed = "TestData"
         folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
-        mirolib.add_watched_folder(self,reg,folder_path)
+        miro.add_watched_folder(reg, folder_path)
 
     def test_225(self):
         """http://litmus.pculture.org/show_test.cgi?id=225 add several items to a new playlist.
@@ -46,19 +40,20 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         watched_feed = "TestData"
         playlist = "MIX LIST"
-        reg = miro_regions.MiroRegions()
-        mirolib.click_sidebar_tab(self,reg,"Podcasts")
-        mirolib.toggle_normal(reg)
-        mirolib.tab_search(self,reg,"Lego")
+        reg = MiroRegions() 
+        miro = MiroApp()
+        miro.click_sidebar_tab(reg, "Podcasts")
+        miro.toggle_normal(reg)
+        miro.tab_search(reg, "Lego")
         reg.m.click("Lego")
-        mirolib.tab_search(self,reg,watched_feed)
+        miro.tab_search(reg, watched_feed)
         reg.mr.click(Pattern("sort_name_normal.png"))
         item_list = ["Lego","Pancake","Deerhunter"]        
-        selected_items = mirolib.multi_select(self,region=reg.m,item_list=item_list)
-        mirolib.add_playlist(self,reg,playlist,style="shortcut")
-        mirolib.toggle_normal(reg)
+        selected_items = miro.multi_select(region=reg.m,item_list=item_list)
+        miro.add_playlist(reg, playlist,style="shortcut")
+        miro.toggle_normal(reg)
         for title in selected_items:
-            mirolib.tab_search(self,reg,title,confirm_present=True)
+            miro.tab_search(reg, title,confirm_present=True)
 
    
         
@@ -74,18 +69,19 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         playlist = "EMPTY LIST"
-        reg = miro_regions.MiroRegions()
-        mirolib.add_playlist(self,reg,playlist,style="menu")
-        p = mirolib.get_playlists_region(reg)
-        list_loc = mirolib.click_playlist(self,reg,playlist)
+        reg = MiroRegions() 
+        miro = MiroApp()
+        miro.add_playlist(reg, playlist,style="menu")
+        p = miro.get_playlists_region(reg)
+        list_loc = miro.click_playlist(reg, playlist)
         rightClick(Location(list_loc))
         p.click("Remove")
-        mirolib.remove_confirm(self,reg,"remove")
+        miro.remove_confirm(reg, "remove")
         time.sleep(2)
         if p.exists(playlist):
             print "remove failed"
         else:
-            mirolib.log_result("222","verified remove playlist via context menu")
+            miro.log_result("222","verified remove playlist via context menu")
         
         
 
@@ -95,17 +91,18 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         playlist = "TAB LIST"
-        reg = miro_regions.MiroRegions()
-        mirolib.add_playlist(self,reg,playlist,style="tab")
-        mirolib.log_result("708","test_221 - added playlist via Playlist top level tab")
-        list_loc = mirolib.click_playlist(self,reg,playlist)
+        reg = MiroRegions() 
+        miro = MiroApp()
+        miro.add_playlist(reg, playlist,style="tab")
+        miro.log_result("708","test_221 - added playlist via Playlist top level tab")
+        list_loc = miro.click_playlist(reg, playlist)
         print list_loc
         rightClick(Location(list_loc))
         type(Key.DOWN)
         type(Key.ENTER)
         time.sleep(2)
         type("NEW NAME \n")
-        mirolib.click_playlist(self,reg,playlist="NEW NAME")
+        miro.click_playlist(reg, playlist="NEW NAME")
         
         
     def test_709(self):
@@ -120,18 +117,19 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         watched_feed = "TestData"
         playlist = "Johnson"
         item_list = ["Pancakes","Horizon"]
-        reg = miro_regions.MiroRegions()
-        p = mirolib.get_podcasts_region(reg)
-        mirolib.click_sidebar_tab(self,reg,"Music")
-        mirolib.tab_search(self,reg,playlist)
+        reg = MiroRegions() 
+        miro = MiroApp()
+        p = miro.get_podcasts_region(reg)
+        miro.click_sidebar_tab(reg, "Music")
+        miro.tab_search(reg, playlist)
         reg.mtb.click(Pattern("button_save_as_playlist.png"))
         time.sleep(3)
         type(Key.ENTER)
-        mirolib.click_playlist(self,reg,playlist.upper())
-        mirolib.toggle_normal(reg)
+        miro.click_playlist(reg, playlist.upper())
+        miro.toggle_normal(reg)
         
         for title in item_list:
-            mirolib.tab_search(self,reg,title,confirm_present=True)       
+            miro.tab_search(reg, title,confirm_present=True)       
          
 
 # Post the output directly to Litmus

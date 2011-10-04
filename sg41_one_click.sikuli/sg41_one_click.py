@@ -1,17 +1,11 @@
 import sys
-import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
-import config
-import mirolib 
-import miro_regions
-import testvars
 import base_testcase
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 41 - one-click subscribe tests.
@@ -27,28 +21,29 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         feed = "Ryan"
         try:
             url = "http://ryanishungry.com/subscribe/"
-            switchApp(mirolib.open_ff())
+            switchApp(miro.open_ff())
             if reg.t.exists("Firefox",45):
                 click(reg.t.getLastMatch())
-            mirolib.shortcut("l")
+            miro.shortcut("l")
             time.sleep(2)
             type(url + "\n")
             time.sleep(20)
             find(testvars.one_click_badge)
             click(testvars.one_click_badge)
             time.sleep(25)
-            mirolib.close_ff()
+            miro.close_ff()
                         
             #Start Miro    
-            mirolib.close_one_click_confirm(self)
-            mirolib.shortcut("r",shift=True)
-            mirolib.click_podcast(self,reg,feed)
+            miro.close_one_click_confirm(self)
+            miro.shortcut("r",shift=True)
+            miro.click_podcast(reg, feed)
         finally:
-            mirolib.delete_feed(self,reg,feed)
+            miro.delete_feed(reg, feed)
             
             
 
@@ -61,25 +56,26 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. Verify site added
         4. Cleanup
         """       
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
 
         
         site_url = "http://pculture.org/feeds_test/subscription-test-guide.html"
         site = "Awesome"
         site2 = "Revver"
-        mirolib.add_source_from_tab(self,reg,site_url)
-        mirolib.click_last_source(self,reg)
+        miro.add_source_from_tab(reg, site_url)
+        miro.click_last_source(reg)
         reg.t.find("Subscribe")
         reg.t.click("Subscribe")
         time.sleep(4)
-        p = mirolib.get_sources_region(reg)
+        p = miro.get_sources_region(reg)
 	if p.exists("http://rev",3) or \
            p.exists("revver",3):
             print "revver site added"
         else:
             self.fail("revver site not added to sidebar")                        
-        mirolib.delete_site(self,reg,site)
-        mirolib.delete_site(self,reg,"revver")
+        miro.delete_site(reg, site)
+        miro.delete_site(reg, "revver")
     
         
             

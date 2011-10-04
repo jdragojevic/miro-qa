@@ -1,13 +1,12 @@
 import sys
-import os
 import unittest
+import time
 from sikuli.Sikuli import *
-sys.path.append(os.path.join(os.getcwd(),'myLib'))
-import config
 import base_testcase
-from miro_regions import MiroRegions
-from miro_app import MiroApp
-from pref_general_tab import PrefGeneralTab
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
+from myLib.pref_general_tab import PrefGeneralTab
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 89 - preferences tests.
@@ -29,7 +28,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #1. open preferences
         miro.open_prefs(reg)
         prefs = PrefGeneralTab()
-        prefs.change_default_language(self, "Croatian")
+        prefs.change_default_language( "Croatian")
         miro.restart()
         
         miro.open_prefs(reg, menu="Datoteka", option="Postavke")
@@ -53,14 +52,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 ##        type(Key.TAB)
 ##        type(Key.TAB)
 ##        type(Key.ENTER)
-##        #mirolib.shortcut("w")
+##        #miro.shortcut("w")
 ##        type(Key.ESC)
 ##        #3. Restart Miro
-##        mirolib.quit_miro(self,reg)
-##        mirolib.restart_miro()
+##        miro.quit_miro(reg)
+##        miro.restart_miro()
 ##
 ##        #4. Verify Changes and reset
-##        prefs.open_prefs(self,reg,lang='hr',menu='Datoteka',option='Postavke')
+##        prefs.open_prefs(reg, lang='hr',menu='Datoteka',option='Postavke')
 ##        if p.exists("Croatian"):
 ##            click(p.getLastMatch())
 ##        else:
@@ -84,20 +83,20 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 ##           reg.s.exists("icon-video.png",3):
 ##            click(reg.s.getLastMatch())
 ##            time.sleep(3)
-##        mirolib.shortcut('q')
+##        miro.shortcut('q')
 ##        while reg.m.exists("dialog_confirm_quit.png",5):
 ##            reg.m.click("dialog_quit.png")
 ##        time.sleep(2)
-##        mirolib.restart_miro()
+##        miro.restart_miro()
 ##        self.assertTrue(exists("File"))
 ##
 ##    def test_999reset(self):
 ##        """fake test to reset db and preferences.
 ##
 ##        """
-##        mirolib.quit_miro(self)
-##        config.set_def_db_and_prefs()
-##        mirolib.restart_miro(confirm=False)
+##        miro.quit_miro()
+##        myLib.config.set_def_db_and_prefs()
+##        miro.restart_miro()
 ##        time.sleep(10) 
 
 

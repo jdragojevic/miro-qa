@@ -1,19 +1,13 @@
 import sys
-import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(mycwd)
-sys.path.append(os.path.join(mycwd,'myLib'))
 import base_testcase
-import config
-import mirolib 
-import miro_regions
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
+from myLib.pref_podcasts_tab import PrefPodcastsTab
 
-import testvars
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 6 - Feeds tests.
@@ -25,9 +19,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         This isn't a real tests and is just meant to make sure the subgroup is starting with usual preferences settings and clean sidebar.
         """
-        mirolib.quit_miro(self)
-        config.set_def_db_and_prefs()
-        mirolib.restart_miro(confirm=False)
+        miro = MiroApp()
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
+        miro.restart_miro()
         time.sleep(10)
 
         
@@ -43,10 +38,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
          4. Cleanup
         """       
         #set the search regions
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         feed = "EEVblog"
         feed2 = "TED"
-        mirolib.click_sidebar_tab(self,reg,"Miro")
+        miro.click_sidebar_tab(reg, "Miro")
         gr = Region(reg.mtb)
         gr.setH(300)
         gr.click(Pattern("guide_search.png"))
@@ -54,16 +50,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         time.sleep(5)
         reg.m.find(Pattern("add_feed.png"))
         click(reg.m.getLastMatch())
-        mirolib.click_sidebar_tab(self,reg,"Miro")
+        miro.click_sidebar_tab(reg, "Miro")
         gr.click(Pattern("guide_search.png"))
         type(feed + "\n")
         time.sleep(10)
         reg.m.find(Pattern("add_feed.png"))
         click(reg.m.getLastMatch())
         time.sleep(20)
-        mirolib.click_last_podcast(self,reg)
+        miro.click_last_podcast(reg)
         time.sleep(5)
-    #2. Copy the url and attempt to add it
+        #2. Copy the url and attempt to add it
         reg.t.click("Sidebar")
         tmpr = Region(reg.t.getLastMatch().below())
         tmpr.setW(tmpr.getW()+200)
@@ -71,16 +67,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         if tmpr.exists("Copy") or tmpr.exists("URL"):
             click(tmpr.getLastMatch())
         time.sleep(2)
-        mirolib.shortcut("n")        
+        miro.shortcut("n")        
         time.sleep(2)
         type(Key.ENTER)
 
         #3. Verify feed not duplicated
-        p = mirolib.get_podcasts_region(reg)
+        p = miro.get_podcasts_region(reg)
         time.sleep(2)
-        mirolib.count_images(self,reg, img=feed,region="sidebar",num_expected=1)
-        mirolib.delete_feed(self,reg,feed)
-        mirolib.delete_feed(self,reg,feed2)
+        miro.count_images(reg,  img=feed,region="sidebar",num_expected=1)
+        miro.delete_feed(reg, feed)
+        miro.delete_feed(reg, feed2)
         
         
         
@@ -95,40 +91,40 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
          4. Cleanup
 
         """
-        setAutoWaitTimeout(testvars.timeout)
         
         #set the search regions
-        reg = miro_regions.MiroRegions()        
+        reg = MiroRegions() 
+        miro = MiroApp()        
         url = "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi"
         feed = "my feed"
-        mirolib.add_feed(self,reg,url,feed)
-        mirolib.get_podcasts_region(reg)
+        miro.add_feed(reg, url,feed)
+        miro.get_podcasts_region(reg)
 
         
-        mirolib.tab_search(self,reg,"my feed")
-        mirolib.toggle_list(reg)
+        miro.tab_search(reg, "my feed")
+        miro.toggle_list(reg)
         
-        mirolib.count_images(self,reg,img="my feed",region="list",num_expected=5)
-        mirolib.click_podcast(self,reg,feed)
-        mirolib.shortcut("r")
+        miro.count_images(reg, img="my feed",region="list",num_expected=5)
+        miro.click_podcast(reg, feed)
+        miro.shortcut("r")
         time.sleep(10)
-        mirolib.get_podcasts_region(reg)
-        if mirolib.count_images(self,reg,img="my feed",region="list",num_expected=10) == 10:
-            mirolib.log_result("99","test_92") #verifies update podcast shortcut
-        mirolib.click_podcast(self,reg,feed)
+        miro.get_podcasts_region(reg)
+        if miro.count_images(reg, img="my feed",region="list",num_expected=10) == 10:
+            miro.log_result("99","test_92") #verifies update podcast shortcut
+        miro.click_podcast(reg, feed)
         for x in range(0,3):
-            mirolib.shortcut("r")
+            miro.shortcut("r")
             time.sleep(3)
-        mirolib.open_podcast_settings(self,reg)
-        mirolib.change_podcast_settings(self,reg,option="Podcast Items",setting="Keep 0")
+        miro.open_podcast_settings(reg)
+        miro.change_podcast_settings(reg, option="Podcast Items",setting="Keep 0")
         time.sleep(2)
-        mirolib.get_podcasts_region(reg)
-        mirolib.count_images(self,reg,img="my feed",region="list",num_expected=5)
+        miro.get_podcasts_region(reg)
+        miro.count_images(reg, img="my feed",region="list",num_expected=5)
         #4. cleanup
-        mirolib.delete_feed(self,reg,"my feed") 
+        miro.delete_feed(reg, "my feed") 
    
     def test_339(self):
-    	"""http://litmus.pculture.org/show_test.cgi?id=339 delete feed with dl items.
+        """http://litmus.pculture.org/show_test.cgi?id=339 delete feed with dl items.
 
         Litmus Test Title:: 339 - channels delete a feed with downloaded items
         Description: 
@@ -138,30 +134,31 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
 
-    	setAutoWaitTimeout(testvars.timeout)   
+        
         #set the search regions
-    	reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
 
-    	url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-    	feed = "TwoStupid"
+        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+        feed = "TwoStupid"
 
-    	#1. Add the feed and start dl
-    	mirolib.add_feed(self,reg,url,feed)
-    	time.sleep(3)
-    	mirolib.toggle_normal(reg)
-#    	mirolib.count_images(self,reg, "item-context-button.png",region="mainright",num_expected=2)
-    	mirolib.set_podcast_autodownload(self,reg,setting="All")
-    	mirolib.wait_for_item_in_tab(self,reg,"videos","Flip")
-    	mirolib.wait_for_item_in_tab(self,reg,"videos","Dinosaur")
-    	mirolib.click_podcast(self,reg,feed)
-    	type(Key.DELETE)
-    	mirolib.remove_confirm(self,reg,action="keep")
-    	mirolib.click_sidebar_tab(self,reg,"videos")
-    	mirolib.tab_search(self,reg,"Flip",confirm_present=True)
-    	mirolib.tab_search(self,reg,"Dinosaur",confirm_present=True)
-    	#4. cleanup
-    	mirolib.delete_items(self,reg,"Flip","videos")
-    	mirolib.delete_items(self,reg,"Dinosaur","videos")
+        #1. Add the feed and start dl
+        miro.add_feed(reg, url,feed)
+        time.sleep(3)
+        miro.toggle_normal(reg)
+#       miro.count_images(reg,  "item-context-button.png",region="mainright",num_expected=2)
+        miro.set_podcast_autodownload(reg, setting="All")
+        miro.wait_for_item_in_tab(reg, "videos","Flip")
+        miro.wait_for_item_in_tab(reg, "videos","Dinosaur")
+        miro.click_podcast(reg, feed)
+        type(Key.DELETE)
+        miro.remove_confirm(reg, action="keep")
+        miro.click_sidebar_tab(reg, "videos")
+        miro.tab_search(reg, "Flip",confirm_present=True)
+        miro.tab_search(reg, "Dinosaur",confirm_present=True)
+        #4. cleanup
+        miro.delete_items(reg, "Flip","videos")
+        miro.delete_items(reg, "Dinosaur","videos")
 
     def test_338(self):
         """http://litmus.pculture.org/show_test.cgi?id=338 delete feed with dl items.
@@ -172,20 +169,22 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         2. Remove the feed and verify downloads are removed.
         """
 
-        setAutoWaitTimeout(testvars.timeout)   
+      
+
         #set the search regions
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
 
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
 
         #1. Add the feed and start dl
-        mirolib.cancel_all_downloads(self,reg)
-        mirolib.add_feed(self,reg,url,feed)
-        mirolib.download_all_items(self,reg)
+        miro.cancel_all_downloads(reg)
+        miro.add_feed(reg, url,feed)
+        miro.download_all_items(reg)
         time.sleep(2)
-        mirolib.confirm_download_started(self,reg,"The Joo")
-        mirolib.delete_feed(self,reg,feed)
+        miro.confirm_download_started(reg, "The Joo")
+        miro.delete_feed(reg, feed)
         time.sleep(5)
         if reg.s.exists("Downloading",5):
             self.fail("Downloading tab still present")
@@ -202,29 +201,36 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. Delete, the cancel the delete
         4. Cleanup
         """
-        setAutoWaitTimeout(testvars.timeout)
+        
         #set the search regions
-        reg = miro_regions.MiroRegions()      
-        prefs.set_autodownload(self,reg,setting="Off")
-        prefs.set_default_view(self,reg,setting="Standard")
+        reg = MiroRegions() 
+        miro = MiroApp()
+        
+        miro.open_prefs(reg)
+        prefs = PrefPodcastsTab()
+        prefs.open_tab("Podcasts")
+        prefs.autodownload_setting("Off")
+        prefs.default_view_setting("Standard")
+        prefs.close_prefs()
+        del prefs
 
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         feedlist = ["Center", "Earth"]
 
         #1. Add the feed and start dl
-        mirolib.add_feed(self,reg,url,feed)
+        miro.add_feed(reg, url,feed)
         for f in feedlist:
-            mirolib.tab_search(self,reg,f)
+            miro.tab_search(reg, f)
             self.assertTrue(reg.m.exists("Add this"))
             reg.m.click("Add this")
             time.sleep(4)
-        mirolib.tab_search(self,reg,"")
-        mirolib.toggle_normal(reg)
+        miro.tab_search(reg, "")
+        miro.toggle_normal(reg)
 
-        p = mirolib.get_podcasts_region(reg)
-        mirolib.click_sidebar_tab(self,reg,"Music")
-        mirolib.click_podcast(self,reg,feed)            
+        p = miro.get_podcasts_region(reg)
+        miro.click_sidebar_tab(reg, "Music")
+        miro.click_podcast(reg, feed)            
         #2. Select them all
        
         keyDown(Key.SHIFT)  
@@ -240,67 +246,15 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
         else:
             self.fail("Can't find Delete All button in main view")
-        mirolib.remove_confirm(self,reg,"cancel")
-        p = mirolib.get_podcasts_region(reg)
+        miro.remove_confirm(reg, "cancel")
+        p = miro.get_podcasts_region(reg)
         time.sleep(5)
         self.assertTrue(p.exists("Static",5))
         #4. Cleanup
         feedlist.append("Static")
         for x in feedlist:
             print x
-            mirolib.delete_feed(self,reg,x)
-
-
-
-    def skiptest_120(self): ## No feed counter, this test is no longer valid.
-        """http://litmus.pculture.org/show_test.cgi?id=120 full feed counter.
-
-        Litmus Test Title:: 120 full feed counter
-        Description: 
-        Verify full feed counter accurately displays the number of items in a feed or folder.
-        1. Add 2 feeds and verify number of items
-        2. Put them in a folder
-        3. Update and verify counter
-        4. Cleanup
-        """
-        setAutoWaitTimeout(testvars.timeout)
-        #set the search regions
-        reg = miro_regions.MiroRegions()
-
-        FEEDS = {"my feed": "http://bluesock.org/~willg/cgi-bin/newitemsfeed.cgi",
-                 "recent posts": "http://blip.tv/rss?pagelen=1",
-                 }
-
-        #1. Add the feeds and check num items
-        for feed, url in FEEDS.iteritems():
-            mirolib.add_feed(self,reg,url,feed)
-            
-        #2. Select them and add to a folder    
-        try:
-            reg.s.click("my feed")
-            time.sleep(2)
-            keyDown(Key.SHIFT)
-            reg.s.click("recent posts")
-            self.assertTrue(reg.m.exists("Delete"))
-            self.assertTrue(reg.m.exists("New Folder"))
-        except:
-            self.verificationErrors.append("multi select failed")
-        finally:
-            keyUp(Key.SHIFT)
-        #3. Delete then cancel.  Verify still exists Static List
-        reg.m.click("New Folder")
-        time.sleep(2)
-        type("Counter Test \n")
-        mirolib.click_feed(self,reg,feed="Counter Test")
-        mirolib.toggle_list(reg)
-        mirolib.count_images(self,reg,img="Download",region="main",num_expected=6)
-        self.assertTrue(tmpr.exists("15 Items"))
-        mirolib.shortcut("r",shift=True)
-        time.sleep(3)
-        self.assertTrue(tmpr.exists("20 Items"))
-        #4. Cleanup
-        type(Key.DELETE)
-        mirolib.remove_confirm(self,reg,action="remove")
+            miro.delete_feed(reg, x)
 
 
     def test_641(self):
@@ -315,19 +269,33 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             5. While the podcast is downloading, right click on it and select "Remove" option.
         """
 
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         url = "http://subscribe.getmiro.com/?url1=http%3A%2F%2Fparticipatoryculture.org%2Ffeeds_test%2Ffeed1.rss"
-        prefs.set_autodownload(self,reg,setting="All")
+
+        miro.open_prefs(reg)
+        prefs = PrefPodcastsTab()
+        prefs.open_tab("Podcasts")
+        prefs.autodownload_setting("All")
+        prefs.close_prefs()
+       
+        
+        prefs.set_autodownload(reg, setting="All")
         reg.t.click("Sidebar")
         reg.t.click("Add Podcast")
         time.sleep(2)
         type(url + "\n")
         if exists("anyway",45):
             type(Key.ENTER)
-        mirolib.click_last_podcast(self, reg)
+        miro.click_last_podcast( reg)
         type(Key.DELETE)
-        mirolib.remove_confirm(self,reg,"remove")
-        prefs.set_autodownload(self,reg,setting="Off")
+        miro.remove_confirm(reg, "remove")
+        #Reset autodownload preferences
+        miro.open_prefs(reg)
+        prefs.open_tab("Podcasts")
+        prefs.autodownload_setting("Off")
+        prefs.close_prefs()
+        del prefs
 
         
 

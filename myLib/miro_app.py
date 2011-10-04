@@ -12,7 +12,7 @@ class MiroApp(object):
     """Tabs and dialogs inherit from MiroApp.
 
     """
-    def __init__(self, reg):
+    def __init__(self):
         '''
         Constructor
         '''
@@ -128,7 +128,7 @@ class MiroApp(object):
             reg.s.click(option)
             time.sleep(2)
 
-    def type_a_path(self,file_path):
+    def type_a_path(self, file_path):
         if config.get_os_name() == "osx":
             type(file_path +"\n")     
         else:
@@ -196,40 +196,40 @@ class MiroApp(object):
             return "CTRL"
 
 
-    def open_ff():
+    def open_ff(self):
         """Returns the launch path for the application.
 
         launch is an os specific command
         """
-        if config.get_os_name() == "osx":
+        if self.os_name == "osx":
             return "/Applications/Firefox.app"
-        elif config.get_os_name() == "win":
+        elif self.os_name == "win":
             return os.path.join(os.getenv("PROGRAMFILES"),"Mozilla Firefox","firefox.exe")
-        elif config.get_os_name() == "lin":
+        elif self.os_name == "lin":
             config.start_ff_on_linux()
             return "Firefox"
         else:
             print "no clue"
 
-    def browser_to_miro(self,reg,url):
+    def browser_to_miro(self, reg, url):
         """Opens the browser and copies in a url. Waits then closes the browser.
 
         This has the expectation that the browser is configured to open the url with miro, .torrent or feed item.
         """
-        myFF = App.open(open_ff())
+        myFF = App.open(self.open_ff())
         if reg.t.exists("Firefox",45):
             click(reg.t.getLastMatch())
         time.sleep(5)
-        shortcut("l")
+        self.shortcut("l")
         time.sleep(2)
         type(url + "\n")
         time.sleep(30)
         myFF.close()
         waitVanish("Firefox",10)
-        close_ff()
+        self.close_ff()
 
 
-    def close_ff():
+    def close_ff(self):
         myscreen = Screen()
         ffr = Region(myscreen.getBounds())
         ffr.setH(ffr.getH()/2)
@@ -237,14 +237,14 @@ class MiroApp(object):
             if ffr.exists("Firefox",1):
                 print "ff is here"
                 click(ffr.getLastMatch())
-                shortcut('w')
+                self.shortcut('w')
                 time.sleep(2)
             
-    def close_window():
+    def close_window(self):
         if config.get_os_name() == "win":
-            shortcut('w')
+            self.shortcut('w')
         else:
-            shortcut('q')
+            self.shortcut('q')
 
     def toggle_radio(self,button):
         
@@ -301,7 +301,7 @@ class MiroApp(object):
             else:
                 print "not sure what to do in this dialog"
         
-    def get_sources_region(reg):
+    def get_sources_region(self, reg):
         """takes the main and sidebar regions to create a region for the websites section.
         
         """
@@ -341,14 +341,12 @@ class MiroApp(object):
         PodcastsRegion.setAutoWaitTimeout(20)
         return PodcastsRegion
         
-    def get_playlists_region(reg):
+    def get_playlists_region(self, reg):
         tmps = Region(reg.s)
         tmps.setY(reg.s.getY()+75)
-        tmps.highlight(2)
         if tmps.exists("Playlists",3):
             click(tmps.getLastMatch())
         else:
-            type(Key.ESC) 
             tmps.click("Sources")
             time.sleep(2)
             tmps.click("Playlists")
@@ -365,7 +363,7 @@ class MiroApp(object):
 
         """
         
-        p = get_sources_region(reg)
+        p = self.get_sources_region(reg)
         if p.exists(site,15):
             click(p.getLastMatch())
             time.sleep(2)
@@ -409,11 +407,11 @@ class MiroApp(object):
             type(Key.DOWN)
             type(Key.ENTER)
         elif style == "shortcut":
-            shortcut('p')
+            self.shortcut('p')
         elif style == "context":  # assumes the context menu is already open on the item
             reg.m.click("Add to Playlist")
         elif style == "tab":
-            get_playlists_region(reg)
+            self.get_playlists_region(reg)
             reg.m.find("Name")
             click(reg.m.getLastMatch().right(150))
         else:
@@ -438,7 +436,7 @@ class MiroApp(object):
     def click_playlist(self, reg, playlist):
         """Find the podcast in the sidebar within podcast region and click on it.
         """
-        p = get_playlists_region(reg)
+        p = self.get_playlists_region(reg)
         time.sleep(3)
         p.find(playlist)
         click(p.getLastMatch())
@@ -471,7 +469,7 @@ class MiroApp(object):
 
         This is useful if the title isn't displayed completely or you have other chars to don't work for text recognition.
         """
-        p = get_sources_region(reg)
+        p = self.get_sources_region(reg)
         time.sleep(5)
         p.find("Stores")
         click(p.getLastMatch().above(38))
@@ -576,7 +574,7 @@ class MiroApp(object):
         p1.click("button_done.png")
 
     def click_source(self, reg, website):
-            p = get_sources_region(reg)
+            p = self.get_sources_region(reg)
             p.find(website)
             click(p.getLastMatch())
             
@@ -597,7 +595,7 @@ class MiroApp(object):
     ##        p = self.get_podcasts_region(reg)
     ##        self.assertFalse(p.exists(feed,5))
 
-    def delete_items(self, reg, title,item_type):
+    def delete_items(self, reg, title, item_type):
         """Remove video audio music other items from the library.
 
         """
@@ -607,7 +605,7 @@ class MiroApp(object):
         if reg.m.exists(title,10):
             click(reg.m.getLastMatch())
             type(Key.DELETE)
-            self(reg, "delete_item")
+            self.remove_confirm(reg, "delete_item")
 
     def delete_current_selection(self, reg):
         """Wherever you are, remove what is currently selected.
@@ -763,7 +761,7 @@ class MiroApp(object):
             else:
                 l2.click(engine)
             type("\n") #enter the search 
-            self.assertTrue(reg.mtb.exists(Pattern("button_save_as_podcast.png")),10)
+                
         else:
             type("\n")
      
@@ -895,7 +893,7 @@ class MiroApp(object):
         time.sleep(2)
         type(site_url+"\n")
         time.sleep(3)
-        p = get_sources_region(reg)
+        p = self.get_sources_region(reg)
         website = site[0:10].rstrip()
         if alt_site == None:
             p.find(website)
@@ -906,7 +904,7 @@ class MiroApp(object):
 
 
     def add_source_from_tab(self, reg, site_url):
-        p = get_sources_region(reg)
+        p = self.get_sources_region(reg)
         reg.m.find("URL")
         click(reg.m.getLastMatch().right(150))
         type(site_url+"\n")
@@ -956,7 +954,7 @@ class MiroApp(object):
 
         """
         time.sleep(5)
-        shortcut('i')
+        self.shortcut('i')
         time.sleep(2)
         click("Rating")
         f = Region(getLastMatch())
@@ -993,7 +991,7 @@ class MiroApp(object):
                          "track_of","year","about","rating","type",
                          "art","path","cancel","ok"]
         time.sleep(2)
-        shortcut('i')
+        self.shortcut('i')
         time.sleep(2)
 
         for i in (i for i,x in enumerate(metalist) if x == meta_field.lower()):
@@ -1077,7 +1075,7 @@ class MiroApp(object):
 
         """
         time.sleep(2)
-        shortcut('i')
+        self.shortcut('i')
         time.sleep(2)
         if config.get_os_name == "osx":
             reg.m.find("Path")
@@ -1092,7 +1090,7 @@ class MiroApp(object):
         else:
             for x in range(0,11):
                 type(Key.TAB)
-            shortcut('c')
+            self.shortcut('c')
             filepath = Env.getClipboard()
             type(Key.ESC) #ESC to close the dialog
         return filepath
@@ -1208,7 +1206,7 @@ class MiroApp(object):
         time.sleep(2)
         reg.tl.click("Import")
         time.sleep(2)
-        self.type_a_path(self,opml_path)
+        self.type_a_path(opml_path)
         wait("imported",15)
         type(Key.ENTER)
 
@@ -1308,7 +1306,7 @@ class MiroApp(object):
                 print "searching specific dir: ",search_path
                 dR.click("Just")
                 dR.click(Pattern("button_choose.png"))
-                type_a_path(self,search_path)
+                self.type_a_path(search_path)
                 self.click_next(dR)
                 waitVanish("parsed",300)        
         time.sleep(2)
@@ -1367,7 +1365,7 @@ class MiroApp(object):
                              })
         f.close
        
-    def handle_crash_dialog(self, db=True, test=False):
+    def handle_crash_dialog(self, test_id=None, db=True, test=False):
         """Look for the crash dialog message and submit report.
         
         """
@@ -1381,7 +1379,7 @@ class MiroApp(object):
                 time.sleep(3)
                 tmpr.find("Include")
                 click(tmpr.getLastMatch().below(120))
-                type("Sikuli Automated test crashed:" +str(self.id().split(".")[2]))
+                type("Sikuli Automated test crashed:" +str(test_id))
             finally:
                 if exists("button_submit_crash_report.png") or exists("Submit Crash"):
                     click(getLastMatch())

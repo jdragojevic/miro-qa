@@ -1,16 +1,10 @@
 from preferences_panel import PreferencesPanel
-
+from sikuli.Sikuli import *
 
 class PrefFoldersTab(PreferencesPanel):
     """Specify preferences on the Podcasts tab of the Preferences panel.
 
     """
-
-    _CHECK_FOR_NEW_CONTENT =  ["content"]
-    _AUTO-DOWNLOAD = ["Auto-download", "download"]
-    _DEFAULT_VIEW = ["view", "Default view"]
-    _REMEMBER_OLD_ITEMS = ["Remember", "old items"]
-
     _ADD_BUTTON = ["Add", Pattern('button_add.png')]
     _REMOVE_BUTTON = ["Add", Pattern('button_add.png')]
     _CHANGE_BUTTON = ["Change"]
@@ -18,21 +12,18 @@ class PrefFoldersTab(PreferencesPanel):
         
     
     def video_storage_setting(self, directory):
-        _, sr = self.preference_panel_regions()
-        self.click_element(self._CHANGE_BUTTON, sr)
+        self.click_element(self._CHANGE_BUTTON)
         self.type_a_path(self, folder)
 
     def add_watched_folder(self, folder, setting):
-        _, sr = self.preference_panel_regions()
-        self.click_element(self._ADD_BUTTON, sr)
+        self.click_element(self._ADD_BUTTON)
         self.type_a_path(self, folder)
         
         
-    def remove_watched_folder(self, folder, setting):
-        _, sr = self.preference_panel_regions()
-        wf_reg = self.find_element([folder], sr)
+    def remove_watched_folder(self, folder):
+        wf_reg = self.find_element([folder])
         click(wf_reg.getLastMatch())
-        self.click_element(self._REMOVE_BUTTON, sr)
+        self.click_element(self._REMOVE_BUTTON)
 
     def toggle_watched_folder(self, folder, setting):
         set_preference_checkbox(self, [folder], setting)

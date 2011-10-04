@@ -1,17 +1,11 @@
 import sys
-import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
-import config
-import mirolib 
-import miro_regions
-import testvars
 import base_testcase
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
 
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
@@ -25,10 +19,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         self.verificationErrors = []
         print "starting test: ",self.shortDescription()
-        config.set_image_dirs()
-        mirolib.quit_miro(self)
-        config.set_def_db_and_prefs()
-        mirolib.restart_miro(confirm=False)
+        myLib.config.set_image_dirs()
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
+        miro.restart_miro()
         time.sleep(10)
  
     def test_108(self):
@@ -43,14 +37,15 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         url_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","ShortCats.xml")
         url = "file:///"+url_path
         feed = "Short Cats"
-        reg = miro_regions.MiroRegions()
-        mirolib.add_feed(self,reg,url,feed)
-        mirolib.set_podcast_autodownload(self,reg,setting="All")
+        reg = MiroRegions() 
+        miro = MiroApp()
+        miro.add_feed(reg, url,feed)
+        miro.set_podcast_autodownload(reg, setting="All")
         time.sleep(5)
         if reg.s.exists("Downloading"):
             reg.s.waitVanish("Downloading")
-        mirolib.click_sidebar_tab(self,reg,"Videos")
-        mirolib.toggle_normal(reg)
+        miro.click_sidebar_tab(reg, "Videos")
+        miro.toggle_normal(reg)
         if reg.m.exists("item_play_unplayed.png"):
             find(Pattern("sort_name_normal.png").exact())
             doubleClick(getLastMatch().below(100))

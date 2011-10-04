@@ -1,17 +1,11 @@
 import sys
-import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
-import config
-import mirolib 
-import miro_regions
-import testvars
 import base_testcase
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
 
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
@@ -28,11 +22,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Verify item played as audio item
 
         """
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
 
         #start the download of the misc file for later delete
         item_url =  "http://www.boatingsidekicks.com/fish-detective.swf"
-        if config.get_os_name() == "osx":
+        if myLib.config.get_os_name() == "osx":
             reg.tl.click("File")
         else:
             type('f',KEY_ALT)
@@ -44,69 +39,70 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         def _delete_feed(self):
             feed_url = "stupidvideos.com/rss/rss.php?chart=new&format=yahoo"
             feed = "StupidVid"
-            mirolib.shortcut("n")
+            miro.shortcut("n")
             if reg.m.exists("URL",3):
-                mirolib.log_result("97","test_92")
+                miro.log_result("97","test_92")
             time.sleep(2)
             type(feed_url+"\n")
             time.sleep(4)
-            mirolib.delete_feed(self,reg,feed)
-            mirolib.log_result("92","delte feed shortcut verified")
+            miro.delete_feed(reg, feed)
+            miro.log_result("92","delte feed shortcut verified")
 
         def _delete_feed_folder(self):
             folder_name = "My Folder"
-            mirolib.shortcut("n",shift=True)
+            miro.shortcut("n",shift=True)
             if reg.m.exists("Folder",3):
-             mirolib.log_result("98","test_92")
+             miro.log_result("98","test_92")
             time.sleep(2)
             type(folder_name+"\n")
             time.sleep(4)
-            mirolib.delete_feed(self,reg,feed=folder_name)
-            mirolib.log_result("92","delte feed folder")
+            miro.delete_feed(reg, feed=folder_name)
+            miro.log_result("92","delte feed folder")
     
         # Add site - and delete using shortcut key
         def _delete_site(self):
             site_url =  "http://blip.tv"
             site = "blip"
-            mirolib.add_source(self,reg,site_url,site)
+            miro.add_source(reg, site_url,site)
             time.sleep(2)
-            mirolib.delete_site(self,reg,site)
-            mirolib.log_result("92","delte site shortcut verified")
+            miro.delete_site(reg, site)
+            miro.log_result("92","delte site shortcut verified")
             time.sleep(2)
             
         #Download item and with shortcut key, delete item
         def _delete_item(self):
             title = "detective"
-            mirolib.wait_for_item_in_tab(self,reg,"Misc","detective")
-            mirolib.delete_items(self,reg,title,"Misc")
-            mirolib.log_result("92","delete item shortcut verified")
+            miro.wait_for_item_in_tab(reg, "Misc","detective")
+            miro.delete_items(reg, title,"Misc")
+            miro.log_result("92","delete item shortcut verified")
             time.sleep(5)
 
         # remove playlist
         def _delete_playlist(self):
             playlist = "FAVELIST"
-            mirolib.add_playlist(self,reg,playlist,style="shortcut")
-            mirolib.log_result("723","test_92")
-            mirolib.delete_current_selection(self,reg)
+            miro.add_playlist(reg, playlist, style="shortcut")
+            miro.click_playlist(reg, playlist)
+            miro.log_result("723","test_92")
+            miro.delete_current_selection(reg)
             time.sleep(3)
             self.assertFalse(reg.s.exists(playlist))
-            mirolib.log_result("92","delete playlist shortcut verified")
+            miro.log_result("92","delete playlist shortcut verified")
     
         # remove playlist folder
         def _delete_playlist_folder(self):
-            mirolib.shortcut("p",shift=True)
+            miro.shortcut("p",shift=True)
             time.sleep(4)
             if reg.m.exists("playlist folder",3):
-                mirolib.log_result("724","test_92")
+                miro.log_result("724","test_92")
             type("SUPERPLAYS"+"\n")
             time.sleep(3)
-            p = mirolib.get_playlists_region(reg)
+            p = miro.get_playlists_region(reg)
             p.click("SUPERPLAYS")
             time.sleep(2)
-            mirolib.delete_current_selection(self,reg)
+            miro.delete_current_selection(reg)
             time.sleep(2)
             self.assertFalse(p.exists("SUPERPLAYS",3))
-            mirolib.log_result("92","delete playlist folder shortcut verified")
+            miro.log_result("92","delete playlist folder shortcut verified")
         try: 
             _delete_feed(self)
             _delete_site(self)
@@ -117,8 +113,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         except FindFailed, debugging:
             print debugging
         finally:
-            mirolib.quit_miro(self)
-            mirolib.log_result("96","test_92") #verifies quit shortcut test
+            miro.quit_miro()
+            miro.log_result("96","test_92") #verifies quit shortcut test
             
 
 

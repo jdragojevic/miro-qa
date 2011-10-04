@@ -1,18 +1,12 @@
 import sys
 import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
-import config
-import mirolib 
-import miro_regions
-import testvars
 import base_testcase
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 31 - playback tests.
@@ -27,16 +21,18 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup - just remove from Library
         """
         
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
 
         
         try:
-            vid_path = os.path.join(mycwd,"TestData","monkey.flv")
-            mirolib.shortcut('o')
-            mirolib.type_a_path(self,vid_path)
+        
+            vid_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","monkey.flv")
+            miro.shortcut('o')
+            miro.type_a_path(vid_path)
             time.sleep(3)
             self.assertTrue(exists(Pattern("playback_controls.png")))
-            mirolib.shortcut("d")
+            miro.shortcut("d")
         except FindFailed, debugging:
             self.verificationErrors.append(debugging)
         except AssertionError:

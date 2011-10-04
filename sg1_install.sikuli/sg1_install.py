@@ -1,22 +1,12 @@
 import sys
 import os
-import shutil
-import glob
 import unittest
-import StringIO
 import time
-import subprocess
 from sikuli.Sikuli import *
-
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(mycwd)
-sys.path.append(os.path.join(mycwd,'myLib'))
 import base_testcase
-import config
-import mirolib 
-import miro_regions
-
-import testvars
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 1 - Install tests - going to delete preferences and database, and video storage before running each test case.
@@ -24,12 +14,15 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """
 
     def setUp(self):
+    
+        reg = MiroRegions()
+        miro = MiroApp()
         self.verificationErrors = []
         print "starting test: ",self.shortDescription()
-        config.set_image_dirs()
-        mirolib.quit_miro(self)
-        config.set_def_db_and_prefs()
-        mirolib.restart_miro(confirm=False)
+        myLib.config.set_image_dirs()
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
+        miro.restart_miro()
         time.sleep(10)
         
 
@@ -42,19 +35,20 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         1. Clean up Miro support and vidoes directories
         2. Launch - walk through 1st tieme install dialog and search everywhere
         """
-        reg = miro_regions.MiroRegions()
-        mirolib.quit_miro(self)
-        config.delete_database_and_prefs()
-        config.delete_miro_video_storage_dir()
-        setAutoWaitTimeout(testvars.timeout)
+        reg = MiroRegions()
+        miro = MiroApp()
+        miro.quit_miro()
+        myLib.config.delete_database_and_prefs()
+        myLib.config.delete_miro_video_storage_dir()
         #set the search regions
-        mirolib.restart_miro(confirm=False)
+        miro.restart_miro()
         search_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
-        mirolib.first_time_startup_dialog(self,lang="Default",run_on_start="No",search="Yes",search_path=search_path,itunes="No")
+        miro.first_time_startup_dialog(lang="Default",run_on_start="No",search="Yes",search_path=search_path,itunes="No")
         time.sleep(10)
-        reg = miro_regions.MiroRegions()
-        mirolib.click_sidebar_tab(self,reg,"Videos")
-        mirolib.tab_search(self,reg,title="Deerhunter",confirm_present=True)
+        reg = MiroRegions()
+        miro = MiroApp()
+        miro.click_sidebar_tab(reg, "Videos")
+        miro.tab_search(reg, title="Deerhunter",confirm_present=True)
 
 
 
@@ -68,21 +62,21 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         
         
-        mirolib.quit_miro(self)
+        miro.quit_miro()
         db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","351sqlitedb")
-        config.replace_database(db)
-        setAutoWaitTimeout(testvars.timeout)
+        myLib.config.replace_database(db)
         #set the search regions
-        mirolib.restart_miro(confirm=False)
+        miro.restart_miro()
         waitVanish("Upgrading")
         waitVanish("Preparing")
         time.sleep(10)
-        mirolib.handle_crash_dialog(self,db=False,test=False)
-        reg = miro_regions.MiroRegions()
+        miro.handle_crash_dialog('5', db=False, test=False)
+        reg = MiroRegions()
+        miro = MiroApp()
         
-        mirolib.click_sidebar_tab(self,reg,"Downloading")
-        mirolib.quit_miro(self,reg)
-        config.set_def_db_and_prefs()
+        miro.click_sidebar_tab(reg, "Downloading")
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
         
 
 
@@ -95,21 +89,21 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         2. Launch miro and verify it is upgraded to current version.
         """
         
-        mirolib.quit_miro(self)
+        miro.quit_miro()
         db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","bz17556_backup80")
-        config.replace_database(db)
+        myLib.config.replace_database(db)
         time.sleep(5)
-        setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        mirolib.restart_miro(confirm=False)
+        miro.restart_miro()
         waitVanish("Upgrading")
         waitVanish("Preparing")
         time.sleep(10)
-        mirolib.quit_miro(self)
-        config.reset_preferences()
-        mirolib.restart_miro()
-        reg = miro_regions.MiroRegions()
-        mirolib.click_podcast(self,reg,"Starter")
+        miro.quit_miro()
+        myLib.config.reset_preferences()
+        miro.restart_miro()
+        reg = MiroRegions()
+        miro = MiroApp()
+        miro.click_podcast(reg, "Starter")
 
 
     def test_173(self):
@@ -121,20 +115,20 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         2. Launch - walk through 1st tieme install dialog and search everywhere
         """
         
-        mirolib.quit_miro(self)
-        config.delete_database_and_prefs()
-        config.delete_miro_video_storage_dir()
-        setAutoWaitTimeout(testvars.timeout)
+        miro.quit_miro()
+        myLib.config.delete_database_and_prefs()
+        myLib.config.delete_miro_video_storage_dir()
         #set the search regions
-        mirolib.restart_miro(confirm=False)      
+        miro.restart_miro()      
         search_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
-        mirolib.first_time_startup_dialog(self,lang="Default",run_on_start="No",search="Yes",search_path="Everywhere",itunes="No")
+        miro.first_time_startup_dialog(lang="Default",run_on_start="No",search="Yes",search_path="Everywhere",itunes="No")
         time.sleep(10)
-        reg = miro_regions.MiroRegions()
-        mirolib.click_sidebar_tab(self,reg,"Videos")
+        reg = MiroRegions()
+        miro = MiroApp()
+        miro.click_sidebar_tab(reg, "Videos")
         find(Pattern("sort_name_normal.png").exact())
         doubleClick(getLastMatch().below(100))
-        mirolib.verify_video_playback(self,reg)
+        miro.verify_video_playback(reg)
 
     
 
@@ -148,17 +142,17 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         2. Launch miro and submit crash report with db
         """
         try:
-            reg = miro_regions.MiroRegions()
-            mirolib.quit_miro(self,reg)
+            reg = MiroRegions()
+            miro = MiroApp()
+            miro.quit_miro()
             db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","corrupt_db")
-            config.replace_database(db)
-            setAutoWaitTimeout(testvars.timeout)
+            myLib.config.replace_database(db)
             #set the search regions
-            mirolib.restart_miro(confirm=False)
-            mirolib.corrupt_db_dialog(action="submit_crash",db=True)
+            miro.restart_miro()
+            miro.corrupt_db_dialog(action="submit_crash",db=True)
         finally:
-            mirolib.quit_miro(self)
-            config.set_def_db_and_prefs()
+            miro.quit_miro()
+            myLib.config.set_def_db_and_prefs()
 
 
 
@@ -171,16 +165,15 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         2. Launch miro and submit crash report with db
         """
         try:
-            mirolib.quit_miro(self)
+            miro.quit_miro()
             db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","corrupt_db")
-            config.replace_database(db)
-            setAutoWaitTimeout(testvars.timeout)
+            myLib.config.replace_database(db)
             #set the search regions
-            mirolib.restart_miro(confirm=False)
-            mirolib.corrupt_db_dialog(action="submit_crash",db=False)
+            miro.restart_miro()
+            miro.corrupt_db_dialog(action="submit_crash",db=False)
         finally:
-            mirolib.quit_miro(self)
-            config.set_def_db_and_prefs()
+            miro.quit_miro()
+            myLib.config.set_def_db_and_prefs()
         
 
     def test_88_462(self):
@@ -192,18 +185,17 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         2. Launch miro and submit crash report with db
         """
         try:
-            mirolib.quit_miro(self)
+            miro.quit_miro()
             db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","corrupt_db")
-            config.replace_database(db)
-            setAutoWaitTimeout(testvars.timeout)
+            myLib.config.replace_database(db)
             #set the search regions
-            mirolib.corrupt_db_dialog(action="quit")
+            miro.corrupt_db_dialog(action="quit")
             time.sleep(5)
-            mirolib.restart_miro(confirm=False)
-            mirolib.corrupt_db_dialog(action="start_fresh")
+            miro.restart_miro()
+            miro.corrupt_db_dialog(action="start_fresh")
         finally:
-            mirolib.quit_miro(self)
-            config.set_def_db_and_prefs()
+            miro.quit_miro()
+            myLib.config.set_def_db_and_prefs()
             
         
         
@@ -211,9 +203,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """fake test to reset db and preferences.
 
         """
-        mirolib.quit_miro(self)
-        config.set_def_db_and_prefs()
-        mirolib.restart_miro(confirm=False)
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
+        miro.restart_miro()
         
 
 if __name__ == "__main__":

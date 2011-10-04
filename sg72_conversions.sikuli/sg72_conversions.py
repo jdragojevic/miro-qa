@@ -1,19 +1,11 @@
 import sys
-import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
 import base_testcase
-import config
-import mirolib 
-import miro_regions
-
-import testvars
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
 
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
@@ -34,7 +26,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         6. Cleanup
         """
 
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         # 1. Download youtube vidoe
         vid_url = "http://www.youtube.com/watch?v=baJ43ByylbM&feature=fvw"
         item_title = "Zoom"
@@ -45,62 +38,62 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         time.sleep(2)
         type("\n")
         
-        mirolib.confirm_download_started(self,reg,item_title)
-        mirolib.wait_for_item_in_tab(self,reg,"videos",item_title)
+        miro.confirm_download_started(reg, item_title)
+        miro.wait_for_item_in_tab(reg, "videos",item_title)
         if reg.m.exists(item_title,3):
-            mirolib.log_result("9","test_620 file external download verified.")
+            miro.log_result("9","test_620 file external download verified.")
         reg.m.click(item_title)
         # 2. Convert to audio formats
         try:
             aconvertList = ("MP3","Vorbis")
             for x in aconvertList:
-                mirolib.convert_file(self,reg,x)
+                miro.convert_file(reg, x)
                 time.sleep(2)
-            mirolib.click_sidebar_tab(self,reg,"Converting")
-            mirolib.wait_conversions_complete(self,reg,item_title,x)
+            miro.click_sidebar_tab(reg, "Converting")
+            miro.wait_conversions_complete(reg, item_title,x)
             
             # 3. Verify playback
-            mirolib.click_sidebar_tab(self,reg,"music")
+            miro.click_sidebar_tab(reg, "music")
             aplaybackList = ("MP3",)
             for x in aplaybackList:
-                mirolib.tab_search(self,reg,"Converted to "+str(x),False)
+                miro.tab_search(reg, "Converted to "+str(x),False)
                 if reg.m.exists(Pattern("item_play_unplayed.png")):
                     doubleClick(reg.m.getLastMatch())
-                    mirolib.verify_audio_playback(self,reg,"Converted")
+                    miro.verify_audio_playback(reg, "Converted")
                 else:
                     self.fail("converted item not found")
         except FindFailed, debugging:
             self.verificationErrors.append(debugging)
         finally:
             while reg.m.exists(item_title,5):
-                mirolib.delete_items(self,reg,item_title,"music")
+                miro.delete_items(reg, item_title,"music")
                             
         
         # 4. Convert items to video formats
         try:
             vconvertList = ("Droid","Galaxy","G2","iPad","iPhone","MP4", "Theora","Playstation")
-            mirolib.click_sidebar_tab(self,reg,"Videos")
+            miro.click_sidebar_tab(reg, "Videos")
             reg.m.click(item_title)
             
             for x in vconvertList:
-                mirolib.convert_file(self,reg,x)
+                miro.convert_file(reg, x)
                 time.sleep(15)
-            mirolib.click_sidebar_tab(self,reg,"Converting")
-            mirolib.wait_conversions_complete(self,reg,item_title,str(x))
+            miro.click_sidebar_tab(reg, "Converting")
+            miro.wait_conversions_complete(reg, item_title,str(x))
             # 5. Verify playback
-            mirolib.click_sidebar_tab(self,reg,"Videos")
+            miro.click_sidebar_tab(reg, "Videos")
             aplaybackList = ("Droid", "iPhone", "MP4", "Ogg Theora", "Playstation")
             for x in aplaybackList:
-                mirolib.tab_search(self,reg,"Converted to "+str(x))
+                miro.tab_search(reg, "Converted to "+str(x))
                 if reg.m.exists("item_play_unplayed.png"):
                     doubleClick(reg.m.getLastMatch())
                     find(Pattern("playback_bar_video.png"))
-                    mirolib.shortcut("d")
+                    miro.shortcut("d")
                     waitVanish(Pattern("playback_bar_video.png"),20)
-                    mirolib.log_result("102","test_620 stop video playback verified.")
+                    miro.log_result("102","test_620 stop video playback verified.")
                     time.sleep(2)
                     type(Key.DELETE)
-                    mirolib.remove_confirm(self,reg,"remove")     
+                    miro.remove_confirm(reg, "remove")     
                     time.sleep(3)
                 else: self.fail("converted item not found")
         except FindFailed, debugging:
@@ -109,9 +102,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             while reg.m.exists("Converted to",3):
                 click(reg.m.getLastMatch())
                 type(Key.DELETE)
-                mirolib.remove_confirm(self,reg,"remove")  
+                miro.remove_confirm(reg, "remove")  
         # 6. Cleanup
-        mirolib.delete_items(self,reg,item_title,"Videos")
+        miro.delete_items(reg, item_title,"Videos")
         
             
 # Post the output directly to Litmus

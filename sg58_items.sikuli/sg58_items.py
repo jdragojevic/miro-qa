@@ -1,19 +1,15 @@
-# -*- coding: utf-8 -*-
 import sys
-import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
-import config
-import mirolib 
-import miro_regions
-
-import testvars
 import base_testcase
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
+from myLib.pref_podcasts_tab import PrefPodcastsTab
+from myLib.pref_general_tab import PrefGeneralTab
+
+
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 58 - Items.
@@ -24,11 +20,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     def setUp(self):
         self.verificationErrors = []
         print "starting test: ",self.shortDescription()
-        config.set_image_dirs()
-        mirolib.quit_miro(self)
-        config.set_def_db_and_prefs()
-        config.delete_miro_video_storage_dir()
-        mirolib.restart_miro(confirm=False)
+        reg = MiroRegions() 
+        miro = MiroApp()
+        myLib.config.set_image_dirs()
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
+        myLib.config.delete_miro_video_storage_dir()
+        miro.restart_miro()
         time.sleep(10)
 
     def test_361(self):
@@ -40,7 +38,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Verify item played as audio item
 
         """
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
@@ -49,32 +48,36 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         
 
-        #Set Global Preferences        
-        prefs.set_item_display(self,reg,option="audio",setting="on")
-        time.sleep(2)
-        prefs.set_item_display(self,reg,option="video",setting="on")
-        time.sleep(2)
-        prefs.set_autodownload(self,reg,setting="Off")
-        time.sleep(2)
+        #Set Global Preferences
+        miro.open_prefs(reg)
+        prefs = PrefGeneralTab()
+        prefs.show_audio_in_music("on")
+        prefs.show_videos_in_videos("on")
+        del prefs
+        prefs = PrefPodcastsTab()
+        prefs.open_tab("Podcasts")
+        prefs.autodownload_setting("Off")
+        prefs.close_prefs()
+        del prefs
         #start clean
-        mirolib.delete_feed(self,reg,feed)
+        miro.delete_feed(reg, feed)
         #add feed and download joo joo item
-        mirolib.add_feed(self,reg,url,feed)
-        mirolib.tab_search(self,reg,title)
+        miro.add_feed(reg, url,feed)
+        miro.tab_search(reg, title)
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
-        mirolib.wait_for_item_in_tab(self,reg,"Videos",item=title)
+        miro.wait_for_item_in_tab(reg, "Videos",item=title)
         reg.m.click(title)
-        mirolib.click_sidebar_tab(self,reg,"Videos") #stupid workaround for bug, not recognizing selected item after search.
+        miro.click_sidebar_tab(reg, "Videos") #stupid workaround for bug, not recognizing selected item after search.
         time.sleep(2)
-        mirolib.edit_item_type(self,reg,new_type)
+        miro.edit_item_type(reg, new_type)
         #locate item in audio tab and verify playback
-        mirolib.wait_for_item_in_tab(self,reg,tab="Music",item=title)
+        miro.wait_for_item_in_tab(reg, tab="Music",item=title)
         doubleClick(reg.m.getLastMatch())
-        mirolib.verify_audio_playback(self,reg,title)
+        miro.verify_audio_playback(reg, title)
        
         #cleanup
-        mirolib.delete_feed(self,reg,feed)
+        miro.delete_feed(reg, feed)
 
 
     def test_362(self):
@@ -86,7 +89,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Verify item played as video item
 
         """
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -94,33 +98,36 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title = "Mushroom"
         new_type = "Video"
         #Set Global Preferences
-        mirolib.delete_feed(self,reg,feed)
-        prefs.set_item_display(self,reg,option="audio",setting="on")
-        time.sleep(2)
-        prefs.set_item_display(self,reg,option="video",setting="on")
-        time.sleep(2)
-        prefs.set_autodownload(self,reg,setting="Off")
-        time.sleep(2)
+        miro.open_prefs(reg)
+        prefs = PrefGeneralTab()
+        prefs.show_audio_in_music("on")
+        prefs.show_videos_in_videos("on")
+        del prefs
+        prefs = PrefPodcastsTab()
+        prefs.open_tab("Podcasts")
+        prefs.autodownload_setting("Off")
+        prefs.close_prefs()
+        del prefs
 
         
         #add feed and download joo joo item
-        mirolib.add_feed(self,reg,url,feed)
-        mirolib.tab_search(self,reg,term)
+        miro.add_feed(reg, url,feed)
+        miro.tab_search(reg, term)
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
-        mirolib.wait_for_item_in_tab(self,reg,"Music",item=title)
+        miro.wait_for_item_in_tab(reg, "Music",item=title)
         reg.m.click(title)
-        mirolib.click_sidebar_tab(self,reg,"Music") #stupid workaround for bug, not recognizing selected item after search.
-        mirolib.edit_item_type(self,reg,new_type)
+        miro.click_sidebar_tab(reg, "Music") #stupid workaround for bug, not recognizing selected item after search.
+        miro.edit_item_type(reg, new_type)
         #locate item in audio tab and verify playback
-        mirolib.wait_for_item_in_tab(self,reg,tab="Video",item=title)
+        miro.wait_for_item_in_tab(reg, tab="Video",item=title)
         doubleClick(reg.m.getLastMatch())
-        mirolib.verify_video_playback(self,reg)
-        mirolib.quit_miro(self,reg)
-        mirolib.restart_miro()
-        mirolib.wait_for_item_in_tab(self,reg,tab="Video",item=title)
+        miro.verify_video_playback(reg)
+        miro.quit_miro(reg)
+        miro.restart_miro()
+        miro.wait_for_item_in_tab(reg, tab="Video",item=title)
         #cleanup
-        mirolib.delete_feed(self,reg,feed)
+        miro.delete_feed(reg, feed)
 
 
 
@@ -133,7 +140,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Verify item played as audio item
 
         """
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -141,24 +149,29 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title = "Mushroom" # item title updates when download completes
         new_type = "Video"
         #Set Global Preferences
-        prefs.set_item_display(self,reg,option="audio",setting="on")
-        time.sleep(2)
-        mirolib.delete_feed(self,reg,feed)
+        miro.open_prefs(reg)
+        prefs = PrefGeneralTab()
+        prefs.show_audio_in_music("on")
+        prefs.close_prefs()
+        del prefs
+
+        
+        miro.delete_feed(reg, feed)
         
         #add feed and download earth eats item
-        mirolib.add_feed(self,reg,url,feed)
-        mirolib.toggle_normal(reg)
-        mirolib.tab_search(self,reg,title=term)
+        miro.add_feed(reg, url,feed)
+        miro.toggle_normal(reg)
+        miro.tab_search(reg, title=term)
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
-        mirolib.wait_for_item_in_tab(self,reg,"Music",item=title)
+        miro.wait_for_item_in_tab(reg, "Music",item=title)
         reg.m.click(title)
-        mirolib.click_sidebar_tab(self,reg,"Music") #stupid workaround for bug, not recognizing selected item after search.
-        mirolib.edit_item_metadata(self,reg,meta_field="about",meta_value="hoovercraft full of eels")
-        mirolib.tab_search(self,reg,"hoovercraft eels")
+        miro.click_sidebar_tab(reg, "Music") #stupid workaround for bug, not recognizing selected item after search.
+        miro.edit_item_metadata(reg, meta_field="about",meta_value="hoovercraft full of eels")
+        miro.tab_search(reg, "hoovercraft eels")
         if not reg.m.exists(title):
             self.fail("can not verify description edited")
-        mirolib.delete_feed(self,reg,feed)
+        miro.delete_feed(reg, feed)
         
 
     def test_364(self):
@@ -170,14 +183,18 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. cleanup
 
         """
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         time.sleep(5)
         url = "http://vimeo.com/moogaloop_local.swf?clip_id=7335370&server=vimeo.com"
         title = "local"
         #Set Global Preferences
-        prefs.set_item_display(self,reg,option="video",setting="on")
-        time.sleep(2)
-        mirolib.cancel_all_downloads(self,reg)
+        miro.open_prefs(reg)
+        prefs = PrefGeneralTab()
+        prefs.show_videos_in_videos("on")
+        prefs.close_prefs()
+        del prefs
+        miro.cancel_all_downloads(reg)
         reg.tl.click("File")
         reg.tl.click("Download from")
         time.sleep(4)
@@ -188,7 +205,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             print "item dl started"
             reg.s.waitVanish("Downloading",120)
             time.sleep(5)
-        mirolib.wait_for_item_in_tab(self,reg,tab="Misc",item=title)
+        miro.wait_for_item_in_tab(reg, tab="Misc",item=title)
         x = reg.m.find(title)
         click(x)
         reg.s.find("Music")
@@ -201,10 +218,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         click(y)
         if reg.m.exists(title):
             doubleClick(reg.m.getLastMatch())
-            mirolib.verify_video_playback(self,reg)
-            mirolib.delete_items(self,reg,title,"Videos")
+            miro.verify_video_playback(reg)
+            miro.delete_items(reg, title,"Videos")
         else:
-            mirolib.delete_items(self,reg,title,"Videos")
+            miro.delete_items(reg, title,"Videos")
             self.fail("item not found in videos tab")
 
 
@@ -217,28 +234,29 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TwoStupid"
         title = "Flip" # item title updates when download completes
              
         #add feed and download flip face item
-        mirolib.add_feed(self,reg,url,feed)
-        mirolib.toggle_normal(reg)
-        mirolib.tab_search(self,reg,title)
+        miro.add_feed(reg, url,feed)
+        miro.toggle_normal(reg)
+        miro.tab_search(reg, title)
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
-        mirolib.wait_for_item_in_tab(self,reg,"Videos",item=title)
+        miro.wait_for_item_in_tab(reg, "Videos",item=title)
         reg.m.click(title)
-        mirolib.edit_item_metadata(self,reg,meta_field="about",meta_value="Blank description edited")
-        mirolib.tab_search(self,reg,"blank description")
+        miro.edit_item_metadata(reg, meta_field="about",meta_value="Blank description edited")
+        miro.tab_search(reg, "blank description")
         if reg.m.exists(title):
-            mirolib.log_result("656","test_458")           
+            miro.log_result("656","test_458")           
         else:
-            mirolib.log_result("656","test_458",status="fail")
+            miro.log_result("656","test_458",status="fail")
         #cleanup
-        mirolib.delete_feed(self,reg,feed)
+        miro.delete_feed(reg, feed)
 
 
 
@@ -252,60 +270,66 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. verify varios item click scenerios
 
         """
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
         title1 = "The Joo"
         title2 = "York"
         title3 = "Accessing"
-        mirolib.delete_feed(self,reg,feed)
-        
-        prefs.set_autodownload(self,reg,setting="Off")
-        time.sleep(2)
-        prefs.set_default_view(self,reg,setting="Standard")
+        miro.delete_feed(reg, feed)
+
+        miro.open_prefs(reg)
+        prefs = PrefPodcastsTab()
+        prefs.open_tab("Podcasts")
+        prefs.autodownload_setting("Off")
+        prefs.default_view_setting("Standard")
+        prefs.close_prefs()
+        del prefs
+
 
         #add feed and download joo joo item
-        mirolib.add_feed(self,reg,url,feed)
-        mirolib.tab_search(self,reg,title1)
+        miro.add_feed(reg, url,feed)
+        miro.tab_search(reg, title1)
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
 
-        mirolib.click_podcast(self,reg,feed)
-        mirolib.tab_search(self,reg,title2,confirm_present=True)
+        miro.click_podcast(reg, feed)
+        miro.tab_search(reg, title2,confirm_present=True)
 
         #double-click starts download
         doubleClick(title2)
-        if mirolib.confirm_download_started(self,reg,title=title2) == "in_progress":
-            mirolib.log_result("122","normal view double-click starts download")
+        if miro.confirm_download_started(reg, title=title2) == "in_progress":
+            miro.log_result("122","normal view double-click starts download")
         else:
             self.fail("normal view double-click starts download, failed")
         #double-click pauses download
-        mirolib.click_podcast(self,reg,feed)
+        miro.click_podcast(reg, feed)
         doubleClick(title2)
         if exists("item-renderer-download-resume.png"):
-            mirolib.log_result("122","normal view double-click pauses download")
+            miro.log_result("122","normal view double-click pauses download")
         else:
             self.fail("normal view double-click pause download, failed")
         #double-click resumes download
         doubleClick(title2)
         if exists("item-renderer-download-pause.png"):
-            mirolib.log_result("122","normal view double-click resume download")
+            miro.log_result("122","normal view double-click resume download")
         else:
             self.fail("normal view double-click resume download, failed")
         #double-click starts playback
-        mirolib.wait_for_item_in_tab(self,reg,tab="Videos",item=title1)
-        mirolib.click_podcast(self,reg,feed)
-        mirolib.tab_search(self,reg,title1)
+        miro.wait_for_item_in_tab(reg, tab="Videos",item=title1)
+        miro.click_podcast(reg, feed)
+        miro.tab_search(reg, title1)
         doubleClick(title1)
         if exists(Pattern("playback_bar_video.png")):
-            mirolib.log_result("122","normal view double-click starts playback")
+            miro.log_result("122","normal view double-click starts playback")
         else:
             self.fail("normal view double-click start playback, failed")
-        mirolib.verify_video_playback(self,reg)
+        miro.verify_video_playback(reg)
 
         #single click thumb starts download
-        mirolib.tab_search(self,reg,title3)
+        miro.tab_search(reg, title3)
         if reg.m.exists("thumb-default-video.png"):
             print "using default thumb"
             click(reg.m.getLastMatch())
@@ -313,13 +337,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             print "can't find thumb, best guess"
             reg.m.find(title1)
             click(reg.m.getLastMatch().left(50))
-        if mirolib.confirm_download_started(self,reg,title=title3) == "in_progress":
-            mirolib.log_result("122","normal view click starts download")
+        if miro.confirm_download_started(reg, title=title3) == "in_progress":
+            miro.log_result("122","normal view click starts download")
         else:
             self.fail("normal view double-click starts download, failed")
         #single click thumb starts playback
-        mirolib.click_podcast(self,reg,feed)
-        mirolib.tab_search(self,reg,title1)
+        miro.click_podcast(reg, feed)
+        miro.tab_search(reg, title1)
         if reg.m.exists("thumb-default-video.png"):
             print "using default thumb"
             click(reg.m.getLastMatch())
@@ -331,12 +355,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             reg.m.find(title1)
             click(reg.m.getLastMatch().left(50))
         if exists("playback_bar_video.png"):
-            mirolib.log_result("122","normal view double-click starts playback")
+            miro.log_result("122","normal view double-click starts playback")
         else:
             self.fail("normal view double-click start playback, failed")
-        mirolib.verify_video_playback(self,reg)   
+        miro.verify_video_playback(reg)   
         #cleanup
-        mirolib.delete_feed(self,reg,feed)
+        miro.delete_feed(reg, feed)
 
 
 
@@ -351,7 +375,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
        
 
         """
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         
         time.sleep(5)
         url = "http://participatoryculture.org/feeds_test/feed1.rss"
@@ -364,19 +389,19 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                      " ":"password",
                      "username": " "
                      }
-        mirolib.remove_http_auth_file(self,reg)
+        miro.remove_http_auth_file(reg)
         #add feed and download 4th item
-        mirolib.add_feed(self,reg,url,feed)
-        mirolib.tab_search(self,reg,term)
+        miro.add_feed(reg, url,feed)
+        miro.tab_search(reg, term)
         reg.m.click("button_download.png")
         for username, passw in BAD_PASSW.iteritems():
-            mirolib.http_auth(self,reg,username,passw)
-        mirolib.http_auth(self,reg,username="tester", passw="pcfdudes")
+            miro.http_auth(reg, username,passw)
+        miro.http_auth(reg, username="tester", passw="pcfdudes")
         time.sleep(5)
-        mirolib.confirm_download_started(self,reg,title)
+        miro.confirm_download_started(reg, title)
         #cleanup
-        mirolib.delete_feed(self,reg,feed)
-        if mirolib.remove_http_auth_file(self,reg) == False:
+        miro.delete_feed(reg, feed)
+        if miro.remove_http_auth_file(reg) == False:
             self.fail("auth file not saved on filesystem")
         
         

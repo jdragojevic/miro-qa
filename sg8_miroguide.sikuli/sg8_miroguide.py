@@ -1,19 +1,11 @@
 import sys
-import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
 import base_testcase
-import config
-import mirolib 
-import miro_regions
-import testvars
-
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 41 - one-click subscribe tests.
@@ -32,12 +24,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         pass
         
         #set the search regions
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         feed = "Studio"
         search = "Studio sketch"
  
         try:
-            mirolib.click_sidebar_tab(self,reg,"Miro")
+            miro.click_sidebar_tab(reg, "Miro")
             time.sleep(5)
             gr = Region(reg.mtb)
             gr.setH(300)
@@ -47,11 +40,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             reg.m.find(Pattern("add_feed.png"))
             click(reg.m.getLastMatch())
             time.sleep(5)
-            mirolib.click_podcast(self,reg,feed)
+            miro.click_podcast(reg, feed)
                         
         finally:
             #4. cleanup
-            mirolib.delete_feed(self,reg,feed) 
+            miro.delete_feed(reg, feed) 
 
     
 # Post the output directly to Litmus

@@ -2,7 +2,7 @@
 
 import time
 from sikuli.Sikuli import *
-from miro_app import MiroApp
+import config
 
 class PreferencesPanel(object):
 
@@ -27,6 +27,7 @@ class PreferencesPanel(object):
     _OPTION_LEFT_SIDE = Pattern("prefs_option_left_side.png")
     
     def __init__(self):
+        self.os_name = config.get_os_name()
         PREF_HEADING = Pattern("pref_heading.png")
         
         def preference_panel_regions():
@@ -39,6 +40,7 @@ class PreferencesPanel(object):
             heading.setAutoWaitTimeout(10)
             settings = Region(heading.below())
             settings.setAutoWaitTimeout(10)
+            print settings
             return (heading, settings)
         
 
@@ -157,8 +159,8 @@ class PreferencesPanel(object):
             rmy = 0
             rmh = sr.getH()
         else:
-            rmy = menu_pos.getY() - yoffset
-            rmh = yoffset*2+10
+            rmy = menu_pos.getY() - int(yoffset)
+            rmh = int(yoffset)*2+10
             
         mr = Region(rmx, rmy, menu_width, rmh)
         mr.setAutoWaitTimeout(5)

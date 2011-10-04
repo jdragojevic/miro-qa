@@ -1,18 +1,13 @@
 import sys
-import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
-import config
 import base_testcase
-import mirolib 
-import miro_regions
-import testvars
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
+from myLib.pref_podcasts_tab import PrefPodcastsTab
+
 
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
@@ -29,14 +24,15 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
        
         setAutoWaitTimeout(60)
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
 
         SEARCHES = {"blip": 'octopus', "YouTube": 'cosmicomics'}
         for engine, term in SEARCHES.iteritems():
-            mirolib.click_sidebar_tab(self,reg,"Search")
-            mirolib.search_tab_search(self,reg,term,engine)
-            mirolib.click_sidebar_tab(self,reg,"Videos")
-            mirolib.click_sidebar_tab(self,reg,"Search")
+            miro.click_sidebar_tab(reg, "Search")
+            miro.search_tab_search(reg, term,engine)
+            miro.click_sidebar_tab(reg, "Videos")
+            miro.click_sidebar_tab(reg, "Search")
             self.assertTrue(reg.mtb.exists(term.upper()))
 
 
@@ -50,33 +46,42 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         setAutoWaitTimeout(60)
-        reg = miro_regions.MiroRegions()
-        prefs.set_autodownload(self,reg,setting="Off")
+        reg = MiroRegions() 
+        miro = MiroApp()
+        
+        #Set Global Preferences
+        miro.open_prefs(reg)
+        prefs = PrefPodcastsTab()
+        prefs.open_tab("Podcasts")
+        prefs.autodownload_setting("Off")
+        prefs.close_prefs()
+        del prefs
+        
 
         searches = {"blip": "python", "YouTube": "cosmicomics", "Revver": "Beiber", "Yahoo": "Canada", "DailyMotion": "Russia", "Metavid": "africa", "Mininova": "Creative Commons", "Video": "Toronto"}
         for engine, term in searches.iteritems():
-            mirolib.click_sidebar_tab(self,reg,"search")
-            mirolib.search_tab_search(self,reg,term,engine)
+            miro.click_sidebar_tab(reg, "search")
+            miro.search_tab_search(reg, term,engine)
             reg.mtb.click("button_save_as_podcast.png")
             if engine == "blip":
                 saved_search = engine
             else:
                 saved_search = engine +" for"
             time.sleep(10) #give some time for everything to load up
-            mirolib.click_podcast(self,reg,saved_search)
-            mirolib.shortcut("r")
+            miro.click_podcast(reg, saved_search)
+            miro.shortcut("r")
             
-        mirolib.get_podcasts_region(reg)
+        miro.get_podcasts_region(reg)
         
         for k,v in searches.iteritems():
-            mirolib.tab_search(self,reg,v)
+            miro.tab_search(reg, v)
             try:
                 self.assertTrue(reg.m.exists(k))
             except:
-                 mirolib.log_result("322","test 322, failed for " +k+": "+v,status="fail")
+                 miro.log_result("322","test 322, failed for " +k+": "+v,status="fail")
         #cleanup
         for x in searches.keys():
-            mirolib.delete_feed(self,reg,x)
+            miro.delete_feed(reg, x)
 
 
     def test_80(self):
@@ -89,18 +94,19 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         5.In the warning dialog - click Yes.
         """
 
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         source = "http://www.ubu.com"
         term =  "mp3"
         search_term = "Gertrude"
         radio = "URL"
-        mirolib.new_search_feed(self,reg,term,radio,source,defaults=False,watched=False)
+        miro.new_search_feed(reg, term,radio,source,defaults=False,watched=False)
         if exists("compatible",45):
             type(Key.ENTER)
         time.sleep(30)  # scraping takes a while - need to wait before confirming element present.
-        mirolib.click_sidebar_tab(self,reg,"Podcasts")
-        mirolib.tab_search(self,reg,search_term,confirm_present=True)
-        mirolib.delete_feed(self,reg,term)  
+        miro.click_sidebar_tab(reg, "Podcasts")
+        miro.tab_search(reg, search_term,confirm_present=True)
+        miro.delete_feed(reg, term)  
 
 
     def test_79(self):
@@ -114,27 +120,37 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         5.  Select Create Podcast
         """
 
-        reg = miro_regions.MiroRegions()
-        prefs.set_autodownload(self,reg,setting="Off")
+        reg = MiroRegions() 
+        miro = MiroApp()
+
+        #Set Global Preferences
+        miro.open_prefs(reg)
+        prefs = PrefPodcastsTab()
+        prefs.open_tab("Podcasts")
+        prefs.autodownload_setting("Off")
+        prefs.close_prefs()
+        del prefs
+
+        
         searches = { "Yahoo": "Canada", "DailyMotion": "Ontario", "YouTube": "toronto"}
         radio = "Search"
         for source, term in searches.iteritems():
-            mirolib.new_search_feed(self,reg,term,radio,source,defaults=False,watched=False)
+            miro.new_search_feed(reg, term,radio,source,defaults=False,watched=False)
             time.sleep(10) #give some time for everything to load up
-            mirolib.click_podcast(self,reg,source)
+            miro.click_podcast(reg, source)
 
         #FIXME verify feed has items
-        mirolib.get_podcasts_region(reg)
+        miro.get_podcasts_region(reg)
         for k,v in searches.iteritems():
-            mirolib.tab_search(self,reg,v)
+            miro.tab_search(reg, v)
             try:
                 self.assertTrue(reg.m.exists(k))
             except:
-                 mirolib.log_result("79","test_79, failed for " +k+": "+v,status="fail")
+                 miro.log_result("79","test_79, failed for " +k+": "+v,status="fail")
         
         #cleanup
         for x in searches.keys():
-            mirolib.delete_feed(self,reg,x)
+            miro.delete_feed(reg, x)
    
 # Post the output directly to Litmus
 if __name__ == "__main__":

@@ -1,17 +1,11 @@
 import sys
-import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(os.path.join(os.getcwd(),'myLib'))
 import base_testcase
-import config
-import mirolib 
-import miro_regions
-import testvars
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
 
 
 
@@ -21,9 +15,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """
 
     def test_001setup(self):
-        mirolib.quit_miro(self)
-        config.set_def_db_and_prefs()
-        mirolib.restart_miro(confirm=False)
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
+        miro.restart_miro()
         time.sleep(10)
 
     def test_419(self):
@@ -35,7 +29,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions()
+        miro = MiroApp()
         
         item_url = "http://youtorrent.com/download/7379834/young-broke-and-fameless-the-mixtape.torrent"
         item_title = "Fameless"
@@ -44,12 +39,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         time.sleep(5)
         type(item_url+"\n")
         print ("confirm download started")
-        status = mirolib.confirm_download_started(self,reg,item_title)
+        status = miro.confirm_download_started(reg, item_title)
         print status
         if status == "downloaded":
-            mirolib.delete_items(self,reg,item_title,"Misc")
+            miro.delete_items(reg, item_title,"Misc")
         elif status == "in_progress":
-            mirolib.delete_items(self,reg,item_title,"Downloading")
+            miro.delete_items(reg, item_title,"Downloading")
         else:
             self.fail("Can not confirm download started")
 
@@ -62,18 +57,19 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
 
         """
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions()
+        miro = MiroApp()
         
         url = "http://www.clearbits.net/get/993-wurlitztraction---lucidity-cue.torrent"
         item_title = "Enough"
-        mirolib.browser_to_miro(self,reg,url)
+        miro.browser_to_miro(reg, url)
         print ("confirm download started")
-        status = mirolib.confirm_download_started(self,reg,item_title)
+        status = miro.confirm_download_started(reg, item_title)
         print status
         if status == "downloaded":
-            mirolib.delete_items(self,reg,item_title,"Misc")
+            miro.delete_items(reg, item_title,"Misc")
         elif status == "in_progress":
-            mirolib.delete_items(self,reg,item_title,"Downloading")
+            miro.delete_items(reg, item_title,"Downloading")
         else:
             self.fail("Can not confirm download started")
 

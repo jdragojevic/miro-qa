@@ -1,19 +1,11 @@
 import sys
-import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
 import base_testcase
-import config
-import mirolib 
-import miro_regions
-
-import testvars
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 40 - Feeds folders.
@@ -25,9 +17,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         This isn't a real tests and is just meant to make sure the subgroup is starting with usual preferences settings and clean sidebar.
         """
-        mirolib.quit_miro(self)
-        config.set_def_db_and_prefs()
-        mirolib.restart_miro(confirm=False)
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
+        miro.restart_miro()
         time.sleep(10)
         
 
@@ -43,8 +35,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        reg = miro_regions.MiroRegions()
-        mirolib.delete_all_podcasts(self,reg)
+        reg = MiroRegions() 
+        miro = MiroApp()
+        miro.delete_all_podcasts(reg)
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test.opml")
         opml_path2 = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test2.opml")
         feed_list =  ["Google", "Onion","two ronnies","Vimeo"]
@@ -52,20 +45,20 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         new_folder = "multi folder"
 
         #1. Add the feeds 
-        mirolib.import_opml(self,reg,opml_path)
+        miro.import_opml(reg, opml_path)
         time.sleep(15) #give a chance to add and update
-        mirolib.import_opml(self,reg,opml_path2)
+        miro.import_opml(reg, opml_path2)
         time.sleep(15) #give a chance to add and update
    
         
         #expand all the folders
-        mirolib.expand_feed_folder(self,reg,"GEEKY")
-        mirolib.expand_feed_folder(self,reg,"FUN")
+        miro.expand_feed_folder(reg, "GEEKY")
+        miro.expand_feed_folder(reg, "FUN")
         #set the feeds region
-        p = mirolib.get_podcasts_region(reg)
+        p = miro.get_podcasts_region(reg)
         #select multiple feeds for the folders
         p.click("Birchbox")
-        added_feeds = mirolib.multi_select(self,region=p,item_list=feed_list)
+        added_feeds = miro.multi_select(region=p,item_list=feed_list)
         if len(added_feeds) > 0:
             added_feeds.append("Birchbox")
         else:
@@ -75,16 +68,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         time.sleep(2)
         type(new_folder + "\n")
         time.sleep(5)
-        feed_match = mirolib.click_podcast(self,reg,new_folder)
+        feed_match = miro.click_podcast(reg, new_folder)
         rightClick(Location(feed_match))
         if exists("Update",2):
             click(getLastMatch())
         
         
         for feed in added_feeds:
-            mirolib.tab_search(self,reg,title=feed,confirm_present=True)
+            miro.tab_search(reg, title=feed,confirm_present=True)
         #cleanup
-        mirolib.delete_all_podcasts(self,reg)
+        miro.delete_all_podcasts(reg)
         
 
 
@@ -102,18 +95,19 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        reg = miro_regions.MiroRegions()
-        mirolib.delete_all_podcasts(self,reg)
+        reg = MiroRegions() 
+        miro = MiroApp()
+        miro.delete_all_podcasts(reg)
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test.opml")
         feed = "Featured"
         folder = "GEEKY"
         feedlist = ["Google", "Make","GEEKY","Featured"]
 
         #1. Add the feeds 
-        mirolib.import_opml(self,reg,opml_path)
+        miro.import_opml(reg, opml_path)
    
-        p = mirolib.get_podcasts_region(reg)
-        mirolib.click_podcast(self,reg,feed)            
+        p = miro.get_podcasts_region(reg)
+        miro.click_podcast(reg, feed)            
         #2. Select the folder too
         keyDown(Key.SHIFT)
         p.click(folder)
@@ -121,15 +115,15 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #3. Delete then cancel.  Verify still exists Static List
         type(Key.DELETE)
         for x in feedlist:
-            mirolib.count_images(self,reg,img=x,region="main",num_expected=1)             
+            miro.count_images(reg, img=x,region="main",num_expected=1)             
         type(Key.ENTER)
         time.sleep(2)
         #4. Cleanup
-        mirolib.delete_all_podcasts(self,reg)
-        p = mirolib.get_podcasts_region(reg)
+        miro.delete_all_podcasts(reg)
+        p = miro.get_podcasts_region(reg)
         for x in feedlist:
             if not p.exists(x):
-                mirolib.log_result("202","test_722")
+                miro.log_result("202","test_722")
         
 
     def test_196(self):
@@ -145,14 +139,15 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
         folder = "GREAT STUFF"        
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         reg.t.click("Sidebar")
         reg.t.click("Folder")
         time.sleep(2)
         type(folder + "\n")
         time.sleep(10) #give it 10 seconds to add the folder
-        mirolib.click_podcast(self,reg,folder)       
-        mirolib.delete_feed(self,reg,"GREAT")
+        miro.click_podcast(reg, folder)       
+        miro.delete_feed(reg, "GREAT")
 
 
 
@@ -168,32 +163,33 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        mirolib.quit_miro(self)
-        config.set_def_db_and_prefs()
-        mirolib.restart_miro(confirm=False)
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
+        miro.restart_miro()
         time.sleep(10)
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
 
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test2.opml")
         folder = "Best Feeds"
         feedlist = ["Vimeo", "BirchboxTV"]
 
         #1. Add the feeds 
-        mirolib.import_opml(self,reg,opml_path)
-        p = mirolib.get_podcasts_region(reg)
+        miro.import_opml(reg, opml_path)
+        p = miro.get_podcasts_region(reg)
         for feed in feedlist:
             x = p.find(feed)
             y = p.find(folder)
             dragDrop(x,y)
             time.sleep(2)
-        feed_match = mirolib.click_podcast(self,reg,folder)
+        feed_match = miro.click_podcast(reg, folder)
         rightClick(Location(feed_match))
         if exists("Update",2):
             click(getLastMatch())
         for feed in feedlist:
-            mirolib.tab_search(self,reg,title=feed,confirm_present=True)
+            miro.tab_search(reg, title=feed,confirm_present=True)
         #cleanup
-        mirolib.delete_all_podcasts(self,reg)
+        miro.delete_all_podcasts(reg)
             
 
     def test_198(self):
@@ -212,21 +208,22 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         new_name1 = "INCREDIBLE"
         new_name2 = "ThisSux"
         
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
         reg.t.click("Sidebar")
         reg.t.click("Folder")
         time.sleep(2)
         type(folder + "\n")
         time.sleep(10) #give it 10 seconds to add the folder
-        mirolib.click_podcast(self,reg,feed=folder)
+        miro.click_podcast(reg, feed=folder)
         time.sleep(3)
         reg.t.click("Sidebar")
         reg.t.click("Rename")
         time.sleep(2)
         type(new_name1 + "\n")
-        mirolib.click_podcast(self,reg,feed=new_name1)
-        mirolib.restart_miro()
-        p = mirolib.get_podcasts_region(reg)
+        miro.click_podcast(reg, feed=new_name1)
+        miro.restart_miro()
+        p = miro.get_podcasts_region(reg)
         if not p.exists(new_name1):
             self.fail("rename did not persist after restart")
         else:
@@ -235,9 +232,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             p1.click("Rename")
             time.sleep(2)
             type(new_name2 + "\n")
-            mirolib.click_podcast(self,reg,feed=new_name2)
+            miro.click_podcast(reg, feed=new_name2)
             
-        mirolib.delete_feed(self,reg,new_name2)
+        miro.delete_feed(reg, new_name2)
 
     def test_199(self):
         """http://litmus.pculture.org/show_test.cgi?id=199 reorder folders in sidebar
@@ -251,18 +248,19 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
-        mirolib.quit_miro(self)
-        config.set_def_db_and_prefs()
-        mirolib.restart_miro(confirm=False)
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
+        miro.restart_miro()
         time.sleep(10)
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions() 
+        miro = MiroApp()
 
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test.opml")
 
         
         #1. Add the feeds 
-        mirolib.import_opml(self,reg,opml_path)
-        p = mirolib.get_podcasts_region(reg)
+        miro.import_opml(reg, opml_path)
+        p = miro.get_podcasts_region(reg)
         x = p.find("GEEKY")
         y = p.find("Featured")
         dragDrop(x,y)
@@ -273,16 +271,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             self.fail("GEEKY folder not moved above 'Featured' podcast")
 
         #Cleanup - select all the podcasts and delete
-        mirolib.delete_all_podcasts(self,reg)
+        miro.delete_all_podcasts(reg)
 
      
     def test_999reset(self):
         """fake test to reset db and preferences.
 
         """
-        mirolib.quit_miro(self)
-        config.set_def_db_and_prefs()
-        mirolib.restart_miro(confirm=False)
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
+        miro.restart_miro()
         time.sleep(10)        
         
 

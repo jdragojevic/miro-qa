@@ -1,17 +1,11 @@
 import sys
-import os
-import glob
 import unittest
-import StringIO
 import time
 from sikuli.Sikuli import *
-mycwd = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro")
-sys.path.append(os.path.join(mycwd,'myLib'))
-import config
-import mirolib 
-import miro_regions
-import testvars
 import base_testcase
+import myLib.config
+from myLib.miro_regions import MiroRegions
+from myLib.miro_app import MiroApp
 
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
@@ -29,13 +23,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
        
         setAutoWaitTimeout(60)
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions()
+        miro = MiroApp()
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
-        mirolib.click_sidebar_tab(self,reg,"Search")
-        mirolib.search_tab_search(self,reg,term)
-        mirolib.handle_crash_dialog(self,test=True)
-        mirolib.search_tab_search(self,reg,term=" ",engine=None)
+        miro.click_sidebar_tab(reg, "Search")
+        miro.search_tab_search(reg, term)
+        miro.handle_crash_dialog( '55', test=True)
+        miro.search_tab_search(reg, term=" ",engine=None)
         
             
     def test_54(self):
@@ -47,12 +42,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         print self.id()
         setAutoWaitTimeout(60)
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions()
+        miro = MiroApp()
 
         term ="LET'S TEST DTV'S CRASH REPORTER TODAY"
-        mirolib.click_sidebar_tab(self,reg,"Search")
-        mirolib.search_tab_search(self,reg,term)
-        mirolib.handle_crash_dialog(self,db=False,test=True)
+        miro.click_sidebar_tab(reg, "Search")
+        miro.search_tab_search(reg, term)
+        miro.handle_crash_dialog( '54', db=False, test=True)
 
 
     def test_681(self):
@@ -64,15 +60,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         print self.id()
         setAutoWaitTimeout(60)
-        reg = miro_regions.MiroRegions()
-        if config.get_os_name() == "osx":
+        reg = MiroRegions()
+        miro = MiroApp()
+        if myLib.config.get_os_name() == "osx":
             reg.tl.click("Dev")
         else:
             type('f',KEY_ALT)
             time.sleep(1)
             type(Key.LEFT)
         reg.t.click("Test Soft")
-        mirolib.handle_crash_dialog(self,db=False,test=True)
+        miro.handle_crash_dialog( '681', db=False, test=True)
 
     def test_682(self):
         """http://litmus.pculture.org/show_test.cgi?id=54 Test Crash Reporter with DB.
@@ -82,16 +79,17 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. Quit Miro
         """
         print self.id()
-        reg = miro_regions.MiroRegions()
+        reg = MiroRegions()
+        miro = MiroApp()
 
-        if config.get_os_name() == "osx":
+        if myLib.config.get_os_name() == "osx":
             reg.tl.click("Dev")
         else:
             type('f',KEY_ALT)
             time.sleep(1)
             type(Key.LEFT)
         reg.t.click("Test Soft")
-        mirolib.handle_crash_dialog(self,db=True,test=True)      
+        miro.handle_crash_dialog( '682', db=True, test=True)      
    
 # Post the output directly to Litmus
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 from preferences_panel import PreferencesPanel
-
+from sikuli.Sikuli import *
 
 class PrefGeneralTab(PreferencesPanel):
     """Specify preferences on the Podcasts tab of the Preferences panel.
