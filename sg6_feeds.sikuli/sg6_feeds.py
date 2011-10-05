@@ -272,7 +272,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         url = "http://subscribe.getmiro.com/?url1=http%3A%2F%2Fparticipatoryculture.org%2Ffeeds_test%2Ffeed1.rss"
-
+        
+        #SET GLOBAL PREFERENCES
         miro.open_prefs(reg)
         prefs = PrefPodcastsTab()
         prefs.open_tab("Podcasts")
@@ -280,7 +281,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         prefs.close_prefs()
        
         
-        prefs.set_autodownload(reg, setting="All")
         reg.t.click("Sidebar")
         reg.t.click("Add Podcast")
         time.sleep(2)

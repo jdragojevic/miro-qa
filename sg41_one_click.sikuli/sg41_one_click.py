@@ -4,6 +4,7 @@ import time
 from sikuli.Sikuli import *
 import base_testcase
 import myLib.config
+import myLib.testvars
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
 
@@ -33,8 +34,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             time.sleep(2)
             type(url + "\n")
             time.sleep(20)
-            find(testvars.one_click_badge)
-            click(testvars.one_click_badge)
+            find(myLib.testvars.one_click_badge)
+            click(myLib.testvars.one_click_badge)
             time.sleep(25)
             miro.close_ff()
                         

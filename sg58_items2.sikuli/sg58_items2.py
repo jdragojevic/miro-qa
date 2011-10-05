@@ -1,4 +1,5 @@
 import sys
+import os
 import unittest
 import time
 from sikuli.Sikuli import *

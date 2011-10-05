@@ -21,7 +21,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         reg = MiroRegions()
-        miro = MiroApp(reg)
+        miro = MiroApp()
         
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
@@ -40,7 +40,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         reg = MiroRegions()
-        miro = MiroApp(reg)
+        miro = MiroApp()
         
         url = "http://pculture.org/feeds_test/feed1.rss"
         feed = "Yah"

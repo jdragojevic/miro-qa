@@ -1,4 +1,5 @@
 import sys
+import os
 import unittest
 import time
 from sikuli.Sikuli import *
@@ -17,6 +18,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         self.verificationErrors = []
+        miro = MiroApp()
         print "starting test: ",self.shortDescription()
         myLib.config.set_image_dirs()
         miro.quit_miro()

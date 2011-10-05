@@ -15,7 +15,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
     def setUp(self):
     
-        reg = MiroRegions()
         miro = MiroApp()
         self.verificationErrors = []
         print "starting test: ",self.shortDescription()

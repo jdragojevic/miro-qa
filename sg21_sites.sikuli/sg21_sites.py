@@ -6,6 +6,7 @@ import base_testcase
 import myLib.config
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
+import myLib.testvars
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 41 - one-click subscribe tests.
@@ -91,8 +92,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         find("navhome.png")
         find("navreload.png")
 
-        reg.m.click(testvars.blip_browse)
-        reg.m.click(testvars.blip_recent)
+        reg.m.click(myLib.testvars.blip_browse)
+        reg.m.click(myLib.testvars.blip_recent)
         self.assertTrue(reg.mtb.exists("navback.png"))
         self.assertTrue(reg.mtb.exists("navforward_disabled.png"))
         self.assertTrue(reg.mtb.exists("navhome.png"))
@@ -142,7 +143,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro.add_source(reg, site_url,site)
         miro.click_source(reg, site)
         reg.m.click("Netlabel Music")
-        reg.m.click(testvars.clearbits_rss)
+        reg.m.click(myLib.testvars.clearbits_rss)
         miro.click_podcast(reg, site)
         miro.log_result("29","test_191 verify 1-click add site from source.")
         time.sleep(3)
@@ -282,11 +283,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         miro.add_source_from_tab(reg, site_url)
         miro.click_last_source(reg)
-        reg.m.find(testvars.dizizle_logo)
+        reg.m.find(myLib.testvars.dizizle_logo)
         miro.quit_miro(reg)
         miro.restart_miro()
         miro.click_last_source(reg)
-        self.assertTrue(reg.m.exists(testvars.dizizle_logo))    
+        self.assertTrue(reg.m.exists(myLib.testvars.dizizle_logo))    
         miro.delete_site(reg, site)
 
 

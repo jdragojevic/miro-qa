@@ -841,7 +841,7 @@ class MiroApp(object):
         Click off downloads tab and confirm tab disappears.
         
         """
-        self.click_sidebar_tab(reg,"Music")
+        self.click_sidebar_tab(reg, "Music")
         time.sleep(2)
         if reg.s.exists("Downloading",2):
             click(reg.s.getLastMatch())
@@ -998,7 +998,7 @@ class MiroApp(object):
             rep = i
 
         if meta_field == "rating":
-            edit_item_rating(rating=meta_value)
+            self.edit_item_rating(rating=meta_value)
         elif config.get_os_name() == "osx" and rep > 6: #stupid but the tab gets stuck on the about field
             if meta_field == "art":
                 click("Click to")

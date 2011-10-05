@@ -23,14 +23,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
        
-        setAutoWaitTimeout(60)
         reg = MiroRegions() 
         miro = MiroApp()
 
         SEARCHES = {"blip": 'octopus', "YouTube": 'cosmicomics'}
         for engine, term in SEARCHES.iteritems():
             miro.click_sidebar_tab(reg, "Search")
-            miro.search_tab_search(reg, term,engine)
+            miro.search_tab_search(reg, term, engine)
             miro.click_sidebar_tab(reg, "Videos")
             miro.click_sidebar_tab(reg, "Search")
             self.assertTrue(reg.mtb.exists(term.upper()))

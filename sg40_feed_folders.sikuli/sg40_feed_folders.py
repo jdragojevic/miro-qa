@@ -4,6 +4,7 @@ import time
 from sikuli.Sikuli import *
 import base_testcase
 import myLib.config
+import myLib.testvars
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
 
@@ -17,6 +18,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         This isn't a real tests and is just meant to make sure the subgroup is starting with usual preferences settings and clean sidebar.
         """
+        miro = MiroApp()
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
         miro.restart_miro()
@@ -33,7 +35,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. confirm feeds in folders
         4. Cleanup
         """
-        setAutoWaitTimeout(testvars.timeout)
+        setAutoWaitTimeout(myLib.testvars.timeout)
         #set the search regions
         reg = MiroRegions() 
         miro = MiroApp()
@@ -93,7 +95,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. Delete, verify confirm dialog, and delete
         4. Cleanup
         """
-        setAutoWaitTimeout(testvars.timeout)
+        setAutoWaitTimeout(myLib.testvars.timeout)
         #set the search regions
         reg = MiroRegions() 
         miro = MiroApp()
@@ -136,7 +138,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. Delete, verify confirm dialog, and delete
         4. Cleanup
         """
-        setAutoWaitTimeout(testvars.timeout)
+        setAutoWaitTimeout(myLib.testvars.timeout)
         #set the search regions
         folder = "GREAT STUFF"        
         reg = MiroRegions() 
@@ -161,7 +163,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. verify feeds in folder
         4. Cleanup
         """
-        setAutoWaitTimeout(testvars.timeout)
+        setAutoWaitTimeout(myLib.testvars.timeout)
         #set the search regions
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
@@ -202,7 +204,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. Delete, verify confirm dialog, and delete
         4. Cleanup
         """
-        setAutoWaitTimeout(testvars.timeout)
+        setAutoWaitTimeout(myLib.testvars.timeout)
         #set the search regions
         folder = "Great Stuff"
         new_name1 = "INCREDIBLE"
@@ -246,7 +248,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         3. verify feeds in folder
         4. Cleanup
         """
-        setAutoWaitTimeout(testvars.timeout)
+        setAutoWaitTimeout(myLib.testvars.timeout)
         #set the search regions
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
@@ -278,6 +280,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """fake test to reset db and preferences.
 
         """
+        miro = MiroApp()
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
         miro.restart_miro()

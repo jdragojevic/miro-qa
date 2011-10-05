@@ -18,8 +18,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
         self.verificationErrors = []
+        miro = MiroApp()
         print "starting test: ",self.shortDescription()
-        myLib.config.set_image_dirs()
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
         miro.restart_miro()
