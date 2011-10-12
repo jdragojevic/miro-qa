@@ -177,6 +177,7 @@ def delete_database_and_prefs(dbonly=False):
 
 
 def set_def_db_and_prefs():
+    time.sleep(5)
     db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","miro402_empty")
     replace_database(db)
     reset_preferences()

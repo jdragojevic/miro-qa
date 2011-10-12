@@ -592,8 +592,6 @@ class MiroApp(object):
             click(p.getLastMatch())
             type(Key.DELETE)
             self.remove_confirm(reg, "remove")
-    ##        p = self.get_podcasts_region(reg)
-    ##        self.assertFalse(p.exists(feed,5))
 
     def delete_items(self, reg, title, item_type):
         """Remove video audio music other items from the library.
@@ -1099,7 +1097,8 @@ class MiroApp(object):
     def verify_normalview_metadata(self, reg, metadata):
         i = reg.mtb.below(300)
         for k,v in metadata.iteritems():
-            self.assertTrue(i.exists(v,3))   
+            if not(i.exists(v,3)):
+                raise Exception("expected metadata not found")
 
     def verify_audio_playback(self, reg, title):
         self.toggle_normal(reg)
@@ -1155,7 +1154,8 @@ class MiroApp(object):
             mm.append(f.next())     # access next match and add to mm
             f.destroy() # release the memory used by finder
         if num_expected != None:
-            self.assertEqual(len(mm),int(num_expected))
+            if not (len(mm) == int(num_expected)):
+                raise Exception("Did not find the expected number of images")
         return len(mm)
 
 

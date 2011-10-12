@@ -1,7 +1,9 @@
-from preferences_panel import PreferencesPanel
+from preferences import Preferences
 from sikuli.Sikuli import *
 
-class PrefFoldersTab(PreferencesPanel):
+
+
+class PrefFoldersTab(Preferences):
     """Specify preferences on the Podcasts tab of the Preferences panel.
 
     """
