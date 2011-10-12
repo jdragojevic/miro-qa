@@ -1,4 +1,5 @@
 import sys
+import os
 import unittest
 import time
 from sikuli.Sikuli import *
@@ -58,6 +59,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         1. delete movies dir, launch miro
         2. 
         """
+        reg = MiroRegions() 
+        miro = MiroApp()
         miro.quit_miro()
         myLib.config.delete_miro_video_storage_dir()
         setAutoWaitTimeout(testvars.timeout)

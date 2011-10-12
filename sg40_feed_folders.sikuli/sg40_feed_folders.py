@@ -1,4 +1,5 @@
 import sys
+import os
 import unittest
 import time
 from sikuli.Sikuli import *
@@ -164,6 +165,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         setAutoWaitTimeout(myLib.testvars.timeout)
+        miro = MiroApp()
         #set the search regions
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
@@ -250,6 +252,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(myLib.testvars.timeout)
         #set the search regions
+        miro = MiroApp()
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
         miro.restart_miro()

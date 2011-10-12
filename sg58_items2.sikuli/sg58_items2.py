@@ -7,9 +7,7 @@ import base_testcase
 import myLib.config
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
-from myLib.pref_podcasts_tab import PrefPodcastsTab
-from myLib.pref_folders_tab import PrefFoldersTab
-from myLib.pref_general_tab import PrefGeneralTab
+from myLib.preferences_panel import PreferencesPanel
 
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
@@ -46,6 +44,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title = "Pancakes"
         title2 = "summer"
         title3="deerhunter"
+       
         
         #1. add watched folder
         miro.add_watched_folder(reg, folder_path)
@@ -63,10 +62,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             reg.m.find(Pattern("album_art1.png"))
         finally:
             miro.open_prefs(reg)
-            prefs = PrefFoldersTab()
-            prefs.open_tab("Folders")
-            prefs.remove_watched_folder("ArtTest")
-            prefs.close_prefs()
+            prefs = PreferencesPanel()
+            folder_tab = prefs.open_tab("Folders")
+            folder_tab.remove_watched_folder("ArtTest")
+            folder_tab.close_prefs()
             
         
     def test_728(self):
@@ -81,11 +80,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         
+        
         miro.open_prefs(reg)
-        prefs = PrefGeneralTab()
-        prefs.show_audio_in_music("on")
-        prefs.close_prefs()
-        del prefs
+        prefs = PreferencesPanel()
+        general_tab = prefs.open_tab("General")
+        general_tab.show_audio_in_music("on")
+        general_tab.close_prefs()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -140,12 +140,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
 
+        #Set Global Preferences
 
         miro.open_prefs(reg)
-        prefs = PrefGeneralTab()
-        prefs.remember_last_screen_on_startup("on")
-        prefs.close_prefs()
-        del prefs
+        prefs = PreferencesPanel()
+        general_tab = prefs.open_tab("General")
+        general_tab.remember_last_screen_on_startup("on")
+        general_tab.close_prefs()
    
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TwoStupid"
@@ -167,7 +168,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             found_file = True
         miro.quit_miro(reg)
         miro.restart_miro()
-        if remember == True and reg.m.exists("title",15):  #check the remember last tab setting
+        if reg.m.exists("title",15):  #check the remember last tab setting
             miro.log_result("698","test_441")
         else:
             miro.click_podcast(reg, feed)
@@ -212,7 +213,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title2 = "York"
         title3 = "Accessing"
         miro.delete_feed(reg, feed)
-
+        #Set Global Preferences
         miro.open_prefs(reg)
         prefs = PrefPodcastsTab()
         prefs.open_tab("Podcasts")
@@ -274,10 +275,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         time.sleep(5)
 
         miro.open_prefs(reg)
-        prefs = PrefGeneralTab()
-        prefs.show_audio_in_music("on")
-        prefs.close_prefs()
-        del prefs
+        prefs = PreferencesPanel()
+        general_tab = prefs.open_tab("General")
+        general_tab.show_audio_in_music("on")
+        general_tab.close_prefs()
         
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -285,14 +286,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title = "Mushroom" # item title updates when download completes
         new_type = "Video"
 
-        edit_itemlist = [["name","Earth Day Everyday", "647"],
-                      ["artist","Oliver and Katerina", "648"],
-                      ["album","Barki Barks", "649"],
-                      ["genre","family", "650"],
-                      ["rating","5", "651"],
-                      ["year","2010" "655"],
-                      ["track_num","1", "673"],
-                      ["track_of","2", "673"],
+        edit_itemlist = [["name", "Earth Day Everyday", "647"],
+                      ["artist", "Oliver and Katerina", "648"],
+                      ["album", "Barki Barks", "649"],
+                      ["genre", "family", "650"],
+                      ["rating", "5", "651"],
+                      ["year", "2010",  "655"],
+                      ["track_num", "1", "673"],
+                      ["track_of", "2", "673"],
                       ]
         
         #start clean

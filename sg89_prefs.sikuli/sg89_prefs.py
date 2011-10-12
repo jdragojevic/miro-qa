@@ -26,20 +26,21 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions()
         miro = MiroApp()
         #1. open preferences
+
         miro.open_prefs(reg)
-        prefs = PrefGeneralTab()
-        prefs.change_default_language( "Croatian")
-        miro.restart()
+        prefs = PreferencesPanel()
+        general_tab = prefs.open_tab("General")
+        general_tab.change_default_language( "Croatian")
+        general_tab.close_prefs()
+       
+        miro.restart_miro()
         
         miro.open_prefs(reg, menu="Datoteka", option="Postavke")
-        prefs = PrefGeneralTab()
-        prefs.change_to_english_language(from_lang="Croatian")
-        prefs.close_prefs()
+        prefs = PreferencesPanel()
+        general_tab = prefs.open_tab("General")
+        general_tab.change_to_english_language(from_lang="Croatian")
+        general_tab.close_prefs()
         
-
-        
-
-
     def test_999reset(self):
         """fake test to reset db and preferences.
 

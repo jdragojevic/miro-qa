@@ -7,7 +7,7 @@ import base_testcase
 import myLib.config
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
-from myLib.pref_folders_tab import PrefFoldersTab
+from myLib.preferences_panel import PreferencesPanel
 
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
@@ -210,11 +210,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         #2. search
         miro.tab_search(reg, term)
         miro.new_search_feed(reg, term,radio="Podcast",source=feed,watched=True)
+
+        #Remove Watched Folder
         miro.open_prefs(reg)
-        prefs = PrefFoldersTab()
-        prefs.open_tab("Folders")
-        prefs.remove_watched_folder("ArtTest")
-        prefs.close_prefs()
+        prefs = PreferencesPanel()
+        folder_tab = prefs.open_tab("Folders")
+        folder_tab.remove_watched_folder("ArtTest")
+        folder_tab.close_prefs()
   
         
 

@@ -7,7 +7,7 @@ import base_testcase
 import myLib.config
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
-from myLib.pref_podcasts_tab import PrefPodcastsTab
+from myLib.preferences_panel import PreferencesPanel
 
 
 
@@ -190,12 +190,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions()
         miro = MiroApp()        
         feed = "AV Club"
+        
+        #SET GLOBAL PREFERENCES
         miro.open_prefs(reg)
-        prefs = PrefPodcastsTab()
-        prefs.open_tab("Podcasts")
-        prefs.autodownload_setting("Off")
-        prefs.close_prefs()
-        del prefs
+        prefs = PreferencesPanel()
+        podcasts_tab = prefs.open_tab("Podcasts")
+        podcasts_tab.autodownload_setting("Off")
+        podcasts_tab.close_prefs()
+        
         url = "http://feeds.feedburner.com/theavclub/mainline"
         miro.browser_to_miro(reg, url)
         #3. verify feed added

@@ -6,9 +6,7 @@ import base_testcase
 import myLib.config
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
-from myLib.pref_podcasts_tab import PrefPodcastsTab
-from myLib.pref_general_tab import PrefGeneralTab
-
+from myLib.preferences_panel import PreferencesPanel
 
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
@@ -49,16 +47,16 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
 
         #Set Global Preferences
+        
         miro.open_prefs(reg)
-        prefs = PrefGeneralTab()
-        prefs.show_audio_in_music("on")
-        prefs.show_videos_in_videos("on")
-        del prefs
-        prefs = PrefPodcastsTab()
-        prefs.open_tab("Podcasts")
-        prefs.autodownload_setting("Off")
-        prefs.close_prefs()
-        del prefs
+        prefs = PreferencesPanel()
+        general_tab = prefs.open_tab("General")
+        general_tab.show_audio_in_music("on")
+        general_tab.show_videos_in_videos("on")
+        podcasts_tab = prefs.open_tab("Podcasts")
+        podcasts_tab.autodownload_setting("Off")
+        podcasts_tab.close_prefs()
+        
         #start clean
         miro.delete_feed(reg, feed)
         #add feed and download joo joo item
@@ -99,15 +97,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         new_type = "Video"
         #Set Global Preferences
         miro.open_prefs(reg)
-        prefs = PrefGeneralTab()
-        prefs.show_audio_in_music("on")
-        prefs.show_videos_in_videos("on")
-        del prefs
-        prefs = PrefPodcastsTab()
-        prefs.open_tab("Podcasts")
-        prefs.autodownload_setting("Off")
-        prefs.close_prefs()
-        del prefs
+        prefs = PreferencesPanel()
+        general_tab = prefs.open_tab("General")
+        general_tab.show_audio_in_music("on")
+        general_tab.show_videos_in_videos("on")
+        podcasts_tab = prefs.open_tab("Podcasts")
+        podcasts_tab.autodownload_setting("Off")
+        podcasts_tab.close_prefs()
 
         
         #add feed and download joo joo item
@@ -150,10 +146,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         new_type = "Video"
         #Set Global Preferences
         miro.open_prefs(reg)
-        prefs = PrefGeneralTab()
-        prefs.show_audio_in_music("on")
-        prefs.close_prefs()
-        del prefs
+        prefs = PreferencesPanel()
+        general_tab = prefs.open_tab("General")
+        general_tab.show_audio_in_music("on")
+        general_tab.close_prefs()
 
         
         miro.delete_feed(reg, feed)
@@ -190,10 +186,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title = "local"
         #Set Global Preferences
         miro.open_prefs(reg)
-        prefs = PrefGeneralTab()
-        prefs.show_videos_in_videos("on")
-        prefs.close_prefs()
-        del prefs
+        prefs = PreferencesPanel()
+        general_tab = prefs.open_tab("General")
+        general_tab.show_videos_in_videos("on")
+        general_tab.close_prefs()
         miro.cancel_all_downloads(reg)
         reg.tl.click("File")
         reg.tl.click("Download from")
@@ -280,14 +276,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title3 = "Accessing"
         miro.delete_feed(reg, feed)
 
-        miro.open_prefs(reg)
-        prefs = PrefPodcastsTab()
-        prefs.open_tab("Podcasts")
-        prefs.autodownload_setting("Off")
-        prefs.default_view_setting("Standard")
-        prefs.close_prefs()
-        del prefs
 
+        miro.open_prefs(reg)
+        prefs = PreferencesPanel()
+        podcasts_tab = prefs.open_tab("Podcasts")
+        podcasts_tab.autodownload_setting("Off")
+        podcasts_tab.default_view_setting("Standard")
+        podcasts_tab.close_prefs()
 
         #add feed and download joo joo item
         miro.add_feed(reg, url,feed)

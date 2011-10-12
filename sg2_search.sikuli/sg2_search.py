@@ -6,7 +6,7 @@ import base_testcase
 import myLib.config
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
-from myLib.pref_podcasts_tab import PrefPodcastsTab
+from myLib.preferences_panel import PreferencesPanel
 
 
 
@@ -49,13 +49,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         
         #Set Global Preferences
+
         miro.open_prefs(reg)
-        prefs = PrefPodcastsTab()
-        prefs.open_tab("Podcasts")
-        prefs.autodownload_setting("Off")
-        prefs.close_prefs()
-        del prefs
-        
+        prefs = PreferencesPanel()
+        podcasts_tab = prefs.open_tab("Podcasts")
+        podcasts_tab.autodownload_setting("Off")
+        podcasts_tab.close_prefs()       
 
         searches = {"blip": "python", "YouTube": "cosmicomics", "Revver": "Beiber", "Yahoo": "Canada", "DailyMotion": "Russia", "Metavid": "africa", "Mininova": "Creative Commons", "Video": "Toronto"}
         for engine, term in searches.iteritems():
@@ -76,6 +75,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             miro.tab_search(reg, v)
             try:
                 self.assertTrue(reg.m.exists(k))
+                miro.delete_feed(reg, k)
             except:
                  miro.log_result("322","test 322, failed for " +k+": "+v,status="fail")
         #cleanup
@@ -124,12 +124,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         #Set Global Preferences
         miro.open_prefs(reg)
-        prefs = PrefPodcastsTab()
-        prefs.open_tab("Podcasts")
-        prefs.autodownload_setting("Off")
-        prefs.close_prefs()
-        del prefs
-
+        prefs = PreferencesPanel()
+        podcasts_tab = prefs.open_tab("Podcasts")
+        podcasts_tab.autodownload_setting("Off")
+        podcasts_tab.close_prefs()
         
         searches = { "Yahoo": "Canada", "DailyMotion": "Ontario", "YouTube": "toronto"}
         radio = "Search"
@@ -144,6 +142,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             miro.tab_search(reg, v)
             try:
                 self.assertTrue(reg.m.exists(k))
+                miro.delete_feed(reg, k)
             except:
                  miro.log_result("79","test_79, failed for " +k+": "+v,status="fail")
         

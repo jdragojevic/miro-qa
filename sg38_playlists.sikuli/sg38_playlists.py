@@ -49,7 +49,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro.tab_search(reg, "Lego")
         reg.m.click("Lego")
         miro.tab_search(reg, watched_feed)
-        reg.mr.click(Pattern("sort_name_normal.png"))
+        reg.mtb.click(Pattern("sort_name_normal.png"))
         item_list = ["Lego","Pancake","Deerhunter"]        
         selected_items = miro.multi_select(region=reg.m,item_list=item_list)
         miro.add_playlist(reg, playlist,style="shortcut")

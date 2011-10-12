@@ -9,6 +9,7 @@ from myLib.miro_app import MiroApp
 from myLib.pref_podcasts_tab import PrefPodcastsTab
 
 
+
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 6 - Feeds tests.
 
@@ -206,14 +207,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         
+        #Set Global Preferences
         miro.open_prefs(reg)
-        prefs = PrefPodcastsTab()
-        prefs.open_tab("Podcasts")
-        prefs.autodownload_setting("Off")
-        prefs.default_view_setting("Standard")
-        prefs.close_prefs()
-        del prefs
-
+        prefs = PreferencesPanel()
+        podcasts_tab = prefs.open_tab("Podcasts")
+        podcasts_tab.autodownload_setting("Off")
+        podcasts_tab.default_view_setting("Standard")
+        podcasts_tab.close_prefs()
+     
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         feedlist = ["Center", "Earth"]
@@ -273,12 +274,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         url = "http://subscribe.getmiro.com/?url1=http%3A%2F%2Fparticipatoryculture.org%2Ffeeds_test%2Ffeed1.rss"
         
-        #SET GLOBAL PREFERENCES
+        #Set Global Preferences
         miro.open_prefs(reg)
-        prefs = PrefPodcastsTab()
-        prefs.open_tab("Podcasts")
-        prefs.autodownload_setting("All")
-        prefs.close_prefs()
+        prefs = PreferencesPanel()
+        podcasts_tab = prefs.open_tab("Podcasts")
+        podcasts_tab.autodownload_setting("All")
+        podcasts_tab.close_prefs()
        
         
         reg.t.click("Sidebar")
@@ -291,11 +292,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         type(Key.DELETE)
         miro.remove_confirm(reg, "remove")
         #Reset autodownload preferences
+        #Set Global Preferences
         miro.open_prefs(reg)
-        prefs.open_tab("Podcasts")
-        prefs.autodownload_setting("Off")
-        prefs.close_prefs()
-        del prefs
+        prefs = PreferencesPanel()
+        podcasts_tab = prefs.open_tab("Podcasts")
+        podcasts_tab.autodownload_setting("Off")
+        podcasts_tab.close_prefs()
 
         
 

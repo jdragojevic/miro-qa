@@ -12,6 +12,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 41 - one-click subscribe tests.
 
     """
+    
+    ONE_CLICK_BADGE = Pattern('patrace.png')
 
     def test_7(self):
         """http://litmus.pculture.org/show_test.cgi?id=7 add feed.
@@ -34,8 +36,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             time.sleep(2)
             type(url + "\n")
             time.sleep(20)
-            find(myLib.testvars.one_click_badge)
-            click(myLib.testvars.one_click_badge)
+            find(ONE_CLICK_BADGE)
+            click(ONE_CLICK_BADGE)
             time.sleep(25)
             miro.close_ff()
                         

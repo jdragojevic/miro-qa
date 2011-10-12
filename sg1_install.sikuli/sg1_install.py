@@ -60,7 +60,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         2. Launch miro and verify it is upgraded to current version.
         """
         
-        
+        miro = MiroApp()
         miro.quit_miro()
         db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","351sqlitedb")
         myLib.config.replace_database(db)
@@ -87,7 +87,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         1. Copy in Miro 3.5.1 database
         2. Launch miro and verify it is upgraded to current version.
         """
-        
+        miro = MiroApp()
         miro.quit_miro()
         db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","bz17556_backup80")
         myLib.config.replace_database(db)
@@ -113,7 +113,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         1. Clean up Miro support and vidoes directories
         2. Launch - walk through 1st tieme install dialog and search everywhere
         """
-        
+        miro = MiroApp()
         miro.quit_miro()
         myLib.config.delete_database_and_prefs()
         myLib.config.delete_miro_video_storage_dir()
@@ -164,6 +164,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         2. Launch miro and submit crash report with db
         """
         try:
+            miro = MiroApp()
             miro.quit_miro()
             db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","corrupt_db")
             myLib.config.replace_database(db)
@@ -184,6 +185,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         2. Launch miro and submit crash report with db
         """
         try:
+            miro = MiroApp()
             miro.quit_miro()
             db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","corrupt_db")
             myLib.config.replace_database(db)
@@ -202,6 +204,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """fake test to reset db and preferences.
 
         """
+        miro = MiroApp()
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
         miro.restart_miro()
