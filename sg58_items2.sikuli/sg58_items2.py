@@ -215,12 +215,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro.delete_feed(reg, feed)
         #Set Global Preferences
         miro.open_prefs(reg)
-        prefs = PrefPodcastsTab()
-        prefs.open_tab("Podcasts")
-        prefs.autodownload_setting("Off")
-        prefs.default_view_setting("List")
-        prefs.close_prefs()
-        del prefs
+        prefs = PreferencesPanel()
+        podcasts_tab = prefs.open_tab("Podcasts")
+        podcasts_tab.autodownload_setting("Off")
+        podcasts_tab.default_view_setting("List")
+        podcasts_tab.close_prefs()
+        
 
         time.sleep(2)      
         #add feed and download joo joo item

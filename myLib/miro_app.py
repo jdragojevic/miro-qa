@@ -1059,7 +1059,7 @@ class MiroApp(object):
                 type(meta_value) #enter the new value
                 #go back to the top field, Show
             if req_id:
-                log_result(req_id,"value edited in dialog")
+                self.log_result(req_id,"value edited in dialog")
             click(top_tab)
         ok_but = len(metalist)
         for x in range(1,ok_but):

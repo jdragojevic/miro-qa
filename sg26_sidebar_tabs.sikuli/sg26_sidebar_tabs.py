@@ -7,6 +7,7 @@ import base_testcase
 import myLib.config
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
+from myLib.preferences_panel import PreferencesPanel
 
 
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
@@ -14,7 +15,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
     """
 
-    def setUp(self):
+    def sssetUp(self):
         """ All playlist tests require data. Going to add feed and watched folder at the start of the subgroup.
 
         """
@@ -22,7 +23,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         print "starting test: ",self.shortDescription()
         miro.quit_miro()
-        myLib.config.set_def_db_and_prefs()
+        myLib.config.delete_miro_video_storage_dir()
         miro.restart_miro()
         time.sleep(10)
  
@@ -35,14 +36,27 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         4. verify marked as unplayed.
 
         """
+
         url_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","ShortCats.xml")
         url = "file:///"+url_path
         feed = "Short Cats"
+##        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+##        feed = "TwoStupid"
+        
         reg = MiroRegions() 
         miro = MiroApp()
-        miro.add_feed(reg, url,feed)
+
+
+        #Set Global Preferences
+        miro.open_prefs(reg)
+        prefs = PreferencesPanel()
+        playback_tab = prefs.open_tab("Playback")
+        playback_tab.play_continuous("on", "Podcast")
+        playback_tab.close_prefs()
+        
+        miro.add_feed(reg, url, feed)
         miro.set_podcast_autodownload(reg, setting="All")
-        time.sleep(5)
+        time.sleep(15)
         if reg.s.exists("Downloading"):
             reg.s.waitVanish("Downloading")
         miro.click_sidebar_tab(reg, "Videos")

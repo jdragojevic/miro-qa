@@ -5,6 +5,7 @@ import time
 from sikuli.Sikuli import *
 import base_testcase
 import myLib.config
+import myLib.testvars
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
 
@@ -39,7 +40,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro.add_watched_folder(reg, folder_path)
         miro.quit_miro()
         myLib.config.delete_preferences()
-        setAutoWaitTimeout(testvars.timeout)
+        setAutoWaitTimeout(myLib.testvars.timeout)
         #set the search regions 
         miro.restart_miro()
         miro.first_time_startup_dialog(lang="Default",run_on_start="No",search="No",search_path=None,itunes="No")    
@@ -63,7 +64,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         miro.quit_miro()
         myLib.config.delete_miro_video_storage_dir()
-        setAutoWaitTimeout(testvars.timeout)
+        setAutoWaitTimeout(myLib.testvars.timeout)
         #set the search regions
         miro.restart_miro()
         reg = MiroRegions() 

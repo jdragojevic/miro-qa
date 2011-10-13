@@ -8,12 +8,16 @@ import myLib.testvars
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
 
+
+
+ONE_CLICK_BADGE = Pattern('patrace.png')
+
 class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """Subgroup 41 - one-click subscribe tests.
 
     """
     
-    ONE_CLICK_BADGE = Pattern('patrace.png')
+    
 
     def test_7(self):
         """http://litmus.pculture.org/show_test.cgi?id=7 add feed.

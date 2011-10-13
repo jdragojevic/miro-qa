@@ -6,7 +6,7 @@ import base_testcase
 import myLib.config
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
-from myLib.pref_podcasts_tab import PrefPodcastsTab
+from myLib.preferences_panel import PreferencesPanel
 
 
 
