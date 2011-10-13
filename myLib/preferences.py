@@ -42,7 +42,6 @@ class Preferences(MiroApp):
             heading.setAutoWaitTimeout(10)
             settings = Region(heading.below())
             settings.setAutoWaitTimeout(10)
-            print settings
             return (heading, settings)
         
 
@@ -68,27 +67,29 @@ class Preferences(MiroApp):
         else:
             self.miro_focus()
 
-    def set_preference_checkbox(self, option, setting):
+    def set_preference_checkbox(self, option, setting, subsection_region=None):
         """Check or uncheck the box for a preference setting.
         Assumes you are on the correct tab
 
         Valid values are ['on' and 'off']
 
         """
+        print subsection_region
+        if not subsection_region == None:
+            self.sr = subsection_region
         valid_settings = ['on', 'off']
         if setting not in valid_settings:
             raise Exception("valid setting value not proviced, must be 'on' or 'off'")
-        self.check_the_box(option, setting)
         
-
-    def check_the_box(self, phrase, setting):
+        #CHECK THE BOX
         found = False
-        for x in phrase:
+        for x in option:
+            print x
             if not found and self.sr.exists(x, 1):
                 sr_loc = Region(self.sr.getLastMatch())
                 found = True
-            else:
-                raise Exception("Can't find the preference field %s" % phrase)
+        else:
+            raise Exception("Can't find the preference field %s" % option)
         sr1 = Region(self.sr.getX(), sr_loc.getY()-10, self.sr.getW(), 30) #location of associated checkbox
                    
         if setting == "off":

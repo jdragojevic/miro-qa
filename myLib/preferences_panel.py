@@ -7,6 +7,7 @@ from preferences import Preferences
 from pref_general_tab import PrefGeneralTab
 from pref_folders_tab import PrefFoldersTab
 from pref_podcasts_tab import PrefPodcastsTab
+from pref_playback_tab import PrefPlaybackTab
 
 class PreferencesPanel(Preferences):
 
@@ -42,7 +43,7 @@ class PreferencesPanel(Preferences):
                      "Downloads":           [self._DOWNLOADS_TAB, ], \
                      "Folders":             [self._FOLDERS_TAB, PrefFoldersTab() ], \
                      "DiskSpace":           [self._DISK_SPACE_TAB, ], \
-                     "Playback":            [self._PLAYBACK_TAB, ], \
+                     "Playback":            [self._PLAYBACK_TAB, PrefPlaybackTab() ], \
                      "Sharing":             [self._SHARING_TAB , ], \
                      "Conversions":         [self._CONVERSION_TAB, ], \
                      "Stores":              [self._STORES_TAB, ], \
