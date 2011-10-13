@@ -6,9 +6,9 @@ class PrefPlaybackTab(Preferences):
 
     """
 
-    _VIDEO_SECTION = Pattern("playback_pref_video.png")
-    _MUSIC_SECTION = Pattern("playback__pref_music.png")
-    _PODCAST_SECTION = Pattern("playback_pref_podcast.png")
+    _VIDEO_SECTION = [Pattern("playback_pref_video.png"), "Video Playback"]
+    _MUSIC_SECTION = [Pattern("playback__pref_music.png"), "Music Playback"]
+    _PODCAST_SECTION = [Pattern("playback_pref_podcast.png"), "Podcast Playback"]
     _RESUME_PLAYBACK = [Pattern("resume_playback.png"), "Resume play"]
     _PLAY_CONINUOUSLY = [Pattern("play_continuously.png"), "Play cont"]
     _PLAY_IN_MIRO = "Play media"
@@ -18,13 +18,16 @@ class PrefPlaybackTab(Preferences):
 
 
     def section_sub_region(self, section):
-        if self.sr.exists(section):
-            sect_reg = Region(self.sr.getLastMatch())
+        for x in section:
+             if self.sr.exists(x, 2): break
         else:
-          raise Exception("Can't find the preference section %s" % section)
+            raise Exception("Can't find the preference field %s" % option)
+ 
+        sect_reg = Region(self.sr.getLastMatch())
         sect_reg.setX(self.sr.getX())
         sect_reg.setW(self.sr.getW())
-        sect_reg.setH(400)
+        print sect_reg.getH()
+        sect_reg.setH(sect_reg.getH()*6)
         return sect_reg
 
 

@@ -74,22 +74,18 @@ class Preferences(MiroApp):
         Valid values are ['on' and 'off']
 
         """
-        print subsection_region
         if not subsection_region == None:
             self.sr = subsection_region
         valid_settings = ['on', 'off']
         if setting not in valid_settings:
             raise Exception("valid setting value not proviced, must be 'on' or 'off'")
-        
+        self.sr.highlight(3)
         #CHECK THE BOX
-        found = False
         for x in option:
-            print x
-            if not found and self.sr.exists(x, 1):
-                sr_loc = Region(self.sr.getLastMatch())
-                found = True
+             if self.sr.exists(x, 2): break
         else:
             raise Exception("Can't find the preference field %s" % option)
+        sr_loc = Region(self.sr.getLastMatch())
         sr1 = Region(self.sr.getX(), sr_loc.getY()-10, self.sr.getW(), 30) #location of associated checkbox
                    
         if setting == "off":
