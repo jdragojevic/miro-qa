@@ -15,6 +15,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     """
 
     def test_001setup(self):
+        miro = MiroApp()
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
         miro.restart_miro()
