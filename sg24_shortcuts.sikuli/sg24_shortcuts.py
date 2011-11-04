@@ -79,7 +79,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         # remove playlist
         def _delete_playlist(self):
-            playlist = "FAVELIST"
+            playlist = "Pavarotti"
             miro.add_playlist(reg, playlist, style="shortcut")
             miro.click_playlist(reg, playlist)
             miro.log_result("723","test_92")

@@ -68,16 +68,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             time.sleep(10) #give some time for everything to load up
             miro.click_podcast(reg, saved_search)
             miro.shortcut("r")
-            
-        miro.get_podcasts_region(reg)
-        
-        for k,v in searches.iteritems():
-            miro.tab_search(reg, v)
+            time.sleep(5)
+            miro.get_podcasts_region(reg)
+            miro.tab_search(reg, term)
             try:
-                self.assertTrue(reg.m.exists(k))
-                miro.delete_feed(reg, k)
+                self.assertTrue(reg.m.exists(engine))
+                miro.delete_feed(reg, engine)
             except:
-                 miro.log_result("322","test 322, failed for " +k+": "+v,status="fail")
+                 miro.log_result("322","test 322, failed for " +engine+": "+term,status="fail")
         #cleanup
         for x in searches.keys():
             miro.delete_feed(reg, x)
@@ -135,16 +133,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             miro.new_search_feed(reg, term,radio,source,defaults=False,watched=False)
             time.sleep(10) #give some time for everything to load up
             miro.click_podcast(reg, source)
-
-        #FIXME verify feed has items
-        miro.get_podcasts_region(reg)
-        for k,v in searches.iteritems():
-            miro.tab_search(reg, v)
+            miro.tab_search(reg, term)
             try:
-                self.assertTrue(reg.m.exists(k))
-                miro.delete_feed(reg, k)
+                self.assertTrue(reg.m.exists(source))
+                miro.delete_feed(reg, source)
             except:
-                 miro.log_result("79","test_79, failed for " +k+": "+v,status="fail")
+                 miro.log_result("79","test_79, failed for " +source+": "+term, status="fail")
         
         #cleanup
         for x in searches.keys():

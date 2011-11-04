@@ -102,14 +102,14 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TwoStupid"
-        title = "Flip Face"
+        title = "Flip"
         term = "dinosaur"
         
         #1. add feed
-        miro.add_feed(reg, url,feed)
+        miro.add_feed(reg, url, feed)
         #2. search
         miro.tab_search(reg, term)
-        self.assertFalse(reg.m.exists("Flip",5))
+        self.assertFalse(reg.m.exists(title, 5))
         reg.mtb.click(term.upper())
         for x in range(0,8):
             type(Key.LEFT)
@@ -117,7 +117,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         for x in range(0,8):
             type(Key.DELETE)
 
-        self.assertTrue(reg.m.exists("Flip"))
+        self.assertTrue(reg.m.exists(title))
         #4. cleanup
         miro.delete_feed(reg, "TwoStupid")
 

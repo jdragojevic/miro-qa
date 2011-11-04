@@ -27,8 +27,8 @@ class MiroApp(object):
         return screen_region
         
     
-    def miro_focus(self, reg):
-        reg.miroapp.focus()
+    def miro_focus(self):
+        self.miroapp.focus()
 
 
     def find_element(self, elements, region=None):
@@ -220,6 +220,10 @@ class MiroApp(object):
         if reg.t.exists("Firefox",45):
             click(reg.t.getLastMatch())
         time.sleep(5)
+        if config.get_os_name() == "osx":
+            self.shortcut('f', shift=True)
+        else:
+            type(Key.F11)
         self.shortcut("l")
         time.sleep(2)
         type(url + "\n")
@@ -230,13 +234,10 @@ class MiroApp(object):
 
 
     def close_ff(self):
-        myscreen = Screen()
-        ffr = Region(myscreen.getBounds())
-        ffr.setH(ffr.getH()/2)
         for x in range(0,3):
-            if ffr.exists("Firefox",1):
+            if exists("Firefox",1):
                 print "ff is here"
-                click(ffr.getLastMatch())
+                click(getLastMatch())
                 self.shortcut('w')
                 time.sleep(2)
             
@@ -333,9 +334,11 @@ class MiroApp(object):
         topy =  reg.s.getLastMatch().getY()
         tmpr = Region(reg.s)
         tmpr.setY(tmpr.y+200)
-        tmpr.find("Playlists")
-        boty =  tmpr.getLastMatch().getY()
-        height = (boty-topy)+50
+        if tmpr.("Playlists"):
+            boty =  tmpr.getLastMatch().getY()
+            height = (boty-topy)+50
+        else:
+            height = reg.s.getH()
         width = reg.s.getW()-10
         PodcastsRegion = Region(topx,topy, width, height)
         PodcastsRegion.setAutoWaitTimeout(20)
@@ -673,12 +676,12 @@ class MiroApp(object):
         time.sleep(3)
         if confirm_present != False:
             self.toggle_normal(reg)
-            if reg.m.exists(title,5):
+            if reg.m.exists(title, 5):
                 present=True
             elif reg.m.exists(Pattern("item-context-button.png")):
                 present=True
             else:
-                self.fail("Item not found in tab: "+title)
+                raise Exception("Item %s not found in the tab" % title)
             return present
 
     def clear_search(self, reg):
@@ -913,11 +916,11 @@ class MiroApp(object):
         if defaults == True:
             time.sleep(2)
             type(Key.ENTER)
-        elif watched == True:
+        elif watched == True: #special case for regression bug with watched folders
             if reg.m.exists(source):
-                self.fail
-            self.handle_crash_dialog(db=True, test=False)   
-            type(Key.ESC)   
+                self.handle_crash_dialog(db=True, test=False)   
+                type(Key.ESC)
+                raise Exception ("%s exists when it should not." % source)
         else:
             type(term)
             # Dialog appears in different locations on os x vs gtk
@@ -1043,7 +1046,7 @@ class MiroApp(object):
             metar = Region(getLastMatch().below())
             metar.setW(metar.getW()+300)
         else:
-            self.fail("Can not find show field")
+            raise Exception("Can not find show field")
         for meta_field,meta_value,req_id in new_metadata_list:
             print meta_field,meta_value
             for i in (i for i,x in enumerate(metalist) if x == meta_field):
@@ -1337,8 +1340,7 @@ class MiroApp(object):
                     dR.click(Pattern("button_dont_include_db.png"))
                 time.sleep(5)
                 dR.waitVanish("Sending")
-                    
-                
+                ct = ct + 1               
         
 
     def log_result(self, result_id, runner_id, status="pass"):
@@ -1370,20 +1372,26 @@ class MiroApp(object):
         
         """
         crashes = False
+        count = 1
         while exists(Pattern("internal_error.png"),5):
-            crashes = True
-            tmpr = Region(getLastMatch().nearby(800))
-            if db == True:
-                click("Include")
-            try:
-                time.sleep(3)
-                tmpr.find("Include")
-                click(tmpr.getLastMatch().below(120))
-                type("Sikuli Automated test crashed:" +str(test_id))
-            finally:
-                if exists("button_submit_crash_report.png") or exists("Submit Crash"):
-                    click(getLastMatch())
-            time.sleep(5)
+            if count > 1:
+                click("Ignore")
+                break
+            else:
+                crashes = True
+                tmpr = Region(getLastMatch().nearby(800))
+                if db == True:
+                    click("Include")
+                try:
+                    time.sleep(3)
+                    tmpr.find("Include")
+                    click(tmpr.getLastMatch().below(120))
+                    type("Sikuli Automated test crashed:" +str(test_id))
+                finally:
+                    if exists("button_submit_crash_report.png") or exists("Submit Crash"):
+                        click(getLastMatch())
+                time.sleep(5)
+                count = count + 1
             
         if crashes == True and test == False:
             print "miro crashed"

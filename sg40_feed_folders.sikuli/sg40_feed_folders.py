@@ -75,8 +75,6 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         rightClick(Location(feed_match))
         if exists("Update",2):
             click(getLastMatch())
-        
-        
         for feed in added_feeds:
             miro.tab_search(reg, title=feed,confirm_present=True)
         #cleanup

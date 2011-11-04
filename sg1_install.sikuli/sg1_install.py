@@ -176,7 +176,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             myLib.config.set_def_db_and_prefs()
         
 
-    def test_88_462(self):
+    def test_87_462(self):
         """http://litmus.pculture.org/show_test.cgi?id=461 upgrade corrupt db, start fresh
 
         Litmus Test Title:: 461 - upgrade with corrupted db, submit crash no db

@@ -23,7 +23,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         print "starting test: ",self.shortDescription()
         miro.quit_miro()
-        myLib.config.delete_miro_video_storage_dir()
+        myLib.config.delete_miro_downloaded_files()
         miro.restart_miro()
         time.sleep(10)
  

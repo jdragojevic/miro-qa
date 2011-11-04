@@ -21,7 +21,7 @@ class Preferences(MiroApp):
     _PANEL_ERROR = Pattern("pref_panel_error.png")
 
 
-    _CLOSE_BUTTON = Pattern("button_close.png")
+    _CLOSE_BUTTON = [Pattern("button_close.png"), "Close"]
     _PREFS_CHECKBOX_CHECKED = Pattern("prefs_checkbox.png")
     _PREFS_CHECKBOX_NOT_CHECKED = Pattern("prefs_checkbox_unchecked.png")
 
@@ -58,9 +58,11 @@ class Preferences(MiroApp):
         if self.os_name == "osx":
             type(Key.ESC)
         else:
-            if self.sr.exists(self._CLOSE_BUTTON,3) or \
-               self.sr.exists("Close",3):
-                click(self.sr.getLastMatch())
+            for x in self._CLOSE_BUTTON:
+                if self.sr.exists(x, 2): break
+            else:
+                raise Exception("Can't find the close button")
+        click(self.sr.getLastMatch())
         #restore focus back to Miro
         if self.os_name == "lin":
             click("Miro")
@@ -75,18 +77,19 @@ class Preferences(MiroApp):
 
         """
         if not subsection_region == None:
-            self.sr = subsection_region
+            pref_reg = subsection_region
+        else:
+            pref_reg = self.sr
         valid_settings = ['on', 'off']
         if setting not in valid_settings:
             raise Exception("valid setting value not proviced, must be 'on' or 'off'")
-        self.sr.highlight(3)
         #CHECK THE BOX
         for x in option:
-             if self.sr.exists(x, 2): break
+             if pref_reg.exists(x, 2): break
         else:
             raise Exception("Can't find the preference field %s" % option)
-        sr_loc = Region(self.sr.getLastMatch())
-        sr1 = Region(self.sr.getX(), sr_loc.getY()-10, self.sr.getW(), 30) #location of associated checkbox
+        sr_loc = Region(pref_reg.getLastMatch())
+        sr1 = Region(pref_reg.getX(), sr_loc.getY()-10, pref_reg.getW(), 30) #location of associated checkbox
                    
         if setting == "off":
             if sr1.exists(self._PREFS_CHECKBOX_CHECKED):

@@ -1,5 +1,5 @@
 #config.py
-
+import glob
 import os
 import time
 import subprocess
@@ -198,6 +198,18 @@ def delete_miro_video_storage_dir():
             print "***Warning: didn't find videos dir***"
 
 
+def delete_miro_downloaded_files():
+        """Delete the Miro video storage directory.
+
+        """
+    
+        #Delete Miro default video storage
+        miro_video_dir = get_video_dir()
+        if os.path.exists(miro_video_dir):
+            for f in glob.glob(os.path.join(miro_video_dir, '*.*')):
+                os.unlink(f)
+        else:
+            print "***Warning: didn't find videos dir***"
 
 def get_val_from_mirodb(dbtable,dbfield):
     stmt = 'from db_mod import MiroDatabase; MiroDatabase().get_value("%s","%s")' % (dbtable,dbfield)    
