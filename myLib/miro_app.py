@@ -334,7 +334,7 @@ class MiroApp(object):
         topy =  reg.s.getLastMatch().getY()
         tmpr = Region(reg.s)
         tmpr.setY(tmpr.y+200)
-        if tmpr.("Playlists"):
+        if tmpr.exists("Playlists"):
             boty =  tmpr.getLastMatch().getY()
             height = (boty-topy)+50
         else:
