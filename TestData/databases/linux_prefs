@@ -49,7 +49,7 @@
     <entry>
       <key>window/maximized</key>
       <value>
-        <bool>false</bool>
+        <bool>true</bool>
       </value>
     </entry>
     <entry>
