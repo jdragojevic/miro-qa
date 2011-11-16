@@ -950,7 +950,7 @@ class MiroApp(object):
             f.click("Create")
 
 
-    def edit_item_type(self, reg, new_type):
+    def edit_item_type(self, reg, new_type, old_type):
         """Change the item's metadata type, assumes item is selected.
 
         """
@@ -963,9 +963,16 @@ class MiroApp(object):
         f.setH(100)
         f.find("Type")
         click(f.getLastMatch().right(50))
-        if not f.exists(new_type,2):
-            type(Key.PAGE_DOWN)
-        f.click(new_type)
+        if old_type == "Video" and new_type == "Music":
+            type(Key.UP)
+        elif old_type == "Video" and new_type == "Misc":
+            type(Key.DOWN)
+        elif old_type == "Music" and new_type == "Video":
+            type(Key.UP)
+        else: 
+            mouseDown(Button.LEFT)
+            mouseMove(new_type)
+            mouseUp(Button.LEFT)
         time.sleep(2)
         click("button_ok.png")
 

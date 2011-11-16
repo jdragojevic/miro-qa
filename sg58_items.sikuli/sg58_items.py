@@ -43,8 +43,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         feed = "ThreeBlip"
         title = "The Joo"
         new_type = "Music"
-        
-        
+        old_type = "Video"
 
         #Set Global Preferences
         
@@ -68,7 +67,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.m.click(title)
         miro.click_sidebar_tab(reg, "Videos") #stupid workaround for bug, not recognizing selected item after search.
         time.sleep(2)
-        miro.edit_item_type(reg, new_type)
+        miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback
         miro.wait_for_item_in_tab(reg, tab="Music",item=title)
         doubleClick(reg.m.getLastMatch())
@@ -95,6 +94,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         term = "Earth Eats"
         title = "Mushroom"
         new_type = "Video"
+        old_type = "Music"
         #Set Global Preferences
         miro.open_prefs(reg)
         prefs = PreferencesPanel()
@@ -114,7 +114,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro.wait_for_item_in_tab(reg, "Music",item=title)
         reg.m.click(title)
         miro.click_sidebar_tab(reg, "Music") #stupid workaround for bug, not recognizing selected item after search.
-        miro.edit_item_type(reg, new_type)
+        miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback
         miro.wait_for_item_in_tab(reg, tab="Video",item=title)
         doubleClick(reg.m.getLastMatch())
