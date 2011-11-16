@@ -120,7 +120,8 @@ class Preferences(MiroApp):
         if multipage == True: #will need to page up and down to locate option.
             pgs = 3
         else:
-            pgs = 1      
+            pgs = 1
+        sr1.highlight(1)      
         menu_pos = Region(sr1.find(self._OPTION_EXPAND))
         print menu_pos
         rmx = menu_pos.getX() - menu_width

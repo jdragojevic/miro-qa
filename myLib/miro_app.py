@@ -21,6 +21,7 @@ class MiroApp(object):
         self.os_name = config.get_os_name()
         self.SYS_TEXT_ENTRY_BUTTON = Pattern('type_a_filename.png')
 
+
     def screen_region(self):
         myscreen = Screen()
         screen_region = Region(myscreen.getBounds())
@@ -28,7 +29,7 @@ class MiroApp(object):
         
     
     def miro_focus(self):
-        self.miroapp.focus()
+        App.focus("Miro")
 
 
     def find_element(self, elements, region=None):
@@ -133,7 +134,7 @@ class MiroApp(object):
             type(file_path +"\n")     
         else:
             if not exists("Location",5):
-                click(self._SYS_TEXT_ENTRY_BUTTON)
+                click(self.SYS_TEXT_ENTRY_BUTTON)
                 time.sleep(2)
             else:  #clear any text in the type box
                 for x in range(0,15):
@@ -224,13 +225,12 @@ class MiroApp(object):
             self.shortcut('f', shift=True)
         else:
             type(Key.F11)
+        time.sleep(3)
         self.shortcut("l")
         time.sleep(2)
         type(url + "\n")
         time.sleep(30)
-        myFF.close()
-        waitVanish("Firefox",10)
-        self.close_ff()
+        self.shortcut('w')
 
 
     def close_ff(self):
