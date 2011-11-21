@@ -9,7 +9,7 @@ from myLib.miro_app import MiroApp
 from myLib.preferences_panel import PreferencesPanel
 
 
-class Miro_Suite(base_testcase.Miro_unittest_testcase):
+class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
     """Subgroup 58 - Items.
 
     """
@@ -403,12 +403,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
                                      
  
-# Post the output directly to Litmus
+# TestRunner posts output in xunit format
 if __name__ == "__main__":
-    import LitmusTestRunner
-    print len(sys.argv)
-    if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
-    else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
+    from TestRunner import TestRunner
+    TestRunner(Test_Items_Group1).run_tests()
    
