@@ -39,7 +39,6 @@ QUICK_TESTS = [['sg11_torrents.sikuli', 'test_419', 'test_719'],
                ['sg42_feedsearch.sikuli', 'test_720'],
                ['sg58_items.sikuli', 'test_361'],
                ['sg6_feeds.sikuli', 'test_338', 'test_117'],
-               ['sg1_install.sikuli', 'test_4']
     ]
 
 
