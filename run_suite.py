@@ -32,7 +32,7 @@ RESULTS_DIR = os.path.join(os.getenv("PCF_TEST_HOME"), "Miro", "last_run")
 QUICK_TESTS = [['sg11_torrents.sikuli', 'test_419', 'test_719'],
                ['sg2_search.sikuli', 'test_82'],
                ['sg19_system.sikuli', 'test_55'],
-               ['sg_21_sites.sikuli', 'test_182', 'test_143'],
+               ['sg21_sites.sikuli', 'test_182', 'test_143'],
                ['sg24_shortcuts.sikuli', 'test_92'],
                ['sg31_playback.sikuli', 'test_160'],
                ['sg11_torrents.sikuli', 'test_001setup'],
@@ -109,17 +109,14 @@ def _run_the_full_suite():
 
 
 
-try:
-    #Clear out old results before executing tests
-    _clear_out_the_old_results()
-    print "testing_results"
-    if qt == True:
-        _run_the_quicktests()
-    else:
-        _run_the_full_suite()
 
-finally:
-    check_the_results()
+    #Clear out old results before executing tests
+#    _clear_out_the_old_results()
+if qt == True:
+    _run_the_quicktests()
+else:
+    _run_the_full_suite()
+
 
     
     
