@@ -33,7 +33,7 @@ class MiroRegions(object):
         sr = Region(myscreen.getBounds())
         self.screen_height = sr.getH()
         self.screen_width = sr.getW()
-        Settings.ActionLogs = False
+#        Settings.ActionLogs = False
         Settings.InfoLogs = False
         Settings.DebugLogs = False
 
