@@ -43,7 +43,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         title = "GimpKnowHow"
         
         #1. add feed
-        miro.add_feed(reg, url,feed)
+        miro.add_feed(reg, url, feed)
         #2. search
         miro.tab_search(reg, term)
         reg.mtb.click("button_save_as_podcast.png")
@@ -87,6 +87,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         miro.click_remove_podcast(reg)
         miro.remove_confirm(reg, action="remove")
         miro.delete_feed(reg, "blip")
+        miro.delete_feed(reg, feed)
 
     def test_213(self):
         """http://litmus.pculture.org/show_test.cgi?id=213 Feed search, delete key.
@@ -101,7 +102,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         title = "Flip"
         term = "dinosaur"
         
@@ -119,7 +120,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
 
         self.assertTrue(reg.m.exists(title))
         #4. cleanup
-        miro.delete_feed(reg, "TwoStupid")
+        miro.delete_feed(reg, feed)
 
     def test_78(self):
         """http://litmus.pculture.org/show_test.cgi?id=78 Menu New Search Feed.
@@ -161,9 +162,10 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         """http://litmus.pculture.org/show_test.cgi?id=720 Menu New Search Feed.
 
         1. Add list of guide feeds (Static List)
-        2. From Sidebar -> New Search feed, create saved search channel
-        3. Verify Search saved
-        4. Cleanup
+        2. Search in the tab
+        3. From Sidebar -> New Search feed, create saved search channel
+        4. Verify Search saved
+        5. Cleanup
 
         """
         reg = MiroRegions() 

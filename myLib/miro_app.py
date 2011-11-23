@@ -20,6 +20,7 @@ class MiroApp(object):
 
         self.os_name = config.get_os_name()
         self.SYS_TEXT_ENTRY_BUTTON = Pattern('type_a_filename.png')
+        self.OPTION_EXPAND = Pattern("prefs_expand_option.png")
 
 
     def screen_region(self):
@@ -169,19 +170,6 @@ class MiroApp(object):
         else:
             keyUp(Key.CTRL)
         return selected_items
-            
-        
-
-    def quit_miro(self,reg=None):
-        if exists("Miro",10):
-            click(getLastMatch())
-        self.shortcut("q")       
-        if exists("in progress",5) or \
-              exists("Quit",5):
-            type(Key.ENTER)
-        waitVanish("Miro",30)
-      
-           
         
         
     def cmd_ctrl():
@@ -381,8 +369,10 @@ class MiroApp(object):
         Verify the feed is added by clicking on the feed and verify the feed name is present
         in the main title bar.
         """
+        print "Adding the podcast: %s" % url
         reg.t.click("Sidebar")
-        reg.t.click("Add Podcast")
+        self.shortcut('n')
+#        reg.t.click("Add Podcast")
         time.sleep(2)
         type(url + "\n")
         time.sleep(10) #give it 10 seconds to add the feed
@@ -430,15 +420,16 @@ class MiroApp(object):
     def click_podcast(self, reg, feed):
         """Find the podcast in the sidebar within podcast region and click on it.
         """
+        print "Clicking the podcast: %s" % feed
         p = self.get_podcasts_region(reg)
-        time.sleep(3)
-        p.find(feed)
-        click(p.getLastMatch())
+        p.highlight(2)
+        p.click(feed)
         return Region(p.getLastMatch()).getCenter()
 
     def click_playlist(self, reg, playlist):
         """Find the podcast in the sidebar within podcast region and click on it.
         """
+        print "Clicking the playlist: %s" % playlist
         p = self.get_playlists_region(reg)
         time.sleep(3)
         p.find(playlist)
@@ -668,10 +659,11 @@ class MiroApp(object):
             click(reg.mtb.getLastMatch().left(10))
         elif reg.mtb.exists("tabsearch_inactive.png",5):
             print "found tabsearch_inactive"
-            click(reg.mtb.getLastMatch())
+            reg.mtb.click("tabsearch_inactive.png")
         else:
             print "can not find the search box"
         time.sleep(2)
+        print "Entering search text"
         type(title.upper())
         time.sleep(3)
         if confirm_present != False:
@@ -768,6 +760,7 @@ class MiroApp(object):
      
 
     def download_all_items(self, reg):
+        print "downloading all the items"
         time.sleep(5)
         self.toggle_normal(reg)
         if reg.m.exists(Pattern("button_download.png"),3):       
@@ -911,17 +904,21 @@ class MiroApp(object):
         type(site_url+"\n")
         
     def new_search_feed(self, reg, term, radio, source, defaults=False, watched=False):
+        print "Opening the New Search Feed dialog."
         reg.t.click("Sidebar")
         reg.t.click("New Search")
         if defaults == True:
+            print "Accepting defaults"
             time.sleep(2)
             type(Key.ENTER)
         elif watched == True: #special case for regression bug with watched folders
+            print "Watched folder test case, should be no entry for the watched folder"
             if reg.m.exists(source):
                 self.handle_crash_dialog(db=True, test=False)   
-                type(Key.ESC)
                 raise Exception ("%s exists when it should not." % source)
+            type(Key.ESC)
         else:
+            print "Entering the search term"
             type(term)
             # Dialog appears in different locations on os x vs gtk
     ##        if config.get_os_name() == "osx":
@@ -930,23 +927,22 @@ class MiroApp(object):
     ##        else:
     ##            reg.m.find("In this")
     ##            f = Region(reg.m.getLastMatch().right(600).above().below())
-            reg.mr.find("In this")
+            reg.mr.find("Search for")
             f = Region(reg.mr.getLastMatch().right(600).below())
             f.setY(f.getY()-120)
-            f.highlight(3)         
+            f.highlight(3)
+            print "Clicking the %s radio button" %radio
             f.click(radio)
             click(f.getLastMatch().right(150))
             time.sleep(2)
             if radio == "URL":
                 type(Key.TAB)
+                print "Entering the search url"
                 type(source)
             else:     
                 if not f.exists(source,2):
-                    type(Key.PAGE_DOWN)
-                if not f.exists(source,2):
-                    type(Key.PAGE_UP)
-                f.click(source)
-                
+                    f.click(self.OPTION_EXPAND)
+                    f.click(source)
             f.click("Create")
 
 
@@ -1380,6 +1376,7 @@ class MiroApp(object):
         """
         crashes = False
         count = 1
+        print "checking if there was a crash"
         while exists(Pattern("internal_error.png"),5):
             if count > 1:
                 click("Ignore")
@@ -1405,6 +1402,8 @@ class MiroApp(object):
             type(Key.ESC) # close any leftover dialogs
             time.sleep(20) #give it some time to send the report before shutting down.
             raise Exception("Got a crash report - check bogon")
+        else:
+            print "no crashes"
             
 
         
