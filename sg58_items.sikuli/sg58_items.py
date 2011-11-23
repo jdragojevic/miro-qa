@@ -224,7 +224,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
     def test_458(self):
         """http://litmus.pculture.org/show_test.cgi?id=458 edit blank item description
 
-        1. add TwoStupid feed
+        1. add TWO STUPID feed
         2. download the Flip Faceitem
         3. Edit item description
         4. Cleanup
@@ -234,7 +234,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         title = "Flip" # item title updates when download completes
              
         #add feed and download flip face item

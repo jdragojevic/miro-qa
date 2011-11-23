@@ -41,7 +41,7 @@ class Test_Playlists(base_testcase.Miro_unittest_testcase):
 ##        url = "file:///"+url_path
 ##        feed = "Short Cats"
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         
         reg = MiroRegions() 
         miro = MiroApp()

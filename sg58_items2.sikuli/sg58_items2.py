@@ -130,7 +130,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
     def test_441(self):
         """http://litmus.pculture.org/show_test.cgi?id=441 delete podcast item outside of miro
 
-        1. add TwoStupid feed
+        1. add TWO STUPID feed
         2. download the Flip Faceitem
         3. restart miro
         4. delete the item
@@ -149,7 +149,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         general_tab.close_prefs()
    
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         title = "Flip" # item title updates when download completes
              
         #add feed and download flip face item

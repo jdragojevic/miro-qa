@@ -141,7 +141,7 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
 
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
 
         #1. Add the feed and start dl
         miro.add_feed(reg, url,feed)
