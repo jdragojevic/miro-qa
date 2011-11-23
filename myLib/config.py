@@ -111,8 +111,8 @@ def replace_database(db):
     try:
         os.makedirs(miro_support_dir)
     except OSError, e:
-    if e.errno != errno.EEXIST:
-        raise
+        if e.errno != errno.EEXIST:
+            raise
     shutil.copy(db, dbfile)
 
 def reset_preferences():
