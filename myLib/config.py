@@ -108,7 +108,12 @@ def replace_database(db):
     """
     miro_support_dir = get_support_dir()
     dbfile = os.path.join(miro_support_dir,"sqlitedb")
-    shutil.copy(db,dbfile)
+    try:
+        os.makedirs(miro_support_dir)
+    except OSError, e:
+    if e.errno != errno.EEXIST:
+        raise
+    shutil.copy(db, dbfile)
 
 def reset_preferences():
     datadir = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases")
