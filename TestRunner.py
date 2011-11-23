@@ -11,7 +11,6 @@ class TestRunner(unittest.TestCase):
         print sys.argv
         if len(sys.argv) > 1:
             args = sys.argv[1:]
-            print args
             self.suite = unittest.TestSuite()
             for x in args:
                 self.suite.addTest(suiteclass(x))

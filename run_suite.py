@@ -76,8 +76,6 @@ def _run_the_quicktests():
         sik_run_cmd = ['java', '-jar', JAR_PATH]
         for x in tests:
             sik_run_cmd.append(x)
-            print "running... ",tests
-        print sik_run_cmd
         p = subprocess.Popen(sik_run_cmd).communicate()
 
 def _run_the_full_suite():
