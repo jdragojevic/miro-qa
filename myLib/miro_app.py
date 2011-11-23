@@ -176,7 +176,7 @@ class MiroApp(object):
         if exists("Miro",10):
             click(getLastMatch())
         self.shortcut("q")       
-        if exists("dialog_confirm_quit.png",10) or \
+        if exists("in progress",5) or \
               exists("Quit",5):
             type(Key.ENTER)
         waitVanish("Miro",30)
