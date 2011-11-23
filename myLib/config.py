@@ -138,12 +138,12 @@ def delete_preferences():
     elif get_os_name() == "osx":
         plist_file = os.path.join(os.getenv("HOME"),"Library","Preferences","org.participatoryculture.Miro.plist")
         if os.path.exists(plist_file):
-            os.remove(plist_file)
+            os.unlink(plist_file)
     elif get_os_name() == "win":
         miro_support_dir = get_support_dir()
         preffile = os.path.join(miro_support_dir,"preferences.bin")
         if os.path.exists(preffile):
-            os.remove(preffile)
+            os.unlink(preffile)
     else:
         print "don't know where preferences are"
     
@@ -158,8 +158,8 @@ def delete_database_and_prefs(dbonly=False):
         miro_support_dir = get_support_dir()
         if dbonly == True:
             dbfile = os.path.join(miro_support_dir,"sqlitedb")
-            if os.path.exists(miro_support_dir):
-                shutil.rmtree(miro_support_dir)
+            if os.path.exists(dbfile):
+                os.unlink(dbfile)
         else:
             if os.path.exists(miro_support_dir):
                 shutil.rmtree(miro_support_dir)
