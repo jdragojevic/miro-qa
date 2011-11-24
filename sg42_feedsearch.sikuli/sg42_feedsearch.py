@@ -143,7 +143,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         
         #1. add feed
         miro.add_feed(reg, url,feed)
-        miro.add_feed(reg, dummy_feed_url,"TwoStupid")
+        miro.add_feed(reg, dummy_feed_url,"TWO STUPID")
         #2. search
         miro.new_search_feed(reg, term,radio="Podcast",source=feed)
         time.sleep(5)
@@ -235,7 +235,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         term = "House"
         title = "Dinosaur"
         
@@ -267,7 +267,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         term = "Face"
         title = "Flip"
         
