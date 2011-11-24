@@ -59,7 +59,8 @@ class Test_Conversions(base_testcase.Miro_unittest_testcase):
                 miro.tab_search(reg, "Converted to "+str(x),False)
                 if reg.m.exists(Pattern("item_play_unplayed.png")):
                     doubleClick(reg.m.getLastMatch())
-                    miro.verify_audio_playback(reg, "Converted")
+                    self.assertTrue(miro.verify_audio_playback(reg, title))
+                    self.stop_audio_playback(reg, title)                   
                 else:
                     self.fail("converted item not found")
         except FindFailed, debugging:

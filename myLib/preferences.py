@@ -61,7 +61,7 @@ class Preferences(MiroApp):
             for x in self._CLOSE_BUTTON:
                 if self.sr.exists(x, 2): break
             else:
-                raise Exception("Can't find the close button")
+                print("Can't find the close button")
         click(self.sr.getLastMatch())
         #restore focus back to Miro
         if self.os_name == "lin":
@@ -82,12 +82,12 @@ class Preferences(MiroApp):
             pref_reg = self.sr
         valid_settings = ['on', 'off']
         if setting not in valid_settings:
-            raise Exception("valid setting value not proviced, must be 'on' or 'off'")
+            print("valid setting value not proviced, must be 'on' or 'off'")
         #CHECK THE BOX
         for x in option:
              if pref_reg.exists(x, 2): break
         else:
-            raise Exception("Can't find the preference field %s" % option)
+            print("Can't find the preference field %s" % option)
         sr_loc = Region(pref_reg.getLastMatch())
         sr1 = Region(pref_reg.getX(), sr_loc.getY()-10, pref_reg.getW(), 30) #location of associated checkbox
                    
@@ -112,7 +112,7 @@ class Preferences(MiroApp):
         for x in option:
             if self.sr.exists(x, 3): break
         else:
-            raise Exception("Can't find the preference field %s" % x)
+            print("Can't find the preference field %s" % x)
         sr_loc = Region(self.sr.getLastMatch())
         sr1 = Region(self.sr.getX(), sr_loc.getY()-10, self.sr.getW(), 30)
 
@@ -159,7 +159,7 @@ class Preferences(MiroApp):
             if value_found == True:
                 mr.click(setting)
             else:
-                raise Exception("Can't find the preference value")
+                print("Can't find the preference value")
 
 
     def check_type_text(self, option, setting):

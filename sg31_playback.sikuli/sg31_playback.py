@@ -33,10 +33,6 @@ class Test_Playback(base_testcase.Miro_unittest_testcase):
             time.sleep(3)
             self.assertTrue(exists(Pattern("playback_controls.png")))
             miro.shortcut("d")
-        except FindFailed, debugging:
-            self.verificationErrors.append(debugging)
-        except AssertionError:
-            raise
         finally:
             type(Key.ESC)
 

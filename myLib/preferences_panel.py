@@ -51,7 +51,7 @@ class PreferencesPanel(Preferences):
                      }
         
         if tab not in pref_tabs.keys():
-            raise Exception("A valid pref tab must be provided. Valid values are ['General', \
+            print("A valid pref tab must be provided. Valid values are ['General', \
                             'Podcasts', 'Downloads', 'Folders', ...]")
                                     
         #Open the specified tab by searching within the preferences region (p) for the icon.

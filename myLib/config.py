@@ -113,7 +113,7 @@ def replace_database(db):
         os.makedirs(miro_support_dir)
     except OSError, e:
         if e.errno != errno.EEXIST:
-            raise
+            raise Exception("error replacing sqlitedb")
     shutil.copy(db, dbfile)
 
 def reset_preferences():

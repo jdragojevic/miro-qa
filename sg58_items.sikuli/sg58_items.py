@@ -71,7 +71,8 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         #locate item in audio tab and verify playback
         miro.wait_for_item_in_tab(reg, tab="Music",item=title)
         doubleClick(reg.m.getLastMatch())
-        miro.verify_audio_playback(reg, title)
+        self.assertTrue(miro.verify_audio_playback(reg, title))
+        self.stop_audio_playback(reg, title)
        
         #cleanup
         miro.delete_feed(reg, feed)
