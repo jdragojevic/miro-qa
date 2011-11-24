@@ -61,7 +61,7 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         type("BLIP TV ROCKS \n")
         self.assertTrue(reg.s.exists("BLIP TV ROCKS"))
 
-        miro.quit_miro(reg)
+        miro.quit_miro()
         reg = MiroRegions() 
         miro = MiroApp()
         self.assertTrue(reg.s.exists("BLIP"))
@@ -284,7 +284,7 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         miro.add_source_from_tab(reg, site_url)
         miro.click_last_source(reg)
         reg.m.find(myLib.testvars.dizizle_logo)
-        miro.quit_miro(reg)
+        miro.quit_miro()
         miro.restart_miro()
         miro.click_last_source(reg)
         self.assertTrue(reg.m.exists(myLib.testvars.dizizle_logo))    

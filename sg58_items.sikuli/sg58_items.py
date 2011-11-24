@@ -120,7 +120,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         miro.wait_for_item_in_tab(reg, tab="Video",item=title)
         doubleClick(reg.m.getLastMatch())
         miro.verify_video_playback(reg)
-        miro.quit_miro(reg)
+        miro.quit_miro()
         miro.restart_miro()
         miro.wait_for_item_in_tab(reg, tab="Video",item=title)
         #cleanup

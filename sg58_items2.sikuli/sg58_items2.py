@@ -166,7 +166,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         if os.path.exists(filepath):
             print "able to verify on os level"
             found_file = True
-        miro.quit_miro(reg)
+        miro.quit_miro()
         miro.restart_miro()
         if reg.m.exists("title",15):  #check the remember last tab setting
             miro.log_result("698","test_441")
@@ -180,7 +180,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
             if os.path.exists(filepath):
                 self.fail("file not deleted from filesystem")
         else:
-            miro.quit_miro(reg)
+            miro.quit_miro()
             miro.restart_miro()
             miro.click_podcast(reg, feed)
             miro.tab_search(reg, term)
@@ -364,7 +364,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
                 self.fail("item not found in Clips filter")
         
         finally:
-            miro.quit_miro(reg)
+            miro.quit_miro()
             myLib.config.set_def_db_and_prefs()
 
                                      

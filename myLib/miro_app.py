@@ -89,7 +89,7 @@ class MiroApp(object):
                 print config.get_os_name()
                 type(key,KEY_CTRL+KEY_SHIFT)
         
-    def quit_miro(self, reg):
+    def quit_miro(self):
         if exists("Miro",10):
             click(getLastMatch())
         self.shortcut("q")       
