@@ -52,7 +52,7 @@ class Test_Playlists(base_testcase.Miro_unittest_testcase):
         miro.click_sidebar_tab(reg, "Videos")
         miro.toggle_normal(reg)
         if reg.m.exists("item_play_unplayed.png"):
-            find(Pattern("sort_name_normal.png").exact())
+            find(Pattern("sort_name_normal.png"))
             doubleClick(getLastMatch().below(100))
             wait(Pattern("playback_bar_video.png"),15)
         else:
