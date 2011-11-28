@@ -15,17 +15,7 @@ class Test_Playlists(base_testcase.Miro_unittest_testcase):
 
     """
 
-    def setUp(self):
-        """ All playlist tests require data. Going to add feed and watched folder at the start of the subgroup.
 
-        """
-        self.verificationErrors = []
-        miro = MiroApp()
-        print "starting test: ",self.shortDescription()
-        miro.quit_miro()
-        myLib.config.delete_miro_downloaded_files()
-        miro.restart_miro()
-        time.sleep(10)
  
     def test_108(self):
         """http://litmus.pculture.org/show_test.cgi?id=108 playback through unplayed items.
