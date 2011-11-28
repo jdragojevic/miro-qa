@@ -27,11 +27,11 @@ class Test_Playlists(base_testcase.Miro_unittest_testcase):
 
         """
 
-##        url_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","ShortCats.xml")
-##        url = "file:///"+url_path
-##        feed = "Short Cats"
-        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TWO STUPID"
+        url_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","ShortCats.xml")
+        url = "file:///"+url_path
+        feed = "Short Cats"
+##        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+##        feed = "TWO STUPID"
         
         reg = MiroRegions() 
         miro = MiroApp()
