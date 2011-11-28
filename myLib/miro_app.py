@@ -4,7 +4,7 @@ import glob
 import config
 import testvars
 import testsetup
-from sikuli.Sikuli import Sikuli
+from sikuli.Sikuli import *
 from miro_regions import MiroRegions
 
 #setBundlePath(config.get_img_path())
