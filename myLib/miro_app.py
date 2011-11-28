@@ -4,7 +4,7 @@ import glob
 import config
 import testvars
 import testsetup
-from sikuli.Sikuli import *
+from sikuli.Sikuli import Sikuli
 from miro_regions import MiroRegions
 
 #setBundlePath(config.get_img_path())
@@ -209,10 +209,10 @@ class MiroApp(object):
         if reg.t.exists("Firefox",45):
             click(reg.t.getLastMatch())
         time.sleep(5)
-        if config.get_os_name() == "osx":
-            self.shortcut('f', shift=True)
-        else:
-            type(Key.F11)
+##        if config.get_os_name() == "osx":
+##            self.shortcut('f', shift=True)
+##        else:
+##            type(Key.F11)
         time.sleep(3)
         self.shortcut("l")
         time.sleep(2)
@@ -1216,8 +1216,8 @@ class MiroApp(object):
         reg.tl.click("Import")
         time.sleep(2)
         self.type_a_path(opml_path)
-        wait("imported",15)
-        type(Key.ENTER)
+        if exists("OK", 15) or exists("Successfully") or exists("imported", 5):
+            type(Key.ENTER)
 
     def click_next(self, dR):
         """Click the Next button in a dialog.
