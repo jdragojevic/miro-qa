@@ -11,16 +11,17 @@ from pref_playback_tab import PrefPlaybackTab
 
 class PreferencesPanel(Preferences):
 
-    _GENERAL_TAB = "General"
-    _PODCASTS_TAB = "Podcasts"
-    _DOWNLOADS_TAB = "Downloads"
-    _FOLDERS_TAB = "Folders"
-    _DISK_SPACE_TAB = "Disk"
-    _PLAYBACK_TAB = "Playback"
-    _SHARING_TAB = "Sharing"
-    _CONVERSION_TAB = "Conversions"
-    _STORES_TAB = "Stores"
-    _EXTENSTIONS_TAB = "Extensions"
+    _GENERAL_TAB = ["General", "pref_tab_general.png"]
+    _PODCASTS_TAB = ["Podcasts", "pref_tab_feeds.png"]
+    _DOWNLOADS_TAB = ["Downloads", "pref_tab_downloads.png"]
+    _FOLDERS_TAB = ["Folders", "pref_tab_folders.png"]
+    _DISK_SPACE_TAB = ["Disk", "pref_tab_disk_space.png"]
+    _PLAYBACK_TAB = ["Playback", "pref_tab_playback.png"]
+    _SHARING_TAB = ["Sharing", "pref_tab_sharing.png"]
+    _CONVERSION_TAB = ["Conversions", "pref_tab_conversions.png"]
+    _STORES_TAB = ["Stores", "pref_tab_stores.png"]
+    _EXTENSTIONS_TAB = ["Extensions", "pref_tab_extensions.png"]
+    
     _PANEL_ERROR = Pattern("pref_panel_error.png")
 
 
@@ -56,8 +57,13 @@ class PreferencesPanel(Preferences):
                                     
         #Open the specified tab by searching within the preferences region (p) for the icon.
         print "going to the %s tab" % tab
-        self.hr.click(pref_tabs[tab][0])
-        time.sleep(5)
+
+        for x in pref_tabs[tab][0]:
+                if self.hr.exists(x, 2): break
+        else:
+            print("Can't find the preferenes %s tab" % tab)
+        click(self.hr.getLastMatch())
+        time.sleep(3)
         return pref_tabs[tab][1]
 
                                      
