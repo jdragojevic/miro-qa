@@ -42,15 +42,9 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         feed = "EEVblog"
-        feed2 = "TED"
         miro.click_sidebar_tab(reg, "Miro")
         gr = Region(reg.mtb)
         gr.setH(300)
-        gr.click(Pattern("guide_search.png"))
-        type(feed2 +"\n")
-        time.sleep(5)
-        reg.m.find(Pattern("add_feed.png"))
-        click(reg.m.getLastMatch())
         miro.click_sidebar_tab(reg, "Miro")
         gr.click(Pattern("guide_search.png"))
         type(feed + "\n")
@@ -77,7 +71,6 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
         time.sleep(2)
         miro.count_images(reg,  img=feed,region="sidebar",num_expected=1)
         miro.delete_feed(reg, feed)
-        miro.delete_feed(reg, feed2)
         
         
         
