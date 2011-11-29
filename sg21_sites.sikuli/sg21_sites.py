@@ -8,8 +8,8 @@ from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
 import myLib.testvars
 
-class Miro_Suite(base_testcase.Miro_unittest_testcase):
-    """Subgroup 41 - one-click subscribe tests.
+class Test_Sites(base_testcase.Miro_unittest_testcase):
+    """Subgroup 21 - Sites.
 
     """
     def test_182(self):
@@ -61,7 +61,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         type("BLIP TV ROCKS \n")
         self.assertTrue(reg.s.exists("BLIP TV ROCKS"))
 
-        miro.quit_miro(reg)
+        miro.quit_miro()
         reg = MiroRegions() 
         miro = MiroApp()
         self.assertTrue(reg.s.exists("BLIP"))
@@ -284,7 +284,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro.add_source_from_tab(reg, site_url)
         miro.click_last_source(reg)
         reg.m.find(myLib.testvars.dizizle_logo)
-        miro.quit_miro(reg)
+        miro.quit_miro()
         miro.restart_miro()
         miro.click_last_source(reg)
         self.assertTrue(reg.m.exists(myLib.testvars.dizizle_logo))    
@@ -330,14 +330,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro.delete_site(reg, site)
         miro.delete_site(reg, site2)
         
-# Post the output directly to Litmus
+# TestRunner posts output in xunit format
 if __name__ == "__main__":
-    import LitmusTestRunner
-    print len(sys.argv)
-    if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
-    else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
+    from TestRunner import TestRunner
+    TestRunner(Test_Sites).run_tests()
    
 
 

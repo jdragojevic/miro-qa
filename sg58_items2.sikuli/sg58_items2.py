@@ -10,7 +10,7 @@ from myLib.miro_app import MiroApp
 from myLib.preferences_panel import PreferencesPanel
 
 
-class Miro_Suite(base_testcase.Miro_unittest_testcase):
+class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
     """Subgroup 58 - Items - more tests.
 
     """
@@ -130,7 +130,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     def test_441(self):
         """http://litmus.pculture.org/show_test.cgi?id=441 delete podcast item outside of miro
 
-        1. add TwoStupid feed
+        1. add TWO STUPID feed
         2. download the Flip Faceitem
         3. restart miro
         4. delete the item
@@ -149,7 +149,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         general_tab.close_prefs()
    
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         title = "Flip" # item title updates when download completes
              
         #add feed and download flip face item
@@ -166,7 +166,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         if os.path.exists(filepath):
             print "able to verify on os level"
             found_file = True
-        miro.quit_miro(reg)
+        miro.quit_miro()
         miro.restart_miro()
         if reg.m.exists("title",15):  #check the remember last tab setting
             miro.log_result("698","test_441")
@@ -180,7 +180,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             if os.path.exists(filepath):
                 self.fail("file not deleted from filesystem")
         else:
-            miro.quit_miro(reg)
+            miro.quit_miro()
             miro.restart_miro()
             miro.click_podcast(reg, feed)
             miro.tab_search(reg, term)
@@ -364,17 +364,13 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
                 self.fail("item not found in Clips filter")
         
         finally:
-            miro.quit_miro(reg)
+            miro.quit_miro()
             myLib.config.set_def_db_and_prefs()
 
                                      
  
-# Post the output directly to Litmus
+# TestRunner posts output in xunit format
 if __name__ == "__main__":
-    import LitmusTestRunner
-    print len(sys.argv)
-    if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
-    else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
+    from TestRunner import TestRunner
+    TestRunner(Test_Items_Group2).run_tests()
    

@@ -9,23 +9,23 @@ from myLib.miro_app import MiroApp
 from myLib.preferences_panel import PreferencesPanel
 
 
-class Miro_Suite(base_testcase.Miro_unittest_testcase):
+class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
     """Subgroup 58 - Items.
 
     """
 
          
-    def setUp(self):
-        self.verificationErrors = []
-        print "starting test: ",self.shortDescription()
-        reg = MiroRegions() 
-        miro = MiroApp()
-        myLib.config.set_image_dirs()
-        miro.quit_miro()
-        myLib.config.set_def_db_and_prefs()
-        myLib.config.delete_miro_downloaded_files()
-        miro.restart_miro()
-        time.sleep(10)
+##    def setUp(self):
+##        self.verificationErrors = []
+##        print "starting test: ",self.shortDescription()
+##        reg = MiroRegions() 
+##        miro = MiroApp()
+##        myLib.config.set_image_dirs()
+##        miro.quit_miro()
+##        myLib.config.set_def_db_and_prefs()
+##        myLib.config.delete_miro_downloaded_files()
+##        miro.restart_miro()
+##        time.sleep(10)
 
     def test_361(self):
         """http://litmus.pculture.org/show_test.cgi?id=361 edit item video to audio.
@@ -43,8 +43,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         feed = "ThreeBlip"
         title = "The Joo"
         new_type = "Music"
-        
-        
+        old_type = "Video"
 
         #Set Global Preferences
         
@@ -68,11 +67,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg.m.click(title)
         miro.click_sidebar_tab(reg, "Videos") #stupid workaround for bug, not recognizing selected item after search.
         time.sleep(2)
-        miro.edit_item_type(reg, new_type)
+        miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback
         miro.wait_for_item_in_tab(reg, tab="Music",item=title)
         doubleClick(reg.m.getLastMatch())
-        miro.verify_audio_playback(reg, title)
+        self.assertTrue(miro.verify_audio_playback(reg, title))
+        self.stop_audio_playback(reg, title)
        
         #cleanup
         miro.delete_feed(reg, feed)
@@ -95,6 +95,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         term = "Earth Eats"
         title = "Mushroom"
         new_type = "Video"
+        old_type = "Music"
         #Set Global Preferences
         miro.open_prefs(reg)
         prefs = PreferencesPanel()
@@ -114,12 +115,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro.wait_for_item_in_tab(reg, "Music",item=title)
         reg.m.click(title)
         miro.click_sidebar_tab(reg, "Music") #stupid workaround for bug, not recognizing selected item after search.
-        miro.edit_item_type(reg, new_type)
+        miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback
         miro.wait_for_item_in_tab(reg, tab="Video",item=title)
         doubleClick(reg.m.getLastMatch())
         miro.verify_video_playback(reg)
-        miro.quit_miro(reg)
+        miro.quit_miro()
         miro.restart_miro()
         miro.wait_for_item_in_tab(reg, tab="Video",item=title)
         #cleanup
@@ -224,7 +225,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     def test_458(self):
         """http://litmus.pculture.org/show_test.cgi?id=458 edit blank item description
 
-        1. add TwoStupid feed
+        1. add TWO STUPID feed
         2. download the Flip Faceitem
         3. Edit item description
         4. Cleanup
@@ -234,7 +235,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         time.sleep(5)
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         title = "Flip" # item title updates when download completes
              
         #add feed and download flip face item
@@ -403,12 +404,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
                                      
  
-# Post the output directly to Litmus
+# TestRunner posts output in xunit format
 if __name__ == "__main__":
-    import LitmusTestRunner
-    print len(sys.argv)
-    if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
-    else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
+    from TestRunner import TestRunner
+    TestRunner(Test_Items_Group1).run_tests()
    

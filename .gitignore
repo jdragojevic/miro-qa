@@ -6,6 +6,7 @@
 Images_old/*
 TestInput/*
 #ignore log files
+Results/*.xml
 just_send_result.py
 last_run/*_log.xml
 

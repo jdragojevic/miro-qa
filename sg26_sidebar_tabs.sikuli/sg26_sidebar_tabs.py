@@ -10,22 +10,12 @@ from myLib.miro_app import MiroApp
 from myLib.preferences_panel import PreferencesPanel
 
 
-class Miro_Suite(base_testcase.Miro_unittest_testcase):
+class Test_Playlists(base_testcase.Miro_unittest_testcase):
     """Subgroup 26 - Playlists tests.
 
     """
 
-    def setUp(self):
-        """ All playlist tests require data. Going to add feed and watched folder at the start of the subgroup.
 
-        """
-        self.verificationErrors = []
-        miro = MiroApp()
-        print "starting test: ",self.shortDescription()
-        miro.quit_miro()
-        myLib.config.delete_miro_downloaded_files()
-        miro.restart_miro()
-        time.sleep(10)
  
     def test_108(self):
         """http://litmus.pculture.org/show_test.cgi?id=108 playback through unplayed items.
@@ -37,11 +27,11 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         """
 
-##        url_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","ShortCats.xml")
-##        url = "file:///"+url_path
-##        feed = "Short Cats"
-        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        url_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","ShortCats.xml")
+        url = "file:///"+url_path
+        feed = "Short Cats"
+##        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+##        feed = "TWO STUPID"
         
         reg = MiroRegions() 
         miro = MiroApp()
@@ -62,7 +52,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro.click_sidebar_tab(reg, "Videos")
         miro.toggle_normal(reg)
         if reg.m.exists("item_play_unplayed.png"):
-            find(Pattern("sort_name_normal.png").exact())
+            find(Pattern("sort_name_normal.png"))
             doubleClick(getLastMatch().below(100))
             wait(Pattern("playback_bar_video.png"),15)
         else:
@@ -79,13 +69,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
  
 
-# Post the output directly to Litmus
+# TestRunner posts output in xunit format
 if __name__ == "__main__":
-    import LitmusTestRunner
-    print len(sys.argv)
-    if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
-    else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
+    from TestRunner import TestRunner
+    TestRunner(Test_Playlists).run_tests()
    
 

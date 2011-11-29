@@ -10,7 +10,7 @@ from myLib.miro_app import MiroApp
 from myLib.preferences_panel import PreferencesPanel
 
 
-class Miro_Suite(base_testcase.Miro_unittest_testcase):
+class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
     """Subgroup 42 - Feedsearch.
 
     """
@@ -43,7 +43,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title = "GimpKnowHow"
         
         #1. add feed
-        miro.add_feed(reg, url,feed)
+        miro.add_feed(reg, url, feed)
         #2. search
         miro.tab_search(reg, term)
         reg.mtb.click("button_save_as_podcast.png")
@@ -87,6 +87,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro.click_remove_podcast(reg)
         miro.remove_confirm(reg, action="remove")
         miro.delete_feed(reg, "blip")
+        miro.delete_feed(reg, feed)
 
     def test_213(self):
         """http://litmus.pculture.org/show_test.cgi?id=213 Feed search, delete key.
@@ -101,7 +102,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         title = "Flip"
         term = "dinosaur"
         
@@ -119,7 +120,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         self.assertTrue(reg.m.exists(title))
         #4. cleanup
-        miro.delete_feed(reg, "TwoStupid")
+        miro.delete_feed(reg, feed)
 
     def test_78(self):
         """http://litmus.pculture.org/show_test.cgi?id=78 Menu New Search Feed.
@@ -142,7 +143,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         #1. add feed
         miro.add_feed(reg, url,feed)
-        miro.add_feed(reg, dummy_feed_url,"TwoStupid")
+        miro.add_feed(reg, dummy_feed_url,"TWO STUPID")
         #2. search
         miro.new_search_feed(reg, term,radio="Podcast",source=feed)
         time.sleep(5)
@@ -161,9 +162,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """http://litmus.pculture.org/show_test.cgi?id=720 Menu New Search Feed.
 
         1. Add list of guide feeds (Static List)
-        2. From Sidebar -> New Search feed, create saved search channel
-        3. Verify Search saved
-        4. Cleanup
+        2. Search in the tab
+        3. From Sidebar -> New Search feed, create saved search channel
+        4. Verify Search saved
+        5. Cleanup
 
         """
         reg = MiroRegions() 
@@ -233,7 +235,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         term = "House"
         title = "Dinosaur"
         
@@ -265,7 +267,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         term = "Face"
         title = "Flip"
         
@@ -309,12 +311,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro.delete_feed(reg, "Static List")
 
  
-# Post the output directly to Litmus
+# TestRunner posts output in xunit format
 if __name__ == "__main__":
-    import LitmusTestRunner
-    if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
-    else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
+    from TestRunner import TestRunner
+    TestRunner(Test_Feed_Search).run_tests()
    
 

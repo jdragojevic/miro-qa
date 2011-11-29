@@ -20,6 +20,8 @@ class MiroApp(object):
 
         self.os_name = config.get_os_name()
         self.SYS_TEXT_ENTRY_BUTTON = Pattern('type_a_filename.png')
+        self.OPTION_EXPAND = Pattern("prefs_expand_option.png")
+
 
     def screen_region(self):
         myscreen = Screen()
@@ -28,7 +30,7 @@ class MiroApp(object):
         
     
     def miro_focus(self):
-        self.miroapp.focus()
+        App.focus("Miro")
 
 
     def find_element(self, elements, region=None):
@@ -40,7 +42,7 @@ class MiroApp(object):
         for x in elements:
             if region.exists(x, 3): break 
             else:
-                raise ("Can't find: %s" % elements)
+                print ("Can't find: %s" % elements)
         element_region = Region(region.getLastMatch())
         return element_region
 
@@ -53,7 +55,7 @@ class MiroApp(object):
         for x in elements:
             if region.exists(x, 3): break 
             else:
-                raise ("Can't find: %s" % elements)
+                print ("Can't find: %s" % elements)
         click(region.getLastMatch())
 
 
@@ -87,11 +89,11 @@ class MiroApp(object):
                 print config.get_os_name()
                 type(key,KEY_CTRL+KEY_SHIFT)
         
-    def quit_miro(self, reg):
+    def quit_miro(self):
         if exists("Miro",10):
             click(getLastMatch())
         self.shortcut("q")       
-        if exists("dialog_confirm_quit.png",10) or \
+        if exists("in progress",10) or \
               exists("Quit",5):
             type(Key.ENTER)
         waitVanish("Miro",30)
@@ -133,7 +135,7 @@ class MiroApp(object):
             type(file_path +"\n")     
         else:
             if not exists("Location",5):
-                click(self._SYS_TEXT_ENTRY_BUTTON)
+                click(self.SYS_TEXT_ENTRY_BUTTON)
                 time.sleep(2)
             else:  #clear any text in the type box
                 for x in range(0,15):
@@ -168,19 +170,6 @@ class MiroApp(object):
         else:
             keyUp(Key.CTRL)
         return selected_items
-            
-        
-
-    def quit_miro(self,reg=None):
-        if exists("Miro",10):
-            click(getLastMatch())
-        self.shortcut("q")       
-        if exists("dialog_confirm_quit.png",10) or \
-              exists("Quit",5):
-            type(Key.ENTER)
-        waitVanish("Miro",30)
-      
-           
         
         
     def cmd_ctrl():
@@ -220,17 +209,16 @@ class MiroApp(object):
         if reg.t.exists("Firefox",45):
             click(reg.t.getLastMatch())
         time.sleep(5)
-        if config.get_os_name() == "osx":
-            self.shortcut('f', shift=True)
-        else:
-            type(Key.F11)
+##        if config.get_os_name() == "osx":
+##            self.shortcut('f', shift=True)
+##        else:
+##            type(Key.F11)
+        time.sleep(3)
         self.shortcut("l")
         time.sleep(2)
         type(url + "\n")
         time.sleep(30)
-        myFF.close()
-        waitVanish("Firefox",10)
-        self.close_ff()
+        self.shortcut('w')
 
 
     def close_ff(self):
@@ -381,8 +369,10 @@ class MiroApp(object):
         Verify the feed is added by clicking on the feed and verify the feed name is present
         in the main title bar.
         """
+        print "Adding the podcast: %s" % url
         reg.t.click("Sidebar")
-        reg.t.click("Add Podcast")
+        self.shortcut('n')
+#        reg.t.click("Add Podcast")
         time.sleep(2)
         type(url + "\n")
         time.sleep(10) #give it 10 seconds to add the feed
@@ -430,15 +420,16 @@ class MiroApp(object):
     def click_podcast(self, reg, feed):
         """Find the podcast in the sidebar within podcast region and click on it.
         """
+        print "Clicking the podcast: %s" % feed
         p = self.get_podcasts_region(reg)
-        time.sleep(3)
-        p.find(feed)
-        click(p.getLastMatch())
+        p.highlight(2)
+        p.click(feed)
         return Region(p.getLastMatch()).getCenter()
 
     def click_playlist(self, reg, playlist):
         """Find the podcast in the sidebar within podcast region and click on it.
         """
+        print "Clicking the playlist: %s" % playlist
         p = self.get_playlists_region(reg)
         time.sleep(3)
         p.find(playlist)
@@ -668,10 +659,11 @@ class MiroApp(object):
             click(reg.mtb.getLastMatch().left(10))
         elif reg.mtb.exists("tabsearch_inactive.png",5):
             print "found tabsearch_inactive"
-            click(reg.mtb.getLastMatch())
+            reg.mtb.click("tabsearch_inactive.png")
         else:
             print "can not find the search box"
         time.sleep(2)
+        print "Entering search text"
         type(title.upper())
         time.sleep(3)
         if confirm_present != False:
@@ -681,7 +673,7 @@ class MiroApp(object):
             elif reg.m.exists(Pattern("item-context-button.png")):
                 present=True
             else:
-                raise Exception("Item %s not found in the tab" % title)
+                print("Item %s not found in the tab" % title)
             return present
 
     def clear_search(self, reg):
@@ -768,6 +760,7 @@ class MiroApp(object):
      
 
     def download_all_items(self, reg):
+        print "downloading all the items"
         time.sleep(5)
         self.toggle_normal(reg)
         if reg.m.exists(Pattern("button_download.png"),3):       
@@ -911,17 +904,21 @@ class MiroApp(object):
         type(site_url+"\n")
         
     def new_search_feed(self, reg, term, radio, source, defaults=False, watched=False):
+        print "Opening the New Search Feed dialog."
         reg.t.click("Sidebar")
         reg.t.click("New Search")
         if defaults == True:
+            print "Accepting defaults"
             time.sleep(2)
             type(Key.ENTER)
         elif watched == True: #special case for regression bug with watched folders
+            print "Watched folder test case, should be no entry for the watched folder"
             if reg.m.exists(source):
                 self.handle_crash_dialog(db=True, test=False)   
-                type(Key.ESC)
-                raise Exception ("%s exists when it should not." % source)
+                print ("%s exists when it should not." % source)
+            type(Key.ESC)
         else:
+            print "Entering the search term"
             type(term)
             # Dialog appears in different locations on os x vs gtk
     ##        if config.get_os_name() == "osx":
@@ -930,27 +927,26 @@ class MiroApp(object):
     ##        else:
     ##            reg.m.find("In this")
     ##            f = Region(reg.m.getLastMatch().right(600).above().below())
-            reg.mr.find("In this")
+            reg.mr.find("Search for")
             f = Region(reg.mr.getLastMatch().right(600).below())
             f.setY(f.getY()-120)
-            f.highlight(3)         
+            f.highlight(3)
+            print "Clicking the %s radio button" %radio
             f.click(radio)
             click(f.getLastMatch().right(150))
             time.sleep(2)
             if radio == "URL":
                 type(Key.TAB)
+                print "Entering the search url"
                 type(source)
             else:     
                 if not f.exists(source,2):
-                    type(Key.PAGE_DOWN)
-                if not f.exists(source,2):
-                    type(Key.PAGE_UP)
-                f.click(source)
-                
+                    f.click(self.OPTION_EXPAND)
+                    f.click(source)
             f.click("Create")
 
 
-    def edit_item_type(self, reg, new_type):
+    def edit_item_type(self, reg, new_type, old_type):
         """Change the item's metadata type, assumes item is selected.
 
         """
@@ -963,9 +959,16 @@ class MiroApp(object):
         f.setH(100)
         f.find("Type")
         click(f.getLastMatch().right(50))
-        if not f.exists(new_type,2):
-            type(Key.PAGE_DOWN)
-        f.click(new_type)
+        if old_type == "Video" and new_type == "Music":
+            type(Key.UP)
+        elif old_type == "Video" and new_type == "Misc":
+            type(Key.DOWN)
+        elif old_type == "Music" and new_type == "Video":
+            type(Key.UP)
+        else: 
+            mouseDown(Button.LEFT)
+            mouseMove(new_type)
+            mouseUp(Button.LEFT)
         time.sleep(2)
         click("button_ok.png")
 
@@ -1046,7 +1049,7 @@ class MiroApp(object):
             metar = Region(getLastMatch().below())
             metar.setW(metar.getW()+300)
         else:
-            raise Exception("Can not find show field")
+            print("Can not find show field")
         for meta_field,meta_value,req_id in new_metadata_list:
             print meta_field,meta_value
             for i in (i for i,x in enumerate(metalist) if x == meta_field):
@@ -1101,14 +1104,17 @@ class MiroApp(object):
         i = reg.mtb.below(300)
         for k,v in metadata.iteritems():
             if not(i.exists(v,3)):
-                raise Exception("expected metadata not found")
+                print("expected metadata not found")
 
     def verify_audio_playback(self, reg, title):
         self.toggle_normal(reg)
         if reg.m.exists("item_currently_playing.png"):
             playback = True
         else:
-            raise "Playback not started"
+            playback = False
+        return playback
+
+    def stop_audio_playback(self, reg, title):
         reg.m.click(title)
         self.shortcut("d")
         reg.m.waitVanish("item_currently_playing.png",20)
@@ -1158,14 +1164,14 @@ class MiroApp(object):
             f.destroy() # release the memory used by finder
         if num_expected != None:
             if not (len(mm) == int(num_expected)):
-                raise Exception("Did not find the expected number of images")
+                print("Did not find the expected number of images")
         return len(mm)
 
 
     def http_auth(self, reg, username="tester", passw="pcfdudes"):
         mr = Region(reg.mtb.above(100).below())
         if not mr.exists("Username",30):
-            raise("http auth dialog not found")
+            print "http auth dialog not found"
         else:
             type(username)
             type(Key.TAB)
@@ -1210,8 +1216,8 @@ class MiroApp(object):
         reg.tl.click("Import")
         time.sleep(2)
         self.type_a_path(opml_path)
-        wait("imported",15)
-        type(Key.ENTER)
+        if exists("OK", 15) or exists("Successfully") or exists("imported", 5):
+            type(Key.ENTER)
 
     def click_next(self, dR):
         """Click the Next button in a dialog.
@@ -1373,6 +1379,7 @@ class MiroApp(object):
         """
         crashes = False
         count = 1
+        print "checking if there was a crash"
         while exists(Pattern("internal_error.png"),5):
             if count > 1:
                 click("Ignore")
@@ -1397,7 +1404,9 @@ class MiroApp(object):
             print "miro crashed"
             type(Key.ESC) # close any leftover dialogs
             time.sleep(20) #give it some time to send the report before shutting down.
-            raise Exception("Got a crash report - check bogon")
+            print("Got a crash report - check bogon")
+        else:
+            print "no crashes"
             
 
         

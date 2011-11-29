@@ -10,7 +10,7 @@ from myLib.preferences_panel import PreferencesPanel
 
 
 
-class Miro_Suite(base_testcase.Miro_unittest_testcase):
+class Test_Podcasts(base_testcase.Miro_unittest_testcase):
     """Subgroup 6 - Feeds tests.
 
     """
@@ -141,7 +141,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
 
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
 
         #1. Add the feed and start dl
         miro.add_feed(reg, url,feed)
@@ -301,11 +301,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         
 
+# TestRunner posts output in xunit format
 if __name__ == "__main__":
-    import LitmusTestRunner
-    if len(sys.argv) > 1:
-        LitmusTestRunner.LitmusRunner(sys.argv, ).litmus_test_run()
-    else:
-        LitmusTestRunner.LitmusRunner(Miro_Suite, ).litmus_test_run()
+    from TestRunner import TestRunner
+    TestRunner(Test_Podcasts).run_tests()
 
 

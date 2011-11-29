@@ -21,7 +21,7 @@ class PrefPlaybackTab(Preferences):
         for x in section:
              if self.sr.exists(x, 2): break
         else:
-            raise Exception("Can't find the preference field %s" % option)
+            print("Can't find the preference field %s" % option)
  
         sect_reg = Region(self.sr.getLastMatch())
         sect_reg.setX(self.sr.getX())
@@ -53,7 +53,7 @@ class PrefPlaybackTab(Preferences):
                     "Podcast": self._PODCAST_SECTION
                     }
         if section not in sections.keys():
-            raise Exception("section must be one of %s" %sections.keys())
+            print("section must be one of %s" %sections.keys())
         option = self._PLAY_CONINUOUSLY
         section_region = self.section_sub_region(sections[section])
         self.set_preference_checkbox(option, setting, subsection_region=section_region)
@@ -72,7 +72,7 @@ class PrefPlaybackTab(Preferences):
                     }
 
         if section not in sections.keys():
-           raise Exception("section must be one of %s" %sections.keys())
+           print("section must be one of %s" %sections.keys())
         option = self._RESUME_PLAYBACK
         section_region = self.section_sub_region(section)
         self.set_preference_checkbox(option, setting, subsection_region=section_region)

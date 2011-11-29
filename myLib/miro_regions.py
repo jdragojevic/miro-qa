@@ -27,10 +27,13 @@ class MiroRegions(object):
         self.tl = reg["TopLeftRegion"]
         self.mtb = reg["MainTitleBarRegion"]
         self.mr = reg["MainAndHeaderRegion"]
-        self.miroapp = App("Miro")
+        
 
         myscreen = Screen()
         sr = Region(myscreen.getBounds())
         self.screen_height = sr.getH()
         self.screen_width = sr.getW()
+#        Settings.ActionLogs = False
+        Settings.InfoLogs = False
+        Settings.DebugLogs = False
 
