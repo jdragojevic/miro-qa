@@ -60,6 +60,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         for engine, term in searches.iteritems():
             miro.click_sidebar_tab(reg, "search")
             miro.search_tab_search(reg, term,engine)
+            time.sleep(10)
             reg.mtb.click("button_save_as_podcast.png")
             if engine == "blip":
                 saved_search = engine
@@ -133,6 +134,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
             miro.new_search_feed(reg, term,radio,source,defaults=False,watched=False)
             time.sleep(10) #give some time for everything to load up
             miro.click_podcast(reg, source)
+            miro.shortcut("r")
+            time.sleep(5)
             miro.tab_search(reg, term)
             try:
                 self.assertTrue(reg.m.exists(source))
