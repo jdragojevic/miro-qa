@@ -40,7 +40,7 @@ class Test_One_Click_Subscribe(base_testcase.Miro_unittest_testcase):
             time.sleep(2)
             type(url + "\n")
             time.sleep(20)
-            if miro.os_name() == "osx":
+            if miro.os_name == "osx":
                 self.shortcut('f', shift=True)
             else:
                 type(Key.F11)
