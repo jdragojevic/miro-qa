@@ -22,7 +22,7 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
         """
         miro = MiroApp()
         miro.quit_miro()
-        myLib.config.set_def_db_and_prefs()
+        config.set_def_db_and_prefs()
         miro.restart_miro()
         time.sleep(10)
 
