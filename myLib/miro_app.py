@@ -92,11 +92,11 @@ class MiroApp(object):
     def quit_miro(self):
         if exists("Miro",10):
             click(getLastMatch())
-        self.shortcut("q")       
-        if exists("in progress",10) or \
+            self.shortcut("q")       
+        if exists("in progress", 10) or \
               exists("Quit",5):
             type(Key.ENTER)
-        waitVanish("Miro",30)
+        time.sleep(20)
       
 
     def restart_miro(self):
