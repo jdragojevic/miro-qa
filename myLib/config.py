@@ -183,6 +183,7 @@ def delete_database_and_prefs(dbonly=False):
 
 
 def set_def_db_and_prefs():
+    print "resetting db to empty db"
     time.sleep(5)
     db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","empty_db")
     replace_database(db)
