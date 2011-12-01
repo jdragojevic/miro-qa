@@ -226,7 +226,7 @@ class MiroApp(object):
             if exists("Firefox",1):
                 print "ff is here"
                 click(getLastMatch())
-                self.shortcut('w')
+                self.shortcut('q')
                 time.sleep(2)
             
     def close_window(self):
@@ -669,12 +669,9 @@ class MiroApp(object):
         if confirm_present != False:
             self.toggle_normal(reg)
             if reg.m.exists(title, 5):
-                present=True
+                return True
             elif reg.m.exists(Pattern("item-context-button.png")):
-                present=True
-            else:
-                print("Item %s not found in the tab" % title)
-            return present
+                return True
 
     def clear_search(self, reg):
         if reg.mtb.exists("tabsearch_clear.png",5):
