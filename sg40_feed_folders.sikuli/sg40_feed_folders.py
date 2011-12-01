@@ -75,10 +75,14 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
         rightClick(Location(feed_match))
         if exists("Update",2):
             click(getLastMatch())
-        for feed in added_feeds:
-            miro.tab_search(reg, title=feed,confirm_present=True)
-        #cleanup
-        miro.delete_all_podcasts(reg)
+        try:
+            for feed in added_feeds:
+                assert miro.tab_search(reg, title=feed,confirm_present=True), True
+        except:
+            self.fail("%s feed not found" % feed)
+        finally:
+            #cleanup
+            miro.delete_all_podcasts(reg)
         
 
 
@@ -208,7 +212,7 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
         #set the search regions
         folder = "Great Stuff"
         new_name1 = "INCREDIBLE"
-        new_name2 = "ThisSux"
+        new_name2 = "AWFUL"
         
         reg = MiroRegions() 
         miro = MiroApp()
@@ -270,7 +274,7 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
         time.sleep(2)
         p.click("Featured")
         ror = Region(p.getLastMatch().above(250))
-        if not ror.exists("Make"):
+        if not ror.exists("GEEKY"):
             self.fail("GEEKY folder not moved above 'Featured' podcast")
 
         #Cleanup - select all the podcasts and delete
