@@ -13,19 +13,17 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
     """Subgroup 58 - Items.
 
     """
-
-         
-##    def setUp(self):
-##        self.verificationErrors = []
-##        print "starting test: ",self.shortDescription()
-##        reg = MiroRegions() 
-##        miro = MiroApp()
-##        myLib.config.set_image_dirs()
-##        miro.quit_miro()
-##        myLib.config.set_def_db_and_prefs()
-##        myLib.config.delete_miro_downloaded_files()
-##        miro.restart_miro()
-##        time.sleep(10)
+  
+    def setUp(self):
+        self.verificationErrors = []
+        print "starting test: ",self.shortDescription()
+        myLib.config.set_def_db_and_prefs()
+        myLib.config.delete_miro_downloaded_files()
+        miro.restart_miro()
+        time.sleep(10)
+        reg = MiroRegions() 
+        miro = MiroApp()
+        myLib.config.set_image_dirs()
 
     def test_361(self):
         """http://litmus.pculture.org/show_test.cgi?id=361 edit item video to audio.
