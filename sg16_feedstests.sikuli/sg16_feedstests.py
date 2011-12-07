@@ -58,7 +58,7 @@ class Test_FeedsTests(base_testcase.Miro_unittest_testcase):
         #3. verify item metadata
         self.assertTrue(reg.m.exists(title))
         self.assertTrue(reg.m.exists("This is"))
-        self.assertTrue(reg.m.exists("mike_tv.png"))
+#        self.assertTrue(reg.m.exists("mike_tv.png"))
     
         #4. cleanup
         miro.delete_feed(reg,feed)
@@ -103,7 +103,8 @@ class Test_FeedsTests(base_testcase.Miro_unittest_testcase):
                     time.sleep(2)
                     url = Env.getClipboard()
                     print url
-                    miro.close_ff
+                    self.shortcut('q')
+                    time.sleep(2)
                     baseurl = urlsplit(url).netloc
                     url_parts = baseurl.split('.')
                     self.failUnless(linkurl in url_parts)            
