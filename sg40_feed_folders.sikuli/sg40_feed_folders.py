@@ -55,6 +55,7 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
    
         
         #expand all the folders
+        p = miro.get_podcasts_region(reg)
         miro.expand_feed_folder(reg, "GEEKY")
         miro.expand_feed_folder(reg, "FUN")
         #set the feeds region

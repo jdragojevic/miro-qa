@@ -96,7 +96,9 @@ class MiroApp(object):
         if exists("in progress", 10) or \
               exists("Quit",5):
             type(Key.ENTER)
-        time.sleep(20)
+        time.sleep(10)
+        #make sure all processes are gone.
+        config.kill_miro()
       
 
     def restart_miro(self):
@@ -127,7 +129,7 @@ class MiroApp(object):
             myscreen = Screen()
             pr = Region(myscreen.getBounds())
             type(sc,KEY_ALT)
-            reg.s.click(option)
+            click(option)
             time.sleep(2)
 
     def type_a_path(self, file_path):
@@ -206,28 +208,21 @@ class MiroApp(object):
         This has the expectation that the browser is configured to open the url with miro, .torrent or feed item.
         """
         myFF = App.open(self.open_ff())
-        if reg.t.exists("Firefox",45):
+        if reg.t.exists("Firefox",25):
             click(reg.t.getLastMatch())
-        time.sleep(5)
-##        if config.get_os_name() == "osx":
-##            self.shortcut('f', shift=True)
-##        else:
-##            type(Key.F11)
-        time.sleep(3)
         self.shortcut("l")
         time.sleep(2)
         type(url + "\n")
         time.sleep(30)
-        self.shortcut('w')
-
+        config.kill_firefox()
 
     def close_ff(self):
-        for x in range(0,3):
-            if exists("Firefox",1):
-                print "ff is here"
-                click(getLastMatch())
-                self.shortcut('q')
-                time.sleep(2)
+        if exists("Firefox",5):
+            print "ff is here"
+            click(getLastMatch())
+            self.shortcut('q')
+        else:
+            config.kill_firefox()
             
     def close_window(self):
         if config.get_os_name() == "win":
@@ -371,8 +366,10 @@ class MiroApp(object):
         """
         print "Adding the podcast: %s" % url
         reg.t.click("Sidebar")
-        self.shortcut('n')
-#        reg.t.click("Add Podcast")
+        if self.os_name == "osx":
+            self.shortcut('n')
+        else:
+            reg.t.click("Add Podcast")
         time.sleep(2)
         type(url + "\n")
         time.sleep(10) #give it 10 seconds to add the feed
@@ -852,9 +849,8 @@ class MiroApp(object):
         self.tab_search(reg, item)
         self.toggle_normal(reg)
         for x in range(0,30):
-            if not reg.m.exists(item):
+            if not reg.m.exists(item, 5):
                 print ". waiting",x*5,"seconds for item to appear in tab:",tab
-                time.sleep(5)
         
     def wait_conversions_complete(self, reg, title, conv):
         """Waits for a conversion to complete.
@@ -1178,7 +1174,7 @@ class MiroApp(object):
 
     def remove_http_auth_file(self, reg):
         auth_file = os.path.join(config.get_support_dir(),"httpauth")
-        self.quit_miro(reg)
+        self.quit_miro()
         time.sleep(5)
         if os.path.exists(auth_file):
             auth_saved = True

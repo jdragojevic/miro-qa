@@ -10,7 +10,7 @@
 <body>
 	<outline type="rss" text="Featured Channel Previews from Miro" xmlUrl="http://feeds.miroguide.com/miroguide/featured" miro:autoDownload="off"/>
 	<outline text="GEEKY">
-		<outline type="rss" text="Make Magazine" xmlUrl="http://www.clearbits.net/feeds/creator/80-make-magazine" miro:autoDownload="off"/>
+		<outline type="rss" text="Make Magazine" xmlUrl="http://blog.makezine.com/archive/category/make_podcast/feed" miro:autoDownload="off"/>
 		<outline type="rss" text="Google Tech Talks" xmlUrl="http://www.youtube.com/rss/user/googletechtalks/videos.rss" miro:autoDownload="off" miro:expiryTime="72"/>
 	</outline>
 	<outline text="FUN">

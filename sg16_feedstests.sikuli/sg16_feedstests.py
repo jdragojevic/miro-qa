@@ -103,7 +103,7 @@ class Test_FeedsTests(base_testcase.Miro_unittest_testcase):
                     time.sleep(2)
                     url = Env.getClipboard()
                     print url
-                    self.shortcut('q')
+                    miro.shortcut('q')
                     time.sleep(2)
                     baseurl = urlsplit(url).netloc
                     url_parts = baseurl.split('.')

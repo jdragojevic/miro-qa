@@ -160,7 +160,6 @@ def delete_database_and_prefs(dbonly=False):
         On Windows, delete the entire Support dir. On OSX delete Support dir + preferences plist.
         On linux, delete Support dir, + unset gconf settings.
         """
-        
         miro_support_dir = get_support_dir()
         if dbonly == True:
             dbfile = os.path.join(miro_support_dir,"sqlitedb")
@@ -180,11 +179,36 @@ def delete_database_and_prefs(dbonly=False):
                 plist_file = os.path.join(os.getenv("HOME"),"Library","Preferences","org.participatoryculture.Miro.plist")
                 if os.path.exists(plist_file):
                     os.remove(plist_file)
+def kill_miro():
+    try:
+        if get_os_name() == "win":
+            subprocess.Popen(r'TASKKILL /F /IM Miro.exe')
+        elif get_os_name() == "osx":
+            subprocess.Popen(r'killall -v -I Miro')
+        elif get_os_name() == "lin":
+            subprocess.Popen(r'killall -v -I miro.real')
+        else:
+            print "not sure what to do here"
+    except:
+        pass
+    time.sleep(8)
 
+def kill_firefox():
+    try:
+        if get_os_name() == "win":
+            subprocess.Popen(r'TASKKILL /F /IM Firefox.exe')
+        elif get_os_name() == "osx":
+            subprocess.Popen(r'killall -v -I Firefox')
+        elif get_os_name() == "lin":
+            subprocess.Popen(r'killall -v -I firefox')
+        else:
+            print "not sure what to do here"
+    except:
+        pass 
 
 def set_def_db_and_prefs():
     print "resetting db to empty db"
-    time.sleep(5)
+    kill_miro()
     db = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases","empty_db")
     replace_database(db)
     reset_preferences()

@@ -14,8 +14,6 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
     """Subgroup 58 - Items - more tests.
 
     """
-
-
     def setUp(self):
         reg = MiroRegions() 
         miro = MiroApp()
@@ -79,8 +77,6 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         """
         reg = MiroRegions() 
         miro = MiroApp()
-        
-        
         miro.open_prefs(reg)
         prefs = PreferencesPanel()
         general_tab = prefs.open_tab("General")
@@ -322,24 +318,25 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         1. add Static List feed
         2. download the Earth Eats item
         3. Edit item metadata
-       
 
         """
-        try:
-            reg = MiroRegions()
-            miro = MiroApp()
-            time.sleep(5)
-            url = "http://ringtales.com/nyrss.xml"
-            feed = "The New"
-            title = "Cat" 
+        
+        reg = MiroRegions()
+        miro = MiroApp()
+        time.sleep(5)
+        url = "http://ringtales.com/nyrss.xml"
+        feed = "The New"
+        title = "Cat" 
 
-            new_metadata_list = [
-                ["show","Animated Cartoons", "658"],
-                ["episode_id","nya", "670"],
-                ["season_no","25", "671"],
-                ["episode_no","43", "672"],
-                ["video_kind","Clip", "652"],
-                ]
+        new_metadata_list = [
+            ["show","Animated Cartoons", "658"],
+            ["episode_id","nya", "670"],
+            ["season_no","25", "671"],
+            ["episode_no","43", "672"],
+            ["video_kind","Clip", "652"],
+            ]
+        
+        try:       
             
             #start clean
             miro.delete_feed(reg, feed)

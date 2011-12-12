@@ -40,7 +40,10 @@ def get_regions():
         pr = Region(myscreen.getBounds())
 
         pr.setY(10)
-        sidebar_width = int(config.get_val_from_mirodb("global_state","tabs_width"))
+        try:
+            sidebar_width = int(config.get_val_from_mirodb("global_state","tabs_width"))
+        except:
+            sidebar_width = 250
         topx = 50
         topy = 30
         if pr.exists("Music",5):
