@@ -200,7 +200,7 @@ def kill_firefox():
         elif get_os_name() == "osx":
             subprocess.Popen(r'killall -v -I Firefox')
         elif get_os_name() == "lin":
-            subprocess.Popen(r'killall -v -I firefox')
+            subprocess.Popen(r'killall -v -I firefox-bin')
         else:
             print "not sure what to do here"
     except:
