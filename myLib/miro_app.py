@@ -210,11 +210,12 @@ class MiroApp(object):
         myFF = App.open(self.open_ff())
         if reg.t.exists("Firefox",25):
             click(reg.t.getLastMatch())
+        time.sleep(3)
         self.shortcut("l")
         time.sleep(2)
         type(url + "\n")
-        time.sleep(30)
-        config.kill_firefox()
+        time.sleep(20)
+        self.close_ff() 
 
     def close_ff(self):
         if exists("Firefox",5):
