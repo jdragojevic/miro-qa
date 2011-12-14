@@ -359,7 +359,7 @@ class MiroApp(object):
         else:
             print "site not present: ",site
 
-    def add_feed(self, reg, url, feed):
+    def add_feed(self, reg, url, feed, click_feed=True):
         """Add a feed to miro, click on it in the sidebar.
         
         Verify the feed is added by clicking on the feed and verify the feed name is present
@@ -374,8 +374,9 @@ class MiroApp(object):
         time.sleep(2)
         type(url + "\n")
         time.sleep(10) #give it 10 seconds to add the feed
-        self.click_podcast(reg, feed)
-        time.sleep(3)
+        if click_feed == True:
+            self.click_podcast(reg, feed)
+            time.sleep(3)
 
     def add_playlist(self, reg, playlist, style="menu"):
         """Add a playlist miro using 1 of the following styles:
@@ -955,10 +956,13 @@ class MiroApp(object):
         click(f.getLastMatch().right(50))
         if old_type == "Video" and new_type == "Music":
             type(Key.UP)
+            type(Key.ENTER)
         elif old_type == "Video" and new_type == "Misc":
             type(Key.DOWN)
+            type(Key.ENTER)
         elif old_type == "Music" and new_type == "Video":
             type(Key.UP)
+            type(Key.ENTER)
         else: 
             mouseDown(Button.LEFT)
             mouseMove(new_type)
@@ -1101,11 +1105,8 @@ class MiroApp(object):
                 print("expected metadata not found")
 
     def verify_audio_playback(self, reg, title):
-        self.toggle_normal(reg)
         if reg.m.exists("item_currently_playing.png"):
             playback = True
-        else:
-            playback = False
         return playback
 
     def stop_audio_playback(self, reg, title):

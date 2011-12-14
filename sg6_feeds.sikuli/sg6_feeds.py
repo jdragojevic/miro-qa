@@ -266,7 +266,7 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         url = "http://subscribe.getmiro.com/?url1=http%3A%2F%2Fparticipatoryculture.org%2Ffeeds_test%2Ffeed1.rss"
-        
+        feed = "invalid"        
         #Set Global Preferences
         miro.open_prefs(reg)
         prefs = PreferencesPanel()
@@ -274,14 +274,10 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
         podcasts_tab.autodownload_setting("All")
         podcasts_tab.close_prefs()
        
-        
-        reg.t.click("Sidebar")
-        reg.t.click("Add Podcast")
-        time.sleep(2)
-        type(url + "\n")
+        miro.add_feed(reg, url, feed, click_feed=False)        
         if exists("anyway",45):
             type(Key.ENTER)
-        miro.click_last_podcast( reg)
+        miro.click_last_podcast(reg)
         type(Key.DELETE)
         miro.remove_confirm(reg, "remove")
         #Reset autodownload preferences

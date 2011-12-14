@@ -66,14 +66,17 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Videos",item=title)
         reg.m.click(title)
-        miro.click_sidebar_tab(reg, "Videos") #stupid workaround for bug, not recognizing selected item after search.
-        time.sleep(2)
+        #miro.click_sidebar_tab(reg, "Videos") #stupid workaround for bug, not recognizing selected item after search.
+        #time.sleep(2)
+        if miro.os_name=='osx':
+            type(Key.TAB)  #os x make sure focus on item so shortcut works
         miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback
         miro.wait_for_item_in_tab(reg, tab="Music",item=title)
-        doubleClick(reg.m.getLastMatch())
+        click(reg.m.getLastMatch())        
+        type(' ') #use spacebar to start playback
         self.assertTrue(miro.verify_audio_playback(reg, title))
-        self.stop_audio_playback(reg, title)
+        miro.stop_audio_playback(reg, title)
        
         #cleanup
         miro.delete_feed(reg, feed)
