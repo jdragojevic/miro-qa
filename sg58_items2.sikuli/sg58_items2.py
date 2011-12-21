@@ -75,7 +75,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         reg = mirolib._AppRegions()
         time.sleep(5)
-        prefs.set_item_display(self,reg,option="audio",setting="on")
+#        prefs.set_item_display(self,reg,option="audio",setting="on")
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Earth Eats"
@@ -199,8 +199,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title2 = "York"
         title3 = "Accessing"
         mirolib.delete_feed(self,reg,feed)
-        prefs.set_autodownload(self,reg,setting="Off")
-        prefs.set_default_view(self,reg,setting="List")
+#        prefs.set_autodownload(self,reg,setting="Off")
+#        prefs.set_default_view(self,reg,setting="List")
         time.sleep(2)      
         #add feed and download joo joo item
         mirolib.add_feed(self,reg,url,feed)

@@ -100,7 +100,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib._AppRegions()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         title = "Flip Face"
         term = "dinosaur"
         
@@ -118,7 +118,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         self.assertTrue(reg.m.exists("Flip"))
         #4. cleanup
-        mirolib.delete_feed(self,reg,"TwoStupid")
+        mirolib.delete_feed(self,reg,"TWO STUPID")
 
     def test_78(self):
         """http://litmus.pculture.org/show_test.cgi?id=78 Menu New Search Feed.
@@ -140,7 +140,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
         #1. add feed
         mirolib.add_feed(self,reg,url,feed)
-        mirolib.add_feed(self,reg,dummy_feed_url,"TwoStupid")
+        mirolib.add_feed(self,reg,dummy_feed_url,"TWO STUPID")
         #2. search
         mirolib.new_search_feed(self,reg,term,radio="Podcast",source=feed)
         time.sleep(5)
@@ -172,7 +172,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         dummy_feed_url = "http://pculture.org/feeds_test/2stupidvideos.xml"
         
         #1. add feed
-        mirolib.add_feed(self,reg,dummy_feed_url,"TwoStupid")
+        mirolib.add_feed(self,reg,dummy_feed_url,"TWO STUPID")
         mirolib.add_feed(self,reg,url,feed)
         mirolib.tab_search(self,reg,term)
         #2. search
@@ -224,7 +224,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         reg = mirolib._AppRegions()
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         term = "House"
         title = "Dinosaur"
         
@@ -255,7 +255,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         reg = mirolib._AppRegions()
         
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-        feed = "TwoStupid"
+        feed = "TWO STUPID"
         term = "Face"
         title = "Flip"
         

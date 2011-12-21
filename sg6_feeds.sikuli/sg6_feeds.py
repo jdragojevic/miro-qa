@@ -204,8 +204,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         setAutoWaitTimeout(testvars.timeout)
         #set the search regions
         reg = mirolib._AppRegions()      
-        prefs.set_autodownload(self,reg,setting="Off")
-        prefs.set_default_view(self,reg,setting="Standard")
+#        prefs.set_autodownload(self,reg,setting="Off")
+#        prefs.set_default_view(self,reg,setting="Standard")
 
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
@@ -316,7 +316,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
 
         reg = mirolib._AppRegions()
         url = "http://subscribe.getmiro.com/?url1=http%3A%2F%2Fparticipatoryculture.org%2Ffeeds_test%2Ffeed1.rss"
-        prefs.set_autodownload(self,reg,setting="All")
+#        prefs.set_autodownload(self,reg,setting="All")
         reg.t.click("Sidebar")
         reg.t.click("Add Podcast")
         time.sleep(2)

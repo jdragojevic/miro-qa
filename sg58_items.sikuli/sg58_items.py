@@ -49,12 +49,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         
 
         #Set Global Preferences        
-        prefs.set_item_display(self,reg,option="audio",setting="on")
-        time.sleep(2)
-        prefs.set_item_display(self,reg,option="video",setting="on")
-        time.sleep(2)
-        prefs.set_autodownload(self,reg,setting="Off")
-        time.sleep(2)
+#        prefs.set_item_display(self,reg,option="audio",setting="on")
+#        time.sleep(2)
+#        prefs.set_item_display(self,reg,option="video",setting="on")
+#        time.sleep(2)
+#        prefs.set_autodownload(self,reg,setting="Off")
+#        time.sleep(2)
         #start clean
         mirolib.delete_feed(self,reg,feed)
         #add feed and download joo joo item
@@ -94,12 +94,12 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         new_type = "Video"
         #Set Global Preferences
         mirolib.delete_feed(self,reg,feed)
-        prefs.set_item_display(self,reg,option="audio",setting="on")
-        time.sleep(2)
-        prefs.set_item_display(self,reg,option="video",setting="on")
-        time.sleep(2)
-        prefs.set_autodownload(self,reg,setting="Off")
-        time.sleep(2)
+#        prefs.set_item_display(self,reg,option="audio",setting="on")
+#        time.sleep(2)
+#        prefs.set_item_display(self,reg,option="video",setting="on")
+#        time.sleep(2)
+#        prefs.set_autodownload(self,reg,setting="Off")
+#        time.sleep(2)
 
         
         #add feed and download joo joo item
@@ -140,10 +140,10 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title = "Mushroom" # item title updates when download completes
         new_type = "Video"
         #Set Global Preferences
-        prefs.set_item_display(self,reg,option="audio",setting="on")
-        time.sleep(2)
+#        prefs.set_item_display(self,reg,option="audio",setting="on")
+#        time.sleep(2)
         mirolib.delete_feed(self,reg,feed)
-        
+#        
         #add feed and download earth eats item
         mirolib.add_feed(self,reg,url,feed)
         mirolib.toggle_normal(reg)
@@ -174,8 +174,8 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         url = "http://vimeo.com/moogaloop_local.swf?clip_id=7335370&server=vimeo.com"
         title = "local"
         #Set Global Preferences
-        prefs.set_item_display(self,reg,option="video",setting="on")
-        time.sleep(2)
+#       prefs.set_item_display(self,reg,option="video",setting="on")
+#        time.sleep(2)
         mirolib.cancel_all_downloads(self,reg)
         reg.tl.click("File")
         reg.tl.click("Download from")
@@ -260,9 +260,9 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         title3 = "Accessing"
         mirolib.delete_feed(self,reg,feed)
         
-        prefs.set_autodownload(self,reg,setting="Off")
-        time.sleep(2)
-        prefs.set_default_view(self,reg,setting="Standard")
+#        prefs.set_autodownload(self,reg,setting="Off")
+#        time.sleep(2)
+#        prefs.set_default_view(self,reg,setting="Standard")
 
         #add feed and download joo joo item
         mirolib.add_feed(self,reg,url,feed)
