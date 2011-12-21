@@ -50,7 +50,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(60)
         reg = mirolib._AppRegions()
-        prefs.set_autodownload(self,reg,setting="Off")
+#        prefs.set_autodownload(self,reg,setting="Off")
 
         searches = {"blip": "python", "YouTube": "cosmicomics", "Revver": "Beiber", "Yahoo": "Canada", "DailyMotion": "Russia", "Metavid": "africa", "Mininova": "Creative Commons", "Video": "Toronto"}
         for engine, term in searches.iteritems():
