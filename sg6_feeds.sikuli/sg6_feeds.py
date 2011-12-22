@@ -142,7 +142,7 @@ class Miro_Suite(base_testcase.Miro_unittest_testcase):
     	reg = mirolib._AppRegions()
 
     	url = "http://pculture.org/feeds_test/2stupidvideos.xml"
-    	feed = "TwoStupid"
+    	feed = "TWO STUPID"
 
     	#1. Add the feed and start dl
     	mirolib.add_feed(self,reg,url,feed)
