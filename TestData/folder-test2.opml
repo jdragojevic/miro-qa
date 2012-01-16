@@ -11,6 +11,6 @@
 	<outline text="Best Feeds Ever">
 	</outline>
 	<outline type="rss" text="Vimeo / Kirby Ferguson's uploaded videos" xmlUrl="http://vimeo.com/kirbyferguson/videos/rss" miro:autoDownload="off"/>
-	<outline type="rss" text="BirchboxTV" xmlUrl="http://blip.tv/Birchbox?skin=rss" miro:autoDownload="off"/>
+	<outline type="rss" text="BIRCHBOXTV" xmlUrl="http://blip.tv/Birchbox?skin=rss" miro:autoDownload="off"/>
 </body>
 </opml>
