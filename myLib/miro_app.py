@@ -267,6 +267,7 @@ class MiroApp(object):
            reg.t.exists(Pattern("dialog_one_of_these.png"),3):
             
             print "got confirmation dialog"
+            dialog = Screen(0).capture(Region(reg.t.getLastMatch()))
             if action == "remove":
                 print "clicking remove button"
                 type(Key.ENTER)
@@ -285,6 +286,9 @@ class MiroApp(object):
                 type(Key.ENTER)
             else:
                 print "not sure what to do in this dialog"
+        if dialog:
+            waitVanish(dialog)
+              
         
     def get_sources_region(self, reg):
         """takes the main and sidebar regions to create a region for the websites section.
@@ -485,6 +489,7 @@ class MiroApp(object):
             fr = Region(p.getLastMatch()).left()
             fr.setY(fr.getY()-10)
             fr.setH(fr.getH()+20)
+            fr.highlight(2)
         if fr.exists(Pattern("folder_closed.png")):
             click(fr.getLastMatch())
         else:
@@ -565,6 +570,7 @@ class MiroApp(object):
             p1.click(setting)
         time.sleep(2)
         p1.click("button_done.png")
+        p1.waitVanish("button_done.png")
 
     def click_source(self, reg, website):
             p = self.get_sources_region(reg)
@@ -1208,9 +1214,12 @@ class MiroApp(object):
         self.click_sidebar_tab(reg, "Music")
         reg.tl.click("Sidebar")
         time.sleep(2)
-        reg.tl.click("Import")
+        if reg.tl.exists(Pattern("opml_import.png")) or reg.tl.exists("Import"):
+            click(reg.tl.getLastMatch())
         time.sleep(2)
         self.type_a_path(opml_path)
+        time.sleep(2)
+        type(Key.ENTER)
         if exists("OK", 15) or exists("Successfully") or exists("imported", 5):
             type(Key.ENTER)
 
