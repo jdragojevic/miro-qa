@@ -61,10 +61,10 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
         #set the feeds region
         p = miro.get_podcasts_region(reg)
         #select multiple feeds for the folders
-        p.click("Birchbox")
+        p.click("BIRCHBOXTV")
         added_feeds = miro.multi_select(region=p,item_list=feed_list)
         if len(added_feeds) > 0:
-            added_feeds.append("Birchbox")
+            added_feeds.append("BIRCHBOXTV")
         else:
             self.fail("feeds not selected properly for adding to a folder")
         time.sleep(5)
@@ -107,7 +107,7 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test.opml")
         feed = "Featured"
         folder = "GEEKY"
-        feedlist = ["Google", "Make","GEEKY","Featured"]
+        feedlist = ["Google", "Make", "GEEKY", "Featured"]
 
         #1. Add the feeds 
         miro.import_opml(reg, opml_path)
@@ -118,7 +118,7 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
         keyDown(Key.SHIFT)
         p.click(folder)
         keyUp(Key.SHIFT)
-        #3. Delete then cancel.  Verify still exists Static List
+        #3. Delete
         type(Key.DELETE)
         for x in feedlist:
             miro.count_images(reg, img=x,region="main",num_expected=1)             
@@ -179,7 +179,7 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
 
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test2.opml")
         folder = "Best Feeds"
-        feedlist = ["Vimeo", "BirchboxTV"]
+        feedlist = ["Vimeo", "BIRCHBOXTVTV"]
 
         #1. Add the feeds 
         miro.import_opml(reg, opml_path)
