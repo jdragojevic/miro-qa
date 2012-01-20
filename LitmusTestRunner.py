@@ -94,7 +94,8 @@ def set_status(stat):
 def get_linux_os():
     UBUNTU_DICT = {"10.04":"Ubuntu (Lucid)",
                    "10.10":"Ubuntu (Maverick)",
-                   "11.04":"Ubuntu (Natty)"}
+                   "11.04":"Ubuntu (Natty)",
+                   "11.10":"Ubuntu (Oneiric)"}
     f = open("/etc/issue",'r')
     info = f.read()
     f.close()
