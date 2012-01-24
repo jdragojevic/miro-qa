@@ -787,49 +787,57 @@ class MiroApp(object):
         print "in function confirm dl started"
         time.sleep(2)
         mr = Region(reg.mtb.above(50).below())
-        if mr.exists("been downloaded",3) or \
-           mr.exists("message_already_downloaded.png",1):
+        if exists("been downloaded",3) or \
+           exists(Pattern("message_already_downloaded.png"),1):
             downloaded = "downloaded"
             print "item already downloaded"
             type(Key.ESC)            
-        elif mr.exists("downloading now",3) or \
-             mr.exists("message_already_external_dl.png",1):
+        elif exists("downloading now",3) or \
+             exists("message_already_external_dl.png",1):
             downloaded = "in_progress"
             print "item downloading"
             type(Key.ESC)
-        elif mr.exists("Error",3) or \
-             mr.exists(Pattern("badge_dl_error.png"),1):
+        elif exists("Error",3) or \
+             exists(Pattern("badge_dl_error.png"),1):
             downloaded = "failed"
             type(Key.ESC)
-        else:
+        elif reg.s.exists("Downloading"):
             self.click_sidebar_tab(reg, "Downloading")
             reg.mtb.click(Pattern("download-pause.png"))
             if mr.exists(Pattern("badge_dl_error.png"),2):
                 downlaoded = "errors"
             elif self.tab_search(reg,title,confirm_present=True) == True:
                 downloaded = "in_progress"
-            else:
-                    downloaded = "item not located"
             reg.mtb.click(Pattern("download-resume.png"))
+        else:
+            downloaded = "not_confirmed"
         return downloaded
 
 
     def wait_download_complete(self, reg, title, torrent=False):
         """Wait for a download to complete before continuing test.
 
-        provide title - to verify item present itemtitle_'title'.png
-
         """
         if not self.confirm_download_started(reg, title) == "downloaded":
             if torrent == False:
                 if reg.m.exists(title):
-                    reg.m.waitVanish(title,240)
+                    reg.m.waitVanish(title, 240)
             elif torrent == True:
         #break out if stop seeding button found for torrent
                 for x in range(0,30):
                     while not reg.m.exists("item_stop_seeding.png"):
                         time.sleep(5)
                     
+    
+    def download_from_a_url(self, reg, url, title):
+        reg.tl.click("File")
+        reg.tl.click("Download from")
+        time.sleep(3)
+        type(url+"\n")
+        print ("confirming the download started")
+        status = self.confirm_download_started(reg, title)
+        return status
+    
     def cancel_all_downloads(self, reg):
         """Cancel all in progress downloads.
         
