@@ -62,7 +62,25 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         miro.cancel_all_downloads(reg)
         miro.download_from_a_url(reg, item_url, item_title)
-        assert download_playback_check_title(reg, miro, item_title, item_image)       
+        assert download_playback_check_title(reg, miro, item_title, item_image)
+
+    def test_16456_674(self):
+        """http://litmus.pculture.org/show_test.cgi?id=674 https url download.
+
+        1. http file url to download
+        2. open with File Download menu
+        3. Verify download completes
+        4. Check title display via screenshot
+
+        """
+        item_url = "https://www.youtube.com/watch?v=pOle1AnPOc4"
+        item_title = "Charlie"
+        item_image = "charlie_bit_me.png"
+        reg = MiroRegions()
+        miro = MiroApp()
+        miro.cancel_all_downloads(reg)
+        miro.download_from_a_url(reg, item_url, item_title)
+        assert download_playback_check_title(reg, miro, item_title, item_image) 
  
     def test_18656_763(self):
         """http://litmus.pculture.org/show_test.cgi?id=763 youtube feed dl.
@@ -144,6 +162,28 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         feed_name = "Dilbert"
         item_title = "Survey"
         item_image = "dilbert_survey_results.png"
+        reg = MiroRegions()
+        miro = MiroApp()
+        miro.add_feed(reg, feed_url, feed_name)
+        miro.tab_search(reg, item_title)
+        miro.download_all_items(reg)
+        assert download_playback_check_title(reg, miro, item_title, item_image) 
+
+    def test_14289_644(self):
+        """http://litmus.pculture.org/show_test.cgi?id=644 feed items with non-ascii chars.
+
+        1. Add feed
+        2. Download item
+        3. Verify download completes
+        4. Check title display via screenshot
+        5. Verify playback
+
+        """
+        url_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","dilbert-feed.xml")
+        feed_url = "http://gdata.youtube.com/feeds/api/users/4001v63/uploads"
+        feed_name = "Uploads"
+        item_title = "kerta"
+        item_image = "non_ascii_item.png"
         reg = MiroRegions()
         miro = MiroApp()
         miro.add_feed(reg, feed_url, feed_name)
