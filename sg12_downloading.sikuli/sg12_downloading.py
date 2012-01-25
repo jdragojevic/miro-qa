@@ -81,6 +81,30 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         miro.cancel_all_downloads(reg)
         miro.download_from_a_url(reg, item_url, item_title)
         assert download_playback_check_title(reg, miro, item_title, item_image) 
+
+    def test_13827_633(self):
+        """http://litmus.pculture.org/show_test.cgi?id=633 503 error retry.
+
+        1. 503 error file url download
+        2. open with File Download menu
+        3. Verify error message are displayed with retry option
+
+        """
+        url = "http://pculture.org/feeds_test/503.php"
+        reg = MiroRegions()
+        miro = MiroApp()
+        miro.cancel_all_downloads(reg)
+        reg.tl.click("File")
+        reg.tl.click("Download from")
+        time.sleep(3)
+        type(url+"\n")
+        for x in range(0,2):
+            time.sleep(3)
+            find(Pattern("retry_dialog.png").similar(0.5))
+            type(Key.ENTER)
+        type(Key.ESC)
+        
+
  
     def test_18656_763(self):
         """http://litmus.pculture.org/show_test.cgi?id=763 youtube feed dl.
