@@ -775,7 +775,7 @@ class MiroApp(object):
                 click(x)
                 time.sleep(1)
         else:
-            print "no badges found, maybe autodownloads in progress"
+            print "no badges found, maybe download is in progress"
 
 
       
@@ -805,7 +805,7 @@ class MiroApp(object):
             self.click_sidebar_tab(reg, "Downloading")
             reg.mtb.click(Pattern("download-pause.png"))
             if mr.exists(Pattern("badge_dl_error.png"),2):
-                downlaoded = "errors"
+                downloaded = "errors"
             elif self.tab_search(reg,title,confirm_present=True) == True:
                 downloaded = "in_progress"
             reg.mtb.click(Pattern("download-resume.png"))
