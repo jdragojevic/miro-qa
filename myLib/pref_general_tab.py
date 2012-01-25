@@ -15,6 +15,14 @@ class PrefGeneralTab(Preferences):
     _DEFAULT_LANG = ["Display"]
     _TRAY_ICON = ["Enable tray"]
 
+    def click_podcast_tab(self):   #workaround for 4.0 preferences
+        _tab = ["Podcasts", "pref_tab_feeds.png"]
+        for x in _tab:
+            if exists(x, 2): break
+        else:
+            print("Can't find the preferenes %s tab" % tab)
+        click(getLastMatch())
+
     def automatically_run_on_login(self, setting):
         option = self._RUN_ON_LOGIN
         self.set_preference_checkbox(option, setting)
@@ -32,10 +40,12 @@ class PrefGeneralTab(Preferences):
         self.set_preference_checkbox(option, setting)
         
     def show_videos_in_videos(self, setting):
+        self.click_podcast_tab()
         option = self._SHOW_VIDEOS
         self.set_preference_checkbox(option, setting)
 
     def show_audio_in_music(self, setting):
+        self.click_podcast_tab()
         option = self._SHOW_AUDIO
         self.set_preference_checkbox(option, setting)
 
