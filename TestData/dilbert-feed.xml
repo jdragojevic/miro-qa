@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:cc="http://web.resource.org/cc/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:libsyn="http://libsyn.com/rss-extension" xmlns:media="http://search.yahoo.com/mrss/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <channel>
+       <atom:link href="http://dilbert.wm.wizzard.tv/rss" rel="self" type="application/rss+xml"/>
+       <title><![CDATA[Dilbert Animated Cartoons]]></title>
+       <link><![CDATA[http://www.ringtales.com]]></link>
+       <description><![CDATA[He's alive!  Creator Scott Adams' world famous comic strip cubicle dweller Dilbert now walks and talks and sometimes gets the last line in a new, daily animated version from RingTales.  You can now enjoy Dogbert, Wally, Alice, the Pointy Haired Boss and all your favorite Dilbert characters in new installments five days per week. Animation that's addictive.  You can't watch just one.]]></description>
+       <language>en</language>
+       <copyright><![CDATA[©2008 RingTales L.L.C.]]></copyright>
+       <managingEditor>rob@wizzard.tv</managingEditor>
+       <pubDate>Fri, 20 Jan 2012 12:00:00 +0000</pubDate>
+       <lastBuildDate>Wed, 25 Jan 2012 12:48:46 +0000</lastBuildDate>
+       <generator>Libsyn WebEngine</generator>
+       <docs>http://www.ringtales.com</docs>
+       <itunes:author><![CDATA[Ringtales.com]]></itunes:author>
+<itunes:category text="Comedy"/>
+<itunes:category text="TV &amp; Film"/>
+       <itunes:image href="http://assets.libsyn.com/content/1212457.jpg" />
+       <itunes:explicit>clean</itunes:explicit>
+       <itunes:owner>
+           <itunes:name><![CDATA[Ringtales L.L.C.]]></itunes:name>
+           <itunes:email>mike@ringtales.com</itunes:email>
+       </itunes:owner>
+       <itunes:summary><![CDATA[He's alive!  Creator Scott Adams' world famous comic strip cubicle dweller Dilbert now walks and talks and sometimes gets the last line in a new, daily animated version from RingTales.  You can now enjoy Dogbert, Wally, Alice, the Pointy Haired Boss and all your favorite Dilbert characters in new installments five days per week. Animation that's addictive.  You can't watch just one.]]></itunes:summary>
+       <itunes:subtitle><![CDATA[He's alive!  Creator Scott Adams' world famous comic strip cubicle dweller Dilbert now walks and talks and sometimes gets the last line in a new, daily animated version from RingTales. ]]></itunes:subtitle>
+       <image>
+           <url>http://assets.libsyn.com/content/1212457.jpg</url>
+           <title><![CDATA[Dilbert Animated Cartoons]]></title>
+           <link><![CDATA[http://www.ringtales.com]]></link>
+       </image>
+       <item>
+           <title><![CDATA[Survey Results]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d296.m4v]]></link>
+           <description><![CDATA[<p>The New MBA has surprising survey findings</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[0ce3db1b0f8ded325b12460cc4845553]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1809663" />
+           <pubDate>Fri, 20 Jan 2012 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>26</itunes:duration>
+           <enclosure length="2266981" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d296.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Reducing Head Count]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d295.m4v]]></link>
+           <description><![CDATA[<p>The Boss tries his best to encourage Ted</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[c6ab2bef4f6e5722c808971de8cf646b]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1809662" />
+           <pubDate>Wed, 18 Jan 2012 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>24</itunes:duration>
+           <enclosure length="2052605" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d295.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[MBA vs Witch]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d285.m4v]]></link>
+           <description><![CDATA[<p>The Boss tries to decipher the data</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[6024812041a8593f8123c4226d6ac409]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1809660" />
+           <pubDate>Mon, 16 Jan 2012 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>21</itunes:duration>
+           <enclosure length="1630077" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d285.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Dilbert's Self Worth]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d277.m4v]]></link>
+           <description><![CDATA[<p>Dilbert is shot down</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[94fb4824c31cb840e40c17ac8f306ce4]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1809659" />
+           <pubDate>Fri, 13 Jan 2012 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>29</itunes:duration>
+           <enclosure length="2427454" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d277.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[The Boss's World View]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d276.m4v]]></link>
+           <description><![CDATA[<p>The Boss tries to manage</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[bb21d8004def0a8954991d9a7f2deaef]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1809657" />
+           <pubDate>Wed, 11 Jan 2012 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>18</itunes:duration>
+           <enclosure length="2083158" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d276.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Dilbert Negotiates a Date]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d238.m4v]]></link>
+           <description><![CDATA[<p>Dilbert's love life has strings attached</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[7eb2d512a6a049abea7aff1eb8dccaee]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1809656" />
+           <pubDate>Mon, 09 Jan 2012 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>23</itunes:duration>
+           <enclosure length="2067513" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d238.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Beta-Testing]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d273.m4v]]></link>
+           <description><![CDATA[<p>Dilbert's theory's are interpreted by the Boss</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[bdf6a7263682537879ca8aaccbf55031]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1791022" />
+           <pubDate>Fri, 06 Jan 2012 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>22</itunes:duration>
+           <enclosure length="2251489" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d273.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Mentoring Session]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d267.m4v]]></link>
+           <description><![CDATA[<p>Alice speaks her mind</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[a9d3e99a238f2af61ac911e1707585da]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1791021" />
+           <pubDate>Wed, 04 Jan 2012 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>27</itunes:duration>
+           <enclosure length="1989482" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d267.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[MBA]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d272.m4v]]></link>
+           <description><![CDATA[<p>The new MBA feels the pain</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[5a6cc2e2b0d37c9ef235e158aaa462ca]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1791004" />
+           <pubDate>Fri, 30 Dec 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>23</itunes:duration>
+           <enclosure length="2150245" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d272.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Diverting Attention]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d252.m4v]]></link>
+           <description><![CDATA[<p>Wally practices what he does best</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[8040da53ead327c49dad03d4bd57226c]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1780718" />
+           <pubDate>Wed, 21 Dec 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>24</itunes:duration>
+           <enclosure length="2174277" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d252.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Dogbert Corporate Art Source]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d430.m4v]]></link>
+           <description><![CDATA[<p>The Boss inquires on bargain art</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[b097e2253c6290a307032ce8e0755e4e]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1767711" />
+           <pubDate>Mon, 05 Dec 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>22</itunes:duration>
+           <enclosure length="1630498" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d430.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[It's All Natural]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d431.m4v]]></link>
+           <description><![CDATA[<p>Dogbert takes the natural approach to computer repair</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[974ebf484c8d009b6f5d4bbec329d7da]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1762425" />
+           <pubDate>Fri, 02 Dec 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>25</itunes:duration>
+           <enclosure length="1062451" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d431.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Battling the Boredom]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d429.m4v]]></link>
+           <description><![CDATA[<p>Dilbert gears up for another day at the office</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[145ba03dec0c345af18bac4acd8aba45]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1762423" />
+           <pubDate>Wed, 30 Nov 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>30</itunes:duration>
+           <enclosure length="2030059" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d429.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Enhanced Strategy]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d426.m4v]]></link>
+           <description><![CDATA[<p>The Boss asks Dilbert a confusing question</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[a6c046a218beff72bd1a19ea5ae5ba9a]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1762422" />
+           <pubDate>Mon, 28 Nov 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>23</itunes:duration>
+           <enclosure length="1859147" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d426.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Wally is Awesome]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d396.m4v]]></link>
+           <description><![CDATA[<p>Wally's unverifiable awesomeness</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[714a8707a46b93464103f5c56d767bba]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1751365" />
+           <pubDate>Fri, 25 Nov 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>27</itunes:duration>
+           <enclosure length="1252361" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d396.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Headcounts]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d382.m4v]]></link>
+           <description><![CDATA[<p>The Boss informs Dilbert there are others who want his job</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[de9a4b71520faca2ec6e30dd1f94ad00]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1751363" />
+           <pubDate>Wed, 23 Nov 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>26</itunes:duration>
+           <enclosure length="1616835" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d382.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[It's a Tax Thing]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d380.m4v]]></link>
+           <description><![CDATA[<p>The Boss seeks Catbert's advice</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[0dbbe0c50135497f7498987663beca1d]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1751362" />
+           <pubDate>Mon, 21 Nov 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>23</itunes:duration>
+           <enclosure length="1293114" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d380.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Our Record Loss]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d360.m4v]]></link>
+           <description><![CDATA[<p>Dilbert and Wally read the company press release</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[cd84743f2254f159b00f888ff22eb100]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1751361" />
+           <pubDate>Fri, 18 Nov 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>25</itunes:duration>
+           <enclosure length="1407342" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d360.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Zero Concept]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d355.m4v]]></link>
+           <description><![CDATA[<p>The Boss wants the full technical explanation</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[5bc19cb0c125ff09a228f61435c943ab]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1751360" />
+           <pubDate>Wed, 16 Nov 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>26</itunes:duration>
+           <enclosure length="1848979" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d355.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Framework Process]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d350.m4v]]></link>
+           <description><![CDATA[<p>The team will need to rely on guessing</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[7346c10b8133eff3195044626f838026]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1751357" />
+           <pubDate>Mon, 14 Nov 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>24</itunes:duration>
+           <enclosure length="3751372" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d350.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Certain Calamity]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d346.m4v]]></link>
+           <description><![CDATA[<p>Dilbert is in need of clarification</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[afe33d4713e98cee1c1a2898673dfe10]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1741931" />
+           <pubDate>Fri, 11 Nov 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>21</itunes:duration>
+           <enclosure length="1603206" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d346.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Wally's Project]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d330.m4v]]></link>
+           <description><![CDATA[<p>The Boss questions Wally's project</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[791a882f9baa1221581e16b0704c322d]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1741930" />
+           <pubDate>Wed, 09 Nov 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>21</itunes:duration>
+           <enclosure length="1156652" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d330.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Wally Masters Powerpoint]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d329.m4v]]></link>
+           <description><![CDATA[<p>Wally keeps his Powerpoint presentation interesting</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[71c64769982a2544acec2c077cf7edd0]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1741929" />
+           <pubDate>Mon, 07 Nov 2011 12:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>27</itunes:duration>
+           <enclosure length="1440546" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d329.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Catbert in Time]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d375.m4v]]></link>
+           <description><![CDATA[<p>The company no longer provides beverages</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[5f5fad0e13be6256e933da0e0cd31d2d]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/1738522" />
+           <pubDate>Mon, 31 Oct 2011 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>26</itunes:duration>
+           <enclosure length="959917" type="video/x-m4v" url="http://traffic.libsyn.com/dilbert/d375.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Unpleasant Realization]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d157.m4v]]></link>
+           <description><![CDATA[<p>Wally learns about office productivity</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[55ea6b3df3ea57c6ccc904549e40552d]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/984487" />
+           <pubDate>Wed, 01 Sep 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>30</itunes:duration>
+           <enclosure length="1576292" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d157.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Departmental Reorganization]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d310.m4v]]></link>
+           <description><![CDATA[<p>The Boss reorganizes the office</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[2ee195f457edc177ad2551792a6f5068]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/984486" />
+           <pubDate>Mon, 30 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>26</itunes:duration>
+           <enclosure length="1112991" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d310.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Visionary Leadership]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d332.m4v]]></link>
+           <description><![CDATA[<p>The Boss comes up with a plan to increase sales</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[03568a564e475bd9a597c549675d02fe]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/984484" />
+           <pubDate>Fri, 27 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>33</itunes:duration>
+           <enclosure length="1495531" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d332.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Wally's Accomplishments]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d160.m4v]]></link>
+           <description><![CDATA[<p>Wally expands his business skills</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[911693abd3aa5f497bbca5367fb53e94]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/984481" />
+           <pubDate>Wed, 25 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>49</itunes:duration>
+           <enclosure length="2617440" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d160.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[The Wrong Sign]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d323.m4v]]></link>
+           <description><![CDATA[<p>The Boss orders the wrong signs</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[6121bb585d68e76d4b8e2de43e442df5]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/984480" />
+           <pubDate>Mon, 23 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>1:03</itunes:duration>
+           <enclosure length="2996587" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d323.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Barrel-Shaped Moron]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d288.m4v]]></link>
+           <description><![CDATA[<p>The Boss is the center of the company newsletter</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[ce31ae257ec3056b9667a3113b62de81]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/981040" />
+           <pubDate>Fri, 20 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>34</itunes:duration>
+           <enclosure length="1676376" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d288.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Keeping the Streak Alive]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d152.m4v]]></link>
+           <description><![CDATA[<p>Wally conserves his brain power</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[101cf4ddf8ac1418d8ca02189c425ab7]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/981031" />
+           <pubDate>Wed, 18 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>35</itunes:duration>
+           <enclosure length="1960898" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d152.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Retirement Planning]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d319.m4v]]></link>
+           <description><![CDATA[<p>Wally's retirement plan</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[20be0d7f938605943f388073834b3c14]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/981026" />
+           <pubDate>Mon, 16 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>21</itunes:duration>
+           <enclosure length="1503263" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d319.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Confidential Information]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d311.m4v]]></link>
+           <description><![CDATA[<p>The Boss and Catbert conceive an unethical plan</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[37f6085dccdbda31b85b0c4048f81153]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/981023" />
+           <pubDate>Fri, 13 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>23</itunes:duration>
+           <enclosure length="1087479" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d311.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Dilbert Could Be Executed]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d156.m4v]]></link>
+           <description><![CDATA[<p>DIlbert anticipates the worst</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[7fb97f9ace78767683ce1bcdcbd33971]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/981018" />
+           <pubDate>Wed, 11 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>24</itunes:duration>
+           <enclosure length="1260983" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d156.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Evaluation]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d257.m4v]]></link>
+           <description><![CDATA[<p>Alice's job evaluation</p>]]></description>
+           <guid isPermaLink="false"><![CDATA[56d522d1efcc00713001fceb204ad322]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/981014" />
+           <pubDate>Mon, 09 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>19</itunes:duration>
+           <enclosure length="941795" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d257.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Incomprehensible User Interface]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d255.m4v]]></link>
+           <description><![CDATA[Dilbert has a plan to save millions]]></description>
+           <guid isPermaLink="false"><![CDATA[14f796e46174c74e47e92af160a52f14]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/939378" />
+           <pubDate>Fri, 06 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>19</itunes:duration>
+           <enclosure length="1059611" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d255.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Wally Hates Cats]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d161.m4v]]></link>
+           <description><![CDATA[Catbert assess Wally’s value as an employee]]></description>
+           <guid isPermaLink="false"><![CDATA[99f3936bd33bfe32b63362095409b045]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/939300" />
+           <pubDate>Wed, 04 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>25</itunes:duration>
+           <enclosure length="1088320" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d161.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Sidetracked]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d306.m4v]]></link>
+           <description><![CDATA[The Boss is easily sidetracked]]></description>
+           <guid isPermaLink="false"><![CDATA[0b2de712893b76fc3b50334bf02fa102]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/939260" />
+           <pubDate>Mon, 02 Aug 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>25</itunes:duration>
+           <enclosure length="992848" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d306.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Tired and Fussy]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d258.m4v]]></link>
+           <description><![CDATA[The Boss overhears office conversation]]></description>
+           <guid isPermaLink="false"><![CDATA[240366d21216c6c57d7a145e5a616900]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/939223" />
+           <pubDate>Fri, 30 Jul 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>37</itunes:duration>
+           <enclosure length="1926001" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d258.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Useless Demo]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d159.m4v]]></link>
+           <description><![CDATA[Dilbert thinks outside the box]]></description>
+           <guid isPermaLink="false"><![CDATA[51826ac5320649d1771383615fa2fa2c]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/939184" />
+           <pubDate>Wed, 28 Jul 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>38</itunes:duration>
+           <enclosure length="2472136" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d159.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Idiot Boy]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d318.m4v]]></link>
+           <description><![CDATA[Dilbert and Wally find ways to improve their life by using Twitter]]></description>
+           <guid isPermaLink="false"><![CDATA[19721de4e929d8eb4579f0e586b796c3]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/939137" />
+           <pubDate>Mon, 26 Jul 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>39</itunes:duration>
+           <enclosure length="1741004" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d318.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[The Power of Science]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d283.m4v]]></link>
+           <description><![CDATA[Wally proposes a camping opportunity]]></description>
+           <guid isPermaLink="false"><![CDATA[25d0bbef6b59118cfba7a375d7c04189]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/939090" />
+           <pubDate>Fri, 23 Jul 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>23</itunes:duration>
+           <enclosure length="1010414" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d283.m4v" />
+       </item>
+       <item>
+           <title><![CDATA[Steaming Pile of Failure]]></title>
+           <link><![CDATA[http://traffic.libsyn.com/dilbert/d158.m4v]]></link>
+           <description><![CDATA[Dilbert reflects on his progress]]></description>
+           <guid isPermaLink="false"><![CDATA[c47eaedcc335b631e912d149f7161d85]]></guid>
+           <media:thumbnail url="http://assets.libsyn.com/item/938957" />
+           <pubDate>Wed, 21 Jul 2010 11:00:00 +0000</pubDate>
+           <itunes:explicit>no</itunes:explicit>
+           <itunes:keywords />
+           <itunes:subtitle />
+           <itunes:duration>35</itunes:duration>
+           <enclosure length="2534329" type="video/mp4" url="http://traffic.libsyn.com/dilbert/d158.m4v" />
+       </item>
+   </channel>
+</rss>
