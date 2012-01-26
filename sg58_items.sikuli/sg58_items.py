@@ -97,7 +97,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Earth Eats"
-        title = "Mushroom"
+        title = "Earth"
         new_type = "Video"
         old_type = "Music"
         #Set Global Preferences
@@ -147,7 +147,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Earth Eats"
-        title = "Mushroom" # item title updates when download completes
+        title = "Earth" 
         new_type = "Video"
         #Set Global Preferences
         miro.open_prefs(reg)
@@ -165,7 +165,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         miro.tab_search(reg, title=term)
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
-        miro.wait_for_item_in_tab(reg, "Music",item=title)
+        miro.wait_for_item_in_tab(reg, "Music", item=title)
         reg.m.click(title)
         miro.click_sidebar_tab(reg, "Music") #stupid workaround for bug, not recognizing selected item after search.
         miro.edit_item_metadata(reg, meta_field="about",meta_value="hoovercraft full of eels")
