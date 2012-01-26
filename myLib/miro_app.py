@@ -106,7 +106,10 @@ class MiroApp(object):
             config.start_miro_on_linux()
         else:
             App.open(testsetup.launch_cmd())
-        wait("Miro",30)
+        try:
+            wait("sidebar_top.png",20)
+        except:
+            pass
 
         
     def open_prefs(self, reg, menu=None, option=None):

@@ -60,15 +60,18 @@ def get_os_name():
     else:
         print ("I don't know how to handle platform '%s'", Env.getOS())
 
+def check_if_miro_running():
+    ps = subprocess.Popen("ps aux | grep miro.real| wc -l", shell=True, stdout=subprocess.PIPE)
+    output = ps.stdout.read()
+    ps.stdout.close()
+    ps.wait()
+    num_processes = int(output)
+    return num_processes
    
 def start_miro_on_linux():
     mydir = os.getenv("MIRONIGHTLYDIR")
-    ps = subprocess.Popen("ps aux | grep miro.real| wc -l", shell=True, stdout=subprocess.PIPE)
-    output = ps.stdout.read()
-    print output
-    ps.stdout.close()
-    ps.wait()
-    if int(output) > 2:
+    num_processes = check_if_miro_running()
+    if int(num_processes) > 2:
         subprocess.call(['wmctrl', '-a', 'Miro'])
     else:
         subprocess.Popen(r'./run.sh', cwd=mydir)
@@ -188,18 +191,21 @@ def delete_database_and_prefs(dbonly=False):
                 if os.path.exists(plist_file):
                     os.remove(plist_file)
 def kill_miro():
-    try:
-        if get_os_name() == "win":
-            subprocess.Popen(r'TASKKILL /F /IM Miro.exe')
-        elif get_os_name() == "osx":
-            subprocess.Popen(r'killall -v -I Miro')
-        elif get_os_name() == "lin":
-            subprocess.Popen(r'killall -v -I miro.real')
-        else:
-            print "not sure what to do here"
-    except:
-        pass
-    time.sleep(8)
+    num_processes = check_if_miro_running()
+    if int(num_processes) > 2:
+        print "miro processes are still running after attempted quit."
+        try:
+            if get_os_name() == "win":
+                subprocess.Popen(r'TASKKILL /F /IM Miro.exe')
+            elif get_os_name() == "osx":
+                subprocess.Popen(r'killall -v -I Miro')
+            elif get_os_name() == "lin":
+                subprocess.Popen(r'killall -v -I miro.real')
+            else:
+                print "not sure what to do here"
+        except:
+            pass
+        time.sleep(8)
 
 def kill_firefox():
     try:
