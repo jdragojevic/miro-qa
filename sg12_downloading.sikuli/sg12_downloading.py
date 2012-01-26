@@ -229,18 +229,18 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         feed_name = "Feed"
 
         error_types = {"Server Closes Connection": "no_connection.png",
-                       "Timeout error": "no_connection.png",
                        "File not found": "file_not_found.png",
                        "503 Error": "no_connection.png",
                        "Host not found": "unknown_host.png",
-                       "HTTP error": "http_error.png"
+                       "HTTP error": "http_error.png",
+                       "Timeout error": "no_connection.png",
                        }
         miro.add_feed(reg, feed_url, feed_name)
         miro.set_podcast_autodownload(reg, setting="All")
         time.sleep(10)
         for error, image in error_types.iteritems():
                 miro.tab_search(reg, error)
-                assert reg.m.exists(Pattern(image),5)
+                assert reg.m.exists(Pattern(image).similar(0.6),60)
 
 
     def test_444(self):
