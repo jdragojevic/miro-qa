@@ -63,7 +63,15 @@ def get_os_name():
    
 def start_miro_on_linux():
     mydir = os.getenv("MIRONIGHTLYDIR")
-    subprocess.Popen(r'./run.sh', cwd=mydir)
+    ps = subprocess.Popen("ps aux | grep miro.real| wc -l", shell=True, stdout=subprocess.PIPE)
+    output = ps.stdout.read()
+    print output
+    ps.stdout.close()
+    ps.wait()
+    if int(output) > 2:
+        subprocess.call(['wmctrl', '-a', 'Miro'])
+    else:
+        subprocess.Popen(r'./run.sh', cwd=mydir)
 
 def start_ff_on_linux():
     subprocess.Popen(r'firefox', cwd='/usr/bin/')

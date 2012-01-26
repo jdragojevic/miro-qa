@@ -7,6 +7,9 @@
             <value>
               <string>Watch History</string>
             </value>
+            <value>
+              <string>Extension API Example</string>
+            </value>
         </list>
       </value>
     </entry>
@@ -17,9 +20,21 @@
       </value>
     </entry>
     <entry>
+      <key>MaxManualDownloads</key>
+      <value>
+        <int>5</int>
+      </value>
+    </entry>
+    <entry>
       <key>MoviesDirectory</key>
       <value>
         <string>/home/jed/Videos/Miro</string>
+      </value>
+    </entry>
+    <entry>
+      <key>RunAtStartup</key>
+      <value>
+        <bool>false</bool>
       </value>
     </entry>
     <entry>
@@ -32,6 +47,18 @@
       <key>musicTabClicked</key>
       <value>
         <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>showPodcastsInMusic</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>showTrayicon</key>
+      <value>
+        <bool>false</bool>
       </value>
     </entry>
     <entry>
@@ -49,7 +76,7 @@
     <entry>
       <key>window/maximized</key>
       <value>
-        <bool>true</bool>
+        <bool>false</bool>
       </value>
     </entry>
     <entry>
@@ -67,7 +94,7 @@
     <entry>
       <key>window/y</key>
       <value>
-        <int>45</int>
+        <int>42</int>
       </value>
     </entry>
   </entrylist>
