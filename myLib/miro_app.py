@@ -994,11 +994,11 @@ class MiroApp(object):
         """Change the item's metadata type, assumes item is selected.
 
         """
-        click("Rating")
-    #    f = Region(getLastMatch().nearby(100))
+        try:
+            click("Rating")
+        except:
+            click(Pattern("rating.png"))
         click(getLastMatch().right(50))
-    ##    if f.exists("None"):
-    ##        click(f.getLastMatch())
         for x in range(0,int(rating)):
             type(Key.DOWN)
         type(Key.ENTER)
