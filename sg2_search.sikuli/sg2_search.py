@@ -56,10 +56,17 @@ class Test_Search(base_testcase.Miro_unittest_testcase):
         podcasts_tab.autodownload_setting("Off")
         podcasts_tab.close_prefs()       
 
-        searches = {"blip": "python", "YouTube": "cosmicomics", "Revver": "Beiber", "Yahoo": "Canada", "DailyMotion": "Russia", "Metavid": "africa", "Mininova": "Creative Commons", "Video": "Toronto"}
+        searches = {"blip": "python",
+                    "YouTube": "cosmicomics",
+                    "Revver": "Beiber",
+                    "Yahoo": "Canada",
+                    "DailyMotion": "Russia",
+                    "Metavid": "africa",
+                    "Mininova": "Creative Commons",
+                    "Goog": "Toronto"}
         for engine, term in searches.iteritems():
             miro.click_sidebar_tab(reg, "search")
-            miro.search_tab_search(reg, term,engine)
+            miro.search_tab_search(reg, term, engine)
             time.sleep(10)
             reg.mtb.click("button_save_as_podcast.png")
             if engine == "blip":
@@ -76,7 +83,7 @@ class Test_Search(base_testcase.Miro_unittest_testcase):
                 self.assertTrue(reg.m.exists(engine))
                 miro.delete_feed(reg, engine)
             except:
-                 miro.log_result("322","test 322, failed for " +engine+": "+term,status="fail")
+                 miro.log_result("322","test 322, failed for " +engine+": "+term, status="fail")
         #cleanup
         for x in searches.keys():
             miro.delete_feed(reg, x)
