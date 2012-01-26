@@ -939,7 +939,10 @@ class MiroApp(object):
     ##        else:
     ##            reg.m.find("In this")
     ##            f = Region(reg.m.getLastMatch().right(600).above().below())
-            reg.mr.find("Search for")
+            try:
+                reg.mr.find("Search for")
+            except:
+                reg.mr.find(Pattern("search_for.png"))
             f = Region(reg.mr.getLastMatch().right(600).below())
             f.setY(f.getY()-120)
             f.highlight(3)
