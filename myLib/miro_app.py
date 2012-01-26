@@ -966,7 +966,7 @@ class MiroApp(object):
 
         """
         time.sleep(2)
-        if miro.os_name=='osx':
+        if self.os_name=='osx':
             type(Key.TAB)  #os x make sure focus on item so shortcut works
             time.sleep(2)
         self.shortcut('i')
@@ -1019,7 +1019,7 @@ class MiroApp(object):
                          "track_of","year","about","rating","type",
                          "art","path","cancel","ok"]
         time.sleep(2)
-        if miro.os_name=='osx':
+        if self.os_name=='osx':
             type(Key.TAB)  #os x make sure focus on item so shortcut works
             time.sleep(2)
         self.shortcut('i')
@@ -1065,7 +1065,7 @@ class MiroApp(object):
         metalist = ["show","episode_id","season_no","episode_no",
                          "video_kind","cancel","ok"]
         time.sleep(2)
-        if miro.os_name=='osx':
+        if self.os_name=='osx':
             type(Key.TAB)  #os x make sure focus on item so shortcut works
             time.sleep(2)
         self.shortcut('i')
