@@ -140,7 +140,7 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         """
         url_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","vimeo-feed")
         feed_url = "file:///"+url_path
-        feed_name = "One Day"
+        feed_name = "ONE DAY"
         item_title = "Jellyfish"
         item_image = "vimeo-jellyfish.png"
         reg = MiroRegions()
