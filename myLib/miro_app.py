@@ -965,10 +965,16 @@ class MiroApp(object):
         """Change the item's metadata type, assumes item is selected.
 
         """
-        time.sleep(5)
+        time.sleep(2)
+        if miro.os_name=='osx':
+            type(Key.TAB)  #os x make sure focus on item so shortcut works
+            time.sleep(2)
         self.shortcut('i')
         time.sleep(2)
-        click("Rating")
+        try:
+            click("Rating")
+        except:
+            click(Pattern("rating.png"))
         f = Region(getLastMatch())
         f.setW(200)
         f.setH(100)
@@ -1013,6 +1019,9 @@ class MiroApp(object):
                          "track_of","year","about","rating","type",
                          "art","path","cancel","ok"]
         time.sleep(2)
+        if miro.os_name=='osx':
+            type(Key.TAB)  #os x make sure focus on item so shortcut works
+            time.sleep(2)
         self.shortcut('i')
         time.sleep(2)
 
@@ -1055,9 +1064,16 @@ class MiroApp(object):
         """
         metalist = ["show","episode_id","season_no","episode_no",
                          "video_kind","cancel","ok"]
+        time.sleep(2)
+        if miro.os_name=='osx':
+            type(Key.TAB)  #os x make sure focus on item so shortcut works
+            time.sleep(2)
         self.shortcut('i')
         time.sleep(2)
-        find("Rating")
+        try:
+            click("Rating")
+        except:
+            click(Pattern("rating.png"))
         v = Region(getLastMatch().above(100).left(60))
         v.click("Video")
         

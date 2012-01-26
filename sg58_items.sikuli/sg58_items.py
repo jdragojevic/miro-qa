@@ -66,10 +66,6 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Videos",item=title)
         reg.m.click(title)
-        time.sleep(2)
-        if miro.os_name=='osx':
-            type(Key.TAB)  #os x make sure focus on item so shortcut works
-            time.sleep(2)
         miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback
         miro.wait_for_item_in_tab(reg, tab="Music",item=title)
@@ -118,10 +114,6 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music",item=title)
         reg.m.click(title)
-        time.sleep(2)
-        if miro.os_name=='osx':
-            type(Key.TAB)  #os x make sure focus on item so shortcut works
-            time.sleep(2)
         miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback
         miro.wait_for_item_in_tab(reg, tab="Video",item=title)
@@ -170,10 +162,6 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music", item=title)
         reg.m.click(title)
-        time.sleep(2)
-        if miro.os_name=='osx':
-            type(Key.TAB)  #os x make sure focus on item so shortcut works
-            time.sleep(2)
         miro.edit_item_metadata(reg, meta_field="about",meta_value="hoovercraft full of eels")
         miro.tab_search(reg, "hoovercraft eels")
         if not reg.m.exists(title):
@@ -256,10 +244,6 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Videos",item=title)
         reg.m.click(title)
-        time.sleep(2)
-        if miro.os_name=='osx':
-            type(Key.TAB)  #os x make sure focus on item so shortcut works
-            time.sleep(2)
         miro.edit_item_metadata(reg, meta_field="about",meta_value="Blank description edited")
         miro.tab_search(reg, "blank description")
         if reg.m.exists(title):
