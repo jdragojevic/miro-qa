@@ -262,7 +262,9 @@ class MiroApp(object):
         time.sleep(3)
         dialog_texts = ["Remove", "Are you", "One of", "dialog_are_you_sure.png", "dialog_one_of_these.png", "Cancel"]
         for txt in dialog_texts:
-            if reg.mr.exists(txt):
+            print txt
+            reg.mr.highlight(4)
+            if reg.mr.exists(txt, 2):
                 print "got confirmation dialog"
                 break
         else:
@@ -703,6 +705,8 @@ class MiroApp(object):
             treg = Region(reg.mtb.getLastMatch().left(350))
         elif reg.mtb.exists("tabsearch_inactive.png",5):
             treg = Region(reg.mtb.getLastMatch().left(350))
+        else:
+            treg = Region(reg.mtb.x, reg.mtb.y, reg.mtb.w, reg.mtb.h)
         treg.setH(treg.getH()+14)
         treg.setY(treg.getY()-8)
 
@@ -866,7 +870,7 @@ class MiroApp(object):
         self.click_sidebar_tab(reg, tab)
         self.tab_search(reg, item)
         self.toggle_normal(reg)
-        for x in range(0,30):
+        for x in range(0,60):
             if not reg.m.exists(item, 5):
                 print ". waiting",x*5,"seconds for item to appear in tab:",tab
         
