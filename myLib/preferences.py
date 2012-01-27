@@ -59,10 +59,12 @@ class Preferences(MiroApp):
             type(Key.ESC)
         else:
             for x in self._CLOSE_BUTTON:
-                if self.sr.exists(x, 2): break
+                if exists(x, 2):
+                    click(self.sr.getLastMatch())
+                    break
             else:
-                print("Can't find the close button")
-        click(self.sr.getLastMatch())
+                type(Key.ESC)
+        
         #restore focus back to Miro
         if self.os_name == "lin":
             click("Miro")
