@@ -313,8 +313,7 @@ class MiroApp(object):
 
     def get_podcasts_region(self, reg):
         if not reg.s.exists("Podcasts",3):
-            type(Key.ESC) #in case there's any dialog left overs blocking for some reason
-            reg.s.click("Music")
+            click(Pattern("sidebar_top.png").similar(0.55))
             time.sleep(3)
             reg.s.click("Podcasts")
         else:

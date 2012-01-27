@@ -55,15 +55,13 @@ class Preferences(MiroApp):
 
     def close_prefs(self):
                
-        if self.os_name == "osx":
-            type(Key.ESC)
+        for x in self._CLOSE_BUTTON:
+            if self.sr.exists(x, 2):
+                click(self.sr.getLastMatch())
+                break
         else:
-            for x in self._CLOSE_BUTTON:
-                if exists(x, 2):
-                    click(self.sr.getLastMatch())
-                    break
-            else:
-                type(Key.ESC)
+            type(Key.ESC)
+        
         
         #restore focus back to Miro
         if self.os_name == "lin":
@@ -86,19 +84,23 @@ class Preferences(MiroApp):
         if setting not in valid_settings:
             print("valid setting value not proviced, must be 'on' or 'off'")
         #CHECK THE BOX
+        pref_found = False
         for x in option:
-             if pref_reg.exists(x, 2): break
+             if pref_reg.exists(x, 2):
+                 pref_found = True
+                 break
+        if pref_found == True:
+            sr_loc = Region(pref_reg.getLastMatch())
+            sr1 = Region(pref_reg.getX(), sr_loc.getY()-10, pref_reg.getW(), 30) #location of associated checkbox
+                       
+            if setting == "off":
+                if sr1.exists(self._PREFS_CHECKBOX_CHECKED):
+                   click(sr1.getLastMatch())
+            if setting == "on":
+                if sr1.exists(self._PREFS_CHECKBOX_NOT_CHECKED):
+                    sr1.click(sr1.getLastMatch())
         else:
             print("Can't find the preference field %s" % option)
-        sr_loc = Region(pref_reg.getLastMatch())
-        sr1 = Region(pref_reg.getX(), sr_loc.getY()-10, pref_reg.getW(), 30) #location of associated checkbox
-                   
-        if setting == "off":
-            if sr1.exists(self._PREFS_CHECKBOX_CHECKED):
-               click(sr1.getLastMatch())
-        if setting == "on":
-            if sr1.exists(self._PREFS_CHECKBOX_NOT_CHECKED):
-                sr1.click(sr1.getLastMatch())
         
 
 
