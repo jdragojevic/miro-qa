@@ -479,9 +479,10 @@ class MiroApp(object):
         This is useful if the title isn't displayed completely or you have other chars to don't work for text recognition.
         """
         p = self.get_podcasts_region(reg)
+        p.h = p.h+30
         time.sleep(5)
-        reg.s.find("Playlists")
-        click(reg.s.getLastMatch().above(35))
+        p.find("Playlists")
+        click(p.getLastMatch().above(35))
 
 
     def expand_feed_folder(self, reg, feed):
@@ -552,7 +553,12 @@ class MiroApp(object):
         click(b.getLastMatch())
 
     def click_remove_podcast(self, reg):
-        reg.m.click(Pattern("button_remove_podcast.png"))
+        time.sleep(2)
+        b = reg.m
+        b.h = b.h+60
+        b.y = b.y*2
+        b.w = b.w+200
+        b.click(Pattern("button_remove_podcast.png"))
 
     def change_podcast_settings(self, reg, option, setting):
         find("Expire Items")
