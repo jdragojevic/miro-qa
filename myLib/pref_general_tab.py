@@ -18,11 +18,12 @@ class PrefGeneralTab(Preferences):
     def click_podcast_tab(self):   #workaround for 4.0 preferences
         _tab = ["Podcasts", "pref_tab_feeds.png"]
         for x in _tab:
-            if exists(x, 2): break
+            if self.hr.exists(x, 2):
+                click(self.hr.getLastMatch())
+                break
         else:
             print("Can't find the preferenes %s tab" % tab)
-        click(getLastMatch())
-
+            
     def automatically_run_on_login(self, setting):
         option = self._RUN_ON_LOGIN
         self.set_preference_checkbox(option, setting)
