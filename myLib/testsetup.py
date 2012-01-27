@@ -36,7 +36,7 @@ def launch_miro():
 
 def get_regions():
         config.set_image_dirs()
-        click(Pattern("sidebar_top.png").similar(0.6))
+        click(Pattern("sidebar_top.png").similar(0.55))
         topx =  int(getLastMatch().getX())-25
         topy = int(getLastMatch().getY())-80
         try:

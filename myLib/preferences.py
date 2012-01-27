@@ -30,7 +30,7 @@ class Preferences(MiroApp):
     
     def __init__(self):
         self.os_name = config.get_os_name()
-        PREF_HEADING = Pattern("pref_heading.png")
+        PREF_HEADING = Pattern("pref_heading.png").similar(0.6)
         
         def preference_panel_regions():
             find(PREF_HEADING)
