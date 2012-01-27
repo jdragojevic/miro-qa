@@ -46,15 +46,17 @@ class Test_Playlists(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         miro.click_sidebar_tab(reg, "Podcasts")
         miro.toggle_normal(reg)
-        miro.tab_search(reg, "Lego")
-        reg.m.click("Lego")
         miro.tab_search(reg, watched_feed)
         reg.m.click(Pattern("sort_name_normal.png"))
-        item_list = ["Lego","Pancake","Deerhunter"]        
-        selected_items = miro.multi_select(region=reg.m,item_list=item_list)
+        item_list = ["Lego", "Pancake", "Deerhunter"]
+        keyDown(Key.SHIFT)
+        time.sleep(1)
+        reg.m.click("Lego")
+        reg.m.click("Deerhunter")
+        keyUp(Key.SHIFT)
         miro.add_playlist(reg, playlist,style="shortcut")
         miro.toggle_normal(reg)
-        for title in selected_items:
+        for title in item_list:
             miro.tab_search(reg, title,confirm_present=True)
 
    

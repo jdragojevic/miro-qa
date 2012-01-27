@@ -8,7 +8,7 @@ class PrefFoldersTab(Preferences):
 
     """
     _ADD_BUTTON = ["Add", Pattern('button_add.png')]
-    _REMOVE_BUTTON = ["Add", Pattern('button_add.png')]
+    _REMOVE_BUTTON = ["Remove", Pattern('button_remove.png')]
     _CHANGE_BUTTON = ["Change"]
     
         

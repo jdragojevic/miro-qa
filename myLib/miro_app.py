@@ -149,15 +149,15 @@ class MiroApp(object):
 
 #####################KEEPERS ABOVE THIS LINE ##############################################
 
-    def multi_select(self,region,item_list):
+    def multi_select(self, region, item_list):
         """Use the CTRL or CMD key as os appropriate to select items in a region.
 
         Return a list of the items that we successfully selected.
         """
         selected_items = []
         #press the ctrl / cmd key
-        if config.get_os_name() == "osx":
-                keyDown(Key.CMD)
+        if self.os_name == "osx":
+            keyDown(Key.CMD)
         else:
             keyDown(Key.CTRL)
         #select each item in the list if it is found
@@ -170,8 +170,8 @@ class MiroApp(object):
                 selected_items.append(x)           
             
         #release the ctrl /cmd key         
-        if config.get_os_name() == "osx":
-                keyUp(Key.CMD)
+        if self.os_name == "osx":
+            keyUp(Key.CMD)
         else:
             keyUp(Key.CTRL)
         return selected_items
