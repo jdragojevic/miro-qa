@@ -262,8 +262,6 @@ class MiroApp(object):
         time.sleep(3)
         dialog_texts = ["Remove", "Are you", "One of", "dialog_are_you_sure.png", "dialog_one_of_these.png", "Cancel"]
         for txt in dialog_texts:
-            print txt
-            reg.mr.highlight(4)
             if reg.mr.exists(txt, 2):
                 print "got confirmation dialog"
                 break
