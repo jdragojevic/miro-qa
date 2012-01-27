@@ -266,11 +266,13 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         miro.cancel_all_downloads(reg)
         dl_status = miro.download_from_a_url(reg, item_url, item_title)
         print dl_status
-        self.failUnless(dl_status == "errors")
+        self.assertTrue(dl_status == "failed")
         miro.quit_miro()
         miro.restart_miro()
         miro.click_sidebar_tab(reg, "Downloading")
-        assert mr.exists(Pattern("file_not_found.png"))
+        assert reg.m.exists(Pattern("file_not_found.png"))
+        reg.m.click(item_title)
+        type(Key.DELETE)
         miro.click_sidebar_tab(reg, "Videos")
         reg.s.waitVanish("Downloading")
         
