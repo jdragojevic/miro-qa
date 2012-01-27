@@ -127,6 +127,7 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         miro.tab_search(reg, item_title)
         miro.download_all_items(reg)
         assert download_playback_check_title(reg, miro, item_title, item_image)
+        miro.delete_feed(reg, feed_name)
 
     def test_18656_764(self):
         """http://litmus.pculture.org/show_test.cgi?id=764 vimeo feed dl.
@@ -149,6 +150,7 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         miro.tab_search(reg, item_title)
         miro.download_all_items(reg)
         assert download_playback_check_title(reg, miro, item_title, item_image)
+        miro.delete_feed(reg, feed_name)
 
     def test_18453_764(self):
         """http://litmus.pculture.org/show_test.cgi?id=764 vimeo likes feed dl.
@@ -170,6 +172,8 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         miro.tab_search(reg, item_title)
         miro.download_all_items(reg)
         assert download_playback_check_title(reg, miro, item_title, item_image)
+        miro.delete_feed(reg, feed_name)
+
 
     def test_18656_765(self):
         """http://litmus.pculture.org/show_test.cgi?id=764 itunes feed dl.
@@ -191,7 +195,8 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         miro.add_feed(reg, feed_url, feed_name)
         miro.tab_search(reg, item_title)
         miro.download_all_items(reg)
-        assert download_playback_check_title(reg, miro, item_title, item_image) 
+        assert download_playback_check_title(reg, miro, item_title, item_image)
+        miro.delete_feed(reg, feed_name)
 
     def test_14289_644(self):
         """http://litmus.pculture.org/show_test.cgi?id=644 feed items with non-ascii chars.
@@ -213,7 +218,8 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         miro.add_feed(reg, feed_url, feed_name)
         miro.tab_search(reg, item_title)
         miro.download_all_items(reg)
-        assert download_playback_check_title(reg, miro, item_title, item_image) 
+        assert download_playback_check_title(reg, miro, item_title, item_image)
+        miro.delete_feed(reg, feed_name)
 
 
     def test_112(self):
@@ -241,6 +247,7 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         for error, image in error_types.iteritems():
                 miro.tab_search(reg, error)
                 assert reg.m.exists(Pattern(image).similar(0.6),60)
+        miro.delete_feed(reg, feed_name)
 
 
     def test_444(self):
@@ -268,30 +275,7 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         reg.s.waitVanish("Downloading")
         
  
-##    def test_719(self):
-##        """http://litmus.pculture.org/show_test.cgi?id=719 external torrent dl from browser
-##
-##        1. clearbits torrent dl
-##        2. open with browser
-##        3. Verify download started and metadata
-##        4. Cleanup
-##
-##        """
-##        reg = MiroRegions()
-##        miro = MiroApp()
-##        
-##        url = "http://www.clearbits.net/get/993-wurlitztraction---lucidity-cue.torrent"
-##        item_title = "Enough"
-##        miro.browser_to_miro(reg, url)
-##        print ("confirm download started")
-##        status = miro.confirm_download_started(reg, item_title)
-##        print status
-##        if status == "downloaded":
-##            miro.delete_items(reg, item_title,"Misc")
-##        elif status == "in_progress":
-##            miro.delete_items(reg, item_title,"Downloading")
-##        else:
-##            self.fail("Can not confirm download started")
+
 
 
         
