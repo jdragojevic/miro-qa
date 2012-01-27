@@ -259,36 +259,35 @@ class MiroApp(object):
         m = Mainview region from testcase
         need to add remove_library option
         """
-        time.sleep(3)       
-        if reg.m.exists("Remove",3) or \
-           reg.t.exists("Are you",3) or \
-           reg.t.exists("One of",3) or \
-           reg.m.exists(Pattern("dialog_are_you_sure.png"),3) or \
-           reg.m.exists(Pattern("dialog_one_of_these.png"),3) or \
-           reg.t.exists("Cancel",3)or \
-           reg.t.exists(Pattern("dialog_are_you_sure.png"),3) or \
-           reg.t.exists(Pattern("dialog_one_of_these.png"),3):
-            
-            print "got confirmation dialog"
-            dialog = Screen(0).capture(Region(reg.t.getLastMatch()))
-            if action == "remove":
-                print "clicking remove button"
-                type(Key.ENTER)
-            elif action == "delete_item":
-                print "clicking delete button"
-                if config.get_os_name() == "osx":
-                    reg.t.click("button_delete_file.png")
-                else:
-                    reg.m.click("Delete File")
-            elif action == "cancel":
-                print "clicking cancel"
-                type(Key.ESC)
-            elif action == "keep":
-                print "keeping"
-                reg.m.click("Keep")
-                type(Key.ENTER)
+        time.sleep(3)
+        dialog_texts = ["Remove", "Are you", "One of", "dialog_are_you_sure.png", "dialog_one_of_these.png", "Cancel"]
+        for txt in dialog_texts:
+            if reg.mr.exists(txt):
+                print "got confirmation dialog"
+                break
+        else:
+            print "no confirmation dialog"
+            return
+        
+        dialog = Screen(0).capture(Region(reg.mr.getLastMatch()))
+        if action == "remove":
+            print "clicking remove button"
+            type(Key.ENTER)
+        elif action == "delete_item":
+            print "clicking delete button"
+            if config.get_os_name() == "osx":
+                reg.t.click("button_delete_file.png")
             else:
-                print "not sure what to do in this dialog"
+                reg.m.click("Delete File")
+        elif action == "cancel":
+            print "clicking cancel"
+            type(Key.ESC)
+        elif action == "keep":
+            print "keeping"
+            reg.m.click("Keep")
+            type(Key.ENTER)
+        else:
+            print "not sure what to do in this dialog"
         if dialog:
             waitVanish(dialog)
               
