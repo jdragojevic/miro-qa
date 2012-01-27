@@ -790,33 +790,29 @@ class MiroApp(object):
 
         Handles and already download(ed / ing) messages
         """
-        print "in function confirm dl started"
-        time.sleep(2)
-        mr = Region(reg.mtb.above(50).below())
-        if exists("been downloaded",3) or \
-           exists(Pattern("message_already_downloaded.png"),1):
-            downloaded = "downloaded"
-            print "item already downloaded"
-            type(Key.ESC)            
-        elif exists("downloading now",3) or \
-             exists("message_already_external_dl.png",1):
-            downloaded = "in_progress"
-            print "item downloading"
-            type(Key.ESC)
-        elif exists("Error",3) or \
-             exists(Pattern("badge_dl_error.png"),1):
-            downloaded = "failed"
-            type(Key.ESC)
-        elif reg.s.exists("Downloading"):
-            self.click_sidebar_tab(reg, "Downloading")
-            reg.mtb.click(Pattern("download-pause.png"))
-            if mr.exists(Pattern("badge_dl_error.png"),2):
-                downloaded = "errors"
-            elif self.tab_search(reg,title,confirm_present=True) == True:
-                downloaded = "in_progress"
-            reg.mtb.click(Pattern("download-resume.png"))
+        time.sleep(5)
+        dialog_texts = {"been downloaded": "downloaded",
+                        "message_already_downloaded.png": "downloaded",
+                        "downloading now": "in_progress",
+                        "message_already_external_dl.png": "in_progress",
+                        "Error": "failed",
+                        "dl_error.png": "failed"
+                        }
+                        
+        for txt, status in dialog_texts.iteritems():
+            if reg.mr.exists(txt, 2):
+                downloaded = status
+                type(Key.ESC)
+                return downloaded
+                break
         else:
-            downloaded = "not_confirmed"
+            if reg.s.exists("Downloading"):
+                self.click_sidebar_tab(reg, "Downloading")
+                self.tab_search(reg,title,confirm_present=True)
+                if reg.m.exists(Pattern("dl_error.png"),2):
+                    downloaded = "failed"
+                else:
+                    downloaded = "in_progress"
         return downloaded
 
 
