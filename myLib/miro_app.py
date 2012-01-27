@@ -107,7 +107,7 @@ class MiroApp(object):
         else:
             App.open(testsetup.launch_cmd())
         try:
-            wait("sidebar_top.png",20)
+            wait(Pattern("sidebar_top.png").similar(0.6),20)
         except:
             pass
 
