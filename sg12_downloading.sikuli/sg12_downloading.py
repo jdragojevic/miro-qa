@@ -119,7 +119,7 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         url_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","youtube-feed.rss")
         feed_url = "file:///"+url_path
         feed_name = "AL JAZEERA"
-        item_title = "Alarm spreads"
+        item_title = "Alarm"
         item_image = "youtube_alarm_spreads.png"
         reg = MiroRegions()
         miro = MiroApp()
