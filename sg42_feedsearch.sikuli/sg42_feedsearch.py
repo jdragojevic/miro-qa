@@ -179,7 +179,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         miro.add_feed(reg, url,feed)
         miro.tab_search(reg, term)
         #2. search
-        miro.new_search_feed(reg, term,radio="Podcast", source=feed,defaults=True)
+        miro.new_search_feed(reg, term, radio="Podcast", source=feed, defaults=True)
                         
         #3. verify search saved
         miro.click_last_podcast(reg)
