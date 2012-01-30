@@ -19,16 +19,15 @@ class PrefPlaybackTab(Preferences):
 
     def section_sub_region(self, section):
         for x in section:
-             if self.sr.exists(x, 2): break
+            if self.sr.exists(x, 2):
+                sect_reg = Region(self.sr.getLastMatch())
+                sect_reg.setX(self.sr.getX())
+                sect_reg.setW(self.sr.getW())
+                sect_reg.setH(sect_reg.getH()*6)
+                return sect_reg
         else:
-            print("Can't find the preference field %s" % option)
- 
-        sect_reg = Region(self.sr.getLastMatch())
-        sect_reg.setX(self.sr.getX())
-        sect_reg.setW(self.sr.getW())
-        print sect_reg.getH()
-        sect_reg.setH(sect_reg.getH()*6)
-        return sect_reg
+            print("Can't find the preference section %s" % section)
+            return self.sr
 
 
     def play_media_in_miro(self, setting):
