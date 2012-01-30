@@ -793,6 +793,7 @@ class MiroApp(object):
 
         Handles and already download(ed / ing) messages
         """
+        downloaded = "unconfirmed"
         time.sleep(5)
         dialog_texts = {"been downloaded": "downloaded",
                         "message_already_downloaded.png": "downloaded",
