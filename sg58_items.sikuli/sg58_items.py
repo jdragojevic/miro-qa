@@ -93,7 +93,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Earth Eats"
-        title = "Earth"
+        title = "Mushroom"
         new_type = "Video"
         old_type = "Music"
         #Set Global Preferences
@@ -142,7 +142,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Earth Eats"
-        title = "Earth" 
+        title = "Mushroom" 
         new_type = "Video"
         #Set Global Preferences
         miro.open_prefs(reg)
