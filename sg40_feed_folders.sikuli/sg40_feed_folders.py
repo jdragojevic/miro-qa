@@ -179,7 +179,7 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
 
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test2.opml")
         folder = "Best Feeds"
-        feedlist = ["Vimeo", "BIRCHBOXTVTV"]
+        feedlist = ["Vimeo", "BIRCHBOXTV"]
 
         #1. Add the feeds 
         miro.import_opml(reg, opml_path)
