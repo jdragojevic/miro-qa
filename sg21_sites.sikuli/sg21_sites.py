@@ -34,7 +34,10 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
                 click(reg.mtb.getLastMatch())
                 time.sleep(3)
             miro.confirm_download_started(reg, "Deep")
-            reg.mtb.click("download-cancel.png")
+            try:
+                reg.mtb.click("download-cancel.png")
+            except:
+                pass
         finally:
             miro.delete_site(reg, site)
 
@@ -223,7 +226,7 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
                 if miro.confirm_download_started(reg, title) == "failed":
                     self.verificationErrors.append("download failed for imagetype" +str(filetype))
                 else:
-                    reg.mtb.click("download-cancel.png")
+                    miro.cancel_all_downloads(reg)
                 miro.click_source(reg, site)
             except:
                 self.verificationErrors.append("download failed for imagetype" +str(filetype))
