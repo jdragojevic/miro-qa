@@ -1261,9 +1261,9 @@ class MiroApp(object):
 
         Needs the Dialog region (dR) set, see first_time_startup for example
         """
-        print dR
-        if dR.exists(Pattern("button_next.png"),5) or \
-        dR.exists(Pattern("button_next1.png"),5):
+        if dR.exists(Pattern("button_next.png"),3) or \
+           dR.exists("Next",3) or \
+           dR.exists(Pattern("button_next1.png"),3):
              click(dR.getLastMatch())
         else:
             print "Next button not found"
@@ -1273,8 +1273,9 @@ class MiroApp(object):
 
         Needs the Dialog region (dR) set, see first_time_startup for example
         """
-        if dR.exists(Pattern("button_finish.png"),5) or \
-           dR.exists(Pattern("button_finish1.png"),5):
+        if dR.exists(Pattern("button_finish.png"),3) or \
+           dR.exists("Finish", 3) or \
+           dR.exists(Pattern("button_finish1.png"),3):
             click(dR.getLastMatch())
         else:
             print "Finish button not found"
@@ -1295,9 +1296,9 @@ class MiroApp(object):
             print "In first time dialog"
             dR = Region(getLastMatch())
             dR.setX(dR.getX()-200)
-            dR.setY(dR.getY()-20)
+            dR.setY(dR.getY()-200)
             dR.setH(dR.getH()+600)
-            dR.setW(dR.getW()+600)
+            dR.setW(dR.getW()+400)
             dR.highlight(2)
             dR.setAutoWaitTimeout(15)
             
@@ -1316,47 +1317,44 @@ class MiroApp(object):
         self.click_next(dR)
         
         #Run on Startup
-        print "run at startup? ",run_on_start
+        print "run at startup? ", run_on_start
         time.sleep(3)
-        if run_on_start == "Yes":
-            dR.click("Yes")
-        elif run_on_start == "No":
-            dR.click("No")
-        else:
-            print "pref not set"
+        dR.click(run_on_start)
         self.click_next(dR)
         
         #Add itunes library
         time.sleep(3)
-        if config.get_os_name() == "osx"  or \
-           (config.get_os_name() == "win" and dR.exists("iTunes",3)):
+        if dR.exists("iTunes", 3) or \
+           dR.exists("itunes.png", 3):
             print "itunes? ",itunes
-            if itunes == "Yes":
-                dR.click("Yes")
-            else:
-                dR.click("No")
+            dR.click(itunes)
             self.click_next(dR)
         
         #Search for music and video files
-        print "search for files? ",search
+        print "search for files? ", search
         time.sleep(3)
-        if search == "Yes":
-            dR.click("Yes")
-            print "specifying search"
-            if search_path == "Everywhere":
-                print "searching everywhere"
-                self.click_next(dR)
-                time.sleep(5)
-                waitVanish("parsed",900) #this can take a long time, giving 15 mins for search            
-            else:
-                print "searching specific dir: ",search_path
-                dR.click("Just")
-                dR.click(Pattern("button_choose.png"))
-                self.type_a_path(search_path)
-                self.click_next(dR)
-                waitVanish("parsed",300)        
-        time.sleep(2)
-        self.click_finish(dR)
+        dR.setY(dR.y+200)
+        dR.highlight(2)
+        dR.click(search)
+        print "specifying search"
+        if search == "No":
+            self.click_finish(dR)
+        elif search_path == "Everywhere":
+            print "searching everywhere"
+            dR.highlight(2)
+            self.click_next(dR)
+            time.sleep(5)
+            waitVanish("parsed", 900) #this can take a long time, giving 15 mins for search
+            self.click_finish(dR)
+        else:
+            print "searching specific dir: ", search_path
+            dR.click("Just")
+            dR.click(Pattern("button_choose.png"))
+            self.type_a_path(search_path)
+            self.click_next(dR)
+            waitVanish("parsed",300)        
+            time.sleep(2)
+            self.click_finish(dR)
         
     def corrupt_db_dialog(self, action="start_fresh", db=False):
         """Handle the corrupt db dialog.

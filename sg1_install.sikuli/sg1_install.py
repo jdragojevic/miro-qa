@@ -120,12 +120,16 @@ class Test_Install(base_testcase.Miro_unittest_testcase):
         #set the search regions
         miro.restart_miro()      
         search_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
-        miro.first_time_startup_dialog(lang="Default",run_on_start="No",search="Yes",search_path="Everywhere",itunes="No")
+        miro.first_time_startup_dialog(lang="Default",
+                                       run_on_start="No",
+                                       search="Yes",
+                                       search_path="Everywhere",
+                                       itunes="No")
         time.sleep(10)
         reg = MiroRegions()
         miro = MiroApp()
         miro.click_sidebar_tab(reg, "Videos")
-        find(Pattern("sort_name_normal.png").exact())
+        find(Pattern("sort_name_normal.png"))
         doubleClick(getLastMatch().below(100))
         miro.verify_video_playback(reg)
 
