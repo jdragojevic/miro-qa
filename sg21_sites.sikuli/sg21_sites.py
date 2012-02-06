@@ -280,8 +280,7 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         """
         
         site_url = "http://diziizle.net/"
-        site = "diziizle"
-        setAutoWaitTimeout(60)                
+        site = "diziizle"            
         reg = MiroRegions() 
         miro = MiroApp()
         miro.add_source_from_tab(reg, site_url)
@@ -290,7 +289,8 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         miro.quit_miro()
         miro.restart_miro()
         miro.click_last_source(reg)
-        self.assertTrue(reg.m.exists(myLib.testvars.dizizle_logo))    
+        self.assertTrue(reg.m.exists(Pattern("dizizle.png"), 60) or \
+                        regm.m.exists(Pattern("dizizle2.png"), 10))   
         miro.delete_site(reg, site)
 
 
