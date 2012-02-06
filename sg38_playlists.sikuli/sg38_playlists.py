@@ -123,7 +123,6 @@ class Test_Playlists(base_testcase.Miro_unittest_testcase):
         item_list = ["Pancakes","Horizon"]
         reg = MiroRegions() 
         miro = MiroApp()
-        p = miro.get_podcasts_region(reg)
         miro.click_sidebar_tab(reg, "Music")
         miro.tab_search(reg, playlist)
         reg.mtb.click(Pattern("button_save_as_playlist.png"))
