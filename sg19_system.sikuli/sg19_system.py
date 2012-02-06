@@ -63,7 +63,10 @@ class Test_System(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions()
         miro = MiroApp()
         if myLib.config.get_os_name() == "osx":
-            reg.tl.click("Dev")
+            type(Key.F2, KeyModifier.CTRL)
+            for x in range(0,11):
+                type(Key.RIGHT)
+            type(Key.DOWN)
         else:
             type('f',KEY_ALT)
             time.sleep(1)
@@ -83,9 +86,12 @@ class Test_System(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
 
         if myLib.config.get_os_name() == "osx":
-            reg.tl.click("Dev")
+            type(Key.F2, KeyModifier.CTRL)
+            for x in range(0,11):
+                type(Key.RIGHT)
+            type(Key.DOWN)
         else:
-            type('f',KEY_ALT)
+            type('f', KEY_ALT)
             time.sleep(1)
             type(Key.LEFT)
         reg.t.click("Test Soft")
