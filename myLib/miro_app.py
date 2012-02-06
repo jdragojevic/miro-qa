@@ -935,20 +935,12 @@ class MiroApp(object):
         else:
             print "Entering the search term"
             type(term)
-            # Dialog appears in different locations on os x vs gtk
-    ##        if config.get_os_name() == "osx":
-    ##            reg.t.find("In this")
-    ##            f = Region(reg.t.getLastMatch().right(600).below())
-    ##        else:
-    ##            reg.m.find("In this")
-    ##            f = Region(reg.m.getLastMatch().right(600).above().below())
             try:
                 reg.mr.find("Search for")
             except:
                 reg.mr.find(Pattern("search_for.png"))
             f = Region(reg.mr.getLastMatch().right(600).below())
             f.setY(f.getY()-120)
-            f.highlight(3)
             print "Clicking the %s radio button" %radio
             f.click(radio)
             click(f.getLastMatch().right(150))
@@ -957,11 +949,18 @@ class MiroApp(object):
                 type(Key.TAB)
                 print "Entering the search url"
                 type(source)
+                type(Key.ENTER)
             else:     
                 if not f.exists(source,2):
                     f.click(self.OPTION_EXPAND)
+                if self.os_name=='osx':
+                    find("search_engine_list.png")
+                    lr = Region(getLastMatch())
+                    lr.click(source)
+                    click("create_podcast.png")
+                else:
                     f.click(source)
-            f.click("Create")
+                    f.click("Create")
 
 
     def edit_item_type(self, reg, new_type, old_type):
