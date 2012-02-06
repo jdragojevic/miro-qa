@@ -10,7 +10,7 @@ from myLib.miro_app import MiroApp
 from myLib.preferences_panel import PreferencesPanel
 
 
-class Test_Playlists(base_testcase.Miro_unittest_testcase):
+class Test_Sidebar_Tabs(base_testcase.Miro_unittest_testcase):
     """Subgroup 26 - Playlists tests.
 
     """
@@ -75,6 +75,6 @@ class Test_Playlists(base_testcase.Miro_unittest_testcase):
 # TestRunner posts output in xunit format
 if __name__ == "__main__":
     from TestRunner import TestRunner
-    TestRunner(Test_Playlists).run_tests()
+    TestRunner(Test_Sidebar_Tabs).run_tests()
    
 
