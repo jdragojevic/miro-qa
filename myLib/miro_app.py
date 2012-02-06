@@ -950,10 +950,10 @@ class MiroApp(object):
                 print "Entering the search url"
                 type(source)
                 type(Key.ENTER)
-            else:     
+            else:    
                 if not f.exists(source,2):
                     f.click(self.OPTION_EXPAND)
-                if self.os_name=='osx':
+                if self.os_name == 'osx' and radio == "Search":
                     find("search_engine_list.png")
                     lr = Region(getLastMatch())
                     lr.click(source)
@@ -961,6 +961,7 @@ class MiroApp(object):
                 else:
                     f.click(source)
                     f.click("Create")
+            
 
 
     def edit_item_type(self, reg, new_type, old_type):
