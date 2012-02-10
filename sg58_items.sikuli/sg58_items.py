@@ -93,7 +93,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Earth Eats"
-        title = "Earth"
+        title = "Mushroom"
         new_type = "Video"
         old_type = "Music"
         #Set Global Preferences
@@ -142,7 +142,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Earth Eats"
-        title = "Earth" 
+        title = "Mushroom" 
         new_type = "Video"
         #Set Global Preferences
         miro.open_prefs(reg)
@@ -329,7 +329,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
             click(reg.m.getLastMatch())
         else:
             print "can't find thumb, best guess"
-            reg.m.find(title1)
+            reg.m.find(title3)
             click(reg.m.getLastMatch().left(50))
         if miro.confirm_download_started(reg, title=title3) == "in_progress":
             miro.log_result("122","normal view click starts download")
