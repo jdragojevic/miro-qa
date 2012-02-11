@@ -64,7 +64,9 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         miro.tab_search(reg, title)
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
-        miro.wait_for_item_in_tab(reg, "Videos",item=title)
+        miro.wait_for_item_in_tab(reg, "Videos", item=title)
+        miro.click_sidebar_tab(reg, "Music")
+        miro.click_sidebar_tab(reg, "Videos")
         reg.m.click(title)
         miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback
@@ -182,7 +184,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         time.sleep(5)
         url = "http://vimeo.com/moogaloop_local.swf?clip_id=7335370&server=vimeo.com"
-        title = "local"
+        title = "swf"
         #Set Global Preferences
         miro.open_prefs(reg)
         prefs = PreferencesPanel()
@@ -194,15 +196,9 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         reg.tl.click("Download from")
         time.sleep(4)
         type(url)
-        time.sleep(10)
+        time.sleep(2)
         type("\n")
-        if reg.s.exists("Downloading"):
-            print "item dl started"
-            reg.s.waitVanish("Downloading",120)
-            time.sleep(5)
-        miro.wait_for_item_in_tab(reg, tab="Misc",item=title)
-        x = reg.m.find(title)
-        click(x)
+        x = miro.wait_for_item_in_tab(reg, tab="Misc",item=title)
         reg.s.find("Music")
         tmpr = Region(reg.s.getLastMatch().above())
         tmpr.setW(tmpr.getW()+80)
@@ -243,6 +239,8 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Videos",item=title)
+        miro.click_sidebar_tab(reg, "Music")
+        miro.click_sidebar_tab(reg, "Videos")
         reg.m.click(title)
         miro.edit_item_metadata(reg, meta_field="about",meta_value="Blank description edited")
         miro.tab_search(reg, "blank description")

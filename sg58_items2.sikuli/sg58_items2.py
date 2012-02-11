@@ -301,6 +301,8 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music",item=title)
+        miro.click_sidebar_tab(reg, "Videos")
+        miro.click_sidebar_tab(reg, "Music")
         reg.m.click(title)
         for x in edit_itemlist:
             miro.edit_item_metadata(reg, meta_field=x[0],meta_value=x[1])

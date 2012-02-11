@@ -644,9 +644,9 @@ class MiroApp(object):
             myr = Region(reg.s)
             myr.setH(boty - reg.s.getY()) #height is top of sidebar to y position of video search
             if tab == "Misc": #drop the height to avoid Miro tab
-                myr.find("Videos")
-                mry1 = Region(myr.getLastMatch().below(250))
-                mry1.click("Misc")
+                myr.click("Videos")
+                type(Key.DOWN)
+                type(Key.DOWN)
             elif tab == "Miro":
                 myr.find("Music")
                 mry1 = Region(myr.getLastMatch().above(100))
@@ -871,8 +871,10 @@ class MiroApp(object):
         self.tab_search(reg, item)
         self.toggle_normal(reg)
         for x in range(0,60):
-            if not reg.m.exists(item, 5):
-                print ". waiting",x*5,"seconds for item to appear in tab:",tab
+            if reg.m.exists(item, 5):
+                return reg.m.getLastMatch()
+            else:
+                print ". waiting",x*5,"seconds for item to appear in tab:", tab
         
     def wait_conversions_complete(self, reg, title, conv):
         """Waits for a conversion to complete.
@@ -1350,6 +1352,7 @@ class MiroApp(object):
             print "searching specific dir: ", search_path
             dR.click("Just")
             dR.click(Pattern("button_choose.png"))
+            time.sleep(3)
             self.type_a_path(search_path)
             self.click_next(dR)
             waitVanish("parsed",300)        
