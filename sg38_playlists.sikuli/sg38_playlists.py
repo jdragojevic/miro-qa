@@ -54,10 +54,10 @@ class Test_Playlists(base_testcase.Miro_unittest_testcase):
         reg.m.click("Lego")
         reg.m.click("Deerhunter")
         keyUp(Key.SHIFT)
-        miro.add_playlist(reg, playlist,style="shortcut")
+        miro.add_playlist(reg, playlist, style="shortcut")
         miro.toggle_normal(reg)
         for title in item_list:
-            miro.tab_search(reg, title,confirm_present=True)
+            miro.tab_search(reg, title, confirm_present=True)
 
    
         
