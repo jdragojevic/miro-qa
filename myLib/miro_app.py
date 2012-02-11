@@ -754,7 +754,7 @@ class MiroApp(object):
         type(term.upper())
         # Use the search text to create a region for specifying the search engine
         if engine != None:
-            l = reg.mtb.find(term.upper())
+            l = reg.mtb.find(term[-10:].upper())
             l1= Region(int(l.getX()-20), l.getY(), 8, 8,)
             click(l1)
             l2 = Region(int(l.getX()-15), l.getY(), 300, 500,)
