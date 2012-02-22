@@ -1354,6 +1354,7 @@ class MiroApp(object):
             dR.click(Pattern("button_choose.png"))
             time.sleep(3)
             self.type_a_path(search_path)
+            if os_name == "osx":  click("button_open.png")
             self.click_next(dR)
             waitVanish("parsed",300)        
             time.sleep(2)
