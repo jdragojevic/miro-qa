@@ -56,7 +56,7 @@ class Test_One_Click_Subscribe(base_testcase.Miro_unittest_testcase):
             
 
 
-    def test_29(self):
+    def skiptest_29(self):
         """http://litmus.pculture.org/show_test.cgi?id=29 add site from miro site.
 
         1. Open Awesome website

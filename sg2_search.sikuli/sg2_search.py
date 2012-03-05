@@ -58,7 +58,6 @@ class Test_Search(base_testcase.Miro_unittest_testcase):
 
         searches = {"blip": "python",
                     "YouTube": "cosmicomics",
-                    "Revver": "Beiber",
                     "Yahoo": "Canada",
                     "DailyMotion": "Russia",
                     "Metavid": "africa",
