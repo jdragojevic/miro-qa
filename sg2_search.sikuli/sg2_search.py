@@ -58,24 +58,22 @@ class Test_Search(base_testcase.Miro_unittest_testcase):
 
         searches = {"blip": "python",
                     "YouTube": "cosmicomics",
-                    "Revver": "Beiber",
                     "Yahoo": "Canada",
                     "DailyMotion": "Russia",
                     "Metavid": "africa",
                     "Mininova": "Creative Commons",
-                    "Goog": "Toronto"}
+                    "Google": "Toronto"}
         for engine, term in searches.iteritems():
             miro.click_sidebar_tab(reg, "search")
             miro.search_tab_search(reg, term, engine)
             time.sleep(10)
             reg.mtb.click("button_save_as_podcast.png")
-            if engine == "blip":
+            if engine == "blip" or "Google":
                 saved_search = engine
             else:
                 saved_search = engine +" for"
             time.sleep(10) #give some time for everything to load up
             miro.click_podcast(reg, saved_search)
-            miro.shortcut("r")
             time.sleep(5)
             miro.get_podcasts_region(reg)
             miro.tab_search(reg, term)
@@ -138,7 +136,7 @@ class Test_Search(base_testcase.Miro_unittest_testcase):
         searches = { "Yahoo": "Canada", "DailyMotion": "Ontario", "YouTube": "toronto"}
         radio = "Search"
         for source, term in searches.iteritems():
-            miro.new_search_feed(reg, term,radio,source,defaults=False,watched=False)
+            miro.new_search_feed(reg, term, radio, source, defaults=False, watched=False)
             time.sleep(10) #give some time for everything to load up
             miro.click_podcast(reg, source)
             miro.shortcut("r")

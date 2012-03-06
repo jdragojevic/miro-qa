@@ -201,9 +201,8 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         """
         reg = MiroRegions() 
         miro = MiroApp()
-        
-    
-        feed = "TestData"
+
+        feed = "WatchTest"
         term = "monkey"
         folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","WatchTest")
         #1. add feed
@@ -212,13 +211,13 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
             miro.log_result("678","test_721")
         #2. search
         miro.tab_search(reg, term)
-        miro.new_search_feed(reg, term,radio="Podcast",source=feed,watched=True)
+        miro.new_search_feed(reg, term, radio="Podcast",source=feed, watched=True)
 
         #Remove Watched Folder
         miro.open_prefs(reg)
         prefs = PreferencesPanel()
         folder_tab = prefs.open_tab("Folders")
-        folder_tab.remove_watched_folder("ArtTest")
+        folder_tab.remove_watched_folder("WatchTest")
         folder_tab.close_prefs()
   
         

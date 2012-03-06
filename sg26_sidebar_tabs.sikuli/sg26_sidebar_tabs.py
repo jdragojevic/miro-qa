@@ -10,7 +10,7 @@ from myLib.miro_app import MiroApp
 from myLib.preferences_panel import PreferencesPanel
 
 
-class Test_Playlists(base_testcase.Miro_unittest_testcase):
+class Test_Sidebar_Tabs(base_testcase.Miro_unittest_testcase):
     """Subgroup 26 - Playlists tests.
 
     """
@@ -47,10 +47,12 @@ class Test_Playlists(base_testcase.Miro_unittest_testcase):
         miro.add_feed(reg, url, feed)
         miro.set_podcast_autodownload(reg, setting="All")
         time.sleep(15)
+        miro.set_podcast_autodownload(reg, setting="Off")
         if reg.s.exists("Downloading"):
             reg.s.waitVanish("Downloading")
         miro.click_sidebar_tab(reg, "Videos")
         miro.toggle_normal(reg)
+        reg.m.wait("item_play_unplayed.png")
         if reg.m.exists("item_play_unplayed.png"):
             find(Pattern("sort_name_normal.png"))
             doubleClick(getLastMatch().below(100))
@@ -59,6 +61,7 @@ class Test_Playlists(base_testcase.Miro_unittest_testcase):
             self.fail("no unplayed badges found")
         if exists(Pattern("playback_bar_video.png")):
             print "playback started"
+            time.sleep(60)
             waitVanish(Pattern("playback_bar_video.png"))
         if reg.m.exists("item_play_unplayed.png"):
             self.fail("items not marked as unplayed")
@@ -72,6 +75,6 @@ class Test_Playlists(base_testcase.Miro_unittest_testcase):
 # TestRunner posts output in xunit format
 if __name__ == "__main__":
     from TestRunner import TestRunner
-    TestRunner(Test_Playlists).run_tests()
+    TestRunner(Test_Sidebar_Tabs).run_tests()
    
 

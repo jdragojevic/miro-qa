@@ -23,9 +23,12 @@ class PrefFoldersTab(Preferences):
         
         
     def remove_watched_folder(self, folder):
-        wf_reg = self.find_element([folder])
-        click(wf_reg.getLastMatch())
-        self.click_element(self._REMOVE_BUTTON)
+        try:
+            wf_reg.click(folder)
+            self.click_element(self._REMOVE_BUTTON)
+        except:
+            print 'can not remove the watched folder'
+            type(Key.ESC)
 
     def toggle_watched_folder(self, folder, setting):
         set_preference_checkbox(self, [folder], setting)

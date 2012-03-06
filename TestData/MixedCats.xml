@@ -1,0 +1,33 @@
+
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" 
+   xmlns:html="http://www.w3.org/1999/html" 
+   xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+<channel>
+   <title>MIXED CATS</title>
+   <description>RSS of Catshit with mixed type (video music and misc) </description>
+   <generator>item_to_rss.py 0.5 February 28th, 2012</generator>
+
+<item>
+   <title>Cat Tongue Show</title>
+   <description>A cute kitty is so sleepy that you can play with his tongue without him caring.</description>
+   <pubDate>Mon, 25 Jul 2011 09:32 GMT</pubDate>
+   <enclosure url="http://videos.stupidvideos.com/2/00/36/58/67/365867.flv" length="0" type="video/x-flv" />
+</item>
+<item>
+   <title>CIRCUS CAT</title>
+   <description>This video should land in the MISC section of Miro</description>
+   <pubDate>Mon, 25 Jul 2011 09:32 GMT</pubDate>
+   <enclosure url="http://www.dailymotion.com/swf/video/xp3mj3" length="0" type="video/x-flv" />
+</item>
+<item>
+   <title>Paris Sample</title>
+   <description>This video should land in the music section and features Catherine Denuve</description>
+   <pubDate>Mon, 25 Jul 2011 09:32 GMT</pubDate>
+   <enclosure url="http://pculture.org/feeds_test/paris_paris.mp3" length="0" type="video/x-flv" />
+</item>
+
+
+
+</channel>
+</rss>

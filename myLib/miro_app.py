@@ -644,9 +644,9 @@ class MiroApp(object):
             myr = Region(reg.s)
             myr.setH(boty - reg.s.getY()) #height is top of sidebar to y position of video search
             if tab == "Misc": #drop the height to avoid Miro tab
-                myr.find("Videos")
-                mry1 = Region(myr.getLastMatch().below(250))
-                mry1.click("Misc")
+                myr.click("Videos")
+                type(Key.DOWN)
+                type(Key.DOWN)
             elif tab == "Miro":
                 myr.find("Music")
                 mry1 = Region(myr.getLastMatch().above(100))
@@ -754,7 +754,7 @@ class MiroApp(object):
         type(term.upper())
         # Use the search text to create a region for specifying the search engine
         if engine != None:
-            l = reg.mtb.find(term.upper())
+            l = reg.mtb.find(term[-10:].upper())
             l1= Region(int(l.getX()-20), l.getY(), 8, 8,)
             click(l1)
             l2 = Region(int(l.getX()-15), l.getY(), 300, 500,)
@@ -871,8 +871,10 @@ class MiroApp(object):
         self.tab_search(reg, item)
         self.toggle_normal(reg)
         for x in range(0,60):
-            if not reg.m.exists(item, 5):
-                print ". waiting",x*5,"seconds for item to appear in tab:",tab
+            if reg.m.exists(item, 5):
+                return reg.m.getLastMatch()
+            else:
+                print ". waiting",x*5,"seconds for item to appear in tab:", tab
         
     def wait_conversions_complete(self, reg, title, conv):
         """Waits for a conversion to complete.
@@ -935,20 +937,12 @@ class MiroApp(object):
         else:
             print "Entering the search term"
             type(term)
-            # Dialog appears in different locations on os x vs gtk
-    ##        if config.get_os_name() == "osx":
-    ##            reg.t.find("In this")
-    ##            f = Region(reg.t.getLastMatch().right(600).below())
-    ##        else:
-    ##            reg.m.find("In this")
-    ##            f = Region(reg.m.getLastMatch().right(600).above().below())
             try:
                 reg.mr.find("Search for")
             except:
                 reg.mr.find(Pattern("search_for.png"))
             f = Region(reg.mr.getLastMatch().right(600).below())
             f.setY(f.getY()-120)
-            f.highlight(3)
             print "Clicking the %s radio button" %radio
             f.click(radio)
             click(f.getLastMatch().right(150))
@@ -957,11 +951,19 @@ class MiroApp(object):
                 type(Key.TAB)
                 print "Entering the search url"
                 type(source)
-            else:     
+                type(Key.ENTER)
+            else:    
                 if not f.exists(source,2):
                     f.click(self.OPTION_EXPAND)
+                if self.os_name == 'osx' and radio == "Search":
+                    find("search_engine_list.png")
+                    lr = Region(getLastMatch())
+                    lr.click(source)
+                    click("create_podcast.png")
+                else:
                     f.click(source)
-            f.click("Create")
+                    f.click("Create")
+            
 
 
     def edit_item_type(self, reg, new_type, old_type):
@@ -1261,9 +1263,9 @@ class MiroApp(object):
 
         Needs the Dialog region (dR) set, see first_time_startup for example
         """
-        print dR
-        if dR.exists(Pattern("button_next.png"),5) or \
-        dR.exists(Pattern("button_next1.png"),5):
+        if dR.exists(Pattern("button_next.png"),3) or \
+           dR.exists("Next",3) or \
+           dR.exists(Pattern("button_next1.png"),3):
              click(dR.getLastMatch())
         else:
             print "Next button not found"
@@ -1273,8 +1275,9 @@ class MiroApp(object):
 
         Needs the Dialog region (dR) set, see first_time_startup for example
         """
-        if dR.exists(Pattern("button_finish.png"),5) or \
-           dR.exists(Pattern("button_finish1.png"),5):
+        if dR.exists(Pattern("button_finish.png"),3) or \
+           dR.exists("Finish", 3) or \
+           dR.exists(Pattern("button_finish1.png"),3):
             click(dR.getLastMatch())
         else:
             print "Finish button not found"
@@ -1295,9 +1298,9 @@ class MiroApp(object):
             print "In first time dialog"
             dR = Region(getLastMatch())
             dR.setX(dR.getX()-200)
-            dR.setY(dR.getY()-20)
+            dR.setY(dR.getY()-200)
             dR.setH(dR.getH()+600)
-            dR.setW(dR.getW()+600)
+            dR.setW(dR.getW()+400)
             dR.highlight(2)
             dR.setAutoWaitTimeout(15)
             
@@ -1316,47 +1319,46 @@ class MiroApp(object):
         self.click_next(dR)
         
         #Run on Startup
-        print "run at startup? ",run_on_start
+        print "run at startup? ", run_on_start
         time.sleep(3)
-        if run_on_start == "Yes":
-            dR.click("Yes")
-        elif run_on_start == "No":
-            dR.click("No")
-        else:
-            print "pref not set"
+        dR.click(run_on_start)
         self.click_next(dR)
         
         #Add itunes library
         time.sleep(3)
-        if config.get_os_name() == "osx"  or \
-           (config.get_os_name() == "win" and dR.exists("iTunes",3)):
+        if dR.exists("iTunes", 3) or \
+           dR.exists("itunes.png", 3):
             print "itunes? ",itunes
-            if itunes == "Yes":
-                dR.click("Yes")
-            else:
-                dR.click("No")
+            dR.click(itunes)
             self.click_next(dR)
         
         #Search for music and video files
-        print "search for files? ",search
+        print "search for files? ", search
         time.sleep(3)
-        if search == "Yes":
-            dR.click("Yes")
-            print "specifying search"
-            if search_path == "Everywhere":
-                print "searching everywhere"
-                self.click_next(dR)
-                time.sleep(5)
-                waitVanish("parsed",900) #this can take a long time, giving 15 mins for search            
-            else:
-                print "searching specific dir: ",search_path
-                dR.click("Just")
-                dR.click(Pattern("button_choose.png"))
-                self.type_a_path(search_path)
-                self.click_next(dR)
-                waitVanish("parsed",300)        
-        time.sleep(2)
-        self.click_finish(dR)
+        dR.setY(dR.y+200)
+        dR.highlight(2)
+        dR.click(search)
+        print "specifying search"
+        if search == "No":
+            self.click_finish(dR)
+        elif search_path == "Everywhere":
+            print "searching everywhere"
+            dR.highlight(2)
+            self.click_next(dR)
+            time.sleep(5)
+            waitVanish("parsed", 900) #this can take a long time, giving 15 mins for search
+            self.click_finish(dR)
+        else:
+            print "searching specific dir: ", search_path
+            dR.click("Just")
+            dR.click(Pattern("button_choose.png"))
+            time.sleep(3)
+            self.type_a_path(search_path)
+            if os_name == "osx":  click("button_open.png")
+            self.click_next(dR)
+            waitVanish("parsed",300)        
+            time.sleep(2)
+            self.click_finish(dR)
         
     def corrupt_db_dialog(self, action="start_fresh", db=False):
         """Handle the corrupt db dialog.

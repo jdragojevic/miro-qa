@@ -34,7 +34,10 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
                 click(reg.mtb.getLastMatch())
                 time.sleep(3)
             miro.confirm_download_started(reg, "Deep")
-            reg.mtb.click("download-cancel.png")
+            try:
+                reg.mtb.click("download-cancel.png")
+            except:
+                pass
         finally:
             miro.delete_site(reg, site)
 
@@ -223,7 +226,7 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
                 if miro.confirm_download_started(reg, title) == "failed":
                     self.verificationErrors.append("download failed for imagetype" +str(filetype))
                 else:
-                    reg.mtb.click("download-cancel.png")
+                    miro.cancel_all_downloads(reg)
                 miro.click_source(reg, site)
             except:
                 self.verificationErrors.append("download failed for imagetype" +str(filetype))
@@ -277,8 +280,7 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         """
         
         site_url = "http://diziizle.net/"
-        site = "diziizle"
-        setAutoWaitTimeout(60)                
+        site = "diziizle"            
         reg = MiroRegions() 
         miro = MiroApp()
         miro.add_source_from_tab(reg, site_url)
@@ -287,7 +289,8 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         miro.quit_miro()
         miro.restart_miro()
         miro.click_last_source(reg)
-        self.assertTrue(reg.m.exists(myLib.testvars.dizizle_logo))    
+        self.assertTrue(reg.m.exists(Pattern("dizizle.png"), 60) or \
+                        regm.m.exists(Pattern("dizizle2.png"), 10))   
         miro.delete_site(reg, site)
 
 

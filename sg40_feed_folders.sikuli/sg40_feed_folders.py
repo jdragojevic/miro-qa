@@ -101,9 +101,13 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(myLib.testvars.timeout)
         #set the search regions
+        miro = MiroApp()
+        miro.quit_miro()
+        myLib.config.set_def_db_and_prefs()
+        miro.restart_miro()
+        time.sleep(10)
         reg = MiroRegions() 
         miro = MiroApp()
-        miro.delete_all_podcasts(reg)
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test.opml")
         feed = "Featured"
         folder = "GEEKY"
@@ -121,14 +125,14 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
         #3. Delete
         type(Key.DELETE)
         for x in feedlist:
-            miro.count_images(reg, img=x,region="main",num_expected=1)             
+            miro.count_images(reg, img=x, region="main",num_expected=1)             
         type(Key.ENTER)
         time.sleep(2)
         #4. Cleanup
         miro.delete_all_podcasts(reg)
         p = miro.get_podcasts_region(reg)
         for x in feedlist:
-            if not p.exists(x):
+            if not p.exists(x, 1):
                 miro.log_result("202","test_722")
         
 
@@ -179,7 +183,7 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
 
         opml_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","folder-test2.opml")
         folder = "Best Feeds"
-        feedlist = ["Vimeo", "BIRCHBOXTVTV"]
+        feedlist = ["Vimeo", "BIRCHBOXTV"]
 
         #1. Add the feeds 
         miro.import_opml(reg, opml_path)
@@ -269,9 +273,11 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
         #1. Add the feeds 
         miro.import_opml(reg, opml_path)
         p = miro.get_podcasts_region(reg)
-        x = p.find("GEEKY")
+        p.click("GEEKY")
+        time.sleep(2)
+        x = p.getLastMatch()
         y = p.find("Featured")
-        dragDrop(x,y)
+        dragDrop(x,y.above(5))
         time.sleep(2)
         p.click("Featured")
         ror = Region(p.getLastMatch().above(250))
