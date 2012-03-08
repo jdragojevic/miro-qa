@@ -53,7 +53,7 @@ def get_regions():
         
 
         AppRegions = {"SidebarRegion": Region(topx,topy,sidebar_width,app_height),
-                      "MainViewRegion": Region(sidex, topy+70, mainwidth, app_height),
+                      "MainViewRegion": Region(sidex, topy+110, mainwidth, app_height),
                       "TopHalfRegion": Region(0,0,mainwidth+sidebar_width,app_height/2),
                       "TopLeftRegion": Region(0,0,mainwidth/2,app_height/2),
                       "MainTitleBarRegion": Region(sidex, topy, mainwidth, 120),
@@ -61,42 +61,7 @@ def get_regions():
                       }
         for regs in AppRegions.itervalues():
             regs.setAutoWaitTimeout(30)
+        AppRegions["SidebarRegion"].highlight(3)
         return AppRegions    
    
-##def get_regions():
-##        config.set_image_dirs()
-##        myscreen = Screen()
-##        pr = Region(myscreen.getBounds())
-##
-##        pr.setY(10)
-##        try:
-##            sidebar_width = int(config.get_val_from_mirodb("global_state","tabs_width"))
-##        except:
-##            sidebar_width = 250
-##        topx = 50
-##        topy = 30
-##        if pr.exists("Music",5):
-##            click(pr.getLastMatch())
-##            topx =  int(pr.getLastMatch().getX())-55
-##            topy = int(pr.getLastMatch().getY())-80
-##        sidex = sidebar_width+topx    
-##        find("BottomCorner.png")
-##        vbarx =  int(getLastMatch().getX())+30
-##        vbary = int(getLastMatch().getY())+10
-##        vbarw = getLastMatch().getW()
-##        app_height = int(vbary-topy)
-##        mainwidth = int((vbarx-sidex)+vbarw)
-##        
-##
-##        AppRegions = {"SidebarRegion": Region(topx,topy,sidebar_width,app_height),
-##                      "MainViewRegion": Region(sidex,topy+70,mainwidth,app_height),
-##                      "TopHalfRegion": Region(0,0,mainwidth+sidebar_width,app_height/2),
-##                      "TopLeftRegion": Region(0,0,mainwidth/2,app_height/2),
-##                      "MainTitleBarRegion": Region(sidex,topy,mainwidth,120),
-##                      "MainAndHeaderRegion": Region(sidex+sidebar_width,topy-130, mainwidth, app_height+50),
-##                      }
-##        for regs in AppRegions.itervalues():
-##            regs.setAutoWaitTimeout(30)
-##        for regs in AppRegions.itervalues():
-##            regs.highlight(1)
-##        return AppRegions    
+    
