@@ -93,7 +93,7 @@ def _run_the_full_suite():
     sglist.sort()
     sg1index = sglist.index('sg1_install.sikuli')
     sg1 = sglist.pop(int(sg1index))
-    sglist.append(sg1)
+#    sglist.append(sg1)
     sg89index = sglist.index('sg89_prefs.sikuli')
     sg89 = sglist.pop(int(sg89index))
     sglist.append(sg89)
