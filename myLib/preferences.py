@@ -37,7 +37,7 @@ class Preferences(MiroApp):
             heading = Region(getLastMatch())
             gtw = heading.getW()/10
             heading.setX(heading.getX() - gtw)
-            heading.setW(heading.getW() + gtw*2)
+            heading.setW(heading.getW() + gtw*4)
             heading.setH(heading.getH() + 30)
             heading.setAutoWaitTimeout(10)
             settings = Region(heading.below())

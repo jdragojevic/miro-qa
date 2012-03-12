@@ -971,9 +971,7 @@ class MiroApp(object):
 
         """
         time.sleep(2)
-        if self.os_name=='osx':
-            type(Key.TAB)  #os x make sure focus on item so shortcut works
-            time.sleep(2)
+
         self.shortcut('i')
         time.sleep(2)
         try:

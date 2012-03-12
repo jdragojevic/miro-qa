@@ -65,8 +65,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Videos", item=title)
-        miro.click_sidebar_tab(reg, "Music")
-        miro.click_sidebar_tab(reg, "Videos")
+        miro.tab_search(reg, title)
         reg.m.click(title)
         miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback

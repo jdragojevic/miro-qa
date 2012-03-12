@@ -1,7 +1,7 @@
 (dp1
 S'windowdimensions'
 p2
-S'9,17,1180,780'
+S'9,20,1120,654'
 p3
 sS'musicTabClicked'
 p4
@@ -10,26 +10,37 @@ sS'language'
 p5
 S'system'
 p6
-sS'ChannelAutoDefault'
+sS'lastDonateTime'
 p7
-S'off'
+F1331121772.2130001
+sS'ChannelAutoDefault'
 p8
-sS'LastSearchEngine'
+S'off'
 p9
-S'all'
+sS'donateCounter'
 p10
-sS'DisabledExtensions'
+I9
+sS'LastSearchEngine'
 p11
-(lp12
-S'Watch History'
+S'all'
+p12
+sS'DisabledExtensions'
 p13
+(lp14
+S'Watch History'
+p15
+aS'Extension API Example'
+p16
 asS'startupTasksDone'
-p14
+p17
 I01
 sS'showPodcastsInMusic'
-p15
+p18
 I01
+sS'donateNoThanks'
+p19
+I0
 sS'windowmaximized'
-p16
-I01
+p20
+I00
 s.

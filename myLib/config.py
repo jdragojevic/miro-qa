@@ -191,21 +191,19 @@ def delete_database_and_prefs(dbonly=False):
                 if os.path.exists(plist_file):
                     os.remove(plist_file)
 def kill_miro():
-    num_processes = check_if_miro_running()
-    if int(num_processes) > 2:
-        print "miro processes are still running after attempted quit."
-        try:
-            if get_os_name() == "win":
-                subprocess.Popen(r'TASKKILL /F /IM Miro.exe')
-            elif get_os_name() == "osx":
-                subprocess.Popen(r'killall -v -I Miro')
-            elif get_os_name() == "lin":
-                subprocess.Popen(r'killall -v -I miro.real')
-            else:
-                print "not sure what to do here"
-        except:
-            pass
-        time.sleep(8)
+    
+    try:
+        if get_os_name() == "win":
+            subprocess.Popen(r'TASKKILL /F /IM Miro.exe')
+        elif get_os_name() == "osx":
+            subprocess.Popen(r'killall -v -I Miro')
+        elif get_os_name() == "lin":
+            subprocess.Popen(r'killall -v -I miro.real')
+        else:
+            print "not sure what to do here"
+    except:
+        pass
+    time.sleep(8)
 
 def kill_firefox():
     try:
