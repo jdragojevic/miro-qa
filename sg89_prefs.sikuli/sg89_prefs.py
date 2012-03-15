@@ -7,6 +7,7 @@ import myLib.config
 from myLib.miro_regions import MiroRegions
 from myLib.miro_app import MiroApp
 from myLib.pref_general_tab import PrefGeneralTab
+from myLib.preferences_panel import PreferencesPanel
 
 class Test_Preferences(base_testcase.Miro_unittest_testcase):
     """Subgroup 89 - preferences tests.
