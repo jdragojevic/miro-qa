@@ -1001,10 +1001,9 @@ class MiroApp(object):
             f.mouseMove(new_type)
             mouseUp(Button.LEFT)
             time.sleep(2)
-  #
-  type(Key.ENTER)
+            type(Key.ENTER)
+
         time.sleep(2)
-        
         click(Pattern("button_ok.png"))
         time.sleep(4)
 
