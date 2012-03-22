@@ -290,7 +290,7 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         miro.restart_miro()
         miro.click_last_source(reg)
         self.assertTrue(reg.m.exists(Pattern("dizizle.png"), 60) or \
-                        regm.m.exists(Pattern("dizizle2.png"), 10))   
+                        reg.m.exists(Pattern("dizizle2.png"), 10))   
         miro.delete_site(reg, site)
 
 

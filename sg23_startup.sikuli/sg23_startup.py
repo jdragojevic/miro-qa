@@ -73,7 +73,7 @@ class Test_Startup_Install(base_testcase.Miro_unittest_testcase):
 
 
         
-    def test_999reset(self):
+    def skiptest_999reset(self):
         """fake test to reset db and preferences.
 
         """

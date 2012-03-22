@@ -61,7 +61,7 @@ class Test_Search(base_testcase.Miro_unittest_testcase):
                     "Yahoo": "Canada",
                     "DailyMotion": "Russia",
                     "Metavid": "africa",
-                    "Mininova": "Creative Commons",
+                    "Mininova": "Creative",
                     "Google": "Toronto"}
         for engine, term in searches.iteritems():
             miro.click_sidebar_tab(reg, "search")

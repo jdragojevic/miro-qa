@@ -982,22 +982,26 @@ class MiroApp(object):
         f.setW(200)
         f.setH(100)
         f.find("Type")
-        click(f.getLastMatch().right(50))
-        if old_type == "Video" and new_type == "Music":
-            type(Key.UP)
-            type(Key.ENTER)
-        elif old_type == "Video" and new_type == "Misc":
-            type(Key.DOWN)
-            type(Key.ENTER)
-        elif old_type == "Music" and new_type == "Video":
-            type(Key.UP)
-            type(Key.ENTER)
+        if self.os_name == 'osx':
+            click(f.getLastMatch().right(50))
+            if old_type == "Video" and new_type == "Music":
+                type(Key.UP)
+                type(Key.ENTER)
+            elif old_type == "Video" and new_type == "Misc":
+                type(Key.DOWN)
+                type(Key.ENTER)
+            elif old_type == "Music" and new_type == "Video":
+                type(Key.UP)
+                type(Key.ENTER)
+            else:
+                print 'error editing metadata type on osx'
         else: 
+            mouseMove(f.getLastMatch().right(50))
             mouseDown(Button.LEFT)
             mouseMove(new_type)
             mouseUp(Button.LEFT)
         time.sleep(2)
-        click("button_ok.png")
+        click(Pattern("button_ok.png"))
 
     def edit_item_rating(self, rating):
         """Change the item's metadata type, assumes item is selected.
