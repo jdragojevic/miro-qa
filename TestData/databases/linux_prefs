@@ -1,6 +1,12 @@
 <gconfentryfile>
   <entrylist base="/apps/miro">
     <entry>
+      <key>ChannelAutoDefault</key>
+      <value>
+        <string>off</string>
+      </value>
+    </entry>
+    <entry>
       <key>DisabledExtensions</key>
       <value>
         <list type="string">
@@ -38,13 +44,49 @@
       </value>
     </entry>
     <entry>
+      <key>VolumeLevel</key>
+      <value>
+        <float>1.4677419662475586</float>
+      </value>
+    </entry>
+    <entry>
+      <key>donateCounter</key>
+      <value>
+        <int>47</int>
+      </value>
+    </entry>
+    <entry>
+      <key>donateNoThanks</key>
+      <value>
+        <int>3</int>
+      </value>
+    </entry>
+    <entry>
       <key>language</key>
       <value>
         <string>system</string>
       </value>
     </entry>
     <entry>
+      <key>lastDonateTime</key>
+      <value>
+        <float>1332425216</float>
+      </value>
+    </entry>
+    <entry>
       <key>musicTabClicked</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>musicTabClicked2</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>rememberLastDisplay</key>
       <value>
         <bool>true</bool>
       </value>
@@ -94,7 +136,7 @@
     <entry>
       <key>window/y</key>
       <value>
-        <int>42</int>
+        <int>39</int>
       </value>
     </entry>
   </entrylist>
