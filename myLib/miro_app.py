@@ -998,10 +998,14 @@ class MiroApp(object):
         else: 
             mouseMove(f.getLastMatch().right(50))
             mouseDown(Button.LEFT)
-            mouseMove(new_type)
+            f.mouseMove(new_type)
             mouseUp(Button.LEFT)
+            time.sleep(2)
+  #          type(Key.ENTER)
         time.sleep(2)
+        
         click(Pattern("button_ok.png"))
+        time.sleep(4)
 
     def edit_item_rating(self, rating):
         """Change the item's metadata type, assumes item is selected.

@@ -40,9 +40,9 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         time.sleep(5)
-        url = "http://pculture.org/feeds_test/3blipvideos.xml"
-        feed = "ThreeBlip"
-        title = "The Joo"
+        url = "http://pculture.org/feeds_test/MixedCats.xml"
+        feed = "MIXED"
+        title = "Tongue"
         new_type = "Music"
         old_type = "Video"
 
@@ -70,7 +70,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback
         miro.wait_for_item_in_tab(reg, tab="Music",item=title)
-        click(reg.m.getLastMatch())        
+        reg.m.click(title)        
         type(' ') #use spacebar to start playback
         self.assertTrue(miro.verify_audio_playback(reg, title))
         miro.stop_audio_playback(reg, title)
@@ -82,8 +82,8 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
     def test_362(self):
         """http://litmus.pculture.org/show_test.cgi?id=362 edit item music to video
 
-        1. add Static List Feed
-        2. download the Earth Eats
+        1. add Feed
+        2. download Paris mp3
         3. Edit item from Audio to Video
         4. Verify item played as video item
 
@@ -91,10 +91,10 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         time.sleep(5)
-        url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
-        feed = "Static"
-        term = "Earth Eats"
-        title = "Mushroom"
+        url = "http://pculture.org/feeds_test/MixedCats.xml"
+        feed = "MIXED"
+        term = "Paris"
+        title = "Paris"
         new_type = "Video"
         old_type = "Music"
         #Set Global Preferences
@@ -118,7 +118,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback
         miro.wait_for_item_in_tab(reg, tab="Video",item=title)
-        doubleClick(reg.m.getLastMatch())
+        reg.m.doubleClick(title)
         miro.verify_video_playback(reg)
         miro.quit_miro()
         miro.restart_miro()
