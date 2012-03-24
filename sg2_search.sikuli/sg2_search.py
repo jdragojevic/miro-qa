@@ -58,7 +58,6 @@ class Test_Search(base_testcase.Miro_unittest_testcase):
 
         searches = {"blip": "python",
                     "YouTube": "cosmicomics",
-                    "Yahoo": "Canada",
                     "DailyMotion": "Russia",
                     "Metavid": "africa",
                     "Mininova": "Creative",
@@ -133,7 +132,7 @@ class Test_Search(base_testcase.Miro_unittest_testcase):
         podcasts_tab.autodownload_setting("Off")
         podcasts_tab.close_prefs()
         
-        searches = { "Yahoo": "Canada", "DailyMotion": "Ontario", "YouTube": "toronto"}
+        searches = { "DailyMotion": "Ontario", "YouTube": "toronto"}
         radio = "Search"
         for source, term in searches.iteritems():
             miro.new_search_feed(reg, term, radio, source, defaults=False, watched=False)

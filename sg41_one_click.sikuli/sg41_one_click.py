@@ -41,7 +41,7 @@ class Test_One_Click_Subscribe(base_testcase.Miro_unittest_testcase):
         type(url + "\n")
         time.sleep(20)
         if not exists(ONE_CLICK_BADGE):
-            for x in range(0,5):
+            for x in range(0,2):
                 type(Key.DOWN)
                 click(ONE_CLICK_BADGE)
         else:

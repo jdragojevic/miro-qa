@@ -1294,7 +1294,8 @@ class MiroApp(object):
                                   run_on_start="No",
                                   search="No",
                                   search_path="Everywhere",
-                                  itunes="No"):
+                                  itunes="No"
+                                  cleanup="No"):
         """Walk throught the first time startup dialog, specifying defaults.
 
         """
@@ -1332,11 +1333,14 @@ class MiroApp(object):
         
         #Add itunes library
         time.sleep(3)
-        if dR.exists("iTunes", 3) or \
-           dR.exists("itunes.png", 3):
-            print "itunes? ",itunes
+
+        print "itunes? ",itunes
+        if itunes == "Yes":
             dR.click(itunes)
-            self.click_next(dR)
+        print "lookup? ", cleanup
+        if cleanup == "Yes":
+            dR.click(cleanup)
+        self.click_next(dR)
         
         #Search for music and video files
         print "search for files? ", search

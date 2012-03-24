@@ -190,7 +190,7 @@ class Test_FeedsTests(base_testcase.Miro_unittest_testcase):
 
         reg = MiroRegions()
         miro = MiroApp()        
-        feed = "AV Club"
+        feed = "The AV"
         
         #SET GLOBAL PREFERENCES
         miro.open_prefs(reg)
@@ -201,6 +201,7 @@ class Test_FeedsTests(base_testcase.Miro_unittest_testcase):
         
         url = "http://feeds.feedburner.com/theavclub/mainline"
         miro.browser_to_miro(reg, url)
+        time.sleep(5)
         #3. verify feed added
         miro.click_podcast(reg, feed)
         #4. Cleanup

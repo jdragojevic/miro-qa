@@ -23,7 +23,7 @@ class PrefPlaybackTab(Preferences):
                 sect_reg = Region(self.sr.getLastMatch())
                 sect_reg.setX(self.sr.getX())
                 sect_reg.setW(self.sr.getW())
-                sect_reg.setH(sect_reg.getH()*6)
+                sect_reg.setH(sect_reg.getH()*7)
                 return sect_reg
         else:
             print("Can't find the preference section %s" % section)

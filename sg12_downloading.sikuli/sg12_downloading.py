@@ -163,9 +163,9 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
 
         """
         feed_url = "http://vimeo.com/habi/likes/rss"
-        feed_name = "David"
-        item_title = "glove"
-        item_image = "vimeo-glove.png"
+        feed_name = "Vimeo"
+        item_title = "ifmx"
+        item_image = "ifmx2.png"
         reg = MiroRegions()
         miro = MiroApp()
         miro.add_feed(reg, feed_url, feed_name)
@@ -208,7 +208,7 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         5. Verify playback
 
         """
-        url_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","dilbert-feed.xml")
+
         feed_url = "http://gdata.youtube.com/feeds/api/users/4001v63/uploads"
         feed_name = "Uploads"
         item_title = "kerta"
