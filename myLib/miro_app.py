@@ -1294,7 +1294,7 @@ class MiroApp(object):
                                   run_on_start="No",
                                   search="No",
                                   search_path="Everywhere",
-                                  itunes="No"
+                                  itunes="No",
                                   cleanup="No"):
         """Walk throught the first time startup dialog, specifying defaults.
 
