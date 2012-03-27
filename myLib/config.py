@@ -198,7 +198,7 @@ def kill_miro():
         elif get_os_name() == "osx":
             subprocess.Popen(r'killall -v -I Miro')
         elif get_os_name() == "lin":
-            subprocess.Popen(r'killall -v -I miro.real')
+            subprocess.Popen(r'killall -v miro.real')
         else:
             print "not sure what to do here"
     except:
