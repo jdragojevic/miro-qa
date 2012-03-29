@@ -107,6 +107,7 @@ class Test_Keyboard_Shortcuts(base_testcase.Miro_unittest_testcase):
             _delete_feed(self)
             _delete_site(self)
             _delete_item(self)
+            miro.click_sidebar_tab(reg, "Music")
             _delete_playlist(self)
             _delete_playlist_folder(self)
             _delete_feed_folder(self)

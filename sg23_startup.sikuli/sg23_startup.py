@@ -39,11 +39,12 @@ class Test_Startup_Install(base_testcase.Miro_unittest_testcase):
         folder_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData")
         miro.add_watched_folder(reg, folder_path)
         miro.quit_miro()
-        myLib.config.delete_preferences()
+        myLib.config.run_db_cmd('delete from item_info_cache')
+        #myLib.config.delete_preferences()
         setAutoWaitTimeout(myLib.testvars.timeout)
         #set the search regions 
         miro.restart_miro()
-        miro.first_time_startup_dialog(lang="Default",run_on_start="No",search="No",search_path=None,itunes="No")    
+        #miro.first_time_startup_dialog(lang="Default",run_on_start="No",search="No",search_path=None,itunes="No")    
         waitVanish("Preparing")
         time.sleep(10)
         reg = MiroRegions() 
@@ -70,18 +71,6 @@ class Test_Startup_Install(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
 
-
-
-        
-    def skiptest_999reset(self):
-        """fake test to reset db and preferences.
-
-        """
-        miro = MiroApp()
-        miro.quit_miro()
-        myLib.config.set_def_db_and_prefs()
-        miro.restart_miro()
-        time.sleep(10)
         
 
 # TestRunner posts output in xunit format

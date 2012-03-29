@@ -1339,7 +1339,7 @@ class MiroApp(object):
            dR.exists("itunes.png", 3):
             print "itunes? ",itunes
             dR.click(itunes)
-            self.click_next(dR)
+        self.click_next(dR)
         
         #Search for music and video files
         print "search for files? ", search
