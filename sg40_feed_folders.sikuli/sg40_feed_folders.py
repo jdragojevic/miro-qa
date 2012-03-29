@@ -148,7 +148,7 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
         """
         setAutoWaitTimeout(myLib.testvars.timeout)
         #set the search regions
-        folder = "GREAT STUFF"        
+        folder = "GREAT"        
         reg = MiroRegions() 
         miro = MiroApp()
         reg.t.click("Sidebar")

@@ -20,13 +20,14 @@ class ProcessResults():
         results.set("username", "jed@pculture.org")
         results.set("authtoken", "sik-machine")
         results.set("product", "Miro")
-        results.set("platform", "linux")
-        results.set("opsys", "Ubuntu (Natty)")
+        results.set("platform", "Windows")
+        results.set("opsys", "Vista")
         results.set("branch", "git-Master")
-        results.set("buildid", "2012032001")
+        results.set("buildid", "2012032002")
         results.set("locale", "en-US")
 
         for f in glob.glob(os.path.join(self.RESULTS_DIR, '*.xml')):
+            print f
             curr_xunit = etree.parse(f)
             rroot = curr_xunit.getroot()
             for element in rroot.iter("testcase"):

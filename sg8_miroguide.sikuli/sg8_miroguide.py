@@ -39,7 +39,7 @@ class Test_MiroGuide(base_testcase.Miro_unittest_testcase):
             time.sleep(5)
             reg.m.find(Pattern("add_feed.png"))
             click(reg.m.getLastMatch())
-            time.sleep(5)
+            time.sleep(15)
             miro.click_podcast(reg, feed)
                         
         finally:

@@ -1333,14 +1333,22 @@ class MiroApp(object):
         
         #Add music cleanup and itunes library
         time.sleep(3)
+<<<<<<< HEAD
         if cleanup == "Yes":
             dR.click("Cleanup")
+        if dR.exists("iTunes", 3) or \
+           dR.exists("itunes.png", 3):
+            print "itunes? ",itunes
+            dR.click(itunes)
+=======
+
         print "itunes? ",itunes
         if itunes == "Yes":
             dR.click(itunes)
         print "lookup? ", cleanup
         if cleanup == "Yes":
             dR.click(cleanup)
+>>>>>>> 9e551572d701fd047d27c19292cf07fadc6967b7
         self.click_next(dR)
         
         #Search for music and video files

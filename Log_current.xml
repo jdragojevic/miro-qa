@@ -1,0 +1,4357 @@
+
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127195210"
+        >
+        
+            <comment><![CDATA[ executed as part of stop audio playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127200323"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127200338"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127200403"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="723"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127200532"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127200503"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="724"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127200616"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127200611"
+        >
+        
+            <comment><![CDATA[ executed as part of delete playlist shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="98"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127200641"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127200640"
+        >
+        
+            <comment><![CDATA[ executed as part of delete playlist folder shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127200656"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed folder]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127200720"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120127201647"
+        >
+        
+            <comment><![CDATA[ executed as part of stop audio playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130154824"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130155113"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130155445"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130155845"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130160224"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130160450"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130160901"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130161303"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130161810"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Escape]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130161933"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Pseudopod]]>
+            </comment>
+        </result>
+    
+        <result testid="29"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130163426"
+        >
+        
+            <comment><![CDATA[ executed as part of test_191 verify 1-click add site from source.]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130164721"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130164706"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130164746"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130164840"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130164945"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="708"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130170029"
+        >
+        
+            <comment><![CDATA[ executed as part of test_221 - added playlist via Playlist top level tab]]>
+            </comment>
+        </result>
+    
+        <result testid="222"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130170734"
+        >
+        
+            <comment><![CDATA[ executed as part of verified remove playlist via context menu]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130172238"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130172258"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120130172318"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131093132"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131093141"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click pauses download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131093144"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click resume download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131093255"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131093258"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131093349"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131093508"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131093511"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131094049"
+        >
+        
+            <comment><![CDATA[ executed as part of stop audio playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131095915"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="656"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131100312"
+        >
+        
+            <comment><![CDATA[ executed as part of test_458]]>
+            </comment>
+        </result>
+    
+        <result testid="647"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131103344"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="648"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131103411"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="649"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131103438"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="650"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131103505"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="651"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131103528"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="655"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131103555"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="673"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131103622"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="673"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131103648"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="157"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131103905"
+        >
+        
+            <comment><![CDATA[ executed as part of test_653]]>
+            </comment>
+        </result>
+    
+        <result testid="673"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131105328"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="650"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131105314"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="649"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131105301"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="648"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131105247"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="647"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131105233"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="673"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131105341"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="655"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131105354"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="651"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131105404"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131183436"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131183421"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131183501"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131183602"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120131183719"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208134303"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208134605"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208134959"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208135423"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208135757"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208140028"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208140517"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208144125"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208144140"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208144205"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208144800"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="723"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208144830"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="724"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208144913"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208144909"
+        >
+        
+            <comment><![CDATA[ executed as part of delete playlist shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208144938"
+        >
+        
+            <comment><![CDATA[ executed as part of delete playlist folder shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="98"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208144938"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208144954"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed folder]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120208145017"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120208145528"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Revver: Beiber]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120208145648"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Google: Toronto]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120208145809"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Yahoo: Canada]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120208145929"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for YouTube: cosmicomics]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120208150050"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for DailyMotion: Russia]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120208150211"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Metavid: africa]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120208150331"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for blip: python]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120208150453"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Mininova: Creative Commons]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120208150858"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for Yahoo: Canada]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120208151008"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for YouTube: toronto]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120208151117"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for DailyMotion: Ontario]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210093850"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210094453"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210095105"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210095431"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210095838"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210100356"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Escape]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210100517"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Pseudopod]]>
+            </comment>
+        </result>
+    
+        <result testid="29"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210102140"
+        >
+        
+            <comment><![CDATA[ executed as part of test_191 verify 1-click add site from source.]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210103445"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210103500"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210103525"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210103619"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210103724"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120210104235"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Revver: Beiber]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120210104501"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Yahoo: Canada]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120210104728"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for DailyMotion: Russia]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120210104850"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Metavid: africa]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120210105010"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for blip: python]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120210105131"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Mininova: Creative Commons]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120210105531"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for Yahoo: Canada]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120210105640"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for YouTube: toronto]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120210105749"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for DailyMotion: Ontario]]>
+            </comment>
+        </result>
+    
+        <result testid="708"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210110500"
+        >
+        
+            <comment><![CDATA[ executed as part of test_221 - added playlist via Playlist top level tab]]>
+            </comment>
+        </result>
+    
+        <result testid="222"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210111035"
+        >
+        
+            <comment><![CDATA[ executed as part of verified remove playlist via context menu]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210112711"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210112715"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210112714"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210112712"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="9"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210121944"
+        >
+        
+            <comment><![CDATA[ executed as part of test_620 file external download verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120210122742"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218110432"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218111304"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218111446"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218111846"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218112235"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218112810"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Escape]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218112931"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Pseudopod]]>
+            </comment>
+        </result>
+    
+        <result testid="29"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218114542"
+        >
+        
+            <comment><![CDATA[ executed as part of test_191 verify 1-click add site from source.]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218115840"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218115855"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218115920"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218115958"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218120102"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120218120614"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Revver: Beiber]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120218120842"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Yahoo: Canada]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120218121110"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for DailyMotion: Russia]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120218121232"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Metavid: africa]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120218121352"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for blip: python]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120218121621"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for Yahoo: Canada]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120218121730"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for YouTube: toronto]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120218121840"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for DailyMotion: Ontario]]>
+            </comment>
+        </result>
+    
+        <result testid="708"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218122545"
+        >
+        
+            <comment><![CDATA[ executed as part of test_221 - added playlist via Playlist top level tab]]>
+            </comment>
+        </result>
+    
+        <result testid="222"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218123123"
+        >
+        
+            <comment><![CDATA[ executed as part of verified remove playlist via context menu]]>
+            </comment>
+        </result>
+    
+        <result testid="324"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218124847"
+        >
+        
+            <comment><![CDATA[ executed as part of test_24]]>
+            </comment>
+        </result>
+    
+        <result testid="678"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218125159"
+        >
+        
+            <comment><![CDATA[ executed as part of test_721]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218125906"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218125914"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click pauses download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218125917"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click resume download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218125953"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218125956"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218130045"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218130204"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218130207"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218130648"
+        >
+        
+            <comment><![CDATA[ executed as part of stop audio playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="656"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120218133153"
+        >
+        
+            <comment><![CDATA[ executed as part of test_458]]>
+            </comment>
+        </result>
+    
+        <result testid="698"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218134058"
+        >
+        
+            <comment><![CDATA[ executed as part of test_441]]>
+            </comment>
+        </result>
+    
+        <result testid="647"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218134956"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="648"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218135023"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="649"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218135050"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="650"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218135117"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="655"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218135207"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="651"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218135140"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="673"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218135234"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="673"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218135300"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="157"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218135515"
+        >
+        
+            <comment><![CDATA[ executed as part of test_653]]>
+            </comment>
+        </result>
+    
+        <result testid="650"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218141027"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="649"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218141013"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="648"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218141000"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="647"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218140946"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="673"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218141040"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="673"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218141053"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="655"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218141106"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="651"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218141116"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="9"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120218142928"
+        >
+        
+            <comment><![CDATA[ executed as part of test_620 file external download verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224103557"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224103907"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224104258"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224104809"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Escape]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224104932"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Pseudopod]]>
+            </comment>
+        </result>
+    
+        <result testid="29"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224110609"
+        >
+        
+            <comment><![CDATA[ executed as part of test_191 verify 1-click add site from source.]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224111250"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224111235"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224111315"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224111353"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224111458"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120224112010"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Revver: Beiber]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120224112237"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Yahoo: Canada]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120224112505"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for DailyMotion: Russia]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120224112627"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Metavid: africa]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120224112747"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for blip: python]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120224113014"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for Yahoo: Canada]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120224113124"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for YouTube: toronto]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120224113236"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for DailyMotion: Ontario]]>
+            </comment>
+        </result>
+    
+        <result testid="708"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224113941"
+        >
+        
+            <comment><![CDATA[ executed as part of test_221 - added playlist via Playlist top level tab]]>
+            </comment>
+        </result>
+    
+        <result testid="222"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224114521"
+        >
+        
+            <comment><![CDATA[ executed as part of verified remove playlist via context menu]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224120119"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224120118"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224120117"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224120121"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="324"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224121615"
+        >
+        
+            <comment><![CDATA[ executed as part of test_24]]>
+            </comment>
+        </result>
+    
+        <result testid="678"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224121924"
+        >
+        
+            <comment><![CDATA[ executed as part of test_721]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224122625"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224122633"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click pauses download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224122636"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click resume download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224122712"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224122715"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224122805"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224122924"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224122927"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224123349"
+        >
+        
+            <comment><![CDATA[ executed as part of stop audio playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="656"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224125743"
+        >
+        
+            <comment><![CDATA[ executed as part of test_458]]>
+            </comment>
+        </result>
+    
+        <result testid="698"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120224130511"
+        >
+        
+            <comment><![CDATA[ executed as part of test_441]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302154716"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302155234"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302155416"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302155818"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302160219"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302163612"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302163628"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302163652"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302163730"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302163843"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120302164357"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Revver: Beiber]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120302164625"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Yahoo: Canada]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120302164853"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for DailyMotion: Russia]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120302165014"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Metavid: africa]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120302165351"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for Yahoo: Canada]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120302165502"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for YouTube: toronto]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120302165613"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for DailyMotion: Ontario]]>
+            </comment>
+        </result>
+    
+        <result testid="708"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302170321"
+        >
+        
+            <comment><![CDATA[ executed as part of test_221 - added playlist via Playlist top level tab]]>
+            </comment>
+        </result>
+    
+        <result testid="222"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302170850"
+        >
+        
+            <comment><![CDATA[ executed as part of verified remove playlist via context menu]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302172450"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302172452"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302172453"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302172454"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="324"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302174009"
+        >
+        
+            <comment><![CDATA[ executed as part of test_24]]>
+            </comment>
+        </result>
+    
+        <result testid="678"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302174319"
+        >
+        
+            <comment><![CDATA[ executed as part of test_721]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302175024"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302175032"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click pauses download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302175035"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click resume download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302175111"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302175114"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302175204"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302175324"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302175327"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302175816"
+        >
+        
+            <comment><![CDATA[ executed as part of stop audio playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302182311"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="656"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302182642"
+        >
+        
+            <comment><![CDATA[ executed as part of test_458]]>
+            </comment>
+        </result>
+    
+        <result testid="698"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302183549"
+        >
+        
+            <comment><![CDATA[ executed as part of test_441]]>
+            </comment>
+        </result>
+    
+        <result testid="157"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302184715"
+        >
+        
+            <comment><![CDATA[ executed as part of test_653]]>
+            </comment>
+        </result>
+    
+        <result testid="9"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120302192119"
+        >
+        
+            <comment><![CDATA[ executed as part of test_620 file external download verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313081011"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313081834"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313082901"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313083343"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313083747"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313084326"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Escape]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313084448"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Pseudopod]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313094356"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313094400"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313094358"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="202"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313094357"
+        >
+        
+            <comment><![CDATA[ executed as part of test_722]]>
+            </comment>
+        </result>
+    
+        <result testid="324"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313095838"
+        >
+        
+            <comment><![CDATA[ executed as part of test_24]]>
+            </comment>
+        </result>
+    
+        <result testid="678"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313100152"
+        >
+        
+            <comment><![CDATA[ executed as part of test_721]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313100925"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313100934"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click pauses download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313100937"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click resume download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313101012"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313101016"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313101105"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313101124"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313101127"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313101613"
+        >
+        
+            <comment><![CDATA[ executed as part of stop audio playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="656"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120313105115"
+        >
+        
+            <comment><![CDATA[ executed as part of test_458]]>
+            </comment>
+        </result>
+    
+        <result testid="698"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313110123"
+        >
+        
+            <comment><![CDATA[ executed as part of test_441]]>
+            </comment>
+        </result>
+    
+        <result testid="647"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313111121"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="649"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313111215"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="648"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313111148"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="650"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313111242"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="655"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313111333"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="651"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313111306"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="673"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313111426"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="673"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313111359"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="157"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313111703"
+        >
+        
+            <comment><![CDATA[ executed as part of test_653]]>
+            </comment>
+        </result>
+    
+        <result testid="673"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313113418"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="650"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313113405"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="649"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313113352"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="648"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313113338"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="647"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313113324"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="655"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313113445"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="673"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313113432"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="651"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313113455"
+        >
+        
+            <comment><![CDATA[ executed as part of test_647]]>
+            </comment>
+        </result>
+    
+        <result testid="9"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120313115303"
+        >
+        
+            <comment><![CDATA[ executed as part of test_620 file external download verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120318111526"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120318111511"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120318111551"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="723"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120318112208"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120318112139"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120318112247"
+        >
+        
+            <comment><![CDATA[ executed as part of delete playlist shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="724"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120318112252"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120318112316"
+        >
+        
+            <comment><![CDATA[ executed as part of delete playlist folder shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="98"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120318112316"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120318112332"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed folder]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120318112403"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120319174022"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120319174038"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120319174101"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120319174207"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120320115630"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120320115640"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click resume download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120320115638"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click pauses download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120320115715"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120320115717"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120320115806"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120320115824"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120320115826"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120320120309"
+        >
+        
+            <comment><![CDATA[ executed as part of stop audio playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120320122647"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="656"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120320123111"
+        >
+        
+            <comment><![CDATA[ executed as part of test_458]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322113658"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322113706"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click pauses download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322113708"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click resume download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322113742"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322113744"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322113834"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322113852"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322113853"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322121341"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="656"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120322121759"
+        >
+        
+            <comment><![CDATA[ executed as part of test_458]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322123559"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322131125"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322132614"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322140224"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322140743"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322144030"
+        >
+        
+            <comment><![CDATA[ executed as part of stop audio playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322182158"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322182506"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322183618"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322183941"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322184153"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322184614"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322185040"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="29"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322191311"
+        >
+        
+            <comment><![CDATA[ executed as part of test_191 verify 1-click add site from source.]]>
+            </comment>
+        </result>
+    
+        <result testid="9"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120322202103"
+        >
+        
+            <comment><![CDATA[ executed as part of test_620 file external download verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120327063417"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for Yahoo: Canada]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120327063527"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for YouTube: toronto]]>
+            </comment>
+        </result>
+    
+        <result testid="79"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120327063637"
+        >
+        
+            <comment><![CDATA[ executed as part of test_79, failed for DailyMotion: Ontario]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120327065656"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Yahoo: Canada]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120327065923"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for DailyMotion: Russia]]>
+            </comment>
+        </result>
+    
+        <result testid="322"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120327070045"
+        >
+        
+            <comment><![CDATA[ executed as part of test 322, failed for Metavid: africa]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327075032"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Escape]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327075153"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Pseudopod]]>
+            </comment>
+        </result>
+    
+        <result testid="708"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327083939"
+        >
+        
+            <comment><![CDATA[ executed as part of test_221 - added playlist via Playlist top level tab]]>
+            </comment>
+        </result>
+    
+        <result testid="222"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327084543"
+        >
+        
+            <comment><![CDATA[ executed as part of verified remove playlist via context menu]]>
+            </comment>
+        </result>
+    
+        <result testid="708"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327092956"
+        >
+        
+            <comment><![CDATA[ executed as part of test_221 - added playlist via Playlist top level tab]]>
+            </comment>
+        </result>
+    
+        <result testid="222"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327093557"
+        >
+        
+            <comment><![CDATA[ executed as part of verified remove playlist via context menu]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327105043"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327105050"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click pauses download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327105052"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click resume download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327105139"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327105141"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327105230"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view click starts download]]>
+            </comment>
+        </result>
+    
+        <result testid="122"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327105348"
+        >
+        
+            <comment><![CDATA[ executed as part of normal view double-click starts playback]]>
+            </comment>
+        </result>
+    
+        <result testid="102"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120327105350"
+        >
+        
+            <comment><![CDATA[ executed as part of stop video playback shortcut verified.]]>
+            </comment>
+        </result>
+    
+        <result testid="656"
+        is_automated_result="0"
+        resultstatus="fail"
+        exitstatus="0"
+        timestamp="20120327112159"
+        >
+        
+            <comment><![CDATA[ executed as part of test_458]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120328125757"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Escape]]>
+            </comment>
+        </result>
+    
+        <result testid="726"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120328125918"
+        >
+        
+            <comment><![CDATA[ executed as part of verified for feed: Pseudopod]]>
+            </comment>
+        </result>
+    
+        <result testid="29"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120328131616"
+        >
+        
+            <comment><![CDATA[ executed as part of test_191 verify 1-click add site from source.]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329095647"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329095702"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329095726"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329095809"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329095921"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329100421"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329100405"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329100445"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="723"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329100551"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329100522"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329100632"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329101345"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329101329"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329101409"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329101448"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329101604"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="97"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329102342"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329102357"
+        >
+        
+            <comment><![CDATA[ executed as part of delte feed shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329102421"
+        >
+        
+            <comment><![CDATA[ executed as part of delte site shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="92"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329102500"
+        >
+        
+            <comment><![CDATA[ executed as part of delete item shortcut verified]]>
+            </comment>
+        </result>
+    
+        <result testid="723"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329102533"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
+        <result testid="96"
+        is_automated_result="0"
+        resultstatus="pass"
+        exitstatus="0"
+        timestamp="20120329102617"
+        >
+        
+            <comment><![CDATA[ executed as part of test_92]]>
+            </comment>
+        </result>
+    
