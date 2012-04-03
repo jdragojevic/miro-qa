@@ -561,7 +561,7 @@ class MiroApp(object):
         b.click(Pattern("button_remove_podcast.png"))
 
     def change_podcast_settings(self, reg, option, setting):
-        find("Expire Items")
+        find("Expire")
         p1 = Region(getLastMatch().nearby(800))
         p1.find(option)
         click(p1.getLastMatch().right(100))
