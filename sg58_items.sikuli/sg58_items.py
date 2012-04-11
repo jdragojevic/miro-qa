@@ -94,7 +94,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         url = "http://pculture.org/feeds_test/MixedCats.xml"
         feed = "MIXED"
         term = "Paris"
-        title = "Paris"
+        title = "PARIS"
         new_type = "Video"
         old_type = "Music"
         #Set Global Preferences
