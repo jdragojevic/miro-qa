@@ -65,8 +65,9 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Videos", item=title)
-        miro.tab_search(reg, title)
+        reg.m.find(title, 10)
         reg.m.click(title)
+        reg.mtb.click("tabsearch_clear.png")
         miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback
         miro.wait_for_item_in_tab(reg, tab="Music",item=title)
@@ -114,8 +115,9 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music",item=title)
-        miro.tab_search(reg, term)
+        reg.m.find(title, 10)
         reg.m.click(title)
+        reg.mtb.click("tabsearch_clear.png")
         miro.edit_item_type(reg, new_type, old_type)
         #locate item in audio tab and verify playback
         miro.wait_for_item_in_tab(reg, tab="Video",item=title)
@@ -163,7 +165,9 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music", item=title)
+        reg.m.find(title, 10)
         reg.m.click(title)
+        reg.mtb.click("tabsearch_clear.png")
         miro.edit_item_metadata(reg, meta_field="about",meta_value="hoovercraft full of eels")
         miro.tab_search(reg, "hoovercraft eels")
         if not reg.m.exists(title):
@@ -239,19 +243,13 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Videos",item=title)
-        miro.click_sidebar_tab(reg, "Music")
-        miro.click_sidebar_tab(reg, "Videos")
+        reg.m.find(title, 10)
         reg.m.click(title)
+        reg.mtb.click("tabsearch_clear.png")
         miro.edit_item_metadata(reg, meta_field="about",meta_value="Blank description edited")
         miro.tab_search(reg, "blank description")
-        if reg.m.exists(title):
-            miro.log_result("656","test_458")           
-        else:
-            miro.log_result("656","test_458",status="fail")
         #cleanup
         miro.delete_feed(reg, feed)
-
-
 
 
 

@@ -54,7 +54,9 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         miro.toggle_normal(reg)
         miro.tab_search(reg, title)
         try:
+            reg.m.find(title, 10)
             reg.m.click(title)
+            reg.mtb.click("tabsearch_clear.png")
             miro.edit_item_metadata(reg, meta_field="art",meta_value=art_file)
             ## Verify new image here:
             reg.m.find(Pattern("album_art1.png"))
@@ -109,7 +111,9 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music",item=title)
+        reg.m.find(title, 10)
         reg.m.click(title)
+        reg.mtb.click("tabsearch_clear.png")
         for x in edit_itemlist:
             miro.edit_item_metadata(reg, meta_field=x[0],meta_value=x[1])
             try:
@@ -141,7 +145,6 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         miro.open_prefs(reg)
         prefs = PreferencesPanel()
         general_tab = prefs.open_tab("General")
-        general_tab.remember_last_screen_on_startup("on")
         general_tab.close_prefs()
    
         url = "http://pculture.org/feeds_test/2stupidvideos.xml"
@@ -155,19 +158,13 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, tab="Videos",item=title)
-        miro.click_podcast(reg, feed)
-        miro.tab_search(reg, title)
-        reg.m.click(title)     
+        reg.m.find(title, 10)
+        reg.m.click(title)
+        reg.mtb.click("tabsearch_clear.png")
         filepath = miro.store_item_path(reg)
         if os.path.exists(filepath):
             print "able to verify on os level"
             found_file = True
-        miro.quit_miro()
-        miro.restart_miro()
-        if reg.m.exists("title",15):  #check the remember last tab setting
-            miro.log_result("698","test_441")
-        else:
-            miro.click_podcast(reg, feed)
         miro.tab_search(reg, title)
         reg.m.click(title)
         type(Key.DELETE)
@@ -301,9 +298,9 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music",item=title)
-        miro.click_sidebar_tab(reg, "Videos")
-        miro.click_sidebar_tab(reg, "Music")
+        reg.m.find(title, 10)
         reg.m.click(title)
+        reg.mtb.click("tabsearch_clear.png")
         for x in edit_itemlist:
             miro.edit_item_metadata(reg, meta_field=x[0],meta_value=x[1])
             miro.log_result(x[2],"test_647")
@@ -351,7 +348,9 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
             miro.wait_for_item_in_tab(reg, "Videos",item=title)
             miro.click_podcast(reg, feed)
             miro.tab_search(reg, title)
+            reg.m.find(title, 10)
             reg.m.click(title)
+            reg.mtb.click("tabsearch_clear.png"):
             miro.edit_item_video_metadata_bulk(reg, new_metadata_list)
             time.sleep(2)
             miro.click_sidebar_tab(reg, "Videos")
