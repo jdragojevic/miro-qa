@@ -350,7 +350,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
             miro.tab_search(reg, title)
             reg.m.find(title, 10)
             reg.m.click(title)
-            reg.mtb.click("tabsearch_clear.png"):
+            reg.mtb.click("tabsearch_clear.png")
             miro.edit_item_video_metadata_bulk(reg, new_metadata_list)
             time.sleep(2)
             miro.click_sidebar_tab(reg, "Videos")
