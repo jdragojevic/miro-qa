@@ -105,7 +105,7 @@ class MiroApp(object):
         if self.os_name == "lin":
             config.start_miro_on_linux()
         else:
-            App.open(testsetup.launch_cmd())
+            App.focus(testsetup.launch_cmd())
         try:
             wait(Pattern("sidebar_top.png").similar(0.6),20)
         except:
