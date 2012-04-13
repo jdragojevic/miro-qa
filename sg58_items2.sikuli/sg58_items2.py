@@ -321,7 +321,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         time.sleep(5)
         url = "http://ringtales.com/nyrss.xml"
         feed = "The New"
-        title = "Cat" 
+        title = "Dog" 
 
         new_metadata_list = [
             ["show","Animated Cartoons", "658"],
