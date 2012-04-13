@@ -1063,11 +1063,7 @@ class MiroApp(object):
                 click("button_ok.png")
             else:
                 type(meta_value) #enter the new value
-                ok_but = len(metalist)
-                for x in range(rep+1,ok_but):
-                    type(Key.TAB)
-                    time.sleep(.5)
-                type(Key.ENTER) #Save the changes
+                click("button_ok.png")
 
     def edit_item_video_metadata_bulk(self, reg, new_metadata_list):
         """Given the field and new metadata value, edit a selected item, or mulitple items metadata.
@@ -1112,11 +1108,7 @@ class MiroApp(object):
             if req_id:
                 self.log_result(req_id,"value edited in dialog")
             click(top_tab)
-        ok_but = len(metalist)
-        for x in range(1,ok_but):
-            type(Key.TAB)
-            time.sleep(.5)
-        type(Key.ENTER) #Save the changes
+        click("button_ok.png")
        
 
     def store_item_path(self, reg):
