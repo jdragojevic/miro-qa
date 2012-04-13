@@ -15,6 +15,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
 
     """
     def setUp(self):
+        self.verificationErrors = []
         print "starting test: ",self.shortDescription()
         miro = MiroApp()
         miro.quit_miro()

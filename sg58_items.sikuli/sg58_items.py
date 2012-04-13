@@ -14,6 +14,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
 
     """
     def setUp(self):
+        self.verificationErrors = []
         miro = MiroApp()
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
