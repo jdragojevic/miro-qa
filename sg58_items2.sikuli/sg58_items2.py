@@ -15,16 +15,12 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
 
     """
     def setUp(self):
-        reg = MiroRegions() 
-        miro = MiroApp()
-        self.verificationErrors = []
         print "starting test: ",self.shortDescription()
-        myLib.config.set_image_dirs()
+        miro = MiroApp()
         miro.quit_miro()
+        time.sleep(5)
         myLib.config.set_def_db_and_prefs()
         myLib.config.delete_miro_downloaded_files()
-        miro.restart_miro()
-        time.sleep(10)
 
     def test_653(self):
         """http://litmus.pculture.org/show_test.cgi?id=653 edit album art
@@ -54,7 +50,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         miro.toggle_normal(reg)
         miro.tab_search(reg, title)
         try:
-            reg.m.find(title, 10)
+            reg.m.find)title)
             reg.m.click(title)
             reg.mtb.click("tabsearch_clear.png")
             miro.edit_item_metadata(reg, meta_field="art",meta_value=art_file)
@@ -111,7 +107,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music",item=title)
-        reg.m.find(title, 10)
+        reg.m.find)title)
         reg.m.click(title)
         reg.mtb.click("tabsearch_clear.png")
         for x in edit_itemlist:
@@ -158,7 +154,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, tab="Videos",item=title)
-        reg.m.find(title, 10)
+        reg.m.find)title)
         reg.m.click(title)
         reg.mtb.click("tabsearch_clear.png")
         filepath = miro.store_item_path(reg)
@@ -298,7 +294,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music",item=title)
-        reg.m.find(title, 10)
+        reg.m.find)title)
         reg.m.click(title)
         reg.mtb.click("tabsearch_clear.png")
         for x in edit_itemlist:
@@ -348,7 +344,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
             miro.wait_for_item_in_tab(reg, "Videos",item=title)
             miro.click_podcast(reg, feed)
             miro.tab_search(reg, title)
-            reg.m.find(title, 10)
+            reg.m.find)title)
             reg.m.click(title)
             reg.mtb.click("tabsearch_clear.png")
             miro.edit_item_video_metadata_bulk(reg, new_metadata_list)
