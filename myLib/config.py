@@ -196,7 +196,7 @@ def kill_miro():
         if get_os_name() == "win":
             subprocess.Popen(r'TASKKILL /F /IM Miro.exe')
         elif get_os_name() == "osx":
-            subprocess.Popen(r'killall -v -I Miro')
+            subprocess.Popen(r'killall -v Miro')
         elif get_os_name() == "lin":
             subprocess.Popen(r'killall -v miro.real')
         else:
