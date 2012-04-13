@@ -1041,7 +1041,7 @@ class MiroApp(object):
 
         if meta_field == "rating":
             self.edit_item_rating(rating=meta_value)
-        elif config.get_os_name() == "osx" and rep > 6: #stupid but the tab gets stuck on the about field
+        elif self.os_name == 'osx' and rep > 6: #stupid but the tab gets stuck on the about field
             if meta_field == "art":
                 click("Click to")
                 type(meta_value)
@@ -1100,7 +1100,7 @@ class MiroApp(object):
             for i in (i for i,x in enumerate(metalist) if x == meta_field):
                 rep = i
                 print rep,meta_field
-            for x in range(0,rep): #tab to the correct field
+            for x in range(0, rep): #tab to the correct field
                 type(Key.TAB)
                 time.sleep(.5)
             if meta_field == "video_kind": #need a space bar to open the text entry field
