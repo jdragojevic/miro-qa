@@ -50,7 +50,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         miro.toggle_normal(reg)
         miro.tab_search(reg, title)
         try:
-            reg.m.find)title)
+            reg.m.find(title)
             reg.m.click(title)
             reg.mtb.click("tabsearch_clear.png")
             miro.edit_item_metadata(reg, meta_field="art",meta_value=art_file)
@@ -107,7 +107,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music",item=title)
-        reg.m.find)title)
+        reg.m.find(title)
         reg.m.click(title)
         reg.mtb.click("tabsearch_clear.png")
         for x in edit_itemlist:
@@ -154,7 +154,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, tab="Videos",item=title)
-        reg.m.find)title)
+        reg.m.find(title)
         reg.m.click(title)
         reg.mtb.click("tabsearch_clear.png")
         filepath = miro.store_item_path(reg)
@@ -294,7 +294,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music",item=title)
-        reg.m.find)title)
+        reg.m.find(title)
         reg.m.click(title)
         reg.mtb.click("tabsearch_clear.png")
         for x in edit_itemlist:
@@ -344,7 +344,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
             miro.wait_for_item_in_tab(reg, "Videos",item=title)
             miro.click_podcast(reg, feed)
             miro.tab_search(reg, title)
-            reg.m.find)title)
+            reg.m.find(title)
             reg.m.click(title)
             reg.mtb.click("tabsearch_clear.png")
             miro.edit_item_video_metadata_bulk(reg, new_metadata_list)

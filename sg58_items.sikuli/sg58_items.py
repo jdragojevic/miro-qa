@@ -56,7 +56,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Videos", item=title)
-        reg.m.find(title, 10)
+        reg.m.find(title)
         reg.m.click(title)
         reg.mtb.click("tabsearch_clear.png")
         miro.edit_item_type(reg, new_type, old_type)
@@ -106,7 +106,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music",item=title)
-        reg.m.find(title, 10)
+        reg.m.find(title)
         reg.m.click(title)
         reg.mtb.click("tabsearch_clear.png")
         miro.edit_item_type(reg, new_type, old_type)
@@ -156,7 +156,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Music", item=title)
-        reg.m.find(title, 10)
+        reg.m.find(title)
         reg.m.click(title)
         reg.mtb.click("tabsearch_clear.png")
         miro.edit_item_metadata(reg, meta_field="about",meta_value="hoovercraft full of eels")
@@ -234,7 +234,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         if reg.m.exists("button_download.png",10):
             click(reg.m.getLastMatch())
         miro.wait_for_item_in_tab(reg, "Videos",item=title)
-        reg.m.find(title, 10)
+        reg.m.find(title)
         reg.m.click(title)
         reg.mtb.click("tabsearch_clear.png")
         miro.edit_item_metadata(reg, meta_field="about",meta_value="Blank description edited")
