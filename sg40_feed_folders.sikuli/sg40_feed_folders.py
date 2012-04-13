@@ -22,8 +22,6 @@ class Test_Feed_Folders(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
-        miro.restart_miro()
-        time.sleep(10)
         
 
     def test_116(self):

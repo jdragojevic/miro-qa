@@ -18,8 +18,6 @@ class Test_Torrents(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
-        miro.restart_miro()
-        time.sleep(10)
 
     def test_419(self):
         """http://litmus.pculture.org/show_test.cgi?id=419 external torrent dl.

@@ -20,14 +20,9 @@ class Test_FeedsTests(base_testcase.Miro_unittest_testcase):
         """fake test to reset db and preferences.
 
         """
-        reg = MiroRegions()
         miro = MiroApp()
-        
         miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
-        miro.restart_miro()
-        time.sleep(10)
-            
 
 
     def test_74(self):
