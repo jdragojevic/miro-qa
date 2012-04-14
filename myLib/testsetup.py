@@ -30,7 +30,7 @@ def launch_miro():
         if not exists("Sidebar",3):
             config.start_miro_on_linux()
     else:
-        App.open(launch_cmd())
+        App.focus(launch_cmd())
     time.sleep(10)
 
 
