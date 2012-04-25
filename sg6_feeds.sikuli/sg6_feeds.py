@@ -15,17 +15,6 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
 
     """
 
-    def test_001setup(self):
-        """Pre subgroup run cleanup and preferences check.
-
-        This isn't a real tests and is just meant to make sure the subgroup is starting with usual preferences settings and clean sidebar.
-        """
-        miro = MiroApp()
-        miro.quit_miro()
-        config.set_def_db_and_prefs()
-        time.sleep(10)
-        
-    
     def test_123(self):
         """http://litmus.pculture.org/show_test.cgi?id=123 add feed more than once.
 
