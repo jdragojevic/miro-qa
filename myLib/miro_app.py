@@ -1004,7 +1004,7 @@ class MiroApp(object):
             type(Key.ENTER)
 
         time.sleep(2)
-        click(Pattern("button_ok.png").exact())
+        click(Pattern("button_ok.png"))
         time.sleep(4)
 
     def edit_item_rating(self, rating):
