@@ -23,7 +23,7 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         miro.quit_miro()
         config.set_def_db_and_prefs()
-
+        time.sleep(10)
         
     
     def test_123(self):
