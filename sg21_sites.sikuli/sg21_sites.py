@@ -168,7 +168,6 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         site = "ClearBits"
         title = "Dragons"
                         
-        setAutoWaitTimeout(60)
         reg = MiroRegions() 
         miro = MiroApp()
         miro.cancel_all_downloads(reg)
@@ -209,7 +208,6 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
             #            ".flac download":"luckynight",
             #            ".mka download":"Widow",
                          }
-        setAutoWaitTimeout(20) 
         reg = MiroRegions() 
         miro = MiroApp()
 
@@ -263,7 +261,6 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         """
         site_url = "http://pculture.org/feeds_test/header-test.php"
         site = "Header Test"
-        setAutoWaitTimeout(60)                
         reg = MiroRegions() 
         miro = MiroApp()
 
@@ -305,7 +302,6 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         site_url2 = "http://archive.org"
         site = "ClearBits"
         site2 = "Internet"
-        setAutoWaitTimeout(60)
         reg = MiroRegions() 
         miro = MiroApp()
 
