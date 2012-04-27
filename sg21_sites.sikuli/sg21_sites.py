@@ -263,7 +263,6 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         site = "Header Test"
         reg = MiroRegions() 
         miro = MiroApp()
-
         miro.add_source(reg, site_url,site)
         miro.delete_site(reg, site)
 
@@ -286,7 +285,7 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         miro.quit_miro()
         miro.restart_miro()
         miro.click_last_source(reg)
-        self.assertTrue(reg.m.exists("unicode")
+        self.assertTrue(reg.m.exists("unicode"))
         miro.delete_site(reg, site)
 
 
