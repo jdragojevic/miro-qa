@@ -273,24 +273,23 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
     def test_194(self):
         """http://litmus.pculture.org/show_test.cgi?id=194 site with non-utf-8 chars.
 
-        1. Add http://diziizle.net/
+        1. Add http://pculture.org/feeds_test/test-guide-unicode.html 
         2. Verify added
         3. Restart and verify still there
         4. Cleanup
         """
         
-        site_url = "http://diziizle.net/"
-        site = "diziizle"            
+        site_url = "http://pculture.org/feeds_test/test-guide-unicode.html"
+        site = "Awesome"            
         reg = MiroRegions() 
         miro = MiroApp()
         miro.add_source_from_tab(reg, site_url)
         miro.click_last_source(reg)
-        reg.m.find(myLib.testvars.dizizle_logo)
+        reg.m.find("unicode")
         miro.quit_miro()
         miro.restart_miro()
         miro.click_last_source(reg)
-        self.assertTrue(reg.m.exists(Pattern("dizizle.png"), 60) or \
-                        reg.m.exists(Pattern("dizizle2.png"), 10))   
+        self.assertTrue(reg.m.exists("unicode")
         miro.delete_site(reg, site)
 
 
