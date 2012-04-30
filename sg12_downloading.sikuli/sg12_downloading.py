@@ -11,7 +11,12 @@ from myLib.miro_app import MiroApp
 
 def download_playback_check_title(reg, miro, item_title, item_image):
         miro.wait_for_item_in_tab(reg, "Videos", item_title)
-        if reg.m.exists(Pattern(item_image)):
+        if item_title == "Punk":  #vimeo user feed updates too frequently to worry about image
+            doubleClick(item_title)
+            time.sleep(5)
+            miro.verify_video_playback(reg)
+            return True
+        elif reg.m.exists(Pattern(item_image)):
             doubleClick(reg.m.getLastMatch())
             time.sleep(5)
             miro.verify_video_playback(reg)
@@ -164,7 +169,7 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         """
         feed_url = "http://vimeo.com/habi/likes/rss"
         feed_name = "Vimeo"
-        item_title = "ifmx"
+        item_title = "Punk"
         item_image = "ifmx2.png"
         reg = MiroRegions()
         miro = MiroApp()
