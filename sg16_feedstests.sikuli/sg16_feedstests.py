@@ -37,7 +37,7 @@ class Test_FeedsTests(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions()
         miro = MiroApp()
         
-        url = "http://pculture.org/feeds_test/feed1.rss"
+        url = "http://qa.pculture.org/feeds_test/feed1.rss"
         feed = "Yah"
         term = "first test video"
         title = "Video"
@@ -74,7 +74,7 @@ class Test_FeedsTests(base_testcase.Miro_unittest_testcase):
         
             
             #1. add feed
-            url = "http://pculture.org/feeds_test/feed1.rss"
+            url = "http://qa.pculture.org/feeds_test/feed1.rss"
             feed = "Yah"
             term = "third test video"
             title = "Video 3"
@@ -118,7 +118,7 @@ class Test_FeedsTests(base_testcase.Miro_unittest_testcase):
 
         """
         #1. add feed
-        url = "http://pculture.org/feeds_test/no-enclosures.rss"
+        url = "http://qa.pculture.org/feeds_test/no-enclosures.rss"
         feed = "Yah"
         term = "first test video"
         title = "Video 1"
@@ -153,7 +153,7 @@ class Test_FeedsTests(base_testcase.Miro_unittest_testcase):
             reg = MiroRegions()
             miro = MiroApp()
         
-            url = "http://pculture.org/feeds_test/feed3.rss"
+            url = "http://qa.pculture.org/feeds_test/feed3.rss"
             feed = "RSS 2"
             term = "first test video"
             title = "Video 1"

@@ -32,7 +32,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         time.sleep(5)
-        url = "http://pculture.org/feeds_test/MixedCats.xml"
+        url = "http://qa.pculture.org/feeds_test/MixedCats.xml"
         feed = "MIXED"
         title = "Tongue"
         new_type = "Music"
@@ -84,7 +84,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         time.sleep(5)
-        url = "http://pculture.org/feeds_test/MixedCats.xml"
+        url = "http://qa.pculture.org/feeds_test/MixedCats.xml"
         feed = "MIXED"
         term = "Paris"
         title = "Laren"
@@ -135,7 +135,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         time.sleep(5)
-        url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
+        url = "http://qa.pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Earth Eats"
         title = "Mushroom" 
@@ -224,7 +224,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         time.sleep(5)
-        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+        url = "http://qa.pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TWO STUPID"
         title = "Flip" # item title updates when download completes
              
@@ -256,7 +256,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         time.sleep(5)
-        url = "http://pculture.org/feeds_test/3blipvideos.xml"
+        url = "http://qa.pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
         title1 = "The Joo"
         title2 = "York"

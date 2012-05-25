@@ -82,7 +82,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         general_tab.show_audio_in_music("on")
         general_tab.close_prefs()
         
-        url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
+        url = "http://qa.pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Earth Eats"
         title = "Mushroom" # item title updates when download completes
@@ -144,7 +144,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         general_tab = prefs.open_tab("General")
         general_tab.close_prefs()
    
-        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+        url = "http://qa.pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TWO STUPID"
         title = "Flip" # item title updates when download completes
              
@@ -197,7 +197,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         time.sleep(5)
-        url = "http://pculture.org/feeds_test/3blipvideos.xml"
+        url = "http://qa.pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
         title1 = "The Joo"
         title2 = "York"
@@ -270,7 +270,7 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         general_tab.show_audio_in_music("on")
         general_tab.close_prefs()
         
-        url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
+        url = "http://qa.pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Earth Eats"
         title = "Mushroom" # item title updates when download completes

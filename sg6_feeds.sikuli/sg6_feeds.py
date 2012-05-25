@@ -120,7 +120,7 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
 
-        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+        url = "http://qa.pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TWO STUPID"
 
         #1. Add the feed and start dl
@@ -156,7 +156,7 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
 
-        url = "http://pculture.org/feeds_test/3blipvideos.xml"
+        url = "http://qa.pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
 
         #1. Add the feed and start dl
@@ -195,7 +195,7 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
         podcasts_tab.default_view_setting("Standard")
         podcasts_tab.close_prefs()
      
-        url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
+        url = "http://qa.pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         feedlist = ["Center", "Earth"]
 

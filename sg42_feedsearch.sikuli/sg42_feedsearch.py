@@ -35,7 +35,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         
-        url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
+        url = "http://qa.pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Gimp"
         title = "GimpKnowHow"
@@ -67,7 +67,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         
-        url = "http://pculture.org/feeds_test/3blipvideos.xml"
+        url = "http://qa.pculture.org/feeds_test/3blipvideos.xml"
         feed = "ThreeBlip"
         term = "strange creature"
         title = "Joo Joo"
@@ -99,7 +99,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         
-        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+        url = "http://qa.pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TWO STUPID"
         title = "Flip"
         term = "dinosaur"
@@ -132,12 +132,12 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         
-        url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
+        url = "http://qa.pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "touring"
         term2 = "Biking"
         title = "Travelling Two"
-        dummy_feed_url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+        dummy_feed_url = "http://qa.pculture.org/feeds_test/2stupidvideos.xml"
         
         #1. add feed
         miro.add_feed(reg, url,feed)
@@ -169,7 +169,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         
-        url = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
+        url = "http://qa.pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed = "Static"
         term = "Voice"
                 
@@ -231,7 +231,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         """
         reg = MiroRegions() 
         miro = MiroApp()
-        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+        url = "http://qa.pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TWO STUPID"
         term = "House"
         title = "Dinosaur"
@@ -263,7 +263,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         reg = MiroRegions() 
         miro = MiroApp()
         
-        url = "http://pculture.org/feeds_test/2stupidvideos.xml"
+        url = "http://qa.pculture.org/feeds_test/2stupidvideos.xml"
         feed = "TWO STUPID"
         term = "Face"
         title = "Flip"
@@ -275,7 +275,7 @@ class Test_Feed_Search(base_testcase.Miro_unittest_testcase):
         miro.tab_search(reg, term)
         self.assertTrue(reg.m.exists(title))
 
-        url2 = "http://pculture.org/feeds_test/list-of-guide-feeds.xml"
+        url2 = "http://qa.pculture.org/feeds_test/list-of-guide-feeds.xml"
         feed2 = "Static"
         term2 = "FilmWeek"
         miro.add_feed(reg, url2,feed2)
