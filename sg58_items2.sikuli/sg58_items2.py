@@ -18,8 +18,8 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         self.verificationErrors = []
         print "starting test: ",self.shortDescription()
         miro = MiroApp()
+        time.sleep(10)
         miro.quit_miro()
-        time.sleep(5)
         myLib.config.set_def_db_and_prefs()
         myLib.config.delete_miro_downloaded_files()
 
