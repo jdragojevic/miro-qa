@@ -1069,8 +1069,6 @@ class MiroApp(object):
         """Given the field and new metadata value, edit a selected item, or mulitple items metadata.
 
         """
-        metalist = ["show","episode_id","season_no","episode_no",
-                         "video_kind","cancel","ok"]
         time.sleep(2)
         if self.os_name=='osx':
             type(Key.TAB)  #os x make sure focus on item so shortcut works
@@ -1093,20 +1091,13 @@ class MiroApp(object):
             print("Can not find show field")
         for meta_field,meta_value,req_id in new_metadata_list:
             print meta_field,meta_value
-            for i in (i for i,x in enumerate(metalist) if x == meta_field):
-                rep = i
-                print rep,meta_field
-            for x in range(0, rep): #tab to the correct field
-                type(Key.TAB)
-                time.sleep(.5)
-            if meta_field == "video_kind": #need a space bar to open the text entry field
-                type(" ")
+            metar.find(meta_field)
+            click(metar.getLastMatch().right(100))
+            if meta_field == 'Video Kind':
                 metar.click(meta_value)
             else:
-                type(meta_value) #enter the new value
-                #go back to the top field, Show
-            if req_id:
-                self.log_result(req_id,"value edited in dialog")
+                type(meta_value)
+
             click(top_tab)
         click("button_ok.png")
        

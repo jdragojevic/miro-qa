@@ -325,44 +325,38 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
         title = "Dog" 
 
         new_metadata_list = [
-            ["show","Animated Cartoons", "658"],
-            ["episode_id","nya", "670"],
-            ["season_no","25", "671"],
-            ["episode_no","43", "672"],
-            ["video_kind","Clip", "652"],
+            ["Show","Animated Cartoons", "658"],
+            ["Episode ID","nya", "670"],
+            ["Season Number","25", "671"],
+            ["Episode Number","43", "672"],
+            ["Video Kind","Clip", "652"],
             ]
         
-        try:       
             
-            #start clean
-            miro.delete_feed(reg, feed)
-            #add feed and download earth eats item
-            miro.add_feed(reg, url,feed)
-            miro.toggle_normal(reg)
-            miro.tab_search(reg, title)
-            if reg.m.exists("button_download.png",10):
-                click(reg.m.getLastMatch())
-            miro.wait_for_item_in_tab(reg, "Videos",item=title)
-            miro.click_podcast(reg, feed)
-            miro.tab_search(reg, title)
-            reg.m.find(title)
-            reg.m.click(title)
-            reg.mtb.click("tabsearch_clear.png")
-            miro.edit_item_video_metadata_bulk(reg, new_metadata_list)
-            time.sleep(2)
-            miro.click_sidebar_tab(reg, "Videos")
-            miro.tab_search(reg, title)
-            reg.mtb.click("Clip")
-            if reg.m.exists(title):
-                reg.mtb.click("All")
-            else:
-                self.fail("item not found in Clips filter")
+        #start clean
+        miro.delete_feed(reg, feed)
+        #add feed and download earth eats item
+        miro.add_feed(reg, url,feed)
+        miro.toggle_normal(reg)
+        miro.tab_search(reg, title)
+        if reg.m.exists("button_download.png",10):
+            click(reg.m.getLastMatch())
+        miro.wait_for_item_in_tab(reg, "Videos",item=title)
+        miro.click_podcast(reg, feed)
+        miro.tab_search(reg, title)
+        reg.m.find(title)
+        reg.m.click(title)
+        reg.mtb.click("tabsearch_clear.png")
+        miro.edit_item_video_metadata_bulk(reg, new_metadata_list)
+        time.sleep(2)
+        miro.click_sidebar_tab(reg, "Videos")
+        miro.tab_search(reg, title)
+        reg.mtb.click("Clip")
+        if reg.m.exists(title):
+            reg.mtb.click("All")
+        else:
+            self.fail("item not found in Clips filter")
         
-        finally:
-            miro.quit_miro()
-            myLib.config.set_def_db_and_prefs()
-
-                                     
  
 # TestRunner posts output in xunit format
 if __name__ == "__main__":
