@@ -68,7 +68,7 @@ class Test_One_Click_Subscribe(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
 
         
-        site_url = "http://pculture.org/feeds_test/subscription-test-guide.html"
+        site_url = "http://qa.pculture.org/feeds_test/subscription-test-guide.html"
         site = "Awesome"
         site2 = "Blip"
         miro.add_source_from_tab(reg, site_url)

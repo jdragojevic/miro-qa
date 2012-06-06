@@ -24,7 +24,7 @@
    <title>Paris Sample</title>
    <description>This video should land in the music section and features Catherine Denuve</description>
    <pubDate>Mon, 25 Jul 2011 09:32 GMT</pubDate>
-   <enclosure url="http://pculture.org/feeds_test/paris_paris.mp3" length="0" type="video/x-flv" />
+   <enclosure url="http://qa.pculture.org/feeds_test/paris_paris.mp3" length="0" type="video/x-flv" />
 </item>
 
 

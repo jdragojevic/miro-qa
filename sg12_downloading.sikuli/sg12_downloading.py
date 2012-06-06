@@ -95,7 +95,7 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         3. Verify error message are displayed with retry option
 
         """
-        url = "http://pculture.org/feeds_test/503.php"
+        url = "http://qa.pculture.org/feeds_test/503.php"
         reg = MiroRegions()
         miro = MiroApp()
         miro.cancel_all_downloads(reg)

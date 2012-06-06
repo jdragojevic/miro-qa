@@ -189,7 +189,7 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         3. Verify file starts to download
         4. Cleanup
         """
-        site_url = "http://pculture.org/feeds_test/http-direct-downloads.html"
+        site_url = "http://qa.pculture.org/feeds_test/http-direct-downloads.html"
         site = "HTTP Direct"
 
         ## FIX ME - Need new files, can't download from the videolan ftp site anymore
@@ -239,7 +239,7 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         1. Add slow feed as a source
         2. delete it before is loads
         """
-        site_url = "http://pculture.org/feeds_test/slowsite.php"
+        site_url = "http://qa.pculture.org/feeds_test/slowsite.php"
         site = "pculture"
         alt_site = "Miro Guide"
         
@@ -259,7 +259,7 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         1. Add header test as a source
         2. delete it 
         """
-        site_url = "http://pculture.org/feeds_test/header-test.php"
+        site_url = "http://qa.pculture.org/feeds_test/header-test.php"
         site = "Header Test"
         reg = MiroRegions() 
         miro = MiroApp()
@@ -269,13 +269,13 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
     def test_194(self):
         """http://litmus.pculture.org/show_test.cgi?id=194 site with non-utf-8 chars.
 
-        1. Add http://pculture.org/feeds_test/test-guide-unicode.html 
+        1. Add http://qa.pculture.org/feeds_test/test-guide-unicode.html 
         2. Verify added
         3. Restart and verify still there
         4. Cleanup
         """
         
-        site_url = "http://pculture.org/feeds_test/test-guide-unicode.html"
+        site_url = "http://qa.pculture.org/feeds_test/test-guide-unicode.html"
         site = "Awesome"            
         reg = MiroRegions() 
         miro = MiroApp()
