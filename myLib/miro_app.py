@@ -99,7 +99,7 @@ class MiroApp(object):
         time.sleep(10)
         #make sure all processes are gone.
         config.kill_miro()
-      
+        time.sleep(5) 
 
     def restart_miro(self):
         if self.os_name == "lin":
