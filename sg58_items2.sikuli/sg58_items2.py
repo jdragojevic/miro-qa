@@ -17,11 +17,17 @@ class Test_Items_Group2(base_testcase.Miro_unittest_testcase):
     def setUp(self):
         self.verificationErrors = []
         print "starting test: ",self.shortDescription()
-        miro = MiroApp()
+        self.miro = MiroApp()
         time.sleep(10)
-        miro.quit_miro()
+        self.miro.quit_miro()
         myLib.config.set_def_db_and_prefs()
         myLib.config.delete_miro_downloaded_files()
+
+
+    def tearDown(self):
+        type(Key.ESC)
+        self.miro.quit_miro()
+        
 
     def test_653(self):
         """http://litmus.pculture.org/show_test.cgi?id=653 edit album art

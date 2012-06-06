@@ -1098,7 +1098,7 @@ class MiroApp(object):
             else:
                 type(meta_value)
 
-            click(top_tab)
+        click(top_tab)
         click("button_ok.png")
        
 
