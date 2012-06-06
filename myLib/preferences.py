@@ -118,7 +118,7 @@ class Preferences(MiroApp):
         else:
             print("Can't find the preference field %s" % x)
         sr_loc = Region(self.sr.getLastMatch())
-        sr1 = Region(self.sr.getX(), sr_loc.getY()-10, self.sr.getW(), 30)
+        sr1 = Region(self.sr.getX(), sr_loc.getY()-13, self.sr.getW(), 36)
 
         #Set the pull-down menu region
         if multipage == True: #will need to page up and down to locate option.
@@ -151,13 +151,13 @@ class Preferences(MiroApp):
                 if mr.exists(setting):
                     value_found = True        
                 else:
-                     type(Key.PAGE_DOWN)              
+                    type(Key.PAGE_DOWN)              
             if pgs > 1 and value_found == False:
-                    for x in range(0,pgs*2):
-                        if mr.exists(setting,1):
-                            value_found = True
-                        else:
-                            type(Key.PAGE_UP)
+                for x in range(0,pgs*2):
+                    if mr.exists(setting,1):
+                        value_found = True
+                    else:
+                        type(Key.PAGE_UP)
                             
             #Click the found value or fail if value wasn't found.
             if value_found == True:
