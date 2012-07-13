@@ -236,7 +236,7 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         """
         reg = MiroRegions()
         miro = MiroApp()
-        feed_url = "http://participatoryculture.org/feeds_test/feed13.rss"
+        feed_url = "http://qa.participatoryculture.org/feeds_test/feed13.rss"
         feed_name = "Feed"
 
         error_types = {"Server Closes Connection": "no_connection.png",
