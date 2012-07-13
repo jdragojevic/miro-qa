@@ -144,11 +144,10 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         5. Verify playback
 
         """
-        url_path = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","vimeo-feed")
-        feed_url = "file:///"+url_path
-        feed_name = "ONE DAY"
-        item_title = "Jellyfish"
-        item_image = "vimeo-jellyfish.png"
+        feed_url = 'http://vimeo.com/jfinn/likes/rss' 
+        feed_name = "janet"
+        item_title = "Homework"
+        item_image = "vimeo-homeowork.png"
         reg = MiroRegions()
         miro = MiroApp()
         miro.add_feed(reg, feed_url, feed_name)
@@ -156,29 +155,6 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         miro.download_all_items(reg)
         assert download_playback_check_title(reg, miro, item_title, item_image)
         miro.delete_feed(reg, feed_name)
-
-    def test_18453_764(self):
-        """http://litmus.pculture.org/show_test.cgi?id=764 vimeo likes feed dl.
-
-        1. Add feed
-        2. Download item
-        3. Verify download completes
-        4. Check title display via screenshot
-        5. Verify playback
-
-        """
-        feed_url = "http://vimeo.com/habi/likes/rss"
-        feed_name = "Vimeo"
-        item_title = "Punk"
-        item_image = "ifmx2.png"
-        reg = MiroRegions()
-        miro = MiroApp()
-        miro.add_feed(reg, feed_url, feed_name)
-        miro.tab_search(reg, item_title)
-        miro.download_all_items(reg)
-        assert download_playback_check_title(reg, miro, item_title, item_image)
-        miro.delete_feed(reg, feed_name)
-
 
     def test_18656_765(self):
         """http://litmus.pculture.org/show_test.cgi?id=764 itunes feed dl.

@@ -185,7 +185,7 @@ class Test_FeedsTests(base_testcase.Miro_unittest_testcase):
 
         reg = MiroRegions()
         miro = MiroApp()        
-        feed = "The AV"
+        feed = "GeekBeat"
         
         #SET GLOBAL PREFERENCES
         miro.open_prefs(reg)
@@ -194,7 +194,7 @@ class Test_FeedsTests(base_testcase.Miro_unittest_testcase):
         podcasts_tab.autodownload_setting("Off")
         podcasts_tab.close_prefs()
         
-        url = "http://feeds.feedburner.com/theavclub/mainline"
+        url = "http://feeds.feedburner.com/caliextralarge"
         miro.browser_to_miro(reg, url)
         time.sleep(5)
         #3. verify feed added
