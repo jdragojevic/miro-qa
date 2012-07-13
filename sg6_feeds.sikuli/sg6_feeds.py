@@ -244,7 +244,7 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
             Litmus Test Title:: 641 - Deleting podcast with invalid urls
             Steps to Perform:
             1. Select "Add podcast" from Sidebar menu.
-            2. Enter URL http://subscribe.getmiro.com/?url1=http%3A%2F%2Fparticipatoryculture.org%2Ffeeds_test%2Ffeed1.rss
+            2. Enter URL http://subscribe.getmiro.com/?url1=http%3A%2F%2Fqa.participatoryculture.org%2Ffeeds_test%2Ffeed1.rss
             3. Click "Create Podcast" button
             4. Click "Yes" in "This podcast is not compatible with Miro" window
             5. While the podcast is downloading, right click on it and select "Remove" option.
@@ -252,7 +252,7 @@ class Test_Podcasts(base_testcase.Miro_unittest_testcase):
 
         reg = MiroRegions() 
         miro = MiroApp()
-        url = "http://subscribe.getmiro.com/?url1=http%3A%2F%2Fparticipatoryculture.org%2Ffeeds_test%2Ffeed1.rss"
+        url = "http://subscribe.getmiro.com/?url1=http%3A%2F%2Fqa.participatoryculture.org%2Ffeeds_test%2Ffeed1.rss"
         feed = "invalid"        
         #Set Global Preferences
         miro.open_prefs(reg)

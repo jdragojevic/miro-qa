@@ -361,7 +361,7 @@ class Test_Items_Group1(base_testcase.Miro_unittest_testcase):
         miro = MiroApp()
         
         time.sleep(5)
-        url = "http://participatoryculture.org/feeds_test/feed1.rss"
+        url = "http://qa.participatoryculture.org/feeds_test/feed1.rss"
         feed = "Yah"
         term = "fourth test"
         title = "Video 4"

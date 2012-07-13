@@ -140,6 +140,8 @@ class MiroApp(object):
             type(file_path +"\n")     
         else:
             if not exists("Location",5):
+                if exists("Document"):
+                    click(getLastMatch())
                 click(self.SYS_TEXT_ENTRY_BUTTON)
                 time.sleep(2)
             else:  #clear any text in the type box
