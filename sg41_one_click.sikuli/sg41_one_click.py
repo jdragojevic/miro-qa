@@ -19,7 +19,7 @@ class Test_One_Click_Subscribe(base_testcase.Miro_unittest_testcase):
     
     
 
-    def test_7(self):
+    def skiptest_7(self):
         """http://litmus.pculture.org/show_test.cgi?id=7 add feed.
 
         1. Open Ryan is Hungry
