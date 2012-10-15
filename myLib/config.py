@@ -126,13 +126,6 @@ def replace_database(db):
         if e.errno != errno.EEXIST:
             raise Exception("error replacing sqlitedb")
     shutil.copy(db, dbfile)
-    if os.path.exists(db+'wal'):
-        shutil.copy(db+'-wal', dbfile+'-wal')
-    else:
-        if os.path.exists(dbfile+'-wal'):
-            os.unlink(dbfile+'-wal')
-
-
 
 def reset_preferences():
     datadir = os.path.join(os.getenv("PCF_TEST_HOME"),"Miro","TestData","databases")
@@ -183,8 +176,6 @@ def delete_database_and_prefs(dbonly=False):
             dbfile = os.path.join(miro_support_dir,"sqlitedb")
             if os.path.exists(dbfile):
                 os.unlink(dbfile)
-            if os.path.exists(dbfile+'-wal'):
-                os.unlink(dbfile+'-wal')
         else:
             if os.path.exists(miro_support_dir):
                 shutil.rmtree(miro_support_dir)
