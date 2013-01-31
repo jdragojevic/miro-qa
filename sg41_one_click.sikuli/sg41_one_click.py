@@ -22,67 +22,50 @@ class Test_One_Click_Subscribe(base_testcase.Miro_unittest_testcase):
     def test_7(self):
         """http://litmus.pculture.org/show_test.cgi?id=7 add feed.
 
-        1. Open Ryan is Hungry
-        2. click one-click link
-        3. Verify feed added
-        4. Cleanup
+        Open a 1-click link
         """
         
         reg = MiroRegions() 
         miro = MiroApp()
-        feed = "Ryan"
+        feed = "Steve"
 
-        url = "http://ryanishungry.com/subscribe/"
+        url = "http://subscribe.getmiro.com/?url1=http%3A//feeds.feedburner.com/SteveGarfieldsVideoBlog"
         switchApp(miro.open_ff())
         if reg.t.exists("Firefox",45):
             click(reg.t.getLastMatch())
         miro.shortcut("l")
         time.sleep(2)
         type(url + "\n")
-        time.sleep(20)
-        if not exists(ONE_CLICK_BADGE):
-            for x in range(0,2):
-                type(Key.DOWN)
-                click(ONE_CLICK_BADGE)
-        else:
-            click(ONE_CLICK_BADGE)
-        time.sleep(20)
-        miro.close_ff()
-                       
+                               
         miro.close_one_click_confirm()
         miro.click_podcast(reg, feed)
         miro.delete_feed(reg, feed)
+        miro.close_ff()
+
             
             
 
 
-    def skiptest_29(self):
+    def test_29(self):
         """http://litmus.pculture.org/show_test.cgi?id=29 add site from miro site.
 
-        1. Open Awesome website
-        2. click one-click subscribe link for revver
+        1. Add website as source
+        2. click one-click subscribe link 
         3. Verify site added
         4. Cleanup
         """       
         reg = MiroRegions() 
         miro = MiroApp()
 
-        
-        site_url = "http://qa.pculture.org/feeds_test/subscription-test-guide.html"
-        site = "Awesome"
-        site2 = "Blip"
+        site_url = 'http://qa.pculture.org/feeds_test/one-click-subscribe-tests.html' 
         miro.add_source_from_tab(reg, site_url)
         miro.click_last_source(reg)
-        reg.t.find("Subscribe")
-        reg.t.click("Subscribe")
+        reg.t.find("Add two sites")
+        reg.t.click("Add two sites")
         time.sleep(4)
         p = miro.get_sources_region(reg)
         p.highlight(2)
-	if p.exists("blip",10) or \
-           p.exists("Blip",10):
-            print "Blip site added"
-        else:
-            self.fail("Blip site not added to sidebar")                        
+        self.assertTrue(p.exists('southpark', 10)
         miro.delete_site(reg, site)
         miro.delete_site(reg, "Blip")
     

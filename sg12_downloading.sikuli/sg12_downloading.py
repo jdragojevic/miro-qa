@@ -41,7 +41,7 @@ class Test_Downloading(base_testcase.Miro_unittest_testcase):
         4. Check title display via screenshot
 
         """
-        item_url = "http://j2.video2.blip.tv/7790005512538/Miropcf-TurnASearchIntoAChannel756.mp4"
+        item_url = http://blip.tv/file/get/Miropcf-AboutUniversalSubtitles847.ogv"
         item_title = "Miropcf"
         item_image = "Miropcf_TurnASearch.png"
         reg = MiroRegions()

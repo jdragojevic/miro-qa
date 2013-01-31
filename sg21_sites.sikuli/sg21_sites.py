@@ -52,7 +52,7 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         4. Cleanup
         """
         site_url = "http://blip.tv"
-        site = "blip"
+        site = "Watch the best"
         reg = MiroRegions() 
         miro = MiroApp()
 
@@ -70,65 +70,6 @@ class Test_Sites(base_testcase.Miro_unittest_testcase):
         self.assertTrue(reg.s.exists("BLIP"))
         miro.delete_site(reg, "BLIP")
 
-
-    def stest_39(self):
-        """http://litmus.pculture.org/show_test.cgi?id=39 site navigation.
-
-
-        #skipping for now will fix later.
-        
-        1. Add blip.tv as a source
-        2. navigate through site
-        3. verify nav buttons and states
-        4. Cleanup
-        """
-        site_url = "http://blip.tv"
-        site = "blip"
-        reg = MiroRegions() 
-        miro = MiroApp()
-        miro.add_source(reg, site_url,site)
-        miro.click_source(reg, site)
-        time.sleep(10)
-
-        find("navstop_disabled.png")
-        find("navforward_disabled.png")
-        find("navhome.png")
-        find("navreload.png")
-
-        reg.m.click(myLib.testvars.blip_browse)
-        reg.m.click(myLib.testvars.blip_recent)
-        self.assertTrue(reg.mtb.exists("navback.png"))
-        self.assertTrue(reg.mtb.exists("navforward_disabled.png"))
-        self.assertTrue(reg.mtb.exists("navhome.png"))
-        self.assertTrue(reg.mtb.exists("navreload.png"))
-
-        reg.mtb.click("navback.png")
-        self.assertTrue(reg.mtb.exists("navforward.png"))
-        self.assertTrue(reg.mtb.exists("navback_disabled.png"))
-        self.assertTrue(reg.mtb.exists("navhome.png"))
-        self.assertTrue(reg.mtb.exists("navreload.png"))
-
-        reg.mtb.click("navforward")
-        self.assertTrue(reg.mtb.exists("navback.png"))
-        self.assertTrue(reg.mtb.exists("navforward_disabled.png"))
-        self.assertTrue(reg.mtb.exists("navhome.png"))
-        self.assertTrue(reg.mtb.exists("navreload.png"))
-        
-        reg.mtb.click("navreload.png")
-        reg.mtb.click("navstop.png")
-        self.assertTrue(reg.mtb.exists("navback.png"))
-        self.assertTrue(reg.mtb.exists("navforward.png"))
-        self.assertTrue(reg.mtb.exists("navhome.png"))
-        self.assertTrue(reg.mtb.exists("navreload.png"))
-
-        reg.mtb.click("navhome.png")
-        #FIX MEwait for the updating icon to appear then disappear
-        self.assertTrue(reg.mtb.exists("navback.png"))
-        self.assertTrue(reg.mtb.exists("navforward_disabled.png"))
-        self.assertTrue(reg.mtb.exists("navhome.png"))
-        self.assertTrue(reg.mtb.exists("navreload.png"))
-        miro.delete_site(reg, site)
-        
 
     def test_191(self):
         """http://litmus.pculture.org/show_test.cgi?id=191 Add rss feed to sidebar.
