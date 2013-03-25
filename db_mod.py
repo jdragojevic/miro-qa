@@ -26,7 +26,11 @@ class MiroDatabase():
             
         return mirodb
 
-    def get_value(self,table,field):
+    def get_value(self, table, field):
+        """Return the value for a partcular field in a miro db table.
+
+        Saves the file into a pkl so that it can be use later.
+        """
         database = self.get_db_location()
         conn = sqlite3.connect(database)
         stmt = "select "+field+" from " +table
